@@ -14,6 +14,9 @@
     using System.Linq;
     using System.Text;
 
+    /// <summary>
+    /// 正则
+    /// </summary>
     public class RegexPatterns
     {
         /// <summary>
