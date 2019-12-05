@@ -22,7 +22,7 @@
     {
         #region Appending
         /// <summary>
-        /// Multiply a string N number of times.
+        /// 将一个字符串乘N次
         /// </summary>
         /// <param name="str"></param>
         /// <param name="times"></param>
@@ -41,8 +41,8 @@
 
 
         /// <summary>
-        /// Increases the string to the maximum length specified.
-        /// If the string is already greater than maxlength, it is truncated if the flag truncate is true.
+        /// 将字符串增加到指定的最大长度。
+        /// 如果字符串已经大于maxlength，那么如果truncate为true，那么它将被截断。
         /// </summary>
         /// <param name="str">The STR.</param>
         /// <param name="maxLength">Length of the max.</param>
@@ -73,10 +73,11 @@
 
 
         /// <summary>
-        /// Increases the string to the maximum length specified.
-        /// If the string is already greater than maxlength, it is truncated if the flag truncate is true.
+        /// 将字符串增加到指定的最大长度。
+        /// 如果字符串已经大于maxlength，那么如果truncate为true，那么它将被截断。
         /// </summary>
         /// <param name="str">The STR.</param>
+        /// <param name="minLength"></param>
         /// <param name="maxLength">Length of the max.</param>
         /// <param name="truncate">if set to <c>true</c> [truncate].</param>
         /// <returns></returns>
