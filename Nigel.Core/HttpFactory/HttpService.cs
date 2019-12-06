@@ -13,10 +13,12 @@ namespace Nigel.Core.HttpFactory
     public class HttpService : IHttpService
     {
         IHttpClientFactory HttpClientFactory;
+
         public HttpService(IHttpClientFactory HttpClientFactory)
         {
             this.HttpClientFactory = HttpClientFactory;
         }
+
         public async Task<T> GetAsync<T>(UrlArguments urlArguments)
             where T : class, new()
             => await HttpSendAsync<T>(urlArguments, HttpMethod.Get, new HttpFormData(), CancellationToken.None);
@@ -65,6 +67,9 @@ namespace Nigel.Core.HttpFactory
             where T : class, new()
             => await HttpSendAsync<T>(urlArguments, HttpMethod.Delete, new HttpFormData(), cancellationToken);
 
+        #region [ 内部方法 ]
+
+
         private async Task<T> HttpSendAsync<T>(UrlArguments urlArguments, HttpMethod method, HttpFormData formData, CancellationToken cancellationToken)
             where T : class, new()
             => await HttpSendAsync<T>(urlArguments, method, () => formData == null || formData.IsEmpty ? null : new StringContent(formData.ToString(), Encoding.UTF8, "application/x-www-form-urlencoded"), cancellationToken);
@@ -105,5 +110,7 @@ namespace Nigel.Core.HttpFactory
 
             return res.ToJsonObject<T>();
         }
+
+        #endregion
     }
 }

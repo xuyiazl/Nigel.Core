@@ -938,42 +938,81 @@
             }
             return buffer.ToString();
         }
-
+        /// <summary>
+        /// 字符串转换为int数组，默认分隔符(,)
+        /// </summary>
+        /// <param name="delimitedText"></param>
+        /// <returns></returns>
         public static int[] ToIntArray(this string delimitedText)
         {
             return ToIntArray(delimitedText, new string[] { "," });
         }
 
+        /// <summary>
+        /// 字符串转换为int数组
+        /// </summary>
+        /// <param name="delimitedText"></param>
+        /// <param name="delimeter">分隔符</param>
+        /// <returns></returns>
         public static int[] ToIntArray(this string delimitedText, params string[] delimeter)
         {
             return Array.ConvertAll(ToStringArray(delimitedText, delimeter), c => c.Convert<int>());
         }
 
+        /// <summary>
+        /// 字符串转换为long数组，默认分隔符(,)
+        /// </summary>
+        /// <param name="delimitedText"></param>
+        /// <returns></returns>
         public static long[] ToLongArray(this string delimitedText)
         {
             return ToLongArray(delimitedText, new string[] { "," });
         }
 
+        /// <summary>
+        /// 字符串转换为long数组
+        /// </summary>
+        /// <param name="delimitedText"></param>
+        /// <param name="delimeter">分隔符</param>
+        /// <returns></returns>
         public static long[] ToLongArray(this string delimitedText, params string[] delimeter)
         {
             return Array.ConvertAll(ToStringArray(delimitedText, delimeter), c => c.Convert<long>());
         }
-
+        /// <summary>
+        /// 字符串转换为double数组，默认分隔符(,)
+        /// </summary>
+        /// <param name="delimitedText"></param>
+        /// <returns></returns>
         public static double[] ToDoubleArray(this string delimitedText)
         {
             return ToDoubleArray(delimitedText, new string[] { "," });
         }
-
+        /// <summary>
+        /// 字符串转换为double数组
+        /// </summary>
+        /// <param name="delimitedText"></param>
+        /// <param name="delimeter">分隔符</param>
+        /// <returns></returns>
         public static double[] ToDoubleArray(this string delimitedText, params string[] delimeter)
         {
             return Array.ConvertAll(ToStringArray(delimitedText, delimeter), c => c.Convert<double>());
         }
-
+        /// <summary>
+        /// 字符串转换为short数组，默认分隔符(,)
+        /// </summary>
+        /// <param name="delimitedText"></param>
+        /// <returns></returns>
         public static short[] ToShortArray(this string delimitedText)
         {
             return ToShortArray(delimitedText, new string[] { "," });
         }
-
+        /// <summary>
+        /// 字符串转换为short数组
+        /// </summary>
+        /// <param name="delimitedText"></param>
+        /// <param name="delimeter">分隔符</param>
+        /// <returns></returns>
         public static short[] ToShortArray(this string delimitedText, params string[] delimeter)
         {
             return Array.ConvertAll(ToStringArray(delimitedText, delimeter), c => c.Convert<short>());
