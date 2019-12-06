@@ -1,4 +1,4 @@
-﻿namespace Nigel.Core
+﻿namespace Nigel.Core.HttpFactory
 {
     /********************************************************************
     *           Copyright:       2009-2011
