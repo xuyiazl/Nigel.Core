@@ -8,7 +8,7 @@
     <Company>Nigel</Company>
     <Description>.NET Core Common</Description>
     <Copyright>Copyright © Nigel 2019</Copyright>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <PackageId>Nigel.Core</PackageId>
     <Product>Nigel.Core</Product>
     <PackageIconUrl>http://www.3624091.com/favicon.ico</PackageIconUrl>
@@ -16,8 +16,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="3.1.0" />
   </ItemGroup>
   
 </Project>

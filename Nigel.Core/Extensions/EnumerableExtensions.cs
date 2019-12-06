@@ -53,15 +53,52 @@
             return val;
         }
 
-        public static string ToJsonNotNullOrEmpty(this IEnumerable<string> listStr)
+
+        /// <summary>
+        /// json列表转换为对象集合(去除空记录)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static IList<T> ToObjectNotNullOrEmpty<T>(this IList<string> list)
         {
-            return $"[{listStr.Where(t => !string.IsNullOrEmpty(t)).ToArray().Join(",")}]";
+            return ToJsonNotNullOrEmpty(list).ToJsonObject<List<T>>();
+        }
+        /// <summary>
+        /// json列表 转换为 json字符串(去除空记录)
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static string ToJsonNotNullOrEmpty(this IList<string> list)
+        {
+            if (list == null || list.Count() == 0)
+                return string.Empty;
+
+            return $"[{list.Where(t => !string.IsNullOrEmpty(t)).ToArray().Join(",")}]";
+        }
+        /// <summary>
+        /// json列表转换为对象集合
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static IList<T> ToJson<T>(this IList<string> list)
+        {
+            return ToJson(list).ToJsonObject<List<T>>();
+        }
+        /// <summary>
+        /// json列表 转换为 json字符串
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static string ToJson(this IList<string> list)
+        {
+            if (list == null || list.Count() == 0)
+                return string.Empty;
+
+            return $"[{list.ToArray().Join(",")}]";
         }
 
-        public static string ToJson(this IEnumerable<string> listStr)
-        {
-            return $"[{listStr.ToArray().Join(",")}]";
-        }
         /// <summary>
         /// 实体深拷贝，防止部分业务需要修改实体后 自动同步到所有实体
         /// </summary>
