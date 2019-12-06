@@ -1247,7 +1247,7 @@
         /// <summary>
         /// 字符串编码
         /// </summary>
-        /// <param name="inputData"></param>
+        /// <param name="str"></param>
         /// <returns></returns>
         public static string HtmlEncode(this string str)
         {
@@ -1256,7 +1256,7 @@
         /// <summary>
         /// 字符串解码
         /// </summary>
-        /// <param name="inputData"></param>
+        /// <param name="str"></param>
         /// <returns></returns>
         public static string HtmlDecode(this string str)
         {
