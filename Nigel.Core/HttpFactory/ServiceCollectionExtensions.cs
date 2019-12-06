@@ -15,7 +15,7 @@ namespace Nigel.Core.HttpFactory
     public static class ServiceCollectionExtensions
     {
         /// <summary>
-        /// 注册 HTTPFactory Srevice
+        /// 注册 HttpFactory Service
         /// </summary>
         /// <param name="services"></param>
         public static IServiceCollection AddHttpService<TImplementation>(this IServiceCollection services)
