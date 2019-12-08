@@ -44,9 +44,11 @@
         {
             lock (_lockerFlush)
             {
-                string m_directory = AppDomain.CurrentDomain.BaseDirectory + "log\\";
+                string m_directory = string.Empty;
                 if (!string.IsNullOrEmpty(directory))
                     m_directory = directory;
+                else
+                    m_directory = AppDomain.CurrentDomain.BaseDirectory + "log\\";
 
                 string directoryRule = logEvent.Level.ToString() + "\\" + filerule;
 
