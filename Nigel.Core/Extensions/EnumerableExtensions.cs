@@ -32,6 +32,8 @@
 
         public static void ForEach<T>(this IEnumerable<T> items, Action<T, int> action)
         {
+            if (items == null || items.Count() == 0) return;
+
             int i = 0;
             foreach (var item in items)
                 action(item, i++);
@@ -39,6 +41,8 @@
 
         public static void ForEach<T>(this IEnumerable<T> items, Action<T> action)
         {
+            if (items == null || items.Count() == 0) return;
+
             foreach (var item in items)
                 action(item);
         }
@@ -46,11 +50,49 @@
         public static string ForEach<T>(this IEnumerable<T> items, Func<T, string> func)
         {
             string val = string.Empty;
+
             items.ForEach<T>(item =>
             {
                 val += func(item);
             });
+
             return val;
+        }
+
+        public static IList<TOut> ForEach<T, TOut>(this IEnumerable<T> items, Func<T, TOut> func)
+        {
+            var list = new List<TOut>();
+
+            items.ForEach<T>(item =>
+            {
+                list.Add(func(item));
+            });
+
+            return list;
+        }
+
+        public static string ForEach<T>(this IEnumerable<T> items, Func<T, int, string> func)
+        {
+            string val = string.Empty;
+
+            items.ForEach<T>((item, ndx) =>
+            {
+                val += func(item, ndx);
+            });
+
+            return val;
+        }
+
+        public static IList<TOut> ForEach<T, TOut>(this IEnumerable<T> items, Func<T, int, TOut> func)
+        {
+            var list = new List<TOut>();
+
+            items.ForEach<T>((item, ndx) =>
+            {
+                list.Add(func(item, ndx));
+            });
+
+            return list;
         }
 
 

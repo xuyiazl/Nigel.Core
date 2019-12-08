@@ -15,122 +15,164 @@
     using System.Text;
     using System.Data;
 
-    using Nigel.Core.Paging;
-    using System.Linq.Expressions;
+    using Nigel.Core;
+    using System.Threading.Tasks;
+    using Microsoft.EntityFrameworkCore;
 
-    [Serializable]
+
     public class PagedList<T> : List<T>
     {
-        public readonly static PagedList<T> Empty = new PagedList<T>(1, 1, 0, null);
+        public readonly static PagedList<T> Empty = new PagedList<T>(default(List<T>), 0, 1, 1);
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
+        public int TotalPages { get; set; }
+        public int TotalRecords { get; set; }
 
-        public int PageSize { get; private set; }
-        public int PageNumber { get; private set; }
-        public int TotalCount { get; private set; }
-        public int TotalPages { get; private set; }
-
-        public PagedList(int pageNumber, int pageSize, int totalRecords, IList<T> items)
+        public PagedList(List<T> items, int totalRecords, int pageNumber, int pageSize)
         {
             PageNumber = pageNumber;
             PageSize = pageSize;
-            TotalCount = totalRecords;
-            TotalPages = (int)Math.Ceiling(TotalCount / (double)PageSize);
+            TotalRecords = totalRecords;
+            TotalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
+
             if (items != null && items.Count > 0)
             {
                 this.AddRange(items);
             }
         }
 
-        public string ToPageHtml(Func<int, string> urlBuilder)
+        public bool HasPreviousPage
         {
-            return ToPageHtml(7, "current", string.Empty, true, PagerLanguage.Default, urlBuilder);
-        }
-
-        public string ToPageHtml(bool showFirstAndLastPage, Func<int, string> urlBuilder)
-        {
-            return ToPageHtml(7, "current", string.Empty, showFirstAndLastPage, PagerLanguage.Default, urlBuilder);
-        }
-
-        public string ToPageHtml(int numberPagesToDisplay, bool showFirstAndLastPage, PagerLanguage language, Func<int, string> urlBuilder)
-        {
-            return ToPageHtml(numberPagesToDisplay, "current", string.Empty, showFirstAndLastPage, language, urlBuilder);
-        }
-
-        public string ToPageHtml(int numberPagesToDisplay,
-            string cssClassForCurrentPage, string cssClassForPage, bool showFirstAndLastPage,
-            PagerLanguage language, Func<int, string> urlBuilder)
-        {
-            Pager pager = new Pager(PageNumber, TotalPages,
-                new PagerSettings(numberPagesToDisplay, cssClassForCurrentPage,
-                    cssClassForPage, showFirstAndLastPage, language));
-            return pager.ToHtml(urlBuilder);
-        }
-    }
-
-    [Serializable]
-    public class PagedList1<T> : List<T>
-    {
-        public readonly static PagedList1<T> Empty = new PagedList1<T>(1, 1, 0, null);
-
-        public int Limit { get; private set; }
-        public int Offset { get; private set; }
-        public int TotalCount { get; private set; }
-
-        public PagedList1(int limit, int offset, int totalRecords, IList<T> items)
-        {
-            Limit = limit;
-            Offset = offset;
-            TotalCount = totalRecords;
-            if (items != null && items.Count > 0)
+            get
             {
-                this.AddRange(items);
+                return (PageNumber > 1);
             }
         }
+
+        public bool HasNextPage
+        {
+            get
+            {
+                return (PageNumber < TotalPages);
+            }
+        }
+
+        public static PagedList<T> Create(IQueryable<T> source, int pageNumber, int pageSize)
+        {
+            var count = source.Count();
+            var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            return new PagedList<T>(items, count, pageNumber, pageSize);
+        }
+
+        public static async Task<PagedList<T>> CreateAsync(IQueryable<T> source, int pageNumber, int pageSize)
+        {
+            var count = await source.CountAsync();
+            var items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+            return new PagedList<T>(items, count, pageNumber, pageSize);
+        }
+
+        public PagedModel<TOut> ToMap<TOut>(Func<T, TOut> converter)
+        {
+            return new PagedModel<TOut>(this.ForEach(converter), TotalRecords, TotalPages, PageNumber, PageSize);
+        }
+
+        public PagedModel<TOut> ToMap<TOut>(Func<T, int, TOut> converter)
+        {
+            return new PagedModel<TOut>(this.ForEach(converter), TotalRecords, TotalPages, PageNumber, PageSize);
+        }
     }
 
+
     [Serializable]
-    public class Paged<T>
+    public class PagedModel<T>
     {
-        public readonly static Paged<T> Empty = new Paged<T>(1, 1, 0, default(T));
+        public int PageNumber { get; set; }
 
-        public int PageSize { get; private set; }
-        public int PageNumber { get; private set; }
-        public int TotalCount { get; private set; }
-        public int TotalPages { get; private set; }
-        public T Items { get; private set; }
+        public int TotalPages { get; set; }
 
-        public Paged(int pageNumber, int pageSize, int totalRecords, T items)
+        public int TotalRecords { get; set; }
+
+        public int PageSize { get; set; }
+
+        public IList<T> Items { get; set; }
+
+        public PagedModel(IList<T> items, int totalRecords, int totalPages, int pageNumber, int pageSize)
         {
             PageNumber = pageNumber;
             PageSize = pageSize;
-            TotalCount = totalRecords;
-            TotalPages = (int)Math.Ceiling(TotalCount / (double)PageSize);
+            TotalRecords = totalRecords;
+            TotalPages = totalPages;
             if (items != null)
             {
                 Items = items;
             }
         }
+    }
 
-        public string ToPageHtml(Func<int, string> urlBuilder)
+    public class PagedSkipList<T> : List<T>
+    {
+        public readonly static PagedSkipList<T> Empty = new PagedSkipList<T>(default(List<T>), 0, 1, 1);
+
+        public int Limit { get; private set; }
+        public int Offset { get; private set; }
+        public int TotalRecords { get; private set; }
+
+        public PagedSkipList(IList<T> items, int totalRecords, int limit, int offset)
         {
-            return ToPageHtml(7, "current", string.Empty, true, PagerLanguage.Default, urlBuilder);
-        }
-        public string ToPageHtml(bool showFirstAndLastPage, Func<int, string> urlBuilder)
-        {
-            return ToPageHtml(7, "current", string.Empty, showFirstAndLastPage, PagerLanguage.Default, urlBuilder);
+            Limit = limit;
+            Offset = offset;
+            TotalRecords = totalRecords;
+            if (items != null && items.Count > 0)
+            {
+                this.AddRange(items);
+            }
         }
 
-        public string ToPageHtml(int numberPagesToDisplay, bool showFirstAndLastPage, PagerLanguage language, Func<int, string> urlBuilder)
+        public static PagedSkipList<T> Create(IQueryable<T> source, int limit, int offset)
         {
-            return ToPageHtml(numberPagesToDisplay, "current", string.Empty, showFirstAndLastPage, language, urlBuilder);
+            var count = source.Count();
+            var items = source.Skip(limit).Take(offset).ToList();
+            return new PagedSkipList<T>(items, limit, offset, count);
         }
 
-        public string ToPageHtml(int numberPagesToDisplay,
-            string cssClassForCurrentPage, string cssClassForPage, bool showFirstAndLastPage,
-            PagerLanguage language, Func<int, string> urlBuilder)
+        public static async Task<PagedSkipList<T>> CreateAsync(IQueryable<T> source, int limit, int offset)
         {
-            Pager pager = new Pager(PageNumber, TotalPages,
-                new PagerSettings(numberPagesToDisplay, cssClassForCurrentPage, cssClassForPage, showFirstAndLastPage, language));
-            return pager.ToHtml(urlBuilder);
+            var count = await source.CountAsync();
+            var items = await source.Skip(limit).Take(offset).ToListAsync();
+            return new PagedSkipList<T>(items, limit, offset, count);
+        }
+
+        public PagedSkipModel<TOut> ToMap<TOut>(Func<T, TOut> converter)
+        {
+            return new PagedSkipModel<TOut>(this.ForEach(converter), TotalRecords, Limit, Offset);
+        }
+
+        public PagedSkipModel<TOut> ToMap<TOut>(Func<T, int, TOut> converter)
+        {
+            return new PagedSkipModel<TOut>(this.ForEach(converter), TotalRecords, Limit, Offset);
         }
     }
+
+
+    [Serializable]
+    public class PagedSkipModel<T>
+    {
+        public int Limit { get; private set; }
+        public int Offset { get; private set; }
+        public int TotalRecords { get; private set; }
+
+        public IList<T> Items { get; set; }
+
+        public PagedSkipModel(IList<T> items, int totalRecords, int limit, int offset)
+        {
+            Limit = limit;
+            Offset = offset;
+            TotalRecords = totalRecords;
+            if (items != null)
+            {
+                Items = items;
+            }
+        }
+    }
+
 }
