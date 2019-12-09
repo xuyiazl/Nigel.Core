@@ -10,7 +10,8 @@ using Nigel.Core.Collection;
 
 namespace Nigel.Core.DbRepositories
 {
-    public class DbRepository<TEntity> : IDbRepository<TEntity> where TEntity : class
+    public class DbRepository<TEntity> : IDbQueryRepository<TEntity>, IDbChangeRepository<TEntity>, IDbSaveRepository<TEntity>
+        where TEntity : class
     {
         public DbContext Context { set; get; }
 
@@ -18,6 +19,8 @@ namespace Nigel.Core.DbRepositories
         {
             Context = dbContext;
         }
+
+        #region [ IDbSaveRepository ]
 
         public IDbContextTransaction BeginTransaction()
         {
@@ -48,6 +51,10 @@ namespace Nigel.Core.DbRepositories
         {
             return await Context.SaveChangesAsync(cancellationToken) > 0;
         }
+
+        #endregion
+
+        #region [ IDbChangeRepository ] 
 
         public void Add(TEntity entity)
         {
@@ -125,6 +132,10 @@ namespace Nigel.Core.DbRepositories
 
             set.RemoveRange(res);
         }
+
+        #endregion
+
+        #region [ IDbQueryRepository ]
 
         public TEntity GetEntity(Expression<Func<TEntity, bool>> selector = null)
         {
@@ -447,5 +458,6 @@ namespace Nigel.Core.DbRepositories
             return await PagedList<TResult>.CreateAsync(query.Select(converter), pageNumber, pageSize, cancellationToken);
         }
 
+        #endregion
     }
 }
