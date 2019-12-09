@@ -100,7 +100,7 @@
             {
                 // First
                 url = urlBuilder(1);
-                buffer.Append("<a" + cssClassForPage + " href=\"" + url + "\">" + settings.Language.First + "</a>");
+                buffer.Append("<li" + cssClassForPage + "><a href=\"" + url + "\">" + settings.Language.First + "</a></li>");
 
                 // This is to avoid putting ".." between 1 and 2 for example.
                 // If 1 is the starting page and we want to display 2 as starting page.
@@ -113,14 +113,14 @@
             if (pagerData.CurrentPage > 1)
             {
                 url = urlBuilder(pagerData.CurrentPage - 1);
-                buffer.Append("<a" + cssClassForPage + " href=\"" + url + "\">" + settings.Language.Prev + "</a>");
+                buffer.Append("<li" + cssClassForPage + "><a href=\"" + url + "\">" + settings.Language.Prev + "</a></li>");
             }
             // Build the previous page link.
             if (pagerData.CanShowPrevious)
             {
                 // Previous
                 url = urlBuilder(pagerData.StartingPage - 1);
-                buffer.Append("<a" + cssClassForPage + " href=\"" + url + "\">" + "..." + "</a>");
+                buffer.Append("<li" + cssClassForPage + "><a href=\"" + url + "\">" + "..." + "</a></li>");
             }
             // Each page number.
             for (int ndx = pagerData.StartingPage; ndx <= pagerData.EndingPage; ndx++)
@@ -131,7 +131,7 @@
                 url = (ndx == pagerData.CurrentPage) ? string.Empty : " href=\"" + url + "\"";
 
                 // Build page number link. <a href="<%=Url %>" class="<%=cssClass %>" ><%=ndx %></a>                
-                buffer.Append("<a" + cssClass + url + ">" + ndx + "</a>");
+                buffer.Append("<li" + cssClass + "><a" + url + ">" + ndx + "</a></li>");
             }
 
             // Build the next page link.
@@ -139,12 +139,12 @@
             {
                 // Previous
                 url = urlBuilder(pagerData.EndingPage + 1);
-                buffer.Append("<a" + cssClassForPage + " href=\"" + url + "\">" + "..." + "</a>");
+                buffer.Append("<li" + cssClassForPage + "><a href=\"" + url + "\">" + "..." + "</a></li>");
             }
             if (pagerData.CurrentPage < pagerData.TotalPages)
             {
                 url = urlBuilder(pagerData.CurrentPage + 1);
-                buffer.Append("<a" + cssClassForPage + " href=\"" + url + "\">" + settings.Language.Next + "</a>");
+                buffer.Append("<li" + cssClassForPage + "><a href=\"" + url + "\">" + settings.Language.Next + "</a></li>");
             }
             // Build the  ending page link.
             if (pagerData.CanShowLast && settings.ShowFirstAndLastPage)
@@ -157,7 +157,7 @@
                 {
                     buffer.Append("&nbsp;&nbsp;&nbsp;");
                 }
-                buffer.Append("<a" + cssClassForPage + " href=\"" + url + "\">" + settings.Language.Last + "</a>");
+                buffer.Append("<li" + cssClassForPage + "><a href=\"" + url + "\">" + settings.Language.Last + "</a></li>");
             }
             string content = buffer.ToString();
             return content;
