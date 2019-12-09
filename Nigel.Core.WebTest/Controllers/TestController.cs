@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Nigel.Core.Collection;
 using Nigel.Core.HttpFactory;
 
 namespace Nigel.Core.WebTest.Controllers

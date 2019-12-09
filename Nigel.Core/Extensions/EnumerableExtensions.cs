@@ -18,35 +18,62 @@
 
     public static class EnumerableExtensions
     {
+        /// <summary>
+        /// foreach扩展
+        /// </summary>
+        /// <param name="from">开始位置</param>
+        /// <param name="to">结束位置</param>
+        /// <param name="body"></param>
         public static void For(long from, long to, Action<long> body)
         {
             for (; from <= to; from++)
                 body(from);
         }
-
+        /// <summary>
+        /// foreach扩展
+        /// </summary>
+        /// <param name="from">开始位置</param>
+        /// <param name="to">结束位置</param>
+        /// <param name="body"></param>
         public static void For(int from, int to, Action<int> body)
         {
             for (; from <= to; from++)
                 body(from);
         }
-
+        /// <summary>
+        /// foreach扩展
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="items"></param>
+        /// <param name="action"></param>
         public static void ForEach<T>(this IEnumerable<T> items, Action<T, int> action)
         {
-            if (items == null || items.Count() == 0) return;
+            if (items == null) return;
 
             int i = 0;
             foreach (var item in items)
                 action(item, i++);
         }
-
+        /// <summary>
+        /// foreach扩展
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="items"></param>
+        /// <param name="action"></param>
         public static void ForEach<T>(this IEnumerable<T> items, Action<T> action)
         {
-            if (items == null || items.Count() == 0) return;
+            if (items == null) return;
 
             foreach (var item in items)
                 action(item);
         }
-
+        /// <summary>
+        /// foreach扩展
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="items">源数据</param>
+        /// <param name="func">转换表达式</param>
+        /// <returns></returns>
         public static string ForEach<T>(this IEnumerable<T> items, Func<T, string> func)
         {
             string val = string.Empty;
@@ -58,10 +85,17 @@
 
             return val;
         }
-
-        public static IList<TOut> ForEach<T, TOut>(this IEnumerable<T> items, Func<T, TOut> func)
+        /// <summary>
+        /// foreach扩展
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="items">源数据</param>
+        /// <param name="func">转换表达式</param>
+        /// <returns></returns>
+        public static IList<TResult> ForEach<T, TResult>(this IEnumerable<T> items, Func<T, TResult> func)
         {
-            var list = new List<TOut>();
+            var list = new List<TResult>();
 
             items.ForEach<T>(item =>
             {
@@ -70,7 +104,13 @@
 
             return list;
         }
-
+        /// <summary>
+        /// foreach扩展
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="items">源数据</param>
+        /// <param name="func">转换表达式</param>
+        /// <returns></returns>
         public static string ForEach<T>(this IEnumerable<T> items, Func<T, int, string> func)
         {
             string val = string.Empty;
@@ -82,10 +122,17 @@
 
             return val;
         }
-
-        public static IList<TOut> ForEach<T, TOut>(this IEnumerable<T> items, Func<T, int, TOut> func)
+        /// <summary>
+        /// foreach扩展
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="items">源数据</param>
+        /// <param name="func">转换表达式</param>
+        /// <returns></returns>
+        public static IList<TResult> ForEach<T, TResult>(this IEnumerable<T> items, Func<T, int, TResult> func)
         {
-            var list = new List<TOut>();
+            var list = new List<TResult>();
 
             items.ForEach<T>((item, ndx) =>
             {

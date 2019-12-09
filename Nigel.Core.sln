@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nigel.Core", "Nigel.Core\Ni
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nigel.Core.NUnitTest", "Nigel.Core.NUnitTest\Nigel.Core.NUnitTest.csproj", "{9DC8B2F5-7118-4A32-B6BC-B8093B355D00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nigel.Core.WebTest", "Nigel.Core.WebTest\Nigel.Core.WebTest.csproj", "{9FB063D4-01C7-497B-BD8B-3223FCEAA451}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nigel.Core.WebTest", "Nigel.Core.WebTest\Nigel.Core.WebTest.csproj", "{9FB063D4-01C7-497B-BD8B-3223FCEAA451}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
