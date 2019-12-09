@@ -14,10 +14,83 @@
     using System.Linq;
     using System.Reflection;
     using System.Text;
+    using Nigel.Core.Collection;
     using Nigel.Core.Comparer;
 
     public static class EnumerableExtensions
     {
+        /// <summary>
+        /// 模型转换
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="pagedList"></param>
+        /// <param name="converter"></param>
+        /// <returns></returns>
+        public static PagedModel<TResult> ToMap<T, TResult>(this PagedList<T> pagedList, Func<T, TResult> converter)
+        {
+            return new PagedModel<TResult>(pagedList.ForEach(converter), pagedList.TotalRecords, pagedList.TotalPages, pagedList.PageNumber, pagedList.PageSize);
+        }
+        /// <summary>
+        /// 模型转换
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="pagedList"></param>
+        /// <param name="converter"></param>
+        /// <returns></returns>
+        public static PagedModel<TResult> ToMap<T, TResult>(this PagedList<T> pagedList, Func<T, int, TResult> converter)
+        {
+            return new PagedModel<TResult>(pagedList.ForEach(converter), pagedList.TotalRecords, pagedList.TotalPages, pagedList.PageNumber, pagedList.PageSize);
+        }
+        /// <summary>
+        /// 模型转换
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="pagedList"></param>
+        /// <param name="converter"></param>
+        /// <returns></returns>
+        public static PagedSkipModel<TResult> ToMap<T, TResult>(this PagedSkipList<T> pagedList, Func<T, TResult> converter)
+        {
+            return new PagedSkipModel<TResult>(pagedList.ForEach(converter), pagedList.Limit, pagedList.Offset, pagedList.TotalRecords);
+        }
+        /// <summary>
+        /// 模型转换
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="pagedList"></param>
+        /// <param name="converter"></param>
+        /// <returns></returns>
+        public static PagedSkipModel<TResult> ToMap<T, TResult>(this PagedSkipList<T> pagedList, Func<T, int, TResult> converter)
+        {
+            return new PagedSkipModel<TResult>(pagedList.ForEach(converter), pagedList.Limit, pagedList.Offset, pagedList.TotalRecords);
+        }
+        /// <summary>
+        /// 模型转换
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="items">源数据</param>
+        /// <param name="converter">转换表达式</param>
+        /// <returns></returns>
+        public static IList<TResult> ToMap<T, TResult>(this IEnumerable<T> items, Func<T, TResult> converter)
+        {
+            return items.ForEach(converter);
+        }
+        /// <summary>
+        /// 模型转换
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="items">源数据</param>
+        /// <param name="converter">转换表达式</param>
+        /// <returns></returns>
+        public static IList<TResult> ToMap<T, TResult>(this IEnumerable<T> items, Func<T, int, TResult> converter)
+        {
+            return items.ForEach(converter);
+        }
         /// <summary>
         /// foreach扩展
         /// </summary>
@@ -72,15 +145,15 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="items">源数据</param>
-        /// <param name="func">转换表达式</param>
+        /// <param name="converter">转换表达式</param>
         /// <returns></returns>
-        public static string ForEach<T>(this IEnumerable<T> items, Func<T, string> func)
+        public static string ForEach<T>(this IEnumerable<T> items, Func<T, string> converter)
         {
             string val = string.Empty;
 
             items.ForEach<T>(item =>
             {
-                val += func(item);
+                val += converter(item);
             });
 
             return val;
@@ -91,15 +164,15 @@
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="TResult"></typeparam>
         /// <param name="items">源数据</param>
-        /// <param name="func">转换表达式</param>
+        /// <param name="converter">转换表达式</param>
         /// <returns></returns>
-        public static IList<TResult> ForEach<T, TResult>(this IEnumerable<T> items, Func<T, TResult> func)
+        public static IList<TResult> ForEach<T, TResult>(this IEnumerable<T> items, Func<T, TResult> converter)
         {
             var list = new List<TResult>();
 
             items.ForEach<T>(item =>
             {
-                list.Add(func(item));
+                list.Add(converter(item));
             });
 
             return list;
@@ -109,15 +182,15 @@
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="items">源数据</param>
-        /// <param name="func">转换表达式</param>
+        /// <param name="converter">转换表达式</param>
         /// <returns></returns>
-        public static string ForEach<T>(this IEnumerable<T> items, Func<T, int, string> func)
+        public static string ForEach<T>(this IEnumerable<T> items, Func<T, int, string> converter)
         {
             string val = string.Empty;
 
             items.ForEach<T>((item, ndx) =>
             {
-                val += func(item, ndx);
+                val += converter(item, ndx);
             });
 
             return val;
@@ -128,15 +201,15 @@
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="TResult"></typeparam>
         /// <param name="items">源数据</param>
-        /// <param name="func">转换表达式</param>
+        /// <param name="converter">转换表达式</param>
         /// <returns></returns>
-        public static IList<TResult> ForEach<T, TResult>(this IEnumerable<T> items, Func<T, int, TResult> func)
+        public static IList<TResult> ForEach<T, TResult>(this IEnumerable<T> items, Func<T, int, TResult> converter)
         {
             var list = new List<TResult>();
 
             items.ForEach<T>((item, ndx) =>
             {
-                list.Add(func(item, ndx));
+                list.Add(converter(item, ndx));
             });
 
             return list;

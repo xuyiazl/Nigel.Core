@@ -52,7 +52,7 @@
         /// <param name="totalRecords">总记录数</param>
         /// <param name="pageNumber">页码</param>
         /// <param name="pageSize">分页大小</param>
-        public PagedList(List<T> items, int totalRecords, int pageNumber, int pageSize)
+        public PagedList(IList<T> items, int totalRecords, int pageNumber, int pageSize)
         {
             PageNumber = pageNumber;
             PageSize = pageSize;
@@ -98,36 +98,6 @@
             return new PagedList<T>(items, count, pageNumber, pageSize);
         }
         /// <summary>
-        /// 创建分页对象
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="source"></param>
-        /// <param name="pageNumber"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="converter"></param>
-        /// <returns></returns>
-        public static PagedModel<TResult> Create<TResult>(IQueryable<T> source, int pageNumber, int pageSize, Func<T, TResult> converter)
-        {
-            var res = Create(source, pageNumber, pageSize);
-
-            return new PagedModel<TResult>(res.ForEach(converter), res.TotalRecords, res.TotalPages, res.PageNumber, res.PageSize);
-        }
-        /// <summary>
-        /// 创建分页对象
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="source"></param>
-        /// <param name="pageNumber"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="converter"></param>
-        /// <returns></returns>
-        public static PagedModel<TResult> Create<TResult>(IQueryable<T> source, int pageNumber, int pageSize, Func<T, int, TResult> converter)
-        {
-            var res = Create(source, pageNumber, pageSize);
-
-            return new PagedModel<TResult>(res.ForEach(converter), res.TotalRecords, res.TotalPages, res.PageNumber, res.PageSize);
-        }
-        /// <summary>
         /// 异步创建分页对象
         /// </summary>
         /// <param name="source"></param>
@@ -139,36 +109,6 @@
             var count = await source.CountAsync();
             var items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
             return new PagedList<T>(items, count, pageNumber, pageSize);
-        }
-        /// <summary>
-        /// 异步创建分页对象
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="source"></param>
-        /// <param name="pageNumber"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="converter"></param>
-        /// <returns></returns>
-        public static async Task<PagedModel<TResult>> CreateAsync<TResult>(IQueryable<T> source, int pageNumber, int pageSize, Func<T, TResult> converter)
-        {
-            var res = await CreateAsync(source, pageNumber, pageSize);
-
-            return new PagedModel<TResult>(res.ForEach(converter), res.TotalRecords, res.TotalPages, res.PageNumber, res.PageSize);
-        }
-        /// <summary>
-        /// 异步创建分页对象
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="source"></param>
-        /// <param name="pageNumber"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="converter"></param>
-        /// <returns></returns>
-        public static async Task<PagedModel<TResult>> CreateAsync<TResult>(IQueryable<T> source, int pageNumber, int pageSize, Func<T, int, TResult> converter)
-        {
-            var res = await CreateAsync(source, pageNumber, pageSize);
-
-            return new PagedModel<TResult>(res.ForEach(converter), res.TotalRecords, res.TotalPages, res.PageNumber, res.PageSize);
         }
     }
 }

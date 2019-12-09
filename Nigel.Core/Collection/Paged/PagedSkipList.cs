@@ -61,36 +61,6 @@ namespace Nigel.Core.Collection
             return new PagedSkipList<T>(items, limit, offset, count);
         }
         /// <summary>
-        /// 创建分页对象
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="source"></param>
-        /// <param name="limit"></param>
-        /// <param name="offset"></param>
-        /// <param name="converter"></param>
-        /// <returns></returns>
-        public static PagedSkipModel<TResult> Create<TResult>(IQueryable<T> source, int limit, int offset, Func<T, TResult> converter)
-        {
-            var res = Create(source, limit, offset);
-
-            return new PagedSkipModel<TResult>(res.ForEach(converter), res.Limit, res.Offset, res.TotalRecords);
-        }
-        /// <summary>
-        /// 创建分页对象
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="source"></param>
-        /// <param name="limit"></param>
-        /// <param name="offset"></param>
-        /// <param name="converter"></param>
-        /// <returns></returns>
-        public static PagedSkipModel<TResult> Create<TResult>(IQueryable<T> source, int limit, int offset, Func<T, int, TResult> converter)
-        {
-            var res = Create(source, limit, offset);
-
-            return new PagedSkipModel<TResult>(res.ForEach(converter), res.Limit, res.Offset, res.TotalRecords);
-        }
-        /// <summary>
         /// 异步创建分页对象
         /// </summary>
         /// <param name="source"></param>
@@ -102,36 +72,6 @@ namespace Nigel.Core.Collection
             var count = await source.CountAsync();
             var items = await source.Skip(offset).Take(limit).ToListAsync();
             return new PagedSkipList<T>(items, limit, offset, count);
-        }
-        /// <summary>
-        /// 异步创建分页对象
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="source"></param>
-        /// <param name="limit"></param>
-        /// <param name="offset"></param>
-        /// <param name="converter"></param>
-        /// <returns></returns>
-        public static async Task<PagedSkipModel<TResult>> CreateAsync<TResult>(IQueryable<T> source, int limit, int offset, Func<T, TResult> converter)
-        {
-            var res = await CreateAsync(source, limit, offset);
-
-            return new PagedSkipModel<TResult>(res.ForEach(converter), res.TotalRecords, res.Limit, res.Offset);
-        }
-        /// <summary>
-        /// 异步创建分页对象
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="source"></param>
-        /// <param name="limit"></param>
-        /// <param name="offset"></param>
-        /// <param name="converter"></param>
-        /// <returns></returns>
-        public static async Task<PagedSkipModel<TResult>> CreateAsync<TResult>(IQueryable<T> source, int limit, int offset, Func<T, int, TResult> converter)
-        {
-            var res = await CreateAsync(source, limit, offset);
-
-            return new PagedSkipModel<TResult>(res.ForEach(converter), res.TotalRecords, res.Limit, res.Offset);
         }
     }
 }
