@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Nigel.Core.Collection
@@ -71,6 +72,21 @@ namespace Nigel.Core.Collection
         {
             var count = await source.CountAsync();
             var items = await source.Skip(offset).Take(limit).ToListAsync();
+            return new PagedSkipList<T>(items, limit, offset, count);
+        }
+        /// <summary>
+        /// 异步创建分页对象
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="limit"></param>
+        /// <param name="offset"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public static async Task<PagedSkipList<T>> CreateAsync(IQueryable<T> source, int limit, int offset,
+            CancellationToken cancellationToken = default)
+        {
+            var count = await source.CountAsync(cancellationToken);
+            var items = await source.Skip(offset).Take(limit).ToListAsync(cancellationToken);
             return new PagedSkipList<T>(items, limit, offset, count);
         }
     }

@@ -18,6 +18,7 @@
     using Nigel.Core;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
+    using System.Threading;
 
     /// <summary>
     /// 分页列表
@@ -108,6 +109,21 @@
         {
             var count = await source.CountAsync();
             var items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+            return new PagedList<T>(items, count, pageNumber, pageSize);
+        }
+        /// <summary>
+        /// 异步创建分页对象
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="pageNumber"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public static async Task<PagedList<T>> CreateAsync(IQueryable<T> source, int pageNumber, int pageSize,
+            CancellationToken cancellationToken = default)
+        {
+            var count = await source.CountAsync(cancellationToken);
+            var items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
             return new PagedList<T>(items, count, pageNumber, pageSize);
         }
     }
