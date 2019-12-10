@@ -256,9 +256,6 @@
         /// 验证是否是日期
         /// </summary>
         /// <param name="text"></param>
-        /// <param name="checkBounds"></param>
-        /// <param name="minDate"></param>
-        /// <param name="maxDate"></param>
         /// <returns></returns>
         public static bool IsDate(string text)
         {
@@ -271,7 +268,8 @@
         /// 验证是否是日期，并验证日期大/小范围
         /// </summary>
         /// <param name="text"></param>
-        /// <param name="checkBounds"></param>
+        /// <param name="checkMinBound"></param>
+        /// <param name="checkMaxBound"></param>
         /// <param name="minDate"></param>
         /// <param name="maxDate"></param>
         /// <returns></returns>
@@ -306,9 +304,6 @@
         /// 验证是否是有效的时间
         /// </summary>
         /// <param name="time"></param>
-        /// <param name="checkBounds"></param>
-        /// <param name="min"></param>
-        /// <param name="max"></param>
         /// <returns></returns>
         public static bool IsTimeOfDay(string time)
         {
@@ -321,7 +316,8 @@
         /// 验证是否是有效的时间，并验证时间大/小范围
         /// </summary>
         /// <param name="time"></param>
-        /// <param name="checkBounds"></param>
+        /// <param name="checkMinBound"></param>
+        /// <param name="checkMaxBound"></param>
         /// <param name="min"></param>
         /// <param name="max"></param>
         /// <returns></returns>
@@ -339,7 +335,8 @@
         /// 验证是否是有效的时间，并验证时间大/小范围
         /// </summary>
         /// <param name="time"></param>
-        /// <param name="checkBounds"></param>
+        /// <param name="checkMinBound"></param>
+        /// <param name="checkMaxBound"></param>
         /// <param name="min"></param>
         /// <param name="max"></param>
         /// <returns></returns>
