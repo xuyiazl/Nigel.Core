@@ -25,10 +25,10 @@
 
     public interface IUrlOptions
     {
-        public string Host { get; set; }
-        public string Area { get; set; }
-        public string Controller { get; set; }
-        public string Method { get; set; }
+        string Host { get; set; }
+        string Area { get; set; }
+        string Controller { get; set; }
+        string Method { get; set; }
     }
 
     public class UrlArguments
