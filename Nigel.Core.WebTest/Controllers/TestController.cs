@@ -21,6 +21,13 @@ namespace Nigel.Core.WebTest.Controllers
         {
             _logger = logger;
             _httpService = httpService;
+
+            logger.LogError("test");
+            logger.LogDebug("test");
+            logger.LogInformation("test");
+            logger.LogWarning("test");
+            logger.LogCritical("test");
+            logger.LogTrace("test");
         }
 
         [HttpGet]
