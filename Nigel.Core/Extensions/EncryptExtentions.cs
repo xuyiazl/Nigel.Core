@@ -7,9 +7,10 @@ namespace Nigel.Core
 {
     public static class EncryptExtentions
     {
+        /// <summary>
         /// netcore下的实现MD5加密 
         /// </summary>
-        /// <param name="str"></param>
+        /// <param name="input"></param>
         /// <returns></returns>
         public static string MD5Hash(this string input)
         {
