@@ -13,6 +13,7 @@ namespace Nigel.Core.DbRepositories
     public interface IDbSaveRepository<TEntity> where TEntity : class
     {
         DbContext Context { get; set; }
+        DbSet<TEntity> Table { get; set; }
         bool Save();
         Task<bool> SaveAsync();
         Task<bool> SaveAsync(CancellationToken cancellationToken = default);

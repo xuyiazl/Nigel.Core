@@ -14,6 +14,7 @@ namespace Nigel.Core.DbRepositories
     public interface IDbQueryRepository<TEntity> where TEntity : class
     {
         DbContext Context { get; set; }
+        DbSet<TEntity> Table { get; set; }
 
         TEntity GetEntity(Expression<Func<TEntity, bool>> selector = null);
         TResult GetEntity<TResult>(Expression<Func<TEntity, TResult>> converter, Expression<Func<TEntity, bool>> selector = null);

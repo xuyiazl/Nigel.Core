@@ -14,6 +14,7 @@ namespace Nigel.Core.DbRepositories
     public interface IDbChangeRepository<TEntity> where TEntity : class
     {
         DbContext Context { get; set; }
+        DbSet<TEntity> Table { get; set; }
         void Add(TEntity entity);
         void AddAsync(TEntity entity);
         void AddAsync(TEntity entity, CancellationToken cancellationToken = default);

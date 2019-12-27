@@ -14,10 +14,12 @@ namespace Nigel.Core.DbRepositories
         where TEntity : class
     {
         public DbContext Context { set; get; }
+        public DbSet<TEntity> Table { get; set; }
 
         public DbRepository(DbContext dbContext)
         {
             Context = dbContext;
+            Table = dbContext.Set<TEntity>();
         }
 
         #region [ IDbSaveRepository ]
