@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -11,6 +12,8 @@ namespace Nigel.Core.HttpFactory
     /// </summary>
     public interface IHttpService
     {
+
+        IHttpClientFactory HttpClientFactory { get; set; }
         /// <summary>
         /// 异步DELETE
         /// </summary>

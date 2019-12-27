@@ -12,7 +12,7 @@ namespace Nigel.Core.HttpFactory
     /// </summary>
     public class HttpService : IHttpService
     {
-        IHttpClientFactory HttpClientFactory;
+        public IHttpClientFactory HttpClientFactory { get; set; }
 
         public HttpService(IHttpClientFactory HttpClientFactory)
         {
