@@ -102,7 +102,11 @@
         }
 
         #endregion
-
+        /// <summary>
+        /// 获取随机数
+        /// </summary>
+        /// <param name="length"></param>
+        /// <returns></returns>
         public static string GetNoceStr(int length)
         {
             string str = "0123456789";
@@ -119,7 +123,11 @@
 
             return result;
         }
-
+        /// <summary>
+        /// 获取日期订单号
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public static string CreateOrderNumber(string name)
         {
             return string.Format("{0}{1}{2}", name, DateTime.Now.ToString("yyyyMMddHHmmssfff"), GetNoceStr(4));
