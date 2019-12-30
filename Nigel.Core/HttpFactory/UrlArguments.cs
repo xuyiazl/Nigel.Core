@@ -15,22 +15,6 @@
     using System.Text;
     using System.Web;
 
-    public class UrlOptions : IUrlOptions
-    {
-        public string Host { get; set; }
-        public string Area { get; set; }
-        public string Controller { get; set; }
-        public string Method { get; set; }
-    }
-
-    public interface IUrlOptions
-    {
-        string Host { get; set; }
-        string Area { get; set; }
-        string Controller { get; set; }
-        string Method { get; set; }
-    }
-
     public class UrlArguments
     {
         private IDictionary<string, object>
@@ -97,13 +81,13 @@
                 }
             }
         }
-        public static UrlArguments Create(string clientName, IUrlOptions opts) => Create(clientName, opts.Host, opts.Area, opts.Controller, opts.Method);
 
         public UrlArguments SetClientName(string clientName)
         {
             ClientName = clientName;
             return this;
         }
+
         public UrlArguments SetHost(string host)
         {
             _host = host;

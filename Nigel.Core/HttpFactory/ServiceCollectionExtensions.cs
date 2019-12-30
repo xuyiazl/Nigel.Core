@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using Nigel.Core;
 
 namespace Nigel.Core.HttpFactory
 {
@@ -18,11 +19,74 @@ namespace Nigel.Core.HttpFactory
         /// 注册 HttpFactory Service
         /// </summary>
         /// <param name="services"></param>
-        public static IServiceCollection AddHttpService<TImplementation>(this IServiceCollection services)
+        /// <param name="clientName"></param>
+        /// <param name="configureClient"></param>
+        /// <param name="serviceLifetime"></param>
+        public static IServiceCollection AddHttpService<TImplementation>(this IServiceCollection services,
+            string clientName,
+            Action<HttpClient> configureClient,
+            ServiceLifetime serviceLifetime = ServiceLifetime.Singleton)
             where TImplementation : class, IHttpService
         {
+            services.AddHttpService<TImplementation>(
+                new List<KeyValuePair<string, Action<HttpClient>>>() {
+                    new KeyValuePair<string, Action<HttpClient>>(clientName,configureClient)
+                },
+                () =>
+                {
+                    var handler = new HttpClientHandler();
+                    handler.AllowAutoRedirect = false;
+                    handler.UseDefaultCredentials = false;
+                    if (handler.SupportsAutomaticDecompression)
+                    {
+                        handler.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
+                    }
+                    return handler;
+                }, serviceLifetime);
 
-            return services.AddHttpService<TImplementation>(() =>
+            return services;
+        }
+
+        /// <summary>
+        /// 注册 HttpFactory Service
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="keyValuePair"></param>
+        /// <param name="func"></param>
+        /// <param name="serviceLifetime"></param>
+        public static IServiceCollection AddHttpService<TImplementation>(this IServiceCollection services,
+            IEnumerable<KeyValuePair<string, Action<HttpClient>>> keyValuePair,
+            Func<HttpMessageHandler> func,
+            ServiceLifetime serviceLifetime)
+            where TImplementation : class, IHttpService
+        {
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddPolicyRegistry();
+
+            keyValuePair.ForEach(item =>
+            {
+                services.AddHttpClient(item.Key, item.Value)
+                    .ConfigurePrimaryHttpMessageHandler(func);
+            });
+
+            services.AddHttpService<TImplementation>(serviceLifetime);
+
+            return services;
+        }
+
+        /// <summary>
+        /// 注册 HTTPFactory Srevice
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="clientName"></param>
+        /// <param name="serviceLifetime"></param>
+        public static IServiceCollection AddHttpService<TImplementation>(this IServiceCollection services,
+            string clientName = "apiClient",
+            ServiceLifetime serviceLifetime = ServiceLifetime.Singleton)
+            where TImplementation : class, IHttpService
+        {
+            services.AddHttpService<TImplementation>(clientName, () =>
             {
                 var handler = new HttpClientHandler();
                 handler.AllowAutoRedirect = false;
@@ -32,31 +96,46 @@ namespace Nigel.Core.HttpFactory
                     handler.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
                 }
                 return handler;
+            }, serviceLifetime);
 
-            });
+            return services;
         }
-
         /// <summary>
         /// 注册 HTTPFactory Srevice
         /// </summary>
         /// <param name="services"></param>
+        /// <param name="clientName"></param>
         /// <param name="func"></param>
         /// <param name="serviceLifetime"></param>
-        /// <param name="clientName"></param>
         public static IServiceCollection AddHttpService<TImplementation>(this IServiceCollection services,
+            string clientName,
             Func<HttpMessageHandler> func,
-            ServiceLifetime serviceLifetime = ServiceLifetime.Singleton,
-            string clientName = "apiClient")
+            ServiceLifetime serviceLifetime)
             where TImplementation : class, IHttpService
         {
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            //使用http请求,定义一个请求别名，请求别名用于获取外部的http接口请求
             services.AddPolicyRegistry();
 
             services.AddHttpClient(clientName)
                 .ConfigurePrimaryHttpMessageHandler(func);
 
+            services.AddHttpService<TImplementation>(serviceLifetime);
+
+            return services;
+        }
+
+        /// <summary>
+        /// 注册 HTTPFactory Srevice
+        /// </summary>
+        /// <typeparam name="TImplementation"></typeparam>
+        /// <param name="services"></param>
+        /// <param name="serviceLifetime"></param>
+        /// <returns></returns>
+        static IServiceCollection AddHttpService<TImplementation>(this IServiceCollection services,
+           ServiceLifetime serviceLifetime = ServiceLifetime.Singleton)
+           where TImplementation : class, IHttpService
+        {
             switch (serviceLifetime)
             {
                 case ServiceLifetime.Scoped:

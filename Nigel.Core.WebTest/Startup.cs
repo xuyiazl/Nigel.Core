@@ -33,8 +33,12 @@ namespace Nigel.Core.WebTest
                 options.Filters.Add(new OperationCancelledExceptionFilter());
             });
 
-
-            services.AddHttpService<HttpService>();
+            services.AddHttpService<HttpService>("testmswebapi", c =>
+            {
+                c.BaseAddress = new Uri("http://testmswebapi.wbp5.com");
+                c.DefaultRequestHeaders.Add("Accept-Encoding", "gzip,deflate");
+                c.DefaultRequestHeaders.Add("Accept", "application/json");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
