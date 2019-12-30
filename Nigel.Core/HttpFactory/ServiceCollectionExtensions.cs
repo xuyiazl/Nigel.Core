@@ -21,10 +21,12 @@ namespace Nigel.Core.HttpFactory
         /// <param name="services"></param>
         /// <param name="clientName"></param>
         /// <param name="configureClient"></param>
+        /// <param name="httpClientLeftTime"></param>
         /// <param name="serviceLifetime"></param>
         public static IServiceCollection AddHttpService<TImplementation>(this IServiceCollection services,
             string clientName,
             Action<HttpClient> configureClient,
+            TimeSpan httpClientLeftTime,
             ServiceLifetime serviceLifetime = ServiceLifetime.Singleton)
             where TImplementation : class, IHttpService
         {
@@ -42,7 +44,7 @@ namespace Nigel.Core.HttpFactory
                         handler.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
                     }
                     return handler;
-                }, serviceLifetime);
+                }, httpClientLeftTime, serviceLifetime);
 
             return services;
         }
@@ -53,10 +55,12 @@ namespace Nigel.Core.HttpFactory
         /// <param name="services"></param>
         /// <param name="keyValuePair"></param>
         /// <param name="func"></param>
+        /// <param name="httpClientLeftTime"></param>
         /// <param name="serviceLifetime"></param>
         public static IServiceCollection AddHttpService<TImplementation>(this IServiceCollection services,
             IEnumerable<KeyValuePair<string, Action<HttpClient>>> keyValuePair,
             Func<HttpMessageHandler> func,
+            TimeSpan httpClientLeftTime,
             ServiceLifetime serviceLifetime)
             where TImplementation : class, IHttpService
         {
@@ -67,7 +71,8 @@ namespace Nigel.Core.HttpFactory
             keyValuePair.ForEach(item =>
             {
                 services.AddHttpClient(item.Key, item.Value)
-                    .ConfigurePrimaryHttpMessageHandler(func);
+                    .ConfigurePrimaryHttpMessageHandler(func)
+                    .SetHandlerLifetime(httpClientLeftTime);
             });
 
             services.AddHttpService<TImplementation>(serviceLifetime);
@@ -79,24 +84,26 @@ namespace Nigel.Core.HttpFactory
         /// 注册 HTTPFactory Srevice
         /// </summary>
         /// <param name="services"></param>
+        /// <param name="httpClientLeftTime"></param>
         /// <param name="clientName"></param>
         /// <param name="serviceLifetime"></param>
         public static IServiceCollection AddHttpService<TImplementation>(this IServiceCollection services,
+            TimeSpan httpClientLeftTime,
             string clientName = "apiClient",
             ServiceLifetime serviceLifetime = ServiceLifetime.Singleton)
             where TImplementation : class, IHttpService
         {
             services.AddHttpService<TImplementation>(clientName, () =>
-            {
-                var handler = new HttpClientHandler();
-                handler.AllowAutoRedirect = false;
-                handler.UseDefaultCredentials = false;
-                if (handler.SupportsAutomaticDecompression)
-                {
-                    handler.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
-                }
-                return handler;
-            }, serviceLifetime);
+             {
+                 var handler = new HttpClientHandler();
+                 handler.AllowAutoRedirect = false;
+                 handler.UseDefaultCredentials = false;
+                 if (handler.SupportsAutomaticDecompression)
+                 {
+                     handler.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
+                 }
+                 return handler;
+             }, httpClientLeftTime, serviceLifetime);
 
             return services;
         }
@@ -106,10 +113,12 @@ namespace Nigel.Core.HttpFactory
         /// <param name="services"></param>
         /// <param name="clientName"></param>
         /// <param name="func"></param>
+        /// <param name="httpClientLeftTime"></param>
         /// <param name="serviceLifetime"></param>
         public static IServiceCollection AddHttpService<TImplementation>(this IServiceCollection services,
             string clientName,
             Func<HttpMessageHandler> func,
+            TimeSpan httpClientLeftTime,
             ServiceLifetime serviceLifetime)
             where TImplementation : class, IHttpService
         {
@@ -118,7 +127,8 @@ namespace Nigel.Core.HttpFactory
             services.AddPolicyRegistry();
 
             services.AddHttpClient(clientName)
-                .ConfigurePrimaryHttpMessageHandler(func);
+                .ConfigurePrimaryHttpMessageHandler(func)
+                .SetHandlerLifetime(httpClientLeftTime);
 
             services.AddHttpService<TImplementation>(serviceLifetime);
 
