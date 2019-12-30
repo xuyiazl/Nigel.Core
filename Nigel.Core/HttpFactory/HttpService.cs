@@ -83,32 +83,56 @@ namespace Nigel.Core.HttpFactory
         {
             HttpClient client = HttpClientFactory.CreateClient(string.IsNullOrEmpty(urlArguments.ClientName) ? "apiClient" : urlArguments.ClientName);
 
-            HttpRequestMessage requestMessage = new HttpRequestMessage
+            string requestUrl = urlArguments.Complete().Url;
+
+            if (client.BaseAddress == null)
             {
-                Method = method,
-                RequestUri = new Uri(urlArguments.Complete().Url)
-            };
+                HttpRequestMessage requestMessage = new HttpRequestMessage
+                {
+                    Method = method,
+                    RequestUri = new Uri(requestUrl)
+                };
 
-            requestMessage.Headers.Add("Accept-Encoding", "gzip");
-            requestMessage.Headers.Add("ContentType", "application/json");
+                requestMessage.Headers.Add("Accept-Encoding", "gzip,deflate");
+                requestMessage.Headers.Add("Accept", "application/json");
+                requestMessage.Headers.Add("ContentType", "application/json");
 
-            var content = contentCall();
+                var content = contentCall();
 
-            if (content != null)
-            {
-                requestMessage.Content = content;
+                if (content != null)
+                    requestMessage.Content = content;
+
+                HttpResponseMessage responseMessage = await client.SendAsync(requestMessage, cancellationToken);
+
+                string res = await responseMessage.Content.ReadAsStringAsync();
+
+                return res.ToJsonObject<T>();
             }
-
-            HttpResponseMessage responseMessage;
-
-            if (cancellationToken == CancellationToken.None)
-                responseMessage = await client.SendAsync(requestMessage);
             else
-                responseMessage = await client.SendAsync(requestMessage, cancellationToken);
+            {
+                HttpResponseMessage responseMessage = null;
 
-            string res = await responseMessage.Content.ReadAsStringAsync();
+                switch (method.Method)
+                {
+                    case "GET":
+                        responseMessage = await client.GetAsync(requestUrl, cancellationToken);
+                        break;
+                    case "POST":
+                        responseMessage = await client.PostAsync(requestUrl, contentCall(), cancellationToken);
+                        break;
+                    case "PUT":
+                        responseMessage = await client.PutAsync(requestUrl, contentCall(), cancellationToken);
+                        break;
+                    case "DELETE":
+                        responseMessage = await client.DeleteAsync(requestUrl, cancellationToken);
+                        break;
+                }
 
-            return res.ToJsonObject<T>();
+                string res = await responseMessage.Content.ReadAsStringAsync();
+
+                return res.ToJsonObject<T>();
+
+            }
         }
 
         #endregion
