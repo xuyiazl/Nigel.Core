@@ -38,7 +38,7 @@ namespace Nigel.Core.WebTest
                 c.BaseAddress = new Uri("http://testmswebapi.wbp5.com");
                 c.DefaultRequestHeaders.Add("Accept-Encoding", "gzip,deflate");
                 c.DefaultRequestHeaders.Add("Accept", "application/json");
-            });
+            }, TimeSpan.FromSeconds(6));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
