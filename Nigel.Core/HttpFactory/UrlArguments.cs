@@ -36,12 +36,18 @@
         private IDictionary<string, object>
                 Args = new SortedDictionary<string, object>();
         private string _host;
+        public string ClientName { get; set; }
         public string Url { get; private set; }
 
         public UrlArguments() { }
         public UrlArguments(string requestUrl)
         {
             _host = requestUrl;
+        }
+        public UrlArguments(string clientName, string requestUrl)
+        {
+            _host = requestUrl;
+            ClientName = clientName;
         }
         public UrlArguments(string requestUrl, params KeyValuePair<string, object>[] keyValues)
         {
@@ -51,37 +57,53 @@
                 this.Add(item.Key, item.Value);
             }
         }
+        public UrlArguments(string clientName, string requestUrl, params KeyValuePair<string, object>[] keyValues)
+        {
+            _host = requestUrl;
+            ClientName = clientName;
+            foreach (var item in keyValues)
+            {
+                this.Add(item.Key, item.Value);
+            }
+        }
         public static UrlArguments Create() => new UrlArguments();
-        public static UrlArguments Create(string requestUrl) => new UrlArguments(requestUrl);
-        public static UrlArguments Create(string requestUrl, params KeyValuePair<string, object>[] keyValues) => new UrlArguments(requestUrl, keyValues);
-        public static UrlArguments Create(string requestUrl, string method) => new UrlArguments($"{requestUrl}/{method}");
-        public static UrlArguments Create(string host, string area = "api", string controller = null, string method = null)
+        public static UrlArguments Create(string requestUrl) => Create(string.Empty, requestUrl);
+        public static UrlArguments Create(string clientName, string requestUrl) => new UrlArguments(clientName, requestUrl);
+        public static UrlArguments Create(string requestUrl, params KeyValuePair<string, object>[] keyValues) => Create(string.Empty, requestUrl, keyValues);
+        public static UrlArguments Create(string clientName, string requestUrl, params KeyValuePair<string, object>[] keyValues) => new UrlArguments(clientName, requestUrl, keyValues);
+        public static UrlArguments Create(string clientName, string requestUrl, string method) => new UrlArguments(clientName, $"{requestUrl}/{method}");
+        public static UrlArguments Create(string clientName, string host, string area = "api", string controller = null, string method = null)
         {
             if (!string.IsNullOrEmpty(method))
             {
                 if (!string.IsNullOrEmpty(area))
                 {
-                    return new UrlArguments($"{host}/{area}/{controller}/{method}");
+                    return new UrlArguments(clientName, $"{host}/{area}/{controller}/{method}");
                 }
                 else
                 {
-                    return new UrlArguments($"{host}/{controller}/{method}");
+                    return new UrlArguments(clientName, $"{host}/{controller}/{method}");
                 }
             }
             else
             {
                 if (!string.IsNullOrEmpty(area))
                 {
-                    return new UrlArguments($"{host}/{area}/{controller}");
+                    return new UrlArguments(clientName, $"{host}/{area}/{controller}");
                 }
                 else
                 {
-                    return new UrlArguments($"{host}/{controller}");
+                    return new UrlArguments(clientName, $"{host}/{controller}");
                 }
             }
         }
-        public static UrlArguments Create(IUrlOptions opts) => Create(opts.Host, opts.Area, opts.Controller, opts.Method);
+        public static UrlArguments Create(string clientName, IUrlOptions opts) => Create(clientName, opts.Host, opts.Area, opts.Controller, opts.Method);
 
+        public UrlArguments SetClientName(string clientName)
+        {
+            ClientName = clientName;
+            return this;
+        }
         public UrlArguments SetHost(string host)
         {
             _host = host;

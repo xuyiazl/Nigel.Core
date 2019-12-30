@@ -81,7 +81,7 @@ namespace Nigel.Core.HttpFactory
         public virtual async Task<T> HttpSendAsync<T>(UrlArguments urlArguments, HttpMethod method, Func<HttpContent> contentCall, CancellationToken cancellationToken)
             where T : class, new()
         {
-            HttpClient client = HttpClientFactory.CreateClient("apiClient");
+            HttpClient client = HttpClientFactory.CreateClient(string.IsNullOrEmpty(urlArguments.ClientName) ? "apiClient" : urlArguments.ClientName);
 
             HttpRequestMessage requestMessage = new HttpRequestMessage
             {
