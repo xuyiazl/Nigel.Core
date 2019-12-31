@@ -121,6 +121,21 @@ namespace Nigel.Core.HttpFactory
 
             string requestUrl = urlArguments.Complete().Url;
 
+            /*
+
+            string ipAddress = (headers.ContainsKey("HTTP_X_FORWARDED_FOR")) ? headers["HTTP_X_FORWARDED_FOR"].NullToEmpty() : headers["REMOTE_ADDR"].NullToEmpty();
+
+            
+            //如果使用了 nginx 反向代理，需要在nginx里配置，并使用该方法获取IP
+
+            if (_accessor.HttpContext.Request.Headers.ContainsKey("X-Real-IP"))
+                ipAddress = _accessor.HttpContext.Request.Headers["X-Real-IP"].NullToEmpty();
+            else
+                ipAddress = _accessor.HttpContext.Connection.RemoteIpAddress.NullToEmpty();
+
+            */
+
+
             if (client.BaseAddress == null)
             {
                 HttpRequestMessage requestMessage = new HttpRequestMessage
