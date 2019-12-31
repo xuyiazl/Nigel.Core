@@ -15,6 +15,18 @@ namespace Nigel.Core.HttpFactory
     /// </summary>
     public static class ServiceCollectionExtensions
     {
+        static HttpClientHandler CreateClientHandler()
+        {
+            var handler = new HttpClientHandler();
+            handler.AllowAutoRedirect = false;
+            handler.UseDefaultCredentials = false;
+            if (handler.SupportsAutomaticDecompression)
+            {
+                handler.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
+            }
+            return handler;
+        }
+
         /// <summary>
         /// 注册 HttpFactory Service
         /// </summary>
@@ -33,18 +45,7 @@ namespace Nigel.Core.HttpFactory
             services.AddHttpService<TImplementation>(
                 new List<KeyValuePair<string, Action<HttpClient>>>() {
                     new KeyValuePair<string, Action<HttpClient>>(clientName,configureClient)
-                },
-                () =>
-                {
-                    var handler = new HttpClientHandler();
-                    handler.AllowAutoRedirect = false;
-                    handler.UseDefaultCredentials = false;
-                    if (handler.SupportsAutomaticDecompression)
-                    {
-                        handler.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
-                    }
-                    return handler;
-                }, httpClientLeftTime, serviceLifetime);
+                }, CreateClientHandler, httpClientLeftTime, serviceLifetime);
 
             return services;
         }
@@ -93,17 +94,7 @@ namespace Nigel.Core.HttpFactory
             ServiceLifetime serviceLifetime = ServiceLifetime.Singleton)
             where TImplementation : class, IHttpService
         {
-            services.AddHttpService<TImplementation>(clientName, () =>
-             {
-                 var handler = new HttpClientHandler();
-                 handler.AllowAutoRedirect = false;
-                 handler.UseDefaultCredentials = false;
-                 if (handler.SupportsAutomaticDecompression)
-                 {
-                     handler.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
-                 }
-                 return handler;
-             }, httpClientLeftTime, serviceLifetime);
+            services.AddHttpService<TImplementation>(clientName, CreateClientHandler, httpClientLeftTime, serviceLifetime);
 
             return services;
         }
