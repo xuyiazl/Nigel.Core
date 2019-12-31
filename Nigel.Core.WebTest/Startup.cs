@@ -35,7 +35,7 @@ namespace Nigel.Core.WebTest
 
             services.AddHttpService<HttpService>("testmswebapi", c =>
             {
-                c.BaseAddress = new Uri("http://testmswebapi.wbp5.com");
+                c.BaseAddress = new Uri("http://www.xx.com");
                 c.DefaultRequestHeaders.Add("Accept-Encoding", "gzip,deflate");
                 c.DefaultRequestHeaders.Add("Accept", "application/json");
             }, TimeSpan.FromSeconds(6));

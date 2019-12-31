@@ -33,7 +33,7 @@ namespace Nigel.Core.WebTest.Controllers
         [HttpGet]
         public async Task<ReturnModel> Get(CancellationToken cancellationToken)
         {
-            var url = UrlArguments.Create("testmswebapi", $"api/CommentsLive/GetPaged")
+            var url = UrlArguments.Create("testmswebapi", $"/api/CommentsLive/GetPaged")
                  .Add("aid", 1539)
                  .Add("commentId", 0)
                  .Add("pageSize", 10000);
