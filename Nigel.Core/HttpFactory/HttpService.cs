@@ -97,9 +97,17 @@ namespace Nigel.Core.HttpFactory
             where T : class, new()
             => await HttpSendAsync<T>(urlArguments, HttpMethod.Delete, new HttpFormData(), CancellationToken.None);
 
+        public async Task<T> DeleteAsync<T, TModel>(UrlArguments urlArguments, TModel data)
+            where T : class, new()
+            => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Delete, data, CancellationToken.None);
+
         public async Task<T> DeleteAsync<T>(UrlArguments urlArguments, CancellationToken cancellationToken)
             where T : class, new()
             => await HttpSendAsync<T>(urlArguments, HttpMethod.Delete, new HttpFormData(), cancellationToken);
+
+        public async Task<T> DeleteAsync<T, TModel>(UrlArguments urlArguments, TModel data, CancellationToken cancellationToken)
+            where T : class, new()
+            => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Delete, data, cancellationToken);
 
         #endregion
 

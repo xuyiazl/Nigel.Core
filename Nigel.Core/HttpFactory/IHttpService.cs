@@ -27,9 +27,28 @@ namespace Nigel.Core.HttpFactory
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="urlArguments"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        Task<T> DeleteAsync<T, TModel>(UrlArguments urlArguments, TModel data)
+            where T : class, new();
+        /// <summary>
+        /// 异步DELETE
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="urlArguments"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         Task<T> DeleteAsync<T>(UrlArguments urlArguments, CancellationToken cancellationToken)
+            where T : class, new();
+        /// <summary>
+        /// 异步DELETE
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="urlArguments"></param>
+        /// <param name="data"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<T> DeleteAsync<T, TModel>(UrlArguments urlArguments, TModel data, CancellationToken cancellationToken)
             where T : class, new();
         /// <summary>
         /// 异步GET
