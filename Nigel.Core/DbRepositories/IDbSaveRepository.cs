@@ -13,7 +13,6 @@ namespace Nigel.Core.DbRepositories
 {
     public interface IDbSaveRepository<TEntity> where TEntity : class
     {
-
         DbContext Context { get; }
         DbSet<TEntity> Table { get; }
         DatabaseFacade Database { get; }

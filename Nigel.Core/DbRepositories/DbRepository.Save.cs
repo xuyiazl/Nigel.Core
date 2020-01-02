@@ -10,11 +10,8 @@ using Nigel.Core.Collection;
 
 namespace Nigel.Core.DbRepositories
 {
-    public partial class DbRepository<TEntity> : IDbQueryRepository<TEntity>, IDbChangeRepository<TEntity>, IDbSaveRepository<TEntity>
-        where TEntity : class
+    public partial class DbRepository<TEntity> : IDbRepository<TEntity> where TEntity : class
     {
-        #region [ IDbSaveRepository ]
-
         public IDbContextTransaction BeginTransaction()
         {
             return Context.Database.BeginTransaction();
@@ -44,8 +41,6 @@ namespace Nigel.Core.DbRepositories
         {
             return await Context.SaveChangesAsync(cancellationToken) > 0;
         }
-
-        #endregion
 
     }
 }

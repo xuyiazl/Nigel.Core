@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Nigel.Core.DbRepositories
 {
-    public partial class DbRepository<TEntity> : IDbQueryRepository<TEntity>, IDbChangeRepository<TEntity>, IDbSaveRepository<TEntity> where TEntity : class
+    public partial class DbRepository<TEntity> : IDbRepository<TEntity> where TEntity : class
     {
         public DbContext Context { get; private set; }
         public DbSet<TEntity> Table { get; private set; }

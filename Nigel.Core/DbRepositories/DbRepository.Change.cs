@@ -10,11 +10,8 @@ using Nigel.Core.Collection;
 
 namespace Nigel.Core.DbRepositories
 {
-    public partial class DbRepository<TEntity> : IDbQueryRepository<TEntity>, IDbChangeRepository<TEntity>, IDbSaveRepository<TEntity>
-        where TEntity : class
+    public partial class DbRepository<TEntity> : IDbRepository<TEntity> where TEntity : class
     {
-        #region [ IDbChangeRepository ] 
-
         public void Add(TEntity entity)
         {
             Table.Add(entity);
@@ -86,7 +83,5 @@ namespace Nigel.Core.DbRepositories
 
             Table.RemoveRange(res);
         }
-
-        #endregion
     }
 }

@@ -10,7 +10,7 @@ using Nigel.Core.Collection;
 
 namespace Nigel.Core.DbRepositories
 {
-    public partial class DbRepository<TEntity> : IDbQueryRepository<TEntity>, IDbChangeRepository<TEntity>, IDbSaveRepository<TEntity> where TEntity : class
+    public partial class DbRepository<TEntity> : IDbRepository<TEntity> where TEntity : class
     {
         public PagedList<TEntity> GetPagedList<TOrder>(
             Expression<Func<TEntity, bool>> selector,
