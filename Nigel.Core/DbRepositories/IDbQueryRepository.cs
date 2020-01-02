@@ -1,8 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using Nigel.Core.Collection;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -15,10 +18,14 @@ namespace Nigel.Core.DbRepositories
     public interface IDbQueryRepository<TEntity> where TEntity : class
     {
 
-        DbContext Context { get; set; }
-        DbSet<TEntity> Table { get; set; }
-        IQueryable<TEntity> Query { get; set; }
 
+        DbContext Context { get; }
+        DbSet<TEntity> Table { get; }
+        DatabaseFacade Database { get; }
+        bool IsNoTracking { get; set; }
+        IQueryable<TEntity> AsNoTracking();
+        EntityEntry Entry([NotNull] object entity);
+        EntityEntry<TEntity> Entry([NotNull] TEntity entity);
         bool Any(Expression<Func<TEntity, bool>> filter = null);
         Task<bool> AnyAsync(Expression<Func<TEntity, bool>> filter = null);
         Task<bool> AnyAsync(Expression<Func<TEntity, bool>> filter = null, CancellationToken cancellationToken = default);

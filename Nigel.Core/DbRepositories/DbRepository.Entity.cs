@@ -15,7 +15,7 @@ namespace Nigel.Core.DbRepositories
 
         public TEntity GetEntity(Expression<Func<TEntity, bool>> selector = null)
         {
-            var query = Query;
+            var query = this.AsNoTracking();
             if (selector != null)
                 return query.FirstOrDefault(selector);
             else
@@ -27,7 +27,7 @@ namespace Nigel.Core.DbRepositories
             Expression<Func<TEntity, TOrder>> orderBy = null,
             bool orderDesc = false)
         {
-            var query = Query;
+            var query = this.AsNoTracking();
             if (selector != null)
                 query = query.Where(selector);
             if (orderBy != null)
@@ -37,7 +37,7 @@ namespace Nigel.Core.DbRepositories
 
         public async Task<TEntity> GetEntityAsync(Expression<Func<TEntity, bool>> selector = null)
         {
-            var query = Query;
+            var query = this.AsNoTracking();
             if (selector != null)
                 return await query.FirstOrDefaultAsync(selector);
             else
@@ -48,7 +48,7 @@ namespace Nigel.Core.DbRepositories
             Expression<Func<TEntity, TOrder>> orderBy = null,
             bool orderDesc = false)
         {
-            var query = Query;
+            var query = this.AsNoTracking();
             if (selector != null)
                 query = query.Where(selector);
             if (orderBy != null)
@@ -58,7 +58,7 @@ namespace Nigel.Core.DbRepositories
 
         public async Task<TEntity> GetEntityAsync(Expression<Func<TEntity, bool>> selector = null, CancellationToken cancellationToken = default)
         {
-            var query = Query;
+            var query = this.AsNoTracking();
             if (selector != null)
                 return await query.FirstOrDefaultAsync(selector, cancellationToken);
             else
@@ -70,7 +70,7 @@ namespace Nigel.Core.DbRepositories
             bool orderDesc = false,
             CancellationToken cancellationToken = default)
         {
-            var query = Query;
+            var query = this.AsNoTracking();
             if (orderBy != null)
                 query = orderDesc ? query.OrderByDescending(orderBy) : query.OrderBy(orderBy);
             if (selector != null)
@@ -82,7 +82,7 @@ namespace Nigel.Core.DbRepositories
             Expression<Func<TEntity, TResult>> converter,
             Expression<Func<TEntity, bool>> selector = null)
         {
-            var query = Query;
+            var query = this.AsNoTracking();
             if (selector != null)
                 query = query.Where(selector);
             return query
@@ -94,7 +94,7 @@ namespace Nigel.Core.DbRepositories
             Expression<Func<TEntity, TOrder>> orderBy = null,
             bool orderDesc = false)
         {
-            var query = Query;
+            var query = this.AsNoTracking();
             if (selector != null)
                 query = query.Where(selector);
             if (orderBy != null)
@@ -106,7 +106,7 @@ namespace Nigel.Core.DbRepositories
 
         public async Task<TResult> GetEntityAsync<TResult>(Expression<Func<TEntity, TResult>> converter, Expression<Func<TEntity, bool>> selector = null)
         {
-            var query = Query;
+            var query = this.AsNoTracking();
             if (selector != null)
                 query = query.Where(selector);
             return await query
@@ -118,7 +118,7 @@ namespace Nigel.Core.DbRepositories
             Expression<Func<TEntity, TOrder>> orderBy = null,
             bool orderDesc = false)
         {
-            var query = Query;
+            var query = this.AsNoTracking();
             if (selector != null)
                 query = query.Where(selector);
             if (orderBy != null)
@@ -130,7 +130,7 @@ namespace Nigel.Core.DbRepositories
 
         public async Task<TResult> GetEntityAsync<TResult>(Expression<Func<TEntity, TResult>> converter, Expression<Func<TEntity, bool>> selector = null, CancellationToken cancellationToken = default)
         {
-            var query = Query;
+            var query = this.AsNoTracking();
             if (selector != null)
                 query = query.Where(selector);
             return await query
@@ -143,7 +143,7 @@ namespace Nigel.Core.DbRepositories
             bool orderDesc = false,
             CancellationToken cancellationToken = default)
         {
-            var query = Query;
+            var query = this.AsNoTracking();
             if (selector != null)
                 query = query.Where(selector);
             if (orderBy != null)

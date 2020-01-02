@@ -12,7 +12,9 @@ namespace Nigel.Core.DbRepositories
 {
     public partial class DbRepository<TEntity> : IDbQueryRepository<TEntity>, IDbChangeRepository<TEntity>, IDbSaveRepository<TEntity> where TEntity : class
     {
-        public IList<TEntity> SqlQuery(string sql, params object[] parameters)
+        public IList<TEntity> SqlQuery(
+            string sql,
+            params object[] parameters)
         {
             return Table
                 .FromSqlRaw(sql, parameters)

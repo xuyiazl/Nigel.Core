@@ -19,7 +19,7 @@ namespace Nigel.Core.DbRepositories
             int pageNumber = 1,
             int pageSize = 10)
         {
-            var query = Query;
+            var query = this.AsNoTracking();
             if (selector != null)
                 query = query.Where(selector);
             if (orderBy != null)
@@ -34,7 +34,7 @@ namespace Nigel.Core.DbRepositories
             int pageNumber = 1,
             int pageSize = 10)
         {
-            var query = Query;
+            var query = this.AsNoTracking();
             if (selector != null)
                 query = query.Where(selector);
             if (orderBy != null)
@@ -50,7 +50,7 @@ namespace Nigel.Core.DbRepositories
             int pageSize = 10,
             CancellationToken cancellationToken = default)
         {
-            var query = Query;
+            var query = this.AsNoTracking();
             if (selector != null)
                 query = query.Where(selector);
             if (orderBy != null)
@@ -66,7 +66,7 @@ namespace Nigel.Core.DbRepositories
             int pageNumber = 1,
             int pageSize = 10)
         {
-            var query = Query;
+            var query = this.AsNoTracking();
             if (selector != null)
                 query = query.Where(selector);
             if (orderBy != null)
@@ -82,7 +82,7 @@ namespace Nigel.Core.DbRepositories
             int pageNumber = 1,
             int pageSize = 10)
         {
-            var query = Query;
+            var query = this.AsNoTracking();
             if (selector != null)
                 query = query.Where(selector);
             if (orderBy != null)
@@ -100,7 +100,7 @@ namespace Nigel.Core.DbRepositories
             int pageSize = 10,
             CancellationToken cancellationToken = default)
         {
-            var query = Query;
+            var query = this.AsNoTracking();
             if (selector != null)
                 query = query.Where(selector);
             if (orderBy != null)

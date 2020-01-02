@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using Nigel.Core.Collection;
 using System;
@@ -12,8 +13,11 @@ namespace Nigel.Core.DbRepositories
 {
     public interface IDbSaveRepository<TEntity> where TEntity : class
     {
-        DbContext Context { get; set; }
-        DbSet<TEntity> Table { get; set; }
+
+        DbContext Context { get; }
+        DbSet<TEntity> Table { get; }
+        DatabaseFacade Database { get; }
+        bool IsNoTracking { get; set; }
         bool Save();
         Task<bool> SaveAsync();
         Task<bool> SaveAsync(CancellationToken cancellationToken = default);

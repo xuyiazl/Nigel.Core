@@ -63,7 +63,7 @@ namespace Nigel.Core.DbRepositories
 
         public void Delete(Expression<Func<TEntity, bool>> selector)
         {
-            var entity = Query.FirstOrDefault(selector);
+            var entity = this.AsNoTracking().FirstOrDefault(selector);
             if (entity != null)
             {
                 Table.Remove(entity);
