@@ -47,6 +47,31 @@ namespace Nigel.Core.DbRepositories
             Table.Update(entity);
         }
 
+        public void Update(TEntity entity, params Expression<Func<TEntity, object>>[] updatedProperties)
+        {
+            Context.Attach(entity);
+            var dbEntry = Entry(entity);
+            //if (updatedProperties.Any())
+            //{
+            foreach (var property in updatedProperties)
+            {
+                dbEntry.Property(property).IsModified = true;
+            }
+            //}
+            //else
+            //{
+            //    foreach (var property in dbEntry.OriginalValues.Properties)
+            //    {
+            //        var original = dbEntry.OriginalValues.GetValue<object>(property);
+            //        var current = dbEntry.CurrentValues.GetValue<object>(property);
+            //        if (original != null && !original.Equals(current))
+            //        {
+            //            dbEntry.Property(property.Name).IsModified = true;
+            //        }
+            //    }
+            //}
+        }
+
         public void UpdateRange(IList<TEntity> entities)
         {
             if (entities == null || entities.Count() == 0) return;

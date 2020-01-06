@@ -27,6 +27,20 @@ namespace Nigel.Core.DbRepositories
             return PagedList<TEntity>.Create(query, pageNumber, pageSize);
         }
 
+        public PagedList<TEntity> GetPagedList(
+            Expression<Func<TEntity, bool>> selector,
+            string orderBy = "",
+            int pageNumber = 1,
+            int pageSize = 10)
+        {
+            var query = this.AsNoTracking();
+            if (selector != null)
+                query = query.Where(selector);
+            if (!string.IsNullOrEmpty(orderBy))
+                query = query.OrderByBatch(orderBy);
+            return PagedList<TEntity>.Create(query, pageNumber, pageSize);
+        }
+
         public async Task<PagedList<TEntity>> GetPagedListAsync<TOrder>(
             Expression<Func<TEntity, bool>> selector,
             Expression<Func<TEntity, TOrder>> orderBy = null,
@@ -39,6 +53,20 @@ namespace Nigel.Core.DbRepositories
                 query = query.Where(selector);
             if (orderBy != null)
                 query = orderDesc ? query.OrderByDescending(orderBy) : query.OrderBy(orderBy);
+            return await PagedList<TEntity>.CreateAsync(query, pageNumber, pageSize);
+        }
+
+        public async Task<PagedList<TEntity>> GetPagedListAsync(
+            Expression<Func<TEntity, bool>> selector,
+            string orderBy = "",
+            int pageNumber = 1,
+            int pageSize = 10)
+        {
+            var query = this.AsNoTracking();
+            if (selector != null)
+                query = query.Where(selector);
+            if (!string.IsNullOrEmpty(orderBy))
+                query = query.OrderByBatch(orderBy);
             return await PagedList<TEntity>.CreateAsync(query, pageNumber, pageSize);
         }
 
@@ -57,6 +85,20 @@ namespace Nigel.Core.DbRepositories
                 query = orderDesc ? query.OrderByDescending(orderBy) : query.OrderBy(orderBy);
             return await PagedList<TEntity>.CreateAsync(query, pageNumber, pageSize, cancellationToken);
         }
+        public async Task<PagedList<TEntity>> GetPagedListAsync(
+            Expression<Func<TEntity, bool>> selector,
+            string orderBy = "",
+            int pageNumber = 1,
+            int pageSize = 10,
+            CancellationToken cancellationToken = default)
+        {
+            var query = this.AsNoTracking();
+            if (selector != null)
+                query = query.Where(selector);
+            if (!string.IsNullOrEmpty(orderBy))
+                query = query.OrderByBatch(orderBy);
+            return await PagedList<TEntity>.CreateAsync(query, pageNumber, pageSize, cancellationToken);
+        }
 
         public PagedList<TResult> GetPagedList<TOrder, TResult>(
             Expression<Func<TEntity, TResult>> converter,
@@ -71,6 +113,22 @@ namespace Nigel.Core.DbRepositories
                 query = query.Where(selector);
             if (orderBy != null)
                 query = orderDesc ? query.OrderByDescending(orderBy) : query.OrderBy(orderBy);
+            return PagedList<TResult>.Create(query.Select(converter), pageNumber, pageSize);
+        }
+
+
+        public PagedList<TResult> GetPagedList<TResult>(
+            Expression<Func<TEntity, TResult>> converter,
+            Expression<Func<TEntity, bool>> selector,
+            string orderBy = "",
+            int pageNumber = 1,
+            int pageSize = 10)
+        {
+            var query = this.AsNoTracking();
+            if (selector != null)
+                query = query.Where(selector);
+            if (!string.IsNullOrEmpty(orderBy))
+                query = query.OrderByBatch(orderBy);
             return PagedList<TResult>.Create(query.Select(converter), pageNumber, pageSize);
         }
 
@@ -91,6 +149,22 @@ namespace Nigel.Core.DbRepositories
             return await PagedList<TResult>.CreateAsync(query.Select(converter), pageNumber, pageSize);
         }
 
+        public async Task<PagedList<TResult>> GetPagedListAsync<TResult>(
+            Expression<Func<TEntity, TResult>> converter,
+            Expression<Func<TEntity, bool>> selector,
+            string orderBy = "",
+            int pageNumber = 1,
+            int pageSize = 10)
+        {
+            var query = this.AsNoTracking();
+            if (selector != null)
+                query = query.Where(selector);
+            if (!string.IsNullOrEmpty(orderBy))
+                query = query.OrderByBatch(orderBy);
+
+            return await PagedList<TResult>.CreateAsync(query.Select(converter), pageNumber, pageSize);
+        }
+
         public async Task<PagedList<TResult>> GetPagedListAsync<TOrder, TResult>(
             Expression<Func<TEntity, TResult>> converter,
             Expression<Func<TEntity, bool>> selector,
@@ -105,6 +179,22 @@ namespace Nigel.Core.DbRepositories
                 query = query.Where(selector);
             if (orderBy != null)
                 query = orderDesc ? query.OrderByDescending(orderBy) : query.OrderBy(orderBy);
+            return await PagedList<TResult>.CreateAsync(query.Select(converter), pageNumber, pageSize, cancellationToken);
+        }
+
+        public async Task<PagedList<TResult>> GetPagedListAsync<TResult>(
+            Expression<Func<TEntity, TResult>> converter,
+            Expression<Func<TEntity, bool>> selector,
+            string orderBy = "",
+            int pageNumber = 1,
+            int pageSize = 10,
+            CancellationToken cancellationToken = default)
+        {
+            var query = this.AsNoTracking();
+            if (selector != null)
+                query = query.Where(selector);
+            if (!string.IsNullOrEmpty(orderBy))
+                query = query.OrderByBatch(orderBy);
             return await PagedList<TResult>.CreateAsync(query.Select(converter), pageNumber, pageSize, cancellationToken);
         }
     }

@@ -28,6 +28,7 @@ namespace Nigel.Core.DbRepositories
         void AddRangeAsync(IList<TEntity> Entities);
         void AddRangeAsync(IList<TEntity> Entities, CancellationToken cancellationToken = default);
         void Update(TEntity entity);
+        void Update(TEntity entity, params Expression<Func<TEntity, object>>[] updatedProperties);
         void UpdateRange(IList<TEntity> entities);
         void Delete(Expression<Func<TEntity, bool>> selector);
         void Delete(TEntity Entity);

@@ -49,6 +49,18 @@ namespace Nigel.Core.DbRepositories
             return query.ToList();
         }
 
+        public IList<TEntity> GetList(
+            Expression<Func<TEntity, bool>> selector,
+            string orderBy = "")
+        {
+            var query = this.AsNoTracking();
+            if (selector != null)
+                query = query.Where(selector);
+            if (!string.IsNullOrEmpty(orderBy))
+                query = query.OrderByBatch(orderBy);
+            return query.ToList();
+        }
+
         public async Task<IList<TEntity>> GetListAsync<TOrder>(
             Expression<Func<TEntity, bool>> selector,
             Expression<Func<TEntity, TOrder>> orderBy = null,
@@ -59,6 +71,18 @@ namespace Nigel.Core.DbRepositories
                 query = query.Where(selector);
             if (orderBy != null)
                 query = orderDesc ? query.OrderByDescending(orderBy) : query.OrderBy(orderBy);
+            return await query.ToListAsync();
+        }
+
+        public async Task<IList<TEntity>> GetListAsync(
+            Expression<Func<TEntity, bool>> selector,
+            string orderBy = "")
+        {
+            var query = this.AsNoTracking();
+            if (selector != null)
+                query = query.Where(selector);
+            if (!string.IsNullOrEmpty(orderBy))
+                query = query.OrderByBatch(orderBy);
             return await query.ToListAsync();
         }
 
@@ -73,6 +97,19 @@ namespace Nigel.Core.DbRepositories
                 query = query.Where(selector);
             if (orderBy != null)
                 query = orderDesc ? query.OrderByDescending(orderBy) : query.OrderBy(orderBy);
+            return await query.ToListAsync(cancellationToken);
+        }
+
+        public async Task<IList<TEntity>> GetListAsync(
+            Expression<Func<TEntity, bool>> selector,
+            string orderBy = "",
+            CancellationToken cancellationToken = default)
+        {
+            var query = this.AsNoTracking();
+            if (selector != null)
+                query = query.Where(selector);
+            if (!string.IsNullOrEmpty(orderBy))
+                query = query.OrderByBatch(orderBy);
             return await query.ToListAsync(cancellationToken);
         }
 

@@ -35,6 +35,18 @@ namespace Nigel.Core.DbRepositories
             return query.FirstOrDefault();
         }
 
+        public TEntity GetEntity(
+            Expression<Func<TEntity, bool>> selector = null,
+            string orderBy = "")
+        {
+            var query = this.AsNoTracking();
+            if (selector != null)
+                query = query.Where(selector);
+            if (!string.IsNullOrEmpty(orderBy))
+                query = query.OrderByBatch(orderBy);
+            return query.FirstOrDefault();
+        }
+
         public async Task<TEntity> GetEntityAsync(Expression<Func<TEntity, bool>> selector = null)
         {
             var query = this.AsNoTracking();
@@ -56,6 +68,17 @@ namespace Nigel.Core.DbRepositories
             return await query.FirstOrDefaultAsync();
         }
 
+        public async Task<TEntity> GetEntityAsync(Expression<Func<TEntity, bool>> selector = null,
+            string orderBy = "")
+        {
+            var query = this.AsNoTracking();
+            if (selector != null)
+                query = query.Where(selector);
+            if (!string.IsNullOrEmpty(orderBy))
+                query = query.OrderByBatch(orderBy);
+            return await query.FirstOrDefaultAsync();
+        }
+
         public async Task<TEntity> GetEntityAsync(Expression<Func<TEntity, bool>> selector = null, CancellationToken cancellationToken = default)
         {
             var query = this.AsNoTracking();
@@ -73,6 +96,17 @@ namespace Nigel.Core.DbRepositories
             var query = this.AsNoTracking();
             if (orderBy != null)
                 query = orderDesc ? query.OrderByDescending(orderBy) : query.OrderBy(orderBy);
+            if (selector != null)
+                query = query.Where(selector);
+            return await query.FirstOrDefaultAsync(cancellationToken);
+        }
+        public async Task<TEntity> GetEntityAsync(Expression<Func<TEntity, bool>> selector = null,
+            string orderBy = "",
+            CancellationToken cancellationToken = default)
+        {
+            var query = this.AsNoTracking();
+            if (!string.IsNullOrEmpty(orderBy))
+                query = query.OrderByBatch(orderBy);
             if (selector != null)
                 query = query.Where(selector);
             return await query.FirstOrDefaultAsync(cancellationToken);
@@ -103,6 +137,18 @@ namespace Nigel.Core.DbRepositories
                 .Select(converter)
                 .FirstOrDefault();
         }
+        public TResult GetEntity<TResult>(Expression<Func<TEntity, TResult>> converter, Expression<Func<TEntity, bool>> selector = null,
+            string orderBy = "")
+        {
+            var query = this.AsNoTracking();
+            if (selector != null)
+                query = query.Where(selector);
+            if (!string.IsNullOrEmpty(orderBy))
+                query = query.OrderByBatch(orderBy);
+            return query
+                .Select(converter)
+                .FirstOrDefault();
+        }
 
         public async Task<TResult> GetEntityAsync<TResult>(Expression<Func<TEntity, TResult>> converter, Expression<Func<TEntity, bool>> selector = null)
         {
@@ -123,6 +169,18 @@ namespace Nigel.Core.DbRepositories
                 query = query.Where(selector);
             if (orderBy != null)
                 query = orderDesc ? query.OrderByDescending(orderBy) : query.OrderBy(orderBy);
+            return await query
+                .Select(converter)
+                .FirstOrDefaultAsync();
+        }
+        public async Task<TResult> GetEntityAsync<TResult>(Expression<Func<TEntity, TResult>> converter, Expression<Func<TEntity, bool>> selector = null,
+            string orderBy = "")
+        {
+            var query = this.AsNoTracking();
+            if (selector != null)
+                query = query.Where(selector);
+            if (!string.IsNullOrEmpty(orderBy))
+                query = query.OrderByBatch(orderBy);
             return await query
                 .Select(converter)
                 .FirstOrDefaultAsync();
@@ -148,6 +206,19 @@ namespace Nigel.Core.DbRepositories
                 query = query.Where(selector);
             if (orderBy != null)
                 query = orderDesc ? query.OrderByDescending(orderBy) : query.OrderBy(orderBy);
+            return await query
+                .Select(converter)
+                .FirstOrDefaultAsync(cancellationToken);
+        }
+        public async Task<TResult> GetEntityAsync<TResult>(Expression<Func<TEntity, TResult>> converter, Expression<Func<TEntity, bool>> selector = null,
+            string orderBy = "",
+            CancellationToken cancellationToken = default)
+        {
+            var query = this.AsNoTracking();
+            if (selector != null)
+                query = query.Where(selector);
+            if (!string.IsNullOrEmpty(orderBy))
+                query = query.OrderByBatch(orderBy);
             return await query
                 .Select(converter)
                 .FirstOrDefaultAsync(cancellationToken);
