@@ -51,13 +51,13 @@ namespace Nigel.Core.DbRepositories
         {
             Context.Attach(entity);
             var dbEntry = Entry(entity);
-            //if (updatedProperties.Any())
-            //{
-            foreach (var property in updatedProperties)
+            if (updatedProperties.Any())
             {
-                dbEntry.Property(property).IsModified = true;
+                foreach (var property in updatedProperties)
+                {
+                    dbEntry.Property(property).IsModified = true;
+                }
             }
-            //}
             //else
             //{
             //    foreach (var property in dbEntry.OriginalValues.Properties)
