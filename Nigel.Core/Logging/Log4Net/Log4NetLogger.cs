@@ -76,7 +76,7 @@ namespace Nigel.Core.Logging.Log4Net
                         _log.Debug(message);
                         break;
                     case LogLevel.Error:
-                        _log.Error(message);
+                        _log.Error(message, exception);
                         break;
                     case LogLevel.Information:
                         _log.Info(message);

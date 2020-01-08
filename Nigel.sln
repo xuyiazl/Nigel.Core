@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nigel.Core", "Nigel.Core\Ni
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "基础库", "基础库", "{2C85BDD2-6ADC-47A6-9981-3627A5466906}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nigel.WebTests", "Nigel.WebTests\Nigel.WebTests.csproj", "{8D975BE0-AD10-484C-A087-C4DB5E1896AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{4105BB6A-6C0F-402A-B807-4AD8F68C9F6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4105BB6A-6C0F-402A-B807-4AD8F68C9F6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4105BB6A-6C0F-402A-B807-4AD8F68C9F6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D975BE0-AD10-484C-A087-C4DB5E1896AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D975BE0-AD10-484C-A087-C4DB5E1896AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D975BE0-AD10-484C-A087-C4DB5E1896AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D975BE0-AD10-484C-A087-C4DB5E1896AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

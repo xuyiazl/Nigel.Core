@@ -16,7 +16,7 @@ namespace Nigel.Core.Middlewares
         /// 方法
         /// </summary>
         private readonly RequestDelegate _next;
-        private readonly ILogger _logger;
+        private readonly ILogger<ErrorLogMiddleware> _logger;
 
         /// <summary>
         /// 初始化一个<see cref="ErrorLogMiddleware"/>类型的实例
@@ -51,12 +51,12 @@ namespace Nigel.Core.Middlewares
         /// </summary>
         /// <param name="context">Http上下文</param>
         /// <param name="ex">异常</param>
-        private void WriteLog(HttpContext context, Exception ex)
+        private void WriteLog(HttpContext context, Exception exception)
         {
             if (context == null)
                 return;
 
-            _logger.LogError($"全局异常捕获 - 错误日志中间件 - 状态码：{context.Response.StatusCode}", ex);
+            _logger.LogError(exception, $"全局异常捕获 - 错误日志中间件 - 状态码：{context.Response.StatusCode}");
         }
     }
 }

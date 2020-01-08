@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Nigel.Helpers;
+using Microsoft.Extensions.Logging;
 
 namespace Nigel.Core.Razors
 {
@@ -21,14 +22,15 @@ namespace Nigel.Core.Razors
     /// </summary>
     public class DefaultRazorHtmlGenerator : IRazorHtmlGenerator
     {
+        private readonly ILogger<DefaultRazorHtmlGenerator> _logger;
         private readonly IRouteAnalyzer _routeAnalyzer;
-
         /// <summary>
         /// 初始化一个<see cref="DefaultRazorHtmlGenerator"/>类型的实例
         /// </summary>
         /// <param name="routeAnalyzer">路由分析器</param>
-        public DefaultRazorHtmlGenerator(IRouteAnalyzer routeAnalyzer)
+        public DefaultRazorHtmlGenerator(ILogger<DefaultRazorHtmlGenerator> logger, IRouteAnalyzer routeAnalyzer)
         {
+            _logger = logger;
             _routeAnalyzer = routeAnalyzer;
         }
 
@@ -58,9 +60,12 @@ namespace Nigel.Core.Razors
         {
             var razorViewEngine = Web.HttpContext.RequestServices.GetService<IRazorViewEngine>();
             var tempDataProvider = Web.HttpContext.RequestServices.GetService<ITempDataProvider>();
-            var serviceProvider = Web.HttpContext.RequestServices.GetService<IServiceProvider>();
+            var httpContext = Web.HttpContext;
 
-            var httpContext = new DefaultHttpContext { RequestServices = serviceProvider };
+            //var serviceProvider = Web.HttpContext.RequestServices;
+
+            //var httpContext = new DefaultHttpContext { RequestServices = serviceProvider };
+
             var actionContext = new ActionContext(httpContext, GetRouteData(info), new ActionDescriptor());
             var viewResult = GetView(razorViewEngine, actionContext, info);
             if (!viewResult.Success)
@@ -84,16 +89,23 @@ namespace Nigel.Core.Razors
         /// <returns></returns>
         public async Task WriteViewToFileAsync(RouteInformation info)
         {
-            var html = await RenderToStringAsync(info);
-            if (string.IsNullOrWhiteSpace(html))
-                return;
-            var path = Nigel.Helpers.Common.GetPhysicalPath(string.IsNullOrWhiteSpace(info.FilePath) ? GetPath(info) : info.FilePath);
-            var directory = System.IO.Path.GetDirectoryName(path);
-            if (string.IsNullOrWhiteSpace(directory))
-                return;
-            if (Directory.Exists(directory) == false)
-                Directory.CreateDirectory(directory);
-            File.WriteAllText(path, html);
+            try
+            {
+                var html = await RenderToStringAsync(info);
+                if (string.IsNullOrWhiteSpace(html))
+                    return;
+                var path = Nigel.Helpers.Common.GetPhysicalPath(string.IsNullOrWhiteSpace(info.FilePath) ? GetPath(info) : info.FilePath);
+                var directory = System.IO.Path.GetDirectoryName(path);
+                if (string.IsNullOrWhiteSpace(directory))
+                    return;
+                if (Directory.Exists(directory) == false)
+                    Directory.CreateDirectory(directory);
+                File.WriteAllText(path, html);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "生成html静态文件失败");
+            }
         }
 
         /// <summary>

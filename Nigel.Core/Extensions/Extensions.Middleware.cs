@@ -39,19 +39,9 @@ namespace Nigel.Core.Extensions
         /// <param name="builder">应用程序生成器</param>
         public static IApplicationBuilder UseStaticHttpContext(this IApplicationBuilder builder)
         {
-            var httpContextAccessor = builder.ApplicationServices.GetRequiredService<IHttpContextAccessor>();
-            Web.HttpContextAccessor = httpContextAccessor;
+            Web.HttpContextAccessor = builder.ApplicationServices.GetRequiredService<IHttpContextAccessor>();
+            Web.Environment = builder.ApplicationServices.GetService<IHostingEnvironment>();
             return builder;
-        }
-
-        /// <summary>
-        /// 启用静态宿主
-        /// </summary>
-        /// <param name="env">宿主主机</param>
-        public static IHostingEnvironment UseEnvironment(this IHostingEnvironment env)
-        {
-            Web.Environment = env;
-            return env;
         }
 
         /// <summary>

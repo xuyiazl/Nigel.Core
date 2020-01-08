@@ -64,7 +64,10 @@ namespace Nigel.Core.Razors
                     {
                         info.Path = $"/{controllerActionDescriptor.ControllerName}/{controllerActionDescriptor.ActionName}";
                     }
-                    SetHtmlInfo(info, controllerActionDescriptor);
+
+                    var routeInfo = SetHtmlInfo(info, controllerActionDescriptor);
+                    if (!routeInfo) continue;
+
                     info.ControllerName = controllerActionDescriptor.ControllerName;
                     info.ActionName = controllerActionDescriptor.ActionName;
                     info.Invocation = $"{controllerActionDescriptor.ControllerName}Controller.{controllerActionDescriptor.ActionName}";
@@ -83,17 +86,18 @@ namespace Nigel.Core.Razors
         /// </summary>
         /// <param name="routeInformation">路由信息</param>
         /// <param name="controllerActionDescriptor">控制器</param>
-        private void SetHtmlInfo(RouteInformation routeInformation,
+        private bool SetHtmlInfo(RouteInformation routeInformation,
             ControllerActionDescriptor controllerActionDescriptor)
         {
             var htmlAttribute = controllerActionDescriptor.ControllerTypeInfo.GetCustomAttribute<RazorHtmlAttribute>() ??
                                 controllerActionDescriptor.MethodInfo.GetCustomAttribute<RazorHtmlAttribute>();
             if (htmlAttribute == null)
-                return;
+                return false;
             routeInformation.FilePath = htmlAttribute.Path;
             routeInformation.TemplatePath = htmlAttribute.Template;
             routeInformation.IsPartialView = htmlAttribute.IsPartialView;
             routeInformation.ViewName = htmlAttribute.ViewName;
+            return true;
         }
     }
 }

@@ -20,13 +20,13 @@ namespace Nigel.Core.Middlewares
         /// 方法
         /// </summary>
         private readonly RequestDelegate _next;
-        private readonly ILogger _logger;
+        private readonly ILogger<RequestLogMiddleware> _logger;
 
         /// <summary>
         /// 初始化一个<see cref="RequestLogMiddleware"/>类型的实例
         /// </summary>
         /// <param name="next">方法</param>
-        public RequestLogMiddleware(RequestDelegate next, ILogger<ErrorLogMiddleware> logger)
+        public RequestLogMiddleware(RequestDelegate next, ILogger<RequestLogMiddleware> logger)
         {
             _next = next;
             _logger = logger;
@@ -91,7 +91,10 @@ namespace Nigel.Core.Middlewares
                 return;
             }
 
-            _logger.LogTrace($"请求日志中间件 - IP：{context.Connection.RemoteIpAddress.ToString()} 请求方法：{context.Request.Method}，请求地址：{context.Request.Scheme}://{context.Request.Host}{context.Request.Path}{context.Request.QueryString} ");
+            _logger.LogInformation($"请求日志中间件 - IP：{context.Connection.RemoteIpAddress.ToString()} 请求耗时：{stopwatch.Elapsed.TotalMilliseconds} 毫秒 ， 请求方法：{context.Request.Method}，请求地址：{context.Request.Scheme}://{context.Request.Host}{context.Request.Path}{context.Request.QueryString} ");
+            
+            //await FormatRequestAsync(context.Request);
+            await FormatResponseAsync(context.Response);
 
             //var log = Log.GetLog(this).Caption("请求日志中间件");
             //log.Content(new Dictionary<string, string>()
