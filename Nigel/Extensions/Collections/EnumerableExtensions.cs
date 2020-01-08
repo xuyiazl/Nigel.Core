@@ -14,6 +14,43 @@ namespace Nigel.Extensions
     /// </summary>
     public static class EnumerableExtensions
     {
+        #region ToMap(模型转换)
+
+        /// <summary>
+        /// 模型转换
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="enumerable">源数据</param>
+        /// <param name="converter">转换表达式</param>
+        /// <returns></returns>
+        public static IList<TResult> ToMap<T, TResult>(this IEnumerable<T> enumerable, Func<T, TResult> converter)
+        {
+            if (enumerable == null)
+                throw new ArgumentNullException(nameof(enumerable), $@"源{typeof(T).Name}集合对象不可为空！");
+            if (converter == null)
+                throw new ArgumentNullException(nameof(converter), @"操作表达式不可为空！");
+            return enumerable.ForEach(converter);
+        }
+        /// <summary>
+        /// 模型转换
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="enumerable">源数据</param>
+        /// <param name="converter">转换表达式</param>
+        /// <returns></returns>
+        public static IList<TResult> ToMap<T, TResult>(this IEnumerable<T> enumerable, Func<T, int, TResult> converter)
+        {
+            if (enumerable == null)
+                throw new ArgumentNullException(nameof(enumerable), $@"源{typeof(T).Name}集合对象不可为空！");
+            if (converter == null)
+                throw new ArgumentNullException(nameof(converter), @"操作表达式不可为空！");
+            return enumerable.ForEach(converter);
+        }
+
+        #endregion
+
         #region ForEach(对指定集合中的每个元素执行指定操作)
 
         /// <summary>

@@ -365,7 +365,7 @@ namespace Nigel.Helpers
         /// <summary>
         /// 静态构造函数
         /// </summary>
-        static Web() => ServicePointManager.DefaultConnectionLimit = 200;
+        static Web() => ServicePointManager.DefaultConnectionLimit = 512;
 
         #endregion
 
