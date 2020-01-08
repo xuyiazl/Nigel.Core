@@ -27,7 +27,13 @@
   <ItemGroup>
     <ProjectReference Include="..\Nigel\Nigel.csproj" />
   </ItemGroup>
-
+  
+  <ItemGroup>
+    <Compile Update="DbRepositories/DbRepository.*.cs">
+      <DependentUpon>DbRepository.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  
   <ItemGroup>
     <Compile Update="Properties\LibraryResource.Designer.cs">
       <DesignTime>True</DesignTime>

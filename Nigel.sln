@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nigel.Drawing", "Nigel.Draw
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nigel.Tests", "Nigel.Tests\Nigel.Tests.csproj", "{B679C5DB-CB0C-458E-A4B6-A0190CA7A549}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nigel.Core", "Nigel.Core\Nigel.Core.csproj", "{4105BB6A-6C0F-402A-B807-4AD8F68C9F6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nigel.Core", "Nigel.Core\Nigel.Core.csproj", "{4105BB6A-6C0F-402A-B807-4AD8F68C9F6C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "基础库", "基础库", "{2C85BDD2-6ADC-47A6-9981-3627A5466906}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +38,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6620FF59-EC6B-4907-8B67-B94BE4011557} = {2C85BDD2-6ADC-47A6-9981-3627A5466906}
+		{FBC29720-37A4-4148-B013-BEC02FED7690} = {2C85BDD2-6ADC-47A6-9981-3627A5466906}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8608D4F2-FCE9-4E97-A888-360DDE22FF96}
