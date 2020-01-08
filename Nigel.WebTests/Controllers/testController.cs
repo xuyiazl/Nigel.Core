@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Nigel.Core.Razors;
+using Nigel.Drawing;
 
 namespace Nigel.WebTests.Controllers
 {
@@ -26,6 +27,17 @@ namespace Nigel.WebTests.Controllers
             await _razorHtmlGenerator.Generate();
 
             return new JsonResult("");
+        }
+
+        [Route("/api/verifycode")]
+        [HttpGet]
+        public async Task<IActionResult> VerifyCode()
+        {
+            CaptchaBuilder c = new CaptchaBuilder();
+            string code = c.GetCode(6, CaptchaType.ChineseChar);
+            var codeImage = c.CreateImage(code);
+            var codeBuffer = ImageHelper.ToBytes(codeImage);
+            return File(codeBuffer, @"image/jpeg");
         }
     }
 }

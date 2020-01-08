@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Nigel.WebTests.Models;
 using Nigel.Core.Razors;
 using Nigel.Helpers;
+using Nigel.Drawing;
 
 namespace Nigel.WebTests.Controllers
 {
