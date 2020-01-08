@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Description>
+      Nigel.Drawing是帮助类库。源自于Bing.Utils.Drawing，部分会跟随自己的习惯而修改或者新增，主要自用，三方如果使用请注意风险。
+      如果需使用建议使用Bing。nuget搜索Bing.Utils.Drawing。
+    </Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Authors>Nigel</Authors>
+    <Company>Nigel</Company>
+    <Description>.NET Core Common</Description>
+    <Copyright>Copyright © Nigel 2020</Copyright>
+    <Version>1.0.0</Version>
+    <PackageId>Nigel.Drawing</PackageId>
+    <Product>Nigel.Drawing</Product>
+    <PackageIconUrl>http://www.3624091.com/favicon.ico</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/xuyiazl/Nigel.Core</PackageProjectUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>obj\Release\netstandard2.1\Nigel.Drawing.xml</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>obj\Release\netstandard2.1\Nigel.Drawing.xml</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="ImageUtil.*.cs">
+      <DependentUpon>ImageUtil.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="ImageHelper.Convert.cs">
+      <DependentUpon>ImageHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ImageHelper.Info.cs">
+      <DependentUpon>ImageHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ImageHelper.Load.cs">
+      <DependentUpon>ImageHelper.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+</Project>

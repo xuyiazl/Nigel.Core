@@ -4,8 +4,6 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Nigel.Helpers;
-using Nigel.Json;
 
 namespace Nigel.Core.HttpFactory
 {
@@ -122,7 +120,7 @@ namespace Nigel.Core.HttpFactory
 
         private async Task<T> HttpSendAsync<T, TModel>(UrlArguments urlArguments, HttpMethod method, TModel postData, CancellationToken cancellationToken)
             where T : class, new()
-            => await HttpSendAsync<T>(urlArguments, method, () => postData == null ? null : new StringContent(postData.ToJson(), Encoding.UTF8, "application/json"), cancellationToken);
+            => await HttpSendAsync<T>(urlArguments, method, () => postData == null ? null : new StringContent(postData.ToJsonString(), Encoding.UTF8, "application/json"), cancellationToken);
 
         public virtual async Task<T> HttpSendAsync<T>(UrlArguments urlArguments, HttpMethod method, Func<HttpContent> contentCall, CancellationToken cancellationToken)
             where T : class, new()
@@ -130,7 +128,7 @@ namespace Nigel.Core.HttpFactory
             HttpClient client = HttpClientFactory.CreateClient(string.IsNullOrEmpty(urlArguments.ClientName) ? "apiClient" : urlArguments.ClientName);
 
             string requestUrl = urlArguments.Complete().Url;
-            
+
             /*
 
             string ipAddress = (headers.ContainsKey("HTTP_X_FORWARDED_FOR")) ? headers["HTTP_X_FORWARDED_FOR"].NullToEmpty() : headers["REMOTE_ADDR"].NullToEmpty();
@@ -167,7 +165,7 @@ namespace Nigel.Core.HttpFactory
 
                 string res = await responseMessage.Content.ReadAsStringAsync();
 
-                return res.ToObject<T>();
+                return res.ToJsonObject<T>();
             }
             else
             {
@@ -194,7 +192,7 @@ namespace Nigel.Core.HttpFactory
 
                 string res = await responseMessage.Content.ReadAsStringAsync();
 
-                return res.ToObject<T>();
+                return res.ToJsonObject<T>();
 
             }
         }
