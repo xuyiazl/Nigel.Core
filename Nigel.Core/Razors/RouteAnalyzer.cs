@@ -93,6 +93,7 @@ namespace Nigel.Core.Razors
                                 controllerActionDescriptor.MethodInfo.GetCustomAttribute<RazorHtmlAttribute>();
             if (htmlAttribute == null)
                 return false;
+
             routeInformation.FilePath = htmlAttribute.Path;
             routeInformation.TemplatePath = htmlAttribute.Template;
             routeInformation.IsPartialView = htmlAttribute.IsPartialView;

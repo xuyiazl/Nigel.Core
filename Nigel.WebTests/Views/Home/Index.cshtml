@@ -1,8 +1,15 @@
-﻿@{
+﻿@using Nigel.WebTests.Controllers;
+@{
     ViewData["Title"] = "Home Page";
+
+    var model = (ReturnModel)Model;
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>@(model.bodyMessage)</p>
+    <p>分割线</p>
+    <br />
+    @await Html.PartialAsync("IndexView");
 </div>

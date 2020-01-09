@@ -94,7 +94,7 @@ namespace Nigel.Core.Razors
                 var html = await RenderToStringAsync(info);
                 if (string.IsNullOrWhiteSpace(html))
                     return;
-                var path = Nigel.Helpers.Common.GetPhysicalPath(string.IsNullOrWhiteSpace(info.FilePath) ? GetPath(info) : info.FilePath);
+                var path = Nigel.Helpers.Common.GetWebRootPath(string.IsNullOrWhiteSpace(info.FilePath) ? GetPath(info) : info.FilePath);
                 var directory = System.IO.Path.GetDirectoryName(path);
                 if (string.IsNullOrWhiteSpace(directory))
                     return;

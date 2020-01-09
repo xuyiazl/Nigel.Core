@@ -11,6 +11,7 @@ using Nigel.Helpers;
 using Nigel.Drawing;
 using Nigel.Core.Filters;
 using Nigel.Core.HttpFactory;
+using Nigel.Core.Extensions;
 using System.Threading;
 
 namespace Nigel.WebTests.Controllers
@@ -27,10 +28,11 @@ namespace Nigel.WebTests.Controllers
         }
 
         [NoCache]
-        [RazorHtml(Path = "/static/home/index.html", ViewName = "Index")]
-        public async Task<IActionResult> Index(CancellationToken cancellationToken)
-        {
+        [RazorHtmlGenerate(Template = "/static/home/{id}.html")]
+        [Route("{id}")]
 
+        public async Task<IActionResult> Index(int id, CancellationToken cancellationToken)
+        {
             var url = UrlArguments.Create("test", $"/api/CommentsLive/GetPaged")
                  .Add("aid", 1539)
                  .Add("commentId", 0)
@@ -38,7 +40,19 @@ namespace Nigel.WebTests.Controllers
 
             var res = await _httpService.GetAsync<ReturnModel>(url, cancellationToken);
 
-            return View();
+            return View(res);
+        }
+
+        public async Task<IActionResult> IndexView()
+        {
+            var url = UrlArguments.Create("test", $"/api/CommentsLive/GetPaged")
+                 .Add("aid", 1539)
+                 .Add("commentId", 0)
+                 .Add("pageSize", 10000);
+
+            var res = await _httpService.GetAsync<ReturnModel>(url);
+
+            return View(res);
         }
 
         [RazorHtml(Path = "/static/home/privacy.html", ViewName = "Privacy")]

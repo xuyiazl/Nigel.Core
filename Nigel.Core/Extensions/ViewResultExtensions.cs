@@ -23,17 +23,18 @@ namespace Nigel.Core.Extensions
         /// </summary>
         /// <param name="result">视图结果</param>
         /// <param name="httpContext">Http上下文</param>
+        /// <param name="IsPartialView">是否部分视图，默认：false</param>
         /// <returns></returns>
-        public static string ToHtml(this ViewResult result, HttpContext httpContext)
+        public static string ToHtml(this ViewResult result, HttpContext httpContext, bool IsPartialView)
         {
-            var feature = httpContext.Features.Get<IRoutingFeature>();
-            var routeData = feature.RouteData;
+            var routeData = httpContext.GetRouteData();
+
             var viewName = result.ViewName ?? routeData.Values["action"] as string;
             var actionContext = new ActionContext(httpContext, routeData, new CompiledPageActionDescriptor());
             var options = httpContext.RequestServices.GetRequiredService<IOptions<MvcViewOptions>>();
             var htmlHelperOptions = options.Value.HtmlHelperOptions;
-            var viewEngineResult = result.ViewEngine?.FindView(actionContext, viewName, true) ?? options.Value
-                                       .ViewEngines.Select(x => x.FindView(actionContext, viewName, true))
+            var viewEngineResult = result.ViewEngine?.FindView(actionContext, viewName, !IsPartialView) ?? options.Value
+                                       .ViewEngines.Select(x => x.FindView(actionContext, viewName, !IsPartialView))
                                        .FirstOrDefault(x => x != null);
             var view = viewEngineResult.View;
             var builder = new StringBuilder();

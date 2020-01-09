@@ -1,12 +1,14 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using System;
 
 namespace Nigel.Core.Razors
 {
     /// <summary>
     /// Razor生成Html静态文件
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method,AllowMultiple = false, Inherited = false)]
-    public class RazorHtmlAttribute:Attribute
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
+    public class RazorHtmlAttribute : Attribute
     {
         /// <summary>
         /// 生成路径，相对根路径，范例：/Typings/app/app.component.html

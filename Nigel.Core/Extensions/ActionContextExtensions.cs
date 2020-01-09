@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Nigel.Extensions;
 using System;
 using System.Collections.Generic;
@@ -44,5 +45,12 @@ namespace Nigel.Core.Extensions
         /// <param name="context">操作上下文</param>
         /// <returns></returns>
         public static string GetActionName(this ActionContext context) => context.RouteData.Values["action"].ToString();
+
+        /// <summary>
+        /// 获取所有路由信息
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public static RouteValueDictionary GetRouteValues(this ActionContext context) => context.RouteData.Values;
     }
 }
