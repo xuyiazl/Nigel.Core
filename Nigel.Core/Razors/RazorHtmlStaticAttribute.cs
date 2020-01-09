@@ -16,7 +16,7 @@ namespace Nigel.Core.Razors
     /// Razor生成Html静态文件（保存目录为wwwroot）
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = false, Inherited = false)]
-    public class RazorHtmlGenerateAttribute : ActionFilterAttribute
+    public class RazorHtmlStaticAttribute : ActionFilterAttribute
     {
         /// <summary>
         /// 路径模板，范例：static/{area}/{controller}/{action}.component.html
@@ -77,7 +77,7 @@ namespace Nigel.Core.Razors
         /// <param name="viewResult"></param>
         protected void WriteHtml(ResultExecutedContext context, ViewResult viewResult)
         {
-            var _logger = Web.HttpContext.RequestServices.GetService<ILogger<RazorHtmlGenerateAttribute>>();
+            var _logger = Web.HttpContext.RequestServices.GetService<ILogger<RazorHtmlStaticAttribute>>();
             try
             {
                 var html = viewResult?.ToHtml(context.HttpContext, IsPartialView);

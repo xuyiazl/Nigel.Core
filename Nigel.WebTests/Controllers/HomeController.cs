@@ -28,7 +28,7 @@ namespace Nigel.WebTests.Controllers
         }
 
         [NoCache]
-        [RazorHtmlGenerate(Template = "/static/home/{id}.html")]
+        [RazorHtmlStatic(Template = "/static/home/{id}.html")]
         [Route("{id}")]
 
         public async Task<IActionResult> Index(int id, CancellationToken cancellationToken)
