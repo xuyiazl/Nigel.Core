@@ -330,6 +330,7 @@
         /// Builds the html for non-ajax based url based paging.
         /// </summary>
         /// <param name="urlBuilder"></param>
+        /// <param name="settings"></param>
         /// <returns></returns>
         public string ToHtml(Func<int, string> urlBuilder, PagerSettings settings)
         {

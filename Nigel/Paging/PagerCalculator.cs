@@ -114,7 +114,7 @@
         /// Get the total number of ranges.
         /// </summary>
         /// <param name="totalPages"></param>
-        /// <param name="settings"></param>
+        /// <param name="numberPagesToDisplay"></param>
         /// <returns></returns>
         private static int GetTotalRanges(int totalPages, int numberPagesToDisplay)
         {

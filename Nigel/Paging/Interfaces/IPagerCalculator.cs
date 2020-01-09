@@ -19,7 +19,7 @@
         /// <summary>
         /// Calculate pages
         /// </summary>
-        /// <param name="pagerData"></param>
+        /// <param name="pager"></param>
         /// <param name="settings"></param>
         void Calculate(Pager pager, PagerSettings settings);
     }

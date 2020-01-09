@@ -171,10 +171,9 @@ namespace Nigel.Tests
         /// <returns>压缩后的字符串</returns>
         public static string CompressString(string str)
         {
-            string compressString = "";
             byte[] compressBeforeByte = Encoding.GetEncoding("UTF-8").GetBytes(str);
             byte[] compressAfterByte = Compress(compressBeforeByte);
-            compressString = Convert.ToBase64String(compressAfterByte);
+            string compressString = Convert.ToBase64String(compressAfterByte);
             return compressString;
         }
 
@@ -213,11 +212,10 @@ namespace Nigel.Tests
         /// <returns>解压缩后的字符串</returns>
         public static string DecompressString(string str)
         {
-            string compressString = "";
             //byte[] compressBeforeByte = Encoding.GetEncoding("UTF-8").GetBytes(str);
             byte[] compressBeforeByte = Convert.FromBase64String(str);
             byte[] compressAfterByte = Decompress(compressBeforeByte);
-            compressString = Encoding.GetEncoding("UTF-8").GetString(compressAfterByte);
+            string compressString = Encoding.GetEncoding("UTF-8").GetString(compressAfterByte);
             return compressString;
         }
 
@@ -308,7 +306,7 @@ namespace Nigel.Tests
                 currentStr = targetStr.Replace(tempSpace, " ");
                 return currentStr;
             }
-            catch (Exception ex)
+            catch
             {
                 return targetStr;
             }

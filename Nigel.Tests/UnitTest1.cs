@@ -359,7 +359,7 @@ namespace Nigel.Tests
                 return;
             }
 
-            short sign = 1;
+            //short sign = 1;
             //int num = 0, tmp;
             //if (change < 0)
             //{

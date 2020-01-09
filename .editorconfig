@@ -2,3 +2,12 @@
 
 # CS1591: 缺少对公共可见类型或成员的 XML 注释
 dotnet_diagnostic.CS1591.severity = none
+
+# CS0162: 检测到无法访问的代码
+dotnet_diagnostic.CS0162.severity = none
+
+# CS1584: XML 注释中有语法错误的 cref 特性
+dotnet_diagnostic.CS1584.severity = none
+
+# CS1658: 警告正在重写错误
+dotnet_diagnostic.CS1658.severity = none

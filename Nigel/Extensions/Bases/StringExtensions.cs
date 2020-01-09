@@ -499,7 +499,7 @@ namespace Nigel.Extensions
                 return string.Empty;
             }
             var startIndex = xPos + x.Length;
-            return startIndex >= yPos ? string.Empty : value.Substring(startIndex, yPos - startIndex).Trim();
+            return startIndex >= yPos ? string.Empty : value[startIndex..yPos].Trim();
         }
 
         /// <summary>
@@ -527,7 +527,7 @@ namespace Nigel.Extensions
         /// <returns></returns>
         public static string SubstringFrom(this string value, int index)
         {
-            return index < 0 && index < value.Length ? value : value.Substring(index, value.Length - index);
+            return index < 0 && index < value.Length ? value : value[index..];
         }
         #endregion
 
@@ -805,11 +805,11 @@ namespace Nigel.Extensions
         /// 		object[] items = new object[] { "One".ParseStringToEnum《EnumTwo》(), "Two".ParseStringToEnum《EnumTwo》() };
         /// 	</code>
         /// </example>
-        public static TEnum ParseStringToEnum<TEnum>(this string value, bool ignorecase = default(bool))
+        public static TEnum ParseStringToEnum<TEnum>(this string value, bool ignorecase = default)
             where TEnum : struct
         {
             return value.IsItemInEnum<TEnum>()()
-                ? default(TEnum)
+                ? default
                 : (TEnum)Enum.Parse(typeof(TEnum), value, ignorecase);
         }
         #endregion

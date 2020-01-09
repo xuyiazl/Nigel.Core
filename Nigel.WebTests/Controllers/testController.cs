@@ -40,14 +40,14 @@ namespace Nigel.WebTests.Controllers
 
         [Route("/api/success")]
         [HttpGet]
-        public async Task<IActionResult> State()
+        public  IActionResult State()
         {
             return Success("000");
         }
 
         [Route("/api/fail")]
         [HttpGet]
-        public async Task<IActionResult> Fail()
+        public IActionResult Fail()
         {
             return Fail("000", "测试错误");
         }
