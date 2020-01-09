@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Nigel.Core.Collection.Paged
+namespace Nigel.Data.Collection.Paged
 {
 
     /// <summary>

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
-using Nigel.Core.Collection;
+using Nigel.Data.Collection;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Nigel.Core.DbRepositories
+namespace Nigel.Data.DbRepositories
 {
     public interface IDbSaveRepository<TEntity> where TEntity : class
     {

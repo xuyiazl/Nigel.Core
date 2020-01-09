@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Nigel.Extensions;
 
-namespace Nigel.Core.DbRepositories
+namespace Nigel.Data.DbRepositories
 {
     public partial class DbRepository<TEntity> : IDbRepository<TEntity> where TEntity : class
     {

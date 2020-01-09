@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Nigel.Core.Collection.Paged
+namespace Nigel.Data.Collection.Paged
 {
 
     [Serializable]

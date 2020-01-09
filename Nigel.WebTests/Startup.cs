@@ -32,7 +32,7 @@ namespace Nigel.WebTests
             //×¢²árazor¾²Ì¬HTMLÉú³ÉÆ÷
             services.AddRazorHtml();
 
-            services.AddHttpService<HttpService>("test", "http://www.xx.com");
+            services.AddHttpService<HttpService>("test", "http://testmswebapi.tostar.top");
 
             services.AddControllersWithViews(options =>
             {

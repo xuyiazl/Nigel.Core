@@ -6,9 +6,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using Nigel.Core.Collection;
+using Nigel.Data.Collection;
 
-namespace Nigel.Core.DbRepositories
+namespace Nigel.Data.DbRepositories
 {
     public partial class DbRepository<TEntity> : IDbRepository<TEntity> where TEntity : class
     {

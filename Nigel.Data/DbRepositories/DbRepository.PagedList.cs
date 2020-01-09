@@ -6,10 +6,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
-using Nigel.Core.Collection.Paged;
+using Nigel.Data.Collection.Paged;
 using Nigel.Extensions;
 
-namespace Nigel.Core.DbRepositories
+namespace Nigel.Data.DbRepositories
 {
     public partial class DbRepository<TEntity> : IDbRepository<TEntity> where TEntity : class
     {

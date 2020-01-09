@@ -1,4 +1,4 @@
-﻿namespace Nigel.Core.Collection.Paged
+﻿namespace Nigel.Data.Collection.Paged
 {
     /********************************************************************
     *           Copyright:       2009-2011
@@ -15,7 +15,7 @@
     using System.Text;
     using System.Data;
 
-    using Nigel.Core;
+    using Nigel.Data;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
     using System.Threading;

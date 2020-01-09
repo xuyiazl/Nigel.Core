@@ -42,7 +42,7 @@ namespace Nigel.WebTests.Controllers
         [HttpGet]
         public  IActionResult State()
         {
-            return Success("000");
+            return Success("000",new ReturnModel());
         }
 
         [Route("/api/fail")]

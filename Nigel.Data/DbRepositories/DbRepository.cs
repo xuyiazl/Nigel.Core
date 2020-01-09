@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
-namespace Nigel.Core.DbRepositories
+namespace Nigel.Data.DbRepositories
 {
     public partial class DbRepository<TEntity> : IDbRepository<TEntity> where TEntity : class
     {
