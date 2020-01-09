@@ -32,6 +32,8 @@ namespace Nigel.WebTests
             //注册razor静态HTML生成器
             services.AddRazorHtml();
 
+            services.AddHttpService<HttpService>("test", "http://www.xx.com");
+
             services.AddControllersWithViews(options =>
             {
                 //全局异常过滤器

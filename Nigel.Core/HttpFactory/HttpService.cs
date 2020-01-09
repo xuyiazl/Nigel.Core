@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -130,11 +131,8 @@ namespace Nigel.Core.HttpFactory
             HttpClient client = HttpClientFactory.CreateClient(string.IsNullOrEmpty(urlArguments.ClientName) ? "apiClient" : urlArguments.ClientName);
 
             string requestUrl = urlArguments.Complete().Url;
-            
+
             /*
-
-            string ipAddress = (headers.ContainsKey("HTTP_X_FORWARDED_FOR")) ? headers["HTTP_X_FORWARDED_FOR"].NullToEmpty() : headers["REMOTE_ADDR"].NullToEmpty();
-
             
             //如果使用了 nginx 反向代理，需要在nginx里配置，并使用该方法获取IP
 
@@ -154,9 +152,7 @@ namespace Nigel.Core.HttpFactory
                     RequestUri = new Uri(requestUrl)
                 };
 
-                requestMessage.Headers.Add("Accept-Encoding", "gzip,deflate");
-                requestMessage.Headers.Add("Accept", "application/json");
-                requestMessage.Headers.Add("ContentType", "application/json");
+                RequestHeaders(requestMessage.Headers);
 
                 var content = contentCall();
 
@@ -172,6 +168,8 @@ namespace Nigel.Core.HttpFactory
             else
             {
                 HttpResponseMessage responseMessage = null;
+
+                RequestHeaders(client.DefaultRequestHeaders);
 
                 switch (method.Method)
                 {
@@ -195,8 +193,17 @@ namespace Nigel.Core.HttpFactory
                 string res = await responseMessage.Content.ReadAsStringAsync();
 
                 return res.ToObject<T>();
-
             }
+        }
+
+        /// <summary>
+        /// 添加Headers消息头
+        /// </summary>
+        /// <param name="headers">header</param>
+        /// <param name="isDefault">是否是默认</param>
+        public virtual void RequestHeaders(HttpRequestHeaders headers)
+        {
+            headers.Add("ClientIP", Web.IP);
         }
 
         #endregion

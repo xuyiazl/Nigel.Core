@@ -50,6 +50,29 @@ namespace Nigel.Core.Extensions
         /// <summary>
         /// 注册 HttpFactory Service
         /// </summary>
+        /// <typeparam name="TImplementation"></typeparam>
+        /// <param name="services"></param>
+        /// <param name="clientName"></param>
+        /// <param name="baseAddress"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddHttpService<TImplementation>(this IServiceCollection services,
+            string clientName,
+            string baseAddress)
+            where TImplementation : class, IHttpService
+        {
+            services.AddHttpService<TImplementation>(clientName, c =>
+            {
+                c.BaseAddress = new Uri(baseAddress);
+                c.DefaultRequestHeaders.Add("Accept-Encoding", "gzip,deflate");
+                c.DefaultRequestHeaders.Add("Accept", "application/json");
+            }, TimeSpan.FromSeconds(6), ServiceLifetime.Singleton);
+
+            return services;
+        }
+
+        /// <summary>
+        /// 注册 HttpFactory Service
+        /// </summary>
         /// <param name="services"></param>
         /// <param name="clientName"></param>
         /// <param name="configureClient"></param>
@@ -137,7 +160,11 @@ namespace Nigel.Core.Extensions
 
             services.AddPolicyRegistry();
 
-            services.AddHttpClient(clientName)
+            services.AddHttpClient(clientName, client =>
+                {
+                    client.DefaultRequestHeaders.Add("Accept-Encoding", "gzip,deflate");
+                    client.DefaultRequestHeaders.Add("Accept", "application/json");
+                })
                 .ConfigurePrimaryHttpMessageHandler(func)
                 .SetHandlerLifetime(httpClientLeftTime);
 
