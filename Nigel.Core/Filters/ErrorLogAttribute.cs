@@ -34,7 +34,7 @@ namespace Nigel.Core.Filters
             }
             else
             {
-                var logger = Web.HttpContext.RequestServices.GetService<ILogger<ErrorLogAttribute>>();
+                var logger = Web.GetService<ILogger<ErrorLogAttribute>>();
 
                 var areaName = context.GetAreaName();
                 var controllerName = context.GetControllerName();

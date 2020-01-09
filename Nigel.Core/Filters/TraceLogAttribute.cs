@@ -47,7 +47,7 @@ namespace Nigel.Core.Filters
             if (next == null)
                 throw new ArgumentNullException(nameof(next));
 
-            _logger = Web.HttpContext.RequestServices.GetService<ILogger<ErrorLogAttribute>>();
+            _logger = Web.GetService<ILogger<ErrorLogAttribute>>();
 
             Str logString = new Str();
             OnActionExecuting(context);

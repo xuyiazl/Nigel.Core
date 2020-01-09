@@ -77,7 +77,7 @@ namespace Nigel.Core.Razors
         /// <param name="viewResult"></param>
         protected void WriteHtml(ResultExecutedContext context, ViewResult viewResult)
         {
-            var _logger = Web.HttpContext.RequestServices.GetService<ILogger<RazorHtmlStaticAttribute>>();
+            var _logger = Web.GetService<ILogger<RazorHtmlStaticAttribute>>();
             try
             {
                 var html = viewResult?.ToHtml(context.HttpContext, IsPartialView);

@@ -58,8 +58,8 @@ namespace Nigel.Core.Razors
         /// <returns></returns>
         public async Task<string> RenderToStringAsync(RouteInformation info)
         {
-            var razorViewEngine = Web.HttpContext.RequestServices.GetService<IRazorViewEngine>();
-            var tempDataProvider = Web.HttpContext.RequestServices.GetService<ITempDataProvider>();
+            var razorViewEngine = Web.GetService<IRazorViewEngine>();
+            var tempDataProvider = Web.GetService<ITempDataProvider>();
             var httpContext = Web.HttpContext;
 
             //var serviceProvider = Web.HttpContext.RequestServices;

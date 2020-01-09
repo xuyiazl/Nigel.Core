@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Http.Internal;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Nigel.Helpers
 {
@@ -39,6 +40,16 @@ namespace Nigel.Helpers
         /// 当前Http上下文
         /// </summary>
         public static HttpContext HttpContext => HttpContextAccessor?.HttpContext;
+
+        #endregion
+
+        #region IServiceProvider(Http上下文中获取服务)
+        /// <summary>
+        /// Http上下文中获取服务
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static T GetService<T>() => HttpContext.RequestServices.GetService<T>();
 
         #endregion
 
@@ -483,7 +494,7 @@ namespace Nigel.Helpers
         /// <param name="encode">编码字符串</param>
         private static string GetUpperEncode(string encode)
         {
-            var result=new StringBuilder();
+            var result = new StringBuilder();
             int index = int.MinValue;
             for (int i = 0; i < encode.Length; i++)
             {
@@ -558,7 +569,7 @@ namespace Nigel.Helpers
             Response.Headers.Add("Content-Disposition", "attachment;filename=" + WebUtility.UrlEncode(Path.GetFileName(stream.Name)));
             Response.Headers.Add("Content-Length", size.ToString());
 
-            Task.Run(async () => { await Response.Body.WriteAsync(buffer, 0, (int) size); }).GetAwaiter().GetResult();
+            Task.Run(async () => { await Response.Body.WriteAsync(buffer, 0, (int)size); }).GetAwaiter().GetResult();
             Response.Body.Close();
         }
 
