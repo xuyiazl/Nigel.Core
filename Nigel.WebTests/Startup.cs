@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Nigel.Core.Extensions;
+using Nigel.Core.Filters;
 using Nigel.Core.HttpFactory;
 using Nigel.Core.Logging.Log4Net;
 
@@ -28,8 +29,14 @@ namespace Nigel.WebTests
         {
             services.AddHttpService<HttpService>(TimeSpan.FromSeconds(6));
 
+            //注册razor静态HTML生成器
             services.AddRazorHtml();
-            services.AddControllersWithViews();
+
+            services.AddControllersWithViews(options =>
+            {
+                //全局异常过滤器
+                //options.Filters.Add<ExceptionHandlerAttribute>();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,12 +51,16 @@ namespace Nigel.WebTests
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            //注册log4net日志
             loggerFactory.AddLog4Net();
-
+            //注册真实IP中间件
             app.UseRealIp();
+            //启用静态请求上下文
             app.UseStaticHttpContext();
-            app.UseRequestLog();
-            app.UseErrorLog();
+            //全局请求日志中间件
+            //app.UseRequestLog();
+            //全局错误日志中间件
+            //app.UseErrorLog();
 
             app.UseStaticFiles();
 

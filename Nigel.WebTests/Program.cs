@@ -25,6 +25,7 @@ namespace Nigel.WebTests
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
+                    //зЂВсецЪЕIP
                     .UseRealIp()
                     .UseStartup<Startup>();
                 });

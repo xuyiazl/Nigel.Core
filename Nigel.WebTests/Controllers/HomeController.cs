@@ -9,6 +9,7 @@ using Nigel.WebTests.Models;
 using Nigel.Core.Razors;
 using Nigel.Helpers;
 using Nigel.Drawing;
+using Nigel.Core.Filters;
 
 namespace Nigel.WebTests.Controllers
 {
@@ -21,6 +22,7 @@ namespace Nigel.WebTests.Controllers
             _logger = logger;
         }
 
+        [NoCache]
         [RazorHtml(Path = "/static/home/index.html", ViewName = "Index")]
         public IActionResult Index()
         {

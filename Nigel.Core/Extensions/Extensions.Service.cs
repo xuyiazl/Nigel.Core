@@ -26,6 +26,7 @@ namespace Nigel.Core.Extensions
         /// <returns></returns>
         public static IServiceCollection AddRazorHtml(this IServiceCollection services)
         {
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IRouteAnalyzer, RouteAnalyzer>();
             services.AddScoped<IRazorHtmlGenerator, DefaultRazorHtmlGenerator>();
             return services;

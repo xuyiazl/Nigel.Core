@@ -1,0 +1,103 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Nigel.Extensions;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Nigel.Core
+{
+    /// <summary>
+    /// 返回结果
+    /// </summary>
+    public class Result : JsonResult
+    {
+        /// <summary>
+        /// 状态码
+        /// </summary>
+        public int Code { get; }
+        /// <summary>
+        /// 业务状态码
+        /// </summary>
+        public string SubCode { get; }
+        /// <summary>
+        /// 消息
+        /// </summary>
+        public string Message { get; }
+        /// <summary>
+        /// 数据
+        /// </summary>
+        public dynamic Data { get; }
+        /// <summary>
+        /// 操作时间
+        /// </summary>
+        public DateTime OperationTime { get; }
+
+        /// <summary>
+        /// 初始化一个<see cref="Result"/>类型的实例
+        /// </summary>
+        /// <param name="code">状态码</param>
+        /// <param name="subCode">业务状态码</param>
+        /// <param name="message">消息</param>
+        /// <param name="data">数据</param>
+        public Result(int code, string subCode, string message, dynamic data = null) : base(null)
+        {
+            Code = code;
+            SubCode = subCode;
+            Message = message;
+            Data = data;
+            OperationTime = DateTime.Now;
+        }
+
+        /// <summary>
+        /// 初始化返回结果
+        /// </summary>
+        /// <param name="code">状态码</param>
+        /// <param name="subCode">业务状态码</param>
+        /// <param name="message">消息</param>
+        /// <param name="data">数据</param>
+        public Result(StateCode code, string subCode, string message, dynamic data = null) : base(null)
+        {
+            Code = code.Value();
+            SubCode = subCode;
+            Message = message;
+            Data = data;
+            OperationTime = DateTime.Now;
+        }
+
+        /// <summary>
+        /// 执行结果
+        /// </summary>
+        public override Task ExecuteResultAsync(ActionContext context)
+        {
+            if (context == null)
+                throw new ArgumentNullException(nameof(context));
+            this.Value = new
+            {
+                Code = Code,
+                Message = Message,
+                OperationTime = OperationTime,
+                Data = Data
+            };
+            return base.ExecuteResultAsync(context);
+        }
+    }
+
+    /// <summary>
+    /// 状态码
+    /// </summary>
+    public enum StateCode
+    {
+        /// <summary>
+        /// 成功
+        /// </summary>
+        [Description("成功")]
+        Ok = 0,
+        /// <summary>
+        /// 失败
+        /// </summary>
+        [Description("失败")]
+        Fail = -1
+    }
+}

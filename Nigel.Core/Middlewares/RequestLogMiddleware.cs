@@ -91,8 +91,11 @@ namespace Nigel.Core.Middlewares
                 return;
             }
 
-            _logger.LogInformation($"请求日志中间件 - IP：{context.Connection.RemoteIpAddress.ToString()} 请求耗时：{stopwatch.Elapsed.TotalMilliseconds} 毫秒 ， 请求方法：{context.Request.Method}，请求地址：{context.Request.Scheme}://{context.Request.Host}{context.Request.Path}{context.Request.QueryString} ");
-            
+            if (_logger.IsEnabled(LogLevel.Trace))
+            {
+                _logger.LogTrace($"请求日志中间件 - IP：{context.Connection.RemoteIpAddress.ToString()} 请求耗时：{stopwatch.Elapsed.TotalMilliseconds} 毫秒 ， 请求方法：{context.Request.Method}，请求地址：{context.Request.Scheme}://{context.Request.Host}{context.Request.Path}{context.Request.QueryString} ");
+            }
+
             //await FormatRequestAsync(context.Request);
             await FormatResponseAsync(context.Response);
 

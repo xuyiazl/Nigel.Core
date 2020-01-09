@@ -56,7 +56,10 @@ namespace Nigel.Core.Middlewares
             if (context == null)
                 return;
 
-            _logger.LogError(exception, $"全局异常捕获 - 错误日志中间件 - 状态码：{context.Response.StatusCode}");
+            if (_logger.IsEnabled(LogLevel.Error))
+            {
+                _logger.LogError(exception, $"全局异常捕获 - 错误日志中间件 - 状态码：{context.Response.StatusCode}");
+            }
         }
     }
 }

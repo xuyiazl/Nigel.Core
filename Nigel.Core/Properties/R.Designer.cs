@@ -61,6 +61,15 @@ namespace Nigel.Core.Properties {
         }
         
         /// <summary>
+        ///   查找类似 您已取消该操作 的本地化字符串。
+        /// </summary>
+        public static string CanceledMessage {
+            get {
+                return ResourceManager.GetString("CanceledMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 删除成功 的本地化字符串。
         /// </summary>
         public static string DeleteSuccess {

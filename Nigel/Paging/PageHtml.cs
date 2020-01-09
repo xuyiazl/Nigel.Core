@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Nigel.Core.Paging
+namespace Nigel.Paging
 {
     /// <summary>
     /// page分页html

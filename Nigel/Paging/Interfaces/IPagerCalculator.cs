@@ -1,4 +1,4 @@
-﻿namespace Nigel.Core.Paging
+﻿namespace Nigel.Paging
 {
     /********************************************************************
     *           Copyright:       2009-2010
