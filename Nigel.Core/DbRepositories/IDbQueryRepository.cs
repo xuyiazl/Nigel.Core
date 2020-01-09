@@ -30,8 +30,8 @@ namespace Nigel.Core.DbRepositories
         int Count(Expression<Func<TEntity, bool>> filter = null);
         Task<int> CountAsync(Expression<Func<TEntity, bool>> filter = null);
         Task<int> CountAsync(Expression<Func<TEntity, bool>> filter = null, CancellationToken cancellationToken = default);
-        EntityEntry Entry([NotNull] object entity);
-        EntityEntry<TEntity> Entry([NotNull] TEntity entity);
+        EntityEntry Entry(object entity);
+        EntityEntry<TEntity> Entry(TEntity entity);
         TEntity GetEntity(Expression<Func<TEntity, bool>> selector = null);
         TEntity GetEntity<TOrder>(Expression<Func<TEntity, bool>> selector = null, Expression<Func<TEntity, TOrder>> orderBy = null, bool orderDesc = false);
         TEntity GetEntity(Expression<Func<TEntity, bool>> selector = null, string orderBy = "");

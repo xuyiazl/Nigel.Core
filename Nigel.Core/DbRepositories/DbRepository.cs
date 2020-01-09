@@ -37,12 +37,12 @@ namespace Nigel.Core.DbRepositories
                 return Table.AsQueryable();
         }
 
-        public EntityEntry Entry([NotNull] object entity)
+        public EntityEntry Entry(object entity)
         {
             return this.Context.Entry(entity);
         }
 
-        public EntityEntry<TEntity> Entry([NotNull] TEntity entity)
+        public EntityEntry<TEntity> Entry(TEntity entity)
         {
             return this.Context.Entry<TEntity>(entity);
         }

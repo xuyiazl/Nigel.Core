@@ -149,45 +149,45 @@ namespace Nigel.Core.HttpFactory
             where T : class, new();
 
 
-        /// <summary>
-        /// 异步PATCH
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="TModel"></typeparam>
-        /// <param name="urlArguments"></param>
-        /// <param name="postData"></param>
-        /// <returns></returns>
-        Task<T> PatchAsync<T, TModel>(UrlArguments urlArguments, TModel postData)
-            where T : class, new();
-        /// <summary>
-        /// 异步PATCH
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="TModel"></typeparam>
-        /// <param name="urlArguments"></param>
-        /// <param name="postData"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        Task<T> PatchAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken)
-            where T : class, new();
-        /// <summary>
-        /// 异步PATCH
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="urlArguments"></param>
-        /// <param name="urlParamter"></param>
-        /// <returns></returns>
-        Task<T> PatchAsync<T>(UrlArguments urlArguments, HttpFormData urlParamter)
-            where T : class, new();
-        /// <summary>
-        /// 异步PATCH
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="urlArguments"></param>
-        /// <param name="urlParamter"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        Task<T> PatchAsync<T>(UrlArguments urlArguments, HttpFormData urlParamter, CancellationToken cancellationToken)
-            where T : class, new();
+        ///// <summary>
+        ///// 异步PATCH
+        ///// </summary>
+        ///// <typeparam name="T"></typeparam>
+        ///// <typeparam name="TModel"></typeparam>
+        ///// <param name="urlArguments"></param>
+        ///// <param name="postData"></param>
+        ///// <returns></returns>
+        //Task<T> PatchAsync<T, TModel>(UrlArguments urlArguments, TModel postData)
+        //    where T : class, new();
+        ///// <summary>
+        ///// 异步PATCH
+        ///// </summary>
+        ///// <typeparam name="T"></typeparam>
+        ///// <typeparam name="TModel"></typeparam>
+        ///// <param name="urlArguments"></param>
+        ///// <param name="postData"></param>
+        ///// <param name="cancellationToken"></param>
+        ///// <returns></returns>
+        //Task<T> PatchAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken)
+        //    where T : class, new();
+        ///// <summary>
+        ///// 异步PATCH
+        ///// </summary>
+        ///// <typeparam name="T"></typeparam>
+        ///// <param name="urlArguments"></param>
+        ///// <param name="urlParamter"></param>
+        ///// <returns></returns>
+        //Task<T> PatchAsync<T>(UrlArguments urlArguments, HttpFormData urlParamter)
+        //    where T : class, new();
+        ///// <summary>
+        ///// 异步PATCH
+        ///// </summary>
+        ///// <typeparam name="T"></typeparam>
+        ///// <param name="urlArguments"></param>
+        ///// <param name="urlParamter"></param>
+        ///// <param name="cancellationToken"></param>
+        ///// <returns></returns>
+        //Task<T> PatchAsync<T>(UrlArguments urlArguments, HttpFormData urlParamter, CancellationToken cancellationToken)
+        //    where T : class, new();
     }
 }

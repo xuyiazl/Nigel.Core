@@ -449,11 +449,10 @@ namespace Nigel.Extensions
             {
                 separator = string.Empty;
             }
-            Converter<T, string> converter = o => o.ToString();
             StringBuilder sb = new StringBuilder();
             sb.Append(value);
             sb.Append(separator);
-            sb.Append(string.Join(separator, Array.ConvertAll(obj, converter)));
+            sb.Append(string.Join(separator, Array.ConvertAll(obj, o => o.ToString())));
             return sb.ToString();
         }
 
@@ -499,7 +498,7 @@ namespace Nigel.Extensions
                 return string.Empty;
             }
             var startIndex = xPos + x.Length;
-            return startIndex >= yPos ? string.Empty : value[startIndex..yPos].Trim();
+            return startIndex >= yPos ? string.Empty : value.Substring(startIndex, yPos - startIndex).Trim();
         }
 
         /// <summary>
@@ -527,7 +526,7 @@ namespace Nigel.Extensions
         /// <returns></returns>
         public static string SubstringFrom(this string value, int index)
         {
-            return index < 0 && index < value.Length ? value : value[index..];
+            return index < 0 && index < value.Length ? value : value.Substring(index, value.Length - index);
         }
         #endregion
 

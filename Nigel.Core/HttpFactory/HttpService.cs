@@ -74,25 +74,25 @@ namespace Nigel.Core.HttpFactory
 
         #endregion
 
-        #region [ PATCH ]
+        //#region [ PATCH ]
 
-        public async Task<T> PatchAsync<T, TModel>(UrlArguments urlArguments, TModel postData)
-            where T : class, new()
-            => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Patch, postData, CancellationToken.None);
+        //public async Task<T> PatchAsync<T, TModel>(UrlArguments urlArguments, TModel postData)
+        //    where T : class, new()
+        //    => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Patch, postData, CancellationToken.None);
 
-        public async Task<T> PatchAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken)
-            where T : class, new()
-            => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Patch, postData, cancellationToken);
+        //public async Task<T> PatchAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken)
+        //    where T : class, new()
+        //    => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Patch, postData, cancellationToken);
 
-        public async Task<T> PatchAsync<T>(UrlArguments urlArguments, HttpFormData formData)
-            where T : class, new()
-            => await HttpSendAsync<T>(urlArguments, HttpMethod.Patch, formData, CancellationToken.None);
+        //public async Task<T> PatchAsync<T>(UrlArguments urlArguments, HttpFormData formData)
+        //    where T : class, new()
+        //    => await HttpSendAsync<T>(urlArguments, HttpMethod.Patch, formData, CancellationToken.None);
 
-        public async Task<T> PatchAsync<T>(UrlArguments urlArguments, HttpFormData formData, CancellationToken cancellationToken)
-            where T : class, new()
-            => await HttpSendAsync<T>(urlArguments, HttpMethod.Patch, formData, cancellationToken);
+        //public async Task<T> PatchAsync<T>(UrlArguments urlArguments, HttpFormData formData, CancellationToken cancellationToken)
+        //    where T : class, new()
+        //    => await HttpSendAsync<T>(urlArguments, HttpMethod.Patch, formData, cancellationToken);
 
-        #endregion
+        //#endregion
 
         #region [ DELETE ]
 
@@ -185,9 +185,9 @@ namespace Nigel.Core.HttpFactory
                     case "DELETE":
                         responseMessage = await client.DeleteAsync(requestUrl, cancellationToken);
                         break;
-                    case "PATCH":
-                        responseMessage = await client.PatchAsync(requestUrl, contentCall(), cancellationToken);
-                        break;
+                    //case "PATCH":
+                    //    responseMessage = await client.PatchAsync(requestUrl, contentCall(), cancellationToken);
+                    //    break;
                 }
 
                 string res = await responseMessage.Content.ReadAsStringAsync();
