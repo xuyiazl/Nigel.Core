@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Nigel.Core.Extensions
 {
@@ -27,6 +28,8 @@ namespace Nigel.Core.Extensions
         /// <returns></returns>
         public static string ToHtml(this ViewResult result, HttpContext httpContext, bool IsPartialView)
         {
+            if (result == null) return string.Empty;
+
             var routeData = httpContext.GetRouteData();
 
             var viewName = result.ViewName ?? routeData.Values["action"] as string;

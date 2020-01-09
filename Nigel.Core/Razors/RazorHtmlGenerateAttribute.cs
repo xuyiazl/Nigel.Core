@@ -28,9 +28,44 @@ namespace Nigel.Core.Razors
         /// </summary>
         public bool IsPartialView { get; set; } = false;
 
+        /// <summary>
+        /// 动作执行之前 before
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="next"></param>
+        /// <returns></returns>
+        public override Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+        {
+            return base.OnActionExecutionAsync(context, next);
+        }
+
+        /// <summary>
+        /// 动作执行之后 after
+        /// </summary>
+        /// <param name="context"></param>
+        public override void OnActionExecuted(ActionExecutedContext context)
+        {
+            base.OnActionExecuted(context);
+        }
+
+        /// <summary>
+        /// 结果执行之前 before
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="next"></param>
+        /// <returns></returns>
+        public override async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
+        {
+            await base.OnResultExecutionAsync(context, next);
+        }
+
+        /// <summary>
+        /// 结果执行之后 after
+        /// </summary>
+        /// <param name="context"></param>
         public override void OnResultExecuted(ResultExecutedContext context)
         {
-            WriteHtml(context, context.Result as ViewResult);
+            WriteHtml(context, (ViewResult)context.Result);
 
             base.OnResultExecuted(context);
         }
@@ -45,7 +80,7 @@ namespace Nigel.Core.Razors
             var _logger = Web.HttpContext.RequestServices.GetService<ILogger<RazorHtmlGenerateAttribute>>();
             try
             {
-                var html = viewResult.ToHtml(context.HttpContext, IsPartialView);
+                var html = viewResult?.ToHtml(context.HttpContext, IsPartialView);
 
                 if (string.IsNullOrWhiteSpace(html)) return;
 
