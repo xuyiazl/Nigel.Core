@@ -14,7 +14,7 @@ namespace Nigel.Core.Filters
     /// API错误日志过滤器
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-    public class ErrorLogAttribute : ExceptionFilterAttribute
+    public class ApiErrorAttribute : ExceptionFilterAttribute
     {
         /// <summary>
         /// 异常处理
@@ -34,7 +34,7 @@ namespace Nigel.Core.Filters
             }
             else
             {
-                var logger = Web.GetService<ILogger<ErrorLogAttribute>>();
+                var logger = Web.GetService<ILogger<ApiErrorAttribute>>();
 
                 if (logger.IsEnabled(LogLevel.Error))
                 {

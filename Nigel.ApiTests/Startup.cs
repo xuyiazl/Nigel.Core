@@ -11,11 +11,10 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Nigel.Core.Extensions;
-using Nigel.Core.Filters;
 using Nigel.Core.HttpFactory;
 using Nigel.Core.Logging.Log4Net;
 
-namespace Nigel.WebTests
+namespace Nigel.ApiTests
 {
     public class Startup
     {
@@ -30,17 +29,9 @@ namespace Nigel.WebTests
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpService<HttpService>(TimeSpan.FromSeconds(6));
-
-            //注册razor静态HTML生成器
-            services.AddRazorHtml();
-
             services.AddHttpService<HttpService>("test", "http://testmswebapi.tostar.top");
 
-            services.AddControllersWithViews(options =>
-            {
-                //全局异常过滤器
-                //options.Filters.Add<ExceptionHandlerAttribute>();
-            })
+            services.AddControllers()
             .AddNewtonsoftJson(options =>
             {
                 //需要引入nuget
@@ -53,6 +44,7 @@ namespace Nigel.WebTests
                 options.SerializerSettings.MissingMemberHandling = MissingMemberHandling.Ignore;
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,10 +54,6 @@ namespace Nigel.WebTests
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
 
             //注册log4net日志
             loggerFactory.AddLog4Net();
@@ -73,12 +61,6 @@ namespace Nigel.WebTests
             app.UseRealIp();
             //启用静态请求上下文
             app.UseStaticHttpContext();
-            //全局请求日志中间件
-            //app.UseRequestLog();
-            //全局错误日志中间件
-            //app.UseErrorLog();
-
-            app.UseStaticFiles();
 
             app.UseRouting();
 
@@ -86,9 +68,10 @@ namespace Nigel.WebTests
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapAreaControllerRoute(
+                   name: "areas", "areas",
+                   pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllers();
             });
         }
     }

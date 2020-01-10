@@ -13,8 +13,9 @@ namespace Nigel.Core.Controllers
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
-    [ErrorLog]
-    [TraceLog]
+    [ApiError]
+    [ApiTrace]
+    [ApiElapsedTime]
     public abstract class ApiControllerBase : Controller
     {
         public ApiControllerBase(ILogger logger)

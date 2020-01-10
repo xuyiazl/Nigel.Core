@@ -16,12 +16,12 @@ namespace Nigel.Core.Filters
 {
 
     /// <summary>
-    /// 跟踪日志过滤器
+    /// API跟踪日志过滤器
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-    public class TraceLogAttribute : ActionFilterAttribute
+    public class ApiTraceAttribute : ActionFilterAttribute
     {
-        public TraceLogAttribute()
+        public ApiTraceAttribute()
         {
         }
         /// <summary>
@@ -47,7 +47,7 @@ namespace Nigel.Core.Filters
             if (next == null)
                 throw new ArgumentNullException(nameof(next));
 
-            _logger = Web.GetService<ILogger<ErrorLogAttribute>>();
+            _logger = Web.GetService<ILogger<ApiErrorAttribute>>();
 
             Str logString = new Str();
             OnActionExecuting(context);

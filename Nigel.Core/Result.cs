@@ -33,6 +33,10 @@ namespace Nigel.Core
         /// 操作时间
         /// </summary>
         public DateTime OperationTime { get; }
+        /// <summary>
+        /// 请求耗时
+        /// </summary>
+        public long ElapsedTime { get; set; }
 
         /// <summary>
         /// 初始化一个<see cref="Result"/>类型的实例
@@ -48,6 +52,7 @@ namespace Nigel.Core
             Message = message;
             Data = data;
             OperationTime = DateTime.Now;
+            ElapsedTime = -1;
         }
 
         /// <summary>
@@ -64,6 +69,7 @@ namespace Nigel.Core
             Message = message;
             Data = data;
             OperationTime = DateTime.Now;
+            ElapsedTime = -1;
         }
 
         /// <summary>
@@ -76,7 +82,9 @@ namespace Nigel.Core
             this.Value = new
             {
                 Code,
+                SubCode,
                 Message,
+                ElapsedTime,
                 OperationTime,
                 Data
             };
