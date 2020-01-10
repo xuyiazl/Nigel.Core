@@ -165,6 +165,23 @@ namespace Nigel.Extensions
 
         #endregion
 
+        #region DateDiff(时间间隔)
+
+        /// <summary>
+        /// 时间间隔
+        /// </summary>
+        /// <param name="dateBegin">开始时间</param>
+        /// <param name="dateEnd">结束时间</param>
+        /// <returns>返回(秒)单位，比如: 0.00239秒</returns>
+        public static TimeSpan DateDiff(this DateTime dateBegin, DateTime dateEnd)
+        {
+            TimeSpan ts1 = new TimeSpan(dateBegin.Ticks);
+            TimeSpan ts2 = new TimeSpan(dateEnd.Ticks);
+            return ts1.Subtract(ts2).Duration();
+        }
+
+        #endregion
+
         #region Description(获取描述)
 
         /// <summary>

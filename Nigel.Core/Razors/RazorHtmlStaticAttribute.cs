@@ -7,8 +7,10 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Nigel.Helpers;
 using Nigel.Extensions;
 using Nigel.Core.Extensions;
+using Nigel.IO;
 using System.Threading.Tasks;
 using System.Text;
+using Microsoft.AspNetCore.Routing;
 
 namespace Nigel.Core.Razors
 {
@@ -24,29 +26,14 @@ namespace Nigel.Core.Razors
         public string Template { get; set; }
 
         /// <summary>
+        /// 生成的最小间隔，单位（秒），比如设置5分钟，那么5分钟之内不会再生成
+        /// </summary>
+        public int MinInterval { get; set; } = 0;
+
+        /// <summary>
         /// 是否部分视图，默认：false
         /// </summary>
         public bool IsPartialView { get; set; } = false;
-
-        /// <summary>
-        /// 动作执行之前 before
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="next"></param>
-        /// <returns></returns>
-        public override Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
-        {
-            return base.OnActionExecutionAsync(context, next);
-        }
-
-        /// <summary>
-        /// 动作执行之后 after
-        /// </summary>
-        /// <param name="context"></param>
-        public override void OnActionExecuted(ActionExecutedContext context)
-        {
-            base.OnActionExecuted(context);
-        }
 
         /// <summary>
         /// 结果执行之前 before
@@ -65,9 +52,30 @@ namespace Nigel.Core.Razors
         /// <param name="context"></param>
         public override void OnResultExecuted(ResultExecutedContext context)
         {
-            WriteHtml(context, (ViewResult)context.Result);
+            if (IsBuildHtml(context))
+                WriteHtml(context, (ViewResult)context.Result);
 
             base.OnResultExecuted(context);
+        }
+
+        /// <summary>
+        /// 根据条件判断是否允许生成HTML
+        /// </summary>
+        /// <param name="routes"></param>
+        /// <returns></returns>
+        protected bool IsBuildHtml(ResultExecutedContext context)
+        {
+            if (MinInterval <= 0) return true;
+
+            string path = Common.GetWebRootPath(context.RouteReplace(Template));
+
+            FileInfo fi = new FileInfo(path);
+
+            if (!fi.Exists) return true;
+
+            var time = fi.LastWriteTime.DateDiff(DateTime.Now);
+
+            return time >= TimeSpan.FromSeconds(MinInterval);
         }
 
         /// <summary>
@@ -84,49 +92,14 @@ namespace Nigel.Core.Razors
 
                 if (string.IsNullOrWhiteSpace(html)) return;
 
-                var path = Nigel.Helpers.Common.GetWebRootPath(GetPath(context));
+                var path = Common.GetWebRootPath(context.RouteReplace(Template));
 
-                Save(html, path);
+                FileHelper.Create(path, html);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "生成html静态文件失败");
             }
-        }
-
-        /// <summary>
-        /// 获取实际地址，路由参数进行替换
-        /// </summary>
-        /// <param name="context"></param>
-        /// <returns></returns>
-        protected string GetPath(ResultExecutedContext context)
-        {
-            var path = Template;
-            foreach (var route in context.GetRouteValues())
-                path = path.Replace("{" + route.Key + "}", route.Value.SafeString());
-            return path.ToLower();
-        }
-
-        /// <summary>
-        /// 这里采用新创建临时文件 再拷贝 ， 避免引起IO独占的问题  
-        /// </summary>
-        /// <param name="html"></param>
-        /// <param name="path"></param>
-        protected void Save(string html, string path)
-        {
-            var tmpPath = $"{path}.tmp";
-
-            FileInfo fi = new FileInfo(tmpPath);
-
-            if (!fi.Directory.Exists)
-                fi.Directory.Create();
-
-            using (var fs = fi.OpenWrite())
-                fs.Write(html, Encoding.UTF8);
-
-            fi.CopyTo(path, true);
-
-            fi.Delete();
         }
     }
 }

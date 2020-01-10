@@ -17,6 +17,33 @@ namespace Nigel.IO
     /// </summary>
     public static partial class FileHelper
     {
+
+        #region Create(创建临时文件 再拷贝 ， 避免引起IO独占的问题)
+
+        /// <summary>
+        /// 创建临时文件 再拷贝 ， 避免引起IO独占的问题  
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="content"></param>
+        public static void Create(string filePath, string content)
+        {
+            var tmpPath = $"{filePath}.tmp";
+
+            FileInfo fi = new FileInfo(tmpPath);
+
+            if (!fi.Directory.Exists)
+                fi.Directory.Create();
+
+            using (var fs = fi.OpenWrite())
+                fs.Write(content, Encoding.UTF8);
+
+            fi.CopyTo(filePath, true);
+
+            fi.Delete();
+        }
+
+        #endregion
+
         #region CreateIfNotExists(创建文件，如果文件不存在)
 
         /// <summary>
@@ -455,7 +482,7 @@ namespace Nigel.IO
         /// <param name="delete">分割后是否删除源文件</param>
         /// <param name="encrypt">是否加密</param>
         /// <param name="sign">签名</param>
-        public static void Split(string file, string dirPath,string suffix = "bin", int size = 2048, bool delete = false, bool encrypt = false,
+        public static void Split(string file, string dirPath, string suffix = "bin", int size = 2048, bool delete = false, bool encrypt = false,
             int sign = 0)
         {
             if (string.IsNullOrWhiteSpace(file) || !File.Exists(file))
@@ -466,13 +493,13 @@ namespace Nigel.IO
             var fileName = Path.GetFileNameWithoutExtension(file);
             var fileSize = GetFileSize(file);
             var total = GetSplitFileTotal(fileSize.GetSize(), size);
-            using (var rs=new FileStream(file, FileMode.Open,FileAccess.Read))
+            using (var rs = new FileStream(file, FileMode.Open, FileAccess.Read))
             {
                 var data = new byte[1024];
                 int len = 0, i = 1;
                 int readLen = 0;
                 FileStream ws = null;
-                while (readLen>0||(readLen=rs.Read(data,0,data.Length))>0)
+                while (readLen > 0 || (readLen = rs.Read(data, 0, data.Length)) > 0)
                 {
                     if (len == 0 || ws == null)
                     {
@@ -529,7 +556,7 @@ namespace Nigel.IO
         /// <returns></returns>
         public static bool Compress(string file, string saveFile)
         {
-            if (string.IsNullOrWhiteSpace(file)|| string.IsNullOrWhiteSpace(saveFile))
+            if (string.IsNullOrWhiteSpace(file) || string.IsNullOrWhiteSpace(saveFile))
             {
                 return false;
             }
@@ -557,7 +584,7 @@ namespace Nigel.IO
             {
                 return false;
             }
-            
+
         }
 
         #endregion
@@ -647,7 +674,7 @@ namespace Nigel.IO
 
                 using (var fs = File.Create(saveFullPath))
                 {
-                    using (var zipStream=new GZipStream(fs,CompressionMode.Compress))
+                    using (var zipStream = new GZipStream(fs, CompressionMode.Compress))
                     {
                         ms.Position = 0;
                         ms.CopyTo(zipStream);
@@ -665,7 +692,7 @@ namespace Nigel.IO
         /// </summary>
         /// <param name="zipPath">压缩文件路径</param>
         /// <param name="targetPath">解压目录</param>
-        public static void DecompressMulti(string zipPath,string targetPath)
+        public static void DecompressMulti(string zipPath, string targetPath)
         {
             if (string.IsNullOrWhiteSpace(zipPath) || string.IsNullOrWhiteSpace(targetPath))
             {
@@ -678,17 +705,17 @@ namespace Nigel.IO
                 return;
             }
 
-            using (var fs=File.Open(zipPath,FileMode.Open))
+            using (var fs = File.Open(zipPath, FileMode.Open))
             {
-                using (var ms=new MemoryStream())
+                using (var ms = new MemoryStream())
                 {
-                    using (var zipStream=new GZipStream(fs,CompressionMode.Decompress))
+                    using (var zipStream = new GZipStream(fs, CompressionMode.Decompress))
                     {
                         zipStream.CopyTo(ms);
                     }
 
                     ms.Position = 0;
-                    while (ms.Position!=ms.Length)
+                    while (ms.Position != ms.Length)
                     {
                         ms.Read(fileSize, 0, fileSize.Length);
                         var fileNameLength = BitConverter.ToInt32(fileSize, 0);
@@ -700,7 +727,7 @@ namespace Nigel.IO
                         var fileContentLength = BitConverter.ToInt32(fileSize, 0);
                         var fileContentBytes = new byte[fileContentLength];
                         ms.Read(fileContentBytes, 0, fileContentBytes.Length);
-                        using (var childFileStream=File.Create(fileFullName))
+                        using (var childFileStream = File.Create(fileFullName))
                         {
                             childFileStream.Write(fileContentBytes, 0, fileContentBytes.Length);
                         }

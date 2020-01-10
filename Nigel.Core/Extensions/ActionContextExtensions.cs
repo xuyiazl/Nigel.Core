@@ -52,5 +52,21 @@ namespace Nigel.Core.Extensions
         /// <param name="context"></param>
         /// <returns></returns>
         public static RouteValueDictionary GetRouteValues(this ActionContext context) => context.RouteData.Values;
+
+        /// <summary>
+        /// 根据路由参数进行模板替换
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="template">比如：static/{area}/{controller}/{action}/{id}.html</param>
+        /// <returns></returns>
+        public static string RouteReplace(this ActionContext context, string template)
+        {
+            var path = template;
+
+            foreach (var route in context.GetRouteValues())
+                path = path.Replace("{" + route.Key + "}", route.Value.SafeString());
+
+            return path.ToLower();
+        }
     }
 }
