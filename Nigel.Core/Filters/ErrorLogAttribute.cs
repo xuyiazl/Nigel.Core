@@ -36,12 +36,12 @@ namespace Nigel.Core.Filters
             {
                 var logger = Web.GetService<ILogger<ErrorLogAttribute>>();
 
-                var areaName = context.GetAreaName();
-                var controllerName = context.GetControllerName();
-                var actionName = context.GetActionName();
-
                 if (logger.IsEnabled(LogLevel.Error))
                 {
+                    var areaName = context.GetAreaName();
+                    var controllerName = context.GetControllerName();
+                    var actionName = context.GetActionName();
+
                     string message = $"WebApi全局异常 {areaName}{controllerName}/{actionName} - IP：{context.HttpContext.Connection.RemoteIpAddress.ToString()} ， 请求方法：{context.HttpContext.Request.Method}，请求地址：{context.HttpContext.Request.Scheme}://{context.HttpContext.Request.Host}{context.HttpContext.Request.Path}{context.HttpContext.Request.QueryString}";
 
                     logger.LogError(context.Exception, message);
