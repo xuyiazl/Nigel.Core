@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -32,19 +34,18 @@ namespace Nigel.ApiTests
             services.AddHttpService<HttpService>("test", "http://testmswebapi.tostar.top");
 
             services.AddControllers()
-            .AddNewtonsoftJson(options =>
-            {
-                //需要引入nuget
-                //<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0" />
-                //EF Core中默认为驼峰样式序列化处理key   
-                //options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                //使用默认方式，不更改元数据的key的大小写
-                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();//new DefaultContractResolver();
-                options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
-                options.SerializerSettings.MissingMemberHandling = MissingMemberHandling.Ignore;
-                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            });
-
+                .AddNewtonsoftJson(options =>
+                {
+                    //需要引入nuget
+                    //<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0" />
+                    //EF Core中默认为驼峰样式序列化处理key   
+                    //options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    //使用默认方式，不更改元数据的key的大小写
+                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();//new DefaultContractResolver();
+                    options.SerializerSettings.DateFormatString = "yyyy-MM-dd HH:mm:ss";
+                    options.SerializerSettings.MissingMemberHandling = MissingMemberHandling.Ignore;
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,6 +66,8 @@ namespace Nigel.ApiTests
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

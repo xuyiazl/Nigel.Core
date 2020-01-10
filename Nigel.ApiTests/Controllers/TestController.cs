@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Nigel.Core.Controllers;
+using Nigel.Extensions;
 
 namespace Nigel.ApiTests.Controllers
 {
@@ -15,6 +17,14 @@ namespace Nigel.ApiTests.Controllers
           : base(logger)
         {
 
+        }
+
+        [Route("create")]
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Create()
+        {
+            return Success("000", null);
         }
 
         [Route("error")]
