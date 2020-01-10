@@ -21,7 +21,6 @@ namespace Nigel.ApiTests.Controllers
 
         [Route("create")]
         [HttpGet]
-        [AllowAnonymous]
         public IActionResult Create()
         {
             return Success("000", null);

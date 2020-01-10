@@ -124,6 +124,15 @@ namespace Nigel.Core.Properties {
         }
         
         /// <summary>
+        ///   查找类似 授权失败，请重新获取Token 的本地化字符串。
+        /// </summary>
+        public static string UnauthorizedAccessError {
+            get {
+                return ResourceManager.GetString("UnauthorizedAccessError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 请不要重复提交 的本地化字符串。
         /// </summary>
         public static string UserDuplicateRequest {

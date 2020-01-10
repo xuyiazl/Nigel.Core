@@ -32,6 +32,10 @@ namespace Nigel.Core.Filters
                 context.ExceptionHandled = true;
                 context.Result = new Result(StateCode.Fail, "", R.CanceledMessage);
             }
+            else if (context.Exception is UnauthorizedAccessException)
+            {
+                context.Result = new Result(StateCode.Fail, "", context.Exception.Message);
+            }
             else
             {
                 var logger = Web.GetService<ILogger<ApiErrorAttribute>>();

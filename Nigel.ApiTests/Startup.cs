@@ -10,10 +10,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Nigel.Core.Extensions;
 using Nigel.Core.HttpFactory;
+using Nigel.Core.Jwt;
 using Nigel.Core.Logging.Log4Net;
 
 namespace Nigel.ApiTests
@@ -30,8 +32,27 @@ namespace Nigel.ApiTests
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var appSection = Configuration.GetSection("JwtSettings");
+            services.Configure<JwtSettings>(option => appSection.Bind(option));
+            var jwtSettings = appSection.Get<JwtSettings>();
+            services.AddSingleton(resolver => resolver.GetRequiredService<IOptions<JwtSettings>>().Value);
+
             services.AddHttpService<HttpService>(TimeSpan.FromSeconds(6));
             services.AddHttpService<HttpService>("test", "http://testmswebapi.tostar.top");
+
+            services.AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtAuthenticationDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtAuthenticationDefaults.AuthenticationScheme;
+                })
+               .AddJwt(options =>
+               {
+                   // secrets
+                   options.Keys = new[] { jwtSettings.Secret };
+
+                   // force JwtDecoder to throw exception if JWT signature is invalid
+                   options.VerifySignature = true;
+               });
 
             services.AddControllers()
                 .AddNewtonsoftJson(options =>
