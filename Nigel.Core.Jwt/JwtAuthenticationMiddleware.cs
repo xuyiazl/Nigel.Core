@@ -72,7 +72,7 @@ namespace Nigel.Core.Jwt
 
                 return;
             }
-
+            
             await _next.Invoke(context);
         }
 

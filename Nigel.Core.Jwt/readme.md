@@ -1,6 +1,8 @@
 ﻿
 # jwt源代码出处 目前主要用于WebApi
-[![NuGet](https://img.shields.io/nuget/v/JWT.svg)](https://www.nuget.org/packages/JWT)
+
+
+源码出处 [![NuGet](https://img.shields.io/nuget/v/JWT.svg)](https://www.nuget.org/packages/JWT)
 
 #### 注册jwt
 
@@ -70,7 +72,7 @@ public class TokenController : ApiControllerBase
 
 ```
 
-#### 如果想用中间件
+#### 如果想用中间件全局验证
 
 ```c#
 app.UseJwtMiddleware();
