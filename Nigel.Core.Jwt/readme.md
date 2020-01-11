@@ -4,12 +4,12 @@
 
 源码出处 [![NuGet](https://img.shields.io/nuget/v/JWT.svg)](https://www.nuget.org/packages/JWT)
 
-- Add Middleware
-重写了中间件 JwtAuthenticationMiddleware
-- Add Middleware
-增加JwtAuthorizeAttribute过滤器验证权限
-- Add JwtAllowAnonymousAttribute
-增加JwtAllowAnonymousAttribute
+- 重写了中间件 JwtAuthenticationMiddleware
+
+- 增加JwtAuthorizeAttribute过滤器验证权限
+
+- 增加JwtAllowAnonymousAttribute
+
 
 #### 注册jwt
 
