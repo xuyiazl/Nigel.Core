@@ -12,54 +12,37 @@ using Nigel.Core.Jwt.Builder;
 
 namespace Nigel.ApiTests.Controllers
 {
+    [JwtAuthorize]
     public class TokenController : ApiControllerBase
     {
-        JwtSettings _jwtSettings;
-        public TokenController(ILogger<TokenController> logger, JwtSettings jwtSettings)
+        JwtOptions _jwtOptions;
+        public TokenController(ILogger<TokenController> logger, JwtOptions jwtOptions)
             : base(logger)
         {
-            _jwtSettings = jwtSettings;
+            _jwtOptions = jwtOptions;
         }
 
         [Route("Create")]
         [HttpGet]
+        [JwtAllowAnonymous]
         public IActionResult Create()
         {
             var token = new JwtBuilder()
-                .WithAlgorithm(new HMACSHA256Algorithm())
-                .WithSecret(_jwtSettings.Secret)
-                .AddClaim("exp", DateTimeOffset.UtcNow.AddHours(1).ToUnixTimeSeconds())
-                .AddClaim("claim1", "0")
-                .AddClaim("claim2", "claim2-value")
-                .Build();
-
+               .WithAlgorithm(new HMACSHA256Algorithm())
+               .WithSecret(_jwtOptions.Secret)
+               .AddClaim("exp", DateTimeOffset.UtcNow.AddHours(1).ToUnixTimeSeconds())
+               .AddClaim("claim2", "claim2-value")
+               .Build();
             return Success("000001", token);
         }
 
         [Route("Verify")]
         [HttpGet]
-        [JwtAuthorize]
         public IActionResult Verify()
         {
-            //try
-            //{
-            //    string token = "";
-            //    var json = new JwtBuilder()
-            //        .WithSecret(_jwtSettings.Secret)
-            //        .MustVerifySignature()
-            //        .Decode(token);
+            var users = RouteData.Values.GetValueOrDefault("identity");
 
-            //    return Success("000002", message: "验证成功");
-            //}
-            //catch (TokenExpiredException)
-            //{
-            //    return Fail("000004", message: "Token 已过期");
-            //}
-            //catch (SignatureVerificationException)
-            //{
-            //    return Fail("000003", message: "Token 无效");
-            //}
-               return Success("000002", message: "验证成功");
+            return Success("000002", message: "验证成功");
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace Nigel.Core.Jwt
 {
@@ -15,7 +16,7 @@ namespace Nigel.Core.Jwt
         /// <returns>
         /// The <see cref="IServiceCollection" />.
         /// </returns>
-        public static IServiceCollection AddJwtMiddleware(this IServiceCollection services)
+        public static IServiceCollection AddJwtOptions(this IServiceCollection services)
         {
             if (services == null)
                 throw new ArgumentNullException(nameof(services));
@@ -31,7 +32,7 @@ namespace Nigel.Core.Jwt
         /// <returns>
         /// The <see cref="IServiceCollection" />.
         /// </returns>
-        public static IServiceCollection AddJwtMiddleware(this IServiceCollection services, Action<JwtOptions> configureOptions)
+        public static IServiceCollection AddJwtOptions(this IServiceCollection services, Action<JwtOptions> configureOptions)
         {
             if (services == null)
                 throw new ArgumentNullException(nameof(services));
@@ -39,6 +40,8 @@ namespace Nigel.Core.Jwt
                 throw new ArgumentNullException(nameof(configureOptions));
 
             services.Configure(configureOptions);
+
+            services.AddSingleton(resolver => resolver.GetRequiredService<IOptions<JwtOptions>>().Value);
 
             return services;
         }
