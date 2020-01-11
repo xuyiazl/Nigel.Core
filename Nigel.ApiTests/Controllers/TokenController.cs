@@ -9,6 +9,10 @@ using Nigel.Core.Controllers;
 using Nigel.Core.Jwt;
 using Nigel.Core.Jwt.Algorithms;
 using Nigel.Core.Jwt.Builder;
+using Nigel.Helpers;
+using Nigel.Extensions;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 
 namespace Nigel.ApiTests.Controllers
 {
@@ -30,9 +34,13 @@ namespace Nigel.ApiTests.Controllers
             var token = new JwtBuilder()
                .WithAlgorithm(new HMACSHA256Algorithm())
                .WithSecret(_jwtOptions.Secret)
-               .AddClaim("exp", DateTimeOffset.UtcNow.AddHours(1).ToUnixTimeSeconds())
-               .AddClaim("claim2", "claim2-value")
+               .JwtId(Id.GuidGenerator.Create())
+               .Account("nigel")
+               .NickName("哈哈")
+               .VerifiedPhoneNumber("19173100454")
+               .ExpirationTime(DateTime.UtcNow.AddMinutes(60))
                .Build();
+
             return Success("000001", token);
         }
 
@@ -40,9 +48,20 @@ namespace Nigel.ApiTests.Controllers
         [HttpGet]
         public IActionResult Verify()
         {
-            var users = RouteData.Values.GetValueOrDefault("identity");
+            var jwtid = HttpContext.User.Identity.GetValue<Guid>(ClaimName.JwtId);
+            var account = HttpContext.User.Identity.GetValue<string>(ClaimName.Account);
+            var nickname = HttpContext.User.Identity.GetValue<string>(ClaimName.NickName);
+            var phone = HttpContext.User.Identity.GetValue<string>(ClaimName.VerifiedPhoneNumber);
 
-            return Success("000002", message: "验证成功");
+            return Success("000002",
+                data: new
+                {
+                    jwtid,
+                    account,
+                    nickname,
+                    phone
+                },
+                message: "验证成功");
         }
     }
 }

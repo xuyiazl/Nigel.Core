@@ -7,6 +7,9 @@ namespace Nigel.Core.Jwt.Builder
     /// </summary>
     public enum ClaimName
     {
+        [Description("account")]
+        Account,
+
         [Description("iss")]
         Issuer,
 
@@ -40,8 +43,8 @@ namespace Nigel.Core.Jwt.Builder
         [Description("middle_name")]
         MiddleName,
 
-        [Description("nickname")]
-        CasualName,
+        [Description("nick_name")]
+        NickName,
 
         [Description("preferred_username")]
         PreferredUsername,

@@ -11,6 +11,7 @@ using Nigel.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Security.Claims;
 using System.Text;
 using System.Web;
 
@@ -30,7 +31,7 @@ namespace Nigel.Core.Jwt
             var result = filterContext.HttpContext.Request.Headers.TryGetValue(HeaderNames.Authorization, out var token);
             if (!result || string.IsNullOrWhiteSpace(token.SafeString()))
             {
-                filterContext.Result = new Result(StateCode.Fail, "401", "未授权，token不存在");
+                filterContext.Result = new Result(StateCode.Fail, "401", "unauthorized,token does not exist.");
                 return;
             }
 
@@ -38,39 +39,17 @@ namespace Nigel.Core.Jwt
 
             string _secret = Web.GetService<IOptions<JwtOptions>>().Value.Secret;
 
-            if (!VerifyToken(_token, _secret, out var ex))
+            if (!_token.VerifyToken(_secret, out var ex))
             {
-                filterContext.Result = new Result(StateCode.Fail, "401", $"验证失败，{ex.Message}");
+                filterContext.Result = new Result(StateCode.Fail, "401", $"verify fail,{ex.Message}");
                 return;
             }
 
-            try
-            {
-                var user = new JwtBuilder()
-                    .WithSecret(_secret)
-                    .MustVerifySignature()
-                    .Decode<Dictionary<string, object>>(_token);
-
-                user.TryAdd("token", _token);
-
-                filterContext.RouteData.Values.TryAdd("identity", user);
-
-                base.OnActionExecuting(filterContext);
-            }
-            catch (TokenExpiredException)
-            {
-                filterContext.Result = new Result(StateCode.Fail, "401", "验证失败，token过期");
-                return;
-            }
-            catch (SignatureVerificationException)
-            {
-                filterContext.Result = new Result(StateCode.Fail, "401", "验证失败，token无效");
-                return;
-            }
+            base.OnActionExecuting(filterContext);
         }
 
         /// <summary>
-        /// 验证是否跳过验证
+        /// 是否跳过验证
         /// </summary>
         /// <param name="actionDescriptor"></param>
         /// <returns></returns>
@@ -80,34 +59,6 @@ namespace Nigel.Core.Jwt
             var htmlAttribute = controllerActionDescriptor.ControllerTypeInfo.GetCustomAttribute<JwtAllowAnonymousAttribute>() ??
                               controllerActionDescriptor.MethodInfo.GetCustomAttribute<JwtAllowAnonymousAttribute>();
             return htmlAttribute == null;
-        }
-
-        /// <summary>
-        /// 验证token完整性和时效性
-        /// </summary>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        private bool VerifyToken(string token, string secret, out Exception ex)
-        {
-            var urlEncoder = new JwtBase64UrlEncoder();
-            var jsonNetSerializer = new JsonNetSerializer();
-            var utcDateTimeProvider = new UtcDateTimeProvider();
-
-            var jwt = new JwtParts(token);
-
-            var payloadJson = urlEncoder.Decode(jwt.Payload).ToString(Encoding.UTF8);
-
-            var crypto = urlEncoder.Decode(jwt.Signature);
-            var decodedCrypto = crypto.ToBase64String();
-
-            var alg = new HMACSHA256Algorithm();
-            var bytesToSign = String.Concat(jwt.Header, ".", jwt.Payload).ToBytes(Encoding.UTF8);
-            var signatureData = alg.Sign(secret.ToBytes(Encoding.UTF8), bytesToSign);
-            var decodedSignature = signatureData.ToBase64String();
-
-            var jwtValidator = new JwtValidator(jsonNetSerializer, utcDateTimeProvider);
-
-            return jwtValidator.TryValidate(payloadJson, decodedCrypto, decodedSignature, out ex);
         }
     }
 }
