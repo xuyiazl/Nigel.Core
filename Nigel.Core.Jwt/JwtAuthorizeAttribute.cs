@@ -33,7 +33,7 @@ namespace Nigel.Core.Jwt
 
             if (!user.Identity.IsAuthenticated)
             {
-                filterContext.Result = new Result(StateCode.Fail, "401", "unauthorized.");
+                filterContext.Result = new Result(StateCode.Fail, "401", "Unauthorized");
                 return;
             }
 
