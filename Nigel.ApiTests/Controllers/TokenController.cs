@@ -19,7 +19,7 @@ namespace Nigel.ApiTests.Controllers
     [JwtAuthorize]
     public class TokenController : ApiControllerBase
     {
-        JwtOptions _jwtOptions;
+        private readonly JwtOptions _jwtOptions;
         public TokenController(ILogger<TokenController> logger, JwtOptions jwtOptions)
             : base(logger)
         {
