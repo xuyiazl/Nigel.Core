@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Nigel.Drawing\Nigel.Drawing.csproj" />
     <ProjectReference Include="..\Nigel\Nigel.csproj" />
   </ItemGroup>
   

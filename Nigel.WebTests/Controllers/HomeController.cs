@@ -13,6 +13,7 @@ using Nigel.Core.Filters;
 using Nigel.Core.HttpFactory;
 using Nigel.Core.Extensions;
 using System.Threading;
+using Nigel.Json;
 using Nigel.Core.Uploads;
 using Nigel.Core.Uploads.Params;
 using Microsoft.AspNetCore.Http;
@@ -81,6 +82,44 @@ namespace Nigel.WebTests.Controllers
             };
 
             var result = await _fileUploadService.UploadAsync(param, cancellationToken);
+
+            return View(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadMulit(IFormCollection formCollection, CancellationToken cancellationToken)
+        {
+            FormFileCollection filelist = (FormFileCollection)formCollection.Files;
+
+            var param = new MultipleFileUploadParam()
+            {
+                Request = Request,
+                FormFiles = filelist.ToList(),
+                RootPath = Web.WebRootPath,
+                Module = "Test",
+                Group = "Logo"
+            };
+
+            var result = await _fileUploadService.UploadAsync(param, cancellationToken);
+
+            return View(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadImage(IFormFile formFile, CancellationToken cancellationToken)
+        {
+            var param = new SingleImageUploadParam()
+            {
+                Request = Request,
+                FormFile = formFile,
+                RootPath = Web.WebRootPath,
+                Module = "Test",
+                Group = "Logo",
+                CutMode = ThumbnailMode.Cut,
+                Thumbs = new List<string> { "200x300", "400x200" },
+            };
+
+            var result = await _fileUploadService.UploadImageAsync(param, cancellationToken);
 
             return View(result);
         }

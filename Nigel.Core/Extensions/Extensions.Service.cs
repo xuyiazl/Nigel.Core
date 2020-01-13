@@ -18,11 +18,11 @@ namespace Nigel.Core.Extensions
     /// 服务扩展
     /// </summary>
     public static partial class Extensions
-    {  
+    {
         /// <summary>
-       /// 注册上传服务
-       /// </summary>
-       /// <param name="services">服务集合</param>
+        /// 注册上传服务
+        /// </summary>
+        /// <param name="services">服务集合</param>
         public static void AddUploadService(this IServiceCollection services)
         {
             services.AddUploadService<DefaultFileUploadService>();

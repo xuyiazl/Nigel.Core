@@ -21,6 +21,13 @@ namespace Nigel.Core.Uploads
         /// <param name="param">参数</param>
         /// <param name="cancellationToken">取消令牌</param>
         Task<FileInfo> UploadAsync(SingleFileUploadParam param, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// 上传图片。单张图片
+        /// </summary>
+        /// <param name="param"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<ImageFileInfo> UploadImageAsync(SingleImageUploadParam param, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// 上传文件。多文件
