@@ -13,6 +13,9 @@ using Nigel.Core.Filters;
 using Nigel.Core.HttpFactory;
 using Nigel.Core.Extensions;
 using System.Threading;
+using Nigel.Core.Uploads;
+using Nigel.Core.Uploads.Params;
+using Microsoft.AspNetCore.Http;
 
 namespace Nigel.WebTests.Controllers
 {
@@ -20,11 +23,16 @@ namespace Nigel.WebTests.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IHttpService _httpService;
+        /// <summary>
+        /// 文件上传服务
+        /// </summary>
+        private IFileUploadService _fileUploadService;
 
-        public HomeController(ILogger<HomeController> logger, IHttpService httpService)
+        public HomeController(ILogger<HomeController> logger, IHttpService httpService, IFileUploadService fileUploadService)
         {
             _logger = logger;
             _httpService = httpService;
+            _fileUploadService = fileUploadService;
         }
 
         [NoCache]
@@ -58,6 +66,23 @@ namespace Nigel.WebTests.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Upload(IFormFile formFile, CancellationToken cancellationToken)
+        {
+            var param = new SingleFileUploadParam()
+            {
+                Request = Request,
+                FormFile = formFile,
+                RootPath = Web.WebRootPath,
+                Module = "Test",
+                Group = "Logo"
+            };
+
+            var result = await _fileUploadService.UploadAsync(param, cancellationToken);
+
+            return View(result);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

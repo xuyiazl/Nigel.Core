@@ -53,6 +53,8 @@ namespace Nigel.WebTests
                 options.SerializerSettings.MissingMemberHandling = MissingMemberHandling.Ignore;
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
+
+            services.AddUploadService();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
