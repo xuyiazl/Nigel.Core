@@ -33,29 +33,28 @@ namespace Nigel.Core.Jwt
 
         public async Task Invoke(HttpContext context)
         {
-            context.Features.Set<IAuthenticationFeature>((IAuthenticationFeature)new AuthenticationFeature()
+            context.Features.Set<IAuthenticationFeature>(new AuthenticationFeature()
             {
                 OriginalPath = context.Request.Path,
                 OriginalPathBase = context.Request.PathBase
             });
-            IAuthenticationHandlerProvider handlers = context.RequestServices.GetRequiredService<IAuthenticationHandlerProvider>();
+            var handlers = context.RequestServices.GetRequiredService<IAuthenticationHandlerProvider>();
             foreach (AuthenticationScheme authenticationScheme in await this.Schemes.GetRequestHandlerSchemesAsync())
             {
-                IAuthenticationRequestHandler handlerAsync = await handlers.GetHandlerAsync(context, authenticationScheme.Name) as IAuthenticationRequestHandler;
+                var handlerAsync = await handlers.GetHandlerAsync(context, authenticationScheme.Name) as IAuthenticationRequestHandler;
                 bool flag = handlerAsync != null;
                 if (flag)
                     flag = await handlerAsync.HandleRequestAsync();
                 if (flag)
                     return;
             }
-            AuthenticationScheme authenticateSchemeAsync = await this.Schemes.GetDefaultAuthenticateSchemeAsync();
+            var authenticateSchemeAsync = await this.Schemes.GetDefaultAuthenticateSchemeAsync();
             if (authenticateSchemeAsync != null)
             {
-                AuthenticateResult authenticateResult = await context.AuthenticateAsync(authenticateSchemeAsync.Name);  //实际的认证业务
+                //实际的认证业务
+                var authenticateResult = await context.AuthenticateAsync(authenticateSchemeAsync.Name);
                 if (authenticateResult?.Principal != null)
                     context.User = authenticateResult.Principal;
-
-                
             }
 
             await _next.Invoke(context);

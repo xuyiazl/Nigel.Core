@@ -28,7 +28,7 @@ namespace Nigel.Core.Jwt
         /// <remarks>
         /// For the default behavior <see cref="DefaultIdentityFactory.CreateIdentity" />.
         /// </remarks>
-        public Func<IDictionary<string, string>, IIdentity> IdentityFactory { get; set; } = DefaultIdentityFactory.CreateIdentity;
+        public Func<IDictionary<string, string>, string, IIdentity> IdentityFactory { get; set; } = DefaultIdentityFactory.CreateIdentity;
 
         /// <summary>
         /// Creates user's <see cref="AuthenticationTicket" /> from user's <see cref="IIdentity" /> and current <see cref="AuthenticationScheme" />

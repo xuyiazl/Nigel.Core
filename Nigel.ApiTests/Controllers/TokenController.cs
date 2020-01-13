@@ -38,7 +38,7 @@ namespace Nigel.ApiTests.Controllers
                .Account("nigel")
                .NickName("哈哈")
                .VerifiedPhoneNumber("19173100454")
-               .ExpirationTime(DateTime.UtcNow.AddMinutes(60))
+               .ExpirationTime(DateTime.UtcNow.AddMinutes(1))
                .Build();
 
             return Success("000001", token);
@@ -52,6 +52,7 @@ namespace Nigel.ApiTests.Controllers
             var account = HttpContext.User.Identity.GetValue<string>(ClaimName.Account);
             var nickname = HttpContext.User.Identity.GetValue<string>(ClaimName.NickName);
             var phone = HttpContext.User.Identity.GetValue<string>(ClaimName.VerifiedPhoneNumber);
+            var expirationtime = HttpContext.User.Identity.GetValue<long>(ClaimName.ExpirationTime).ToDateTime();
 
             return Success("000002",
                 data: new
@@ -59,7 +60,8 @@ namespace Nigel.ApiTests.Controllers
                     jwtid,
                     account,
                     nickname,
-                    phone
+                    phone,
+                    expirationtime
                 },
                 message: "验证成功");
         }

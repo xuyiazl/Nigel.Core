@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Abstractions;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
@@ -28,22 +29,15 @@ namespace Nigel.Core.Jwt
                 return;
             }
 
-            var result = filterContext.HttpContext.Request.Headers.TryGetValue(HeaderNames.Authorization, out var token);
-            if (!result || string.IsNullOrWhiteSpace(token.SafeString()))
+            var user = filterContext.HttpContext.User;
+
+            if (!user.Identity.IsAuthenticated)
             {
-                filterContext.Result = new Result(StateCode.Fail, "401", "unauthorized,token does not exist.");
+                filterContext.Result = new Result(StateCode.Fail, "401", "unauthorized.");
                 return;
             }
 
-            var _token = token.SafeString().Substring("Bearer ".Length);
-
-            string _secret = Web.GetService<IOptions<JwtOptions>>().Value.Secret;
-
-            if (!_token.VerifyToken(_secret, out var ex))
-            {
-                filterContext.Result = new Result(StateCode.Fail, "401", $"verify fail,{ex.Message}");
-                return;
-            }
+            //jwt为无状态，可以在此处维护一个状态机制
 
             base.OnActionExecuting(filterContext);
         }

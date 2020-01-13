@@ -54,7 +54,7 @@ namespace Nigel.Core.Jwt
             try
             {
                 var dic = _jwtDecoder.DecodeToObject<Dictionary<string, string>>(token, this.Options.Keys, this.Options.VerifySignature);
-                var identity = this.Options.IdentityFactory(dic);
+                var identity = this.Options.IdentityFactory(dic, "context.User");
                 var ticket = this.Options.TicketFactory(identity, this.Scheme);
 
                 this.Logger.LogInformation("Successfully decoded JWT, returning success");

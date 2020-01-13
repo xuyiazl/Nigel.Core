@@ -84,7 +84,6 @@ namespace Nigel.ApiTests
             app.UseAuthorization();
 
             app.UseAuthentication();
-            //app.UseJwtMiddleware();
 
             app.UseEndpoints(endpoints =>
             {
