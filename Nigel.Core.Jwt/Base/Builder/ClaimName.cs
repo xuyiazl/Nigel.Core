@@ -7,6 +7,9 @@ namespace Nigel.Core.Jwt.Builder
     /// </summary>
     public enum ClaimName
     {
+        [Description("id")]
+        Id,
+
         [Description("account")]
         Account,
 

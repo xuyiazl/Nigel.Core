@@ -35,6 +35,7 @@ namespace Nigel.ApiTests.Controllers
                .WithAlgorithm(new HMACSHA256Algorithm())
                .WithSecret(_jwtOptions.Secret)
                .JwtId(Id.GuidGenerator.Create())
+               .Id(Id.LongGenerator.Create())
                .Account("nigel")
                .NickName("哈哈")
                .VerifiedPhoneNumber("19173100454")
@@ -49,6 +50,7 @@ namespace Nigel.ApiTests.Controllers
         public IActionResult Verify()
         {
             var jwtid = HttpContext.User.Identity.GetValue<Guid>(ClaimName.JwtId);
+            var id = HttpContext.User.Identity.GetValue<long>(ClaimName.Id);
             var account = HttpContext.User.Identity.GetValue<string>(ClaimName.Account);
             var nickname = HttpContext.User.Identity.GetValue<string>(ClaimName.NickName);
             var phone = HttpContext.User.Identity.GetValue<string>(ClaimName.VerifiedPhoneNumber);
@@ -58,6 +60,7 @@ namespace Nigel.ApiTests.Controllers
                 data: new
                 {
                     jwtid,
+                    id,
                     account,
                     nickname,
                     phone,

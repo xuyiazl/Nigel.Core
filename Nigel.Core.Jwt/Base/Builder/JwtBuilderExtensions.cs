@@ -37,6 +37,18 @@ namespace Nigel.Core.Jwt.Builder
         public static JwtBuilder JwtId(this JwtBuilder builder, string id) =>
             builder.AddClaim(ClaimName.JwtId, id);
 
+        public static JwtBuilder Id(this JwtBuilder builder, Guid id) =>
+            builder.Id(id.ToString());
+
+        public static JwtBuilder Id(this JwtBuilder builder, int id) =>
+            builder.Id(id.ToString());
+
+        public static JwtBuilder Id(this JwtBuilder builder, long id) =>
+            builder.Id(id.ToString(CultureInfo.InvariantCulture));
+
+        public static JwtBuilder Id(this JwtBuilder builder, string id) =>
+            builder.AddClaim(ClaimName.Id, id);
+
         public static JwtBuilder Account(this JwtBuilder builder, string account) =>
             builder.AddClaim(ClaimName.Account, account);
 
