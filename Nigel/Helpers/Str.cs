@@ -860,6 +860,44 @@ namespace Nigel.Helpers
 
         #endregion
 
+        #region GetNoceStr(获取指定位数的随机数字符串)
+
+        /// <summary>
+        /// 获取指定位数的随机数字符串
+        /// </summary>
+        /// <param name="length">生成长度</param>
+        /// <returns></returns>
+        public static string GetNoceStr(int length)
+        {
+            string str = "0123456789";
+            Random r = new Random();
+            string result = string.Empty;
+
+            for (int i = 0; i < length; i++)
+            {
+                int m = r.Next(0, str.Length);
+                string s = str.Substring(m, 1);
+                result += s;
+            }
+
+            return result;
+        }
+
+        #endregion
+
+        #region CreateOrderNumber(创建指定日期的订单号码（yyyyMMddHHmmssfff +4 位随机数）)
+
+        /// <summary>
+        /// 创建指定日期的订单号码（yyyyMMddHHmmssfff +4 位随机数）
+        /// </summary>
+        /// <param name="name">指定订单前缀</param>
+        /// <returns></returns>
+        public static string CreateOrderNumber(string name)
+        {
+            return string.Format("{0}{1}{2}", name, DateTime.Now.ToString("yyyyMMddHHmmssfff"), GetNoceStr(4));
+        }
+
+        #endregion
     }
 
     /// <summary>
