@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Nigel.Helpers;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Nigel.Helpers;
 
 // ReSharper disable once CheckNamespace
 namespace Nigel.Extensions
@@ -25,7 +25,7 @@ namespace Nigel.Extensions
             return value ?? default(T);
         }
 
-        #endregion
+        #endregion SafeValue(安全获取值)
 
         #region Value(获取枚举值)
 
@@ -50,7 +50,7 @@ namespace Nigel.Extensions
             return Conv.To<TResult>(Value(instance));
         }
 
-        #endregion
+        #endregion Value(获取枚举值)
 
         #region Description(获取枚举描述)
 
@@ -64,7 +64,7 @@ namespace Nigel.Extensions
             return Enum.GetDescription(instance.GetType(), instance);
         }
 
-        #endregion
+        #endregion Description(获取枚举描述)
 
         #region Join(转换为用分隔符连接的字符串)
 
@@ -81,7 +81,7 @@ namespace Nigel.Extensions
             return Str.Join(list, quotes, separator);
         }
 
-        #endregion
+        #endregion Join(转换为用分隔符连接的字符串)
 
         #region IsMatch(是否匹配正则表达式)
 
@@ -118,7 +118,7 @@ namespace Nigel.Extensions
             return Regex.IsMatch(value, pattern, options);
         }
 
-        #endregion
+        #endregion IsMatch(是否匹配正则表达式)
 
         #region GetMatch(获取匹配项)
 
@@ -178,6 +178,6 @@ namespace Nigel.Extensions
             return Regex.Matches(value, pattern, options);
         }
 
-        #endregion
+        #endregion GetMatch(获取匹配项)
     }
 }

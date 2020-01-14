@@ -1,24 +1,20 @@
-﻿using System;
+﻿using ComponentAce.Compression.Libs.zlib;
+using Nigel.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Security;
 using System.Text;
-using Nigel.Extensions;
-using Nigel.IO;
-using Nigel.Json;
-using ComponentAce.Compression.Libs.zlib;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace Nigel.Tests
 {
-    public class MessagePackTest:TestBase
+    public class MessagePackTest : TestBase
     {
         public MessagePackTest(ITestOutputHelper output) : base(output)
         {
-            
         }
 
         //[Fact]
@@ -58,7 +54,7 @@ namespace Nigel.Tests
         public void Test_JsonH()
         {
             string s = "[{\"name\":\"Andrea\",age:31,\"gender\":\"Male\",\"skilled\":true},{\"name\":\"Eva\",\"age\":27,\"gender\":\"Female\",\"skilled\":true},{\"name\":\"Daniele\",\"age\":26,\"gender\":\"Male\",\"skilled\":false}]";
-            List<Dictionary<string, object>> unpacked =s.ToObject<List<Dictionary<string, object>>>();
+            List<Dictionary<string, object>> unpacked = s.ToObject<List<Dictionary<string, object>>>();
             Output.WriteLine(JSONH.pack(unpacked, 0).ToJson());
             Output.WriteLine(JSONH.pack(unpacked, 1).ToJson());
             Output.WriteLine(JSONH.pack(unpacked, 2).ToJson());
@@ -117,7 +113,7 @@ namespace Nigel.Tests
 
         //[Fact]
         //public void Test_Zlib_StringCompress_4()
-        //{            
+        //{
         //    var json = FileUtil.Read("D:\\compression_result_2.txt");
         //    var bytes = CompressByZlib(json);
         //    var result = Convert.ToBase64String(bytes);
@@ -127,11 +123,11 @@ namespace Nigel.Tests
         public static byte[] CompressByZlib(string source)
         {
             var bytes = Encoding.UTF8.GetBytes(source);
-            using (var ms=new MemoryStream(bytes))
+            using (var ms = new MemoryStream(bytes))
             {
-                using (var compressedStream=new MemoryStream())
+                using (var compressedStream = new MemoryStream())
                 {
-                    using (ZOutputStream outZStream=new ZOutputStream(compressedStream,zlibConst.Z_BEST_COMPRESSION))
+                    using (ZOutputStream outZStream = new ZOutputStream(compressedStream, zlibConst.Z_BEST_COMPRESSION))
                     {
                         try
                         {
@@ -188,7 +184,7 @@ namespace Nigel.Tests
             {
                 using (MemoryStream ms = new MemoryStream())
                 {
-                    using (var zip = new BrotliStream(ms,CompressionMode.Compress,true))
+                    using (var zip = new BrotliStream(ms, CompressionMode.Compress, true))
                     //using (GZipStream zip = new GZipStream(ms, CompressionLevel.Optimal,true))
                     {
                         zip.Write(data, 0, data.Length);
@@ -313,7 +309,6 @@ namespace Nigel.Tests
         }
     }
 
-
     public class JSONH
     {
         protected static List<List<List<object>>> _cache;
@@ -327,7 +322,7 @@ namespace Nigel.Tests
         }
 
         static public int best(List<Dictionary<string, object>> collection)
-        {            
+        {
             int j = 0;
             _cache = new List<List<List<object>>>();
             for (int i = 0, len = 0, length = 0; i < 4; i++)
@@ -506,7 +501,6 @@ namespace Nigel.Tests
             return result;
         }
     }
-
 
     /// <summary>
     /// Converted from lz-string 1.4.4
@@ -710,8 +704,6 @@ namespace Nigel.Tests
                             }
                             value = value >> 1;
                         }
-
-
                     }
                     context_enlargeIn--;
                     if (context_enlargeIn == 0)
@@ -824,8 +816,6 @@ namespace Nigel.Tests
                         }
                         value = value >> 1;
                     }
-
-
                 }
                 context_enlargeIn--;
                 if (context_enlargeIn == 0)
@@ -931,6 +921,7 @@ namespace Nigel.Tests
                     }
                     c = (char)bits;
                     break;
+
                 case 1:
                     bits = 0;
                     maxpower = (int)Math.Pow(2, 16);
@@ -949,6 +940,7 @@ namespace Nigel.Tests
                     }
                     c = (char)bits;
                     break;
+
                 case 2:
                     return "";
             }
@@ -1002,6 +994,7 @@ namespace Nigel.Tests
                         dictionary.Add(((char)bits).ToString());
                         enlargeIn--;
                         break;
+
                     case (char)1:
                         bits = 0;
                         maxpower = (int)Math.Pow(2, 16);
@@ -1022,6 +1015,7 @@ namespace Nigel.Tests
                         dictionary.Add(((char)bits).ToString());
                         enlargeIn--;
                         break;
+
                     case (char)2:
                         return result.ToString();
                 }
@@ -1062,5 +1056,5 @@ namespace Nigel.Tests
                 }
             }
         }
-    }    
+    }
 }

@@ -1,16 +1,13 @@
-﻿using System;
-using System.IO;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Nigel.Helpers;
-using Nigel.Extensions;
+using Microsoft.Extensions.Logging;
 using Nigel.Core.Extensions;
+using Nigel.Extensions;
+using Nigel.Helpers;
 using Nigel.IO;
+using System;
+using System.IO;
 using System.Threading.Tasks;
-using System.Text;
-using Microsoft.AspNetCore.Routing;
 
 namespace Nigel.Core.Razors
 {

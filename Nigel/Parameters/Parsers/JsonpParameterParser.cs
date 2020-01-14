@@ -1,6 +1,6 @@
-﻿using Nigel.Extensions;
+﻿using Newtonsoft.Json.Linq;
+using Nigel.Extensions;
 using Nigel.Helpers;
-using Newtonsoft.Json.Linq;
 
 namespace Nigel.Parameters.Parsers
 {

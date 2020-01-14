@@ -2,9 +2,6 @@
 using Microsoft.Extensions.Logging;
 using Nigel.Core.Filters;
 using Nigel.Core.Properties;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Nigel.Core.Controllers
 {

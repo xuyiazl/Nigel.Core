@@ -1,7 +1,7 @@
-﻿using System;
-using System.Data;
+﻿using Newtonsoft.Json;
 using Nigel.Json.Converters.Internals;
-using Newtonsoft.Json;
+using System;
+using System.Data;
 
 namespace Nigel.Json.Converters
 {
@@ -18,7 +18,7 @@ namespace Nigel.Json.Converters
         /// <param name="serializer">JSON序列化器</param>
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            DataTable table= value as DataTable;
+            DataTable table = value as DataTable;
             DataRowConverter dataRowConverter = new DataRowConverter();
             writer.WriteStartObject();
             writer.WritePropertyName("Rows");

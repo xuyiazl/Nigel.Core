@@ -1,22 +1,19 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Nigel.Core.Filters;
+using Nigel.Core.HttpFactory;
+using Nigel.Core.Razors;
+using Nigel.Core.Uploads;
+using Nigel.Core.Uploads.Params;
+using Nigel.Drawing;
+using Nigel.Helpers;
+using Nigel.WebTests.Models;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Nigel.WebTests.Models;
-using Nigel.Core.Razors;
-using Nigel.Helpers;
-using Nigel.Drawing;
-using Nigel.Core.Filters;
-using Nigel.Core.HttpFactory;
-using Nigel.Core.Extensions;
 using System.Threading;
-using Nigel.Json;
-using Nigel.Core.Uploads;
-using Nigel.Core.Uploads.Params;
-using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
 
 namespace Nigel.WebTests.Controllers
 {
@@ -24,6 +21,7 @@ namespace Nigel.WebTests.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IHttpService _httpService;
+
         /// <summary>
         /// 文件上传服务
         /// </summary>

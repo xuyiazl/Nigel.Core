@@ -2,17 +2,15 @@
 {
     /********************************************************************
     *           Copyright:       2009-2011
-    *           Company:         
+    *           Company:
     *           CRL Version :    4.0.30319.239
     *           Created by 徐毅 at 2011/11/29 12:45:02
     *                   mailto:3624091@qq.com
-    *                         
+    *
     ********************************************************************/
 
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     public class Vector<T> : IList<T>
     {
@@ -38,7 +36,7 @@
             Items = new T[InitialSize];
         }
 
-        #endregion
+        #endregion Constructor
 
         #region IList<T> Members
 
@@ -83,7 +81,7 @@
             }
         }
 
-        #endregion
+        #endregion IList<T> Members
 
         #region ICollection<T> Members
 
@@ -129,7 +127,7 @@
             return false;
         }
 
-        #endregion
+        #endregion ICollection<T> Members
 
         #region IEnumerable<T> Members
 
@@ -139,7 +137,7 @@
                 yield return this.Items[x];
         }
 
-        #endregion
+        #endregion IEnumerable<T> Members
 
         #region IEnumerable Members
 
@@ -149,7 +147,7 @@
                 yield return this.Items[x];
         }
 
-        #endregion
+        #endregion IEnumerable Members
 
         #region Protected Variables/Properties
 
@@ -168,6 +166,6 @@
         /// </summary>
         protected virtual int NumberItems { get; set; }
 
-        #endregion
+        #endregion Protected Variables/Properties
     }
 }

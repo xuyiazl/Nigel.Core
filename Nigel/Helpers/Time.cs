@@ -1,5 +1,5 @@
-﻿using System;
-using Nigel.Timing;
+﻿using Nigel.Timing;
+using System;
 
 namespace Nigel.Helpers
 {
@@ -73,7 +73,6 @@ namespace Nigel.Helpers
         ///// <param name="span">时间间隔</param>
         //public static string Format(TimeSpan span)
         //{
-
         //}
     }
 }

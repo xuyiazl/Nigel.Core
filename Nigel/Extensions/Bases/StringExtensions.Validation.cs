@@ -37,12 +37,13 @@ namespace Nigel.Extensions
                 case 0x4947://gif
                 case 0x5089://png
                     return true;
+
                 default:
                     return false;
             }
         }
 
-        #endregion
+        #endregion IsImageFile(是否图片文件)
 
         #region IsLike(通配符比较)
 
@@ -86,7 +87,7 @@ namespace Nigel.Extensions
             return false;
         }
 
-        #endregion
+        #endregion IsLike(通配符比较)
 
         #region IsItemInEnum(判断数据是否在给定的枚举定义中)
 
@@ -101,7 +102,7 @@ namespace Nigel.Extensions
             return () => string.IsNullOrEmpty(value) || !Enum.IsDefined(typeof(TEnum), value);
         }
 
-        #endregion
+        #endregion IsItemInEnum(判断数据是否在给定的枚举定义中)
 
         #region IsRangeLength(判断字符串长度是否在指定范围内)
 
@@ -117,7 +118,7 @@ namespace Nigel.Extensions
             return source.Length >= minLength && source.Length <= maxLength;
         }
 
-        #endregion
+        #endregion IsRangeLength(判断字符串长度是否在指定范围内)
 
         #region EqualsAny(确定字符串是否与所提供的值相等)
 
@@ -133,7 +134,7 @@ namespace Nigel.Extensions
             return values.Any(v => value.Equals(v, comparisonType));
         }
 
-        #endregion
+        #endregion EqualsAny(确定字符串是否与所提供的值相等)
 
         #region EquivalentTo(字符串是否全等)
 
@@ -149,7 +150,7 @@ namespace Nigel.Extensions
             return string.Equals(value, whateverCaseString, comparison);
         }
 
-        #endregion
+        #endregion EquivalentTo(字符串是否全等)
 
         #region Contains(确定输入字符串是否包含指定字符串)
 
@@ -245,6 +246,6 @@ namespace Nigel.Extensions
             return values.All(v => value.IndexOf(v, comparisonType) > -1);
         }
 
-        #endregion
+        #endregion Contains(确定输入字符串是否包含指定字符串)
     }
 }

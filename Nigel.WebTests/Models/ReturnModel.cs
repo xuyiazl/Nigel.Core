@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Nigel.WebTests
+﻿namespace Nigel.WebTests
 {
-
     /// <summary>
     /// 返回数据结构
     /// </summary>
@@ -17,9 +11,8 @@ namespace Nigel.WebTests
         private string _message = "service exception";
         private object _bodyMessage = "";
 
-
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ReturnModel()
         {
@@ -27,8 +20,9 @@ namespace Nigel.WebTests
             subCode = _subCode;
             message = _message;
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         public ReturnModel(bool boolCode)
         {
@@ -36,8 +30,9 @@ namespace Nigel.WebTests
             subCode = _subCode;
             message = "";
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="msg"></param>
         public ReturnModel(string msg)
@@ -46,8 +41,9 @@ namespace Nigel.WebTests
             subCode = _subCode;
             message = msg;
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="msg"></param>
         /// <param name="bodyMsg"></param>
@@ -65,6 +61,7 @@ namespace Nigel.WebTests
             get { return _code; }
             set { _code = value; }
         }
+
         /// <summary>
         /// 业务状态码
         /// </summary>
@@ -73,6 +70,7 @@ namespace Nigel.WebTests
             get { return _subCode; }
             set { _subCode = value; }
         }
+
         /// <summary>
         /// 执行时间（毫秒）
         /// </summary>
@@ -81,6 +79,7 @@ namespace Nigel.WebTests
             get { return _requestLine; }
             set { _requestLine = value; }
         }
+
         /// <summary>
         /// 提示消息
         /// </summary>
@@ -89,6 +88,7 @@ namespace Nigel.WebTests
             get { return _message; }
             set { _message = value; }
         }
+
         /// <summary>
         /// json数据
         /// </summary>

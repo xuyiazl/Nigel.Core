@@ -2,23 +2,19 @@
 {
     /********************************************************************
     *           Copyright:       2009-2011
-    *           Company:         
+    *           Company:
     *           CRL Version :    4.0.30319.239
     *           Created by 徐毅 at 2011/11/29 12:35:40
     *                   mailto:3624091@qq.com
-    *                         
+    *
     ********************************************************************/
 
+    using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Data;
-
-    using Nigel.Data;
-    using System.Threading.Tasks;
-    using Microsoft.EntityFrameworkCore;
     using System.Threading;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// 分页列表
@@ -30,22 +26,27 @@
         /// 初始化空对象
         /// </summary>
         public readonly static PagedList<T> Empty = new PagedList<T>(default(List<T>), 0, 1, 1);
+
         /// <summary>
         /// 页码
         /// </summary>
         public int PageNumber { get; set; }
+
         /// <summary>
         /// 分页大小
         /// </summary>
         public int PageSize { get; set; }
+
         /// <summary>
         /// 总页数
         /// </summary>
         public int TotalPages { get; set; }
+
         /// <summary>
         /// 总记录数
         /// </summary>
         public int TotalRecords { get; set; }
+
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -65,6 +66,7 @@
                 this.AddRange(items);
             }
         }
+
         /// <summary>
         /// 是否能上一页
         /// </summary>
@@ -75,6 +77,7 @@
                 return (PageNumber > 1);
             }
         }
+
         /// <summary>
         /// 是否能下一页
         /// </summary>
@@ -85,6 +88,7 @@
                 return (PageNumber < TotalPages);
             }
         }
+
         /// <summary>
         /// 创建分页对象
         /// </summary>
@@ -98,6 +102,7 @@
             var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
             return new PagedList<T>(items, count, pageNumber, pageSize);
         }
+
         /// <summary>
         /// 异步创建分页对象
         /// </summary>
@@ -111,6 +116,7 @@
             var items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
             return new PagedList<T>(items, count, pageNumber, pageSize);
         }
+
         /// <summary>
         /// 异步创建分页对象
         /// </summary>

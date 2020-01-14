@@ -2,17 +2,15 @@
 {
     /********************************************************************
     *           Copyright:       2009-2011
-    *           Company:         
+    *           Company:
     *           CRL Version :    4.0.30319.239
     *           Created by 徐毅 at 2011/12/25 22:10:44
     *                   mailto:3624091@qq.com
-    *                         
+    *
     ********************************************************************/
 
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Threading;
 
     /// <summary>
@@ -36,7 +34,7 @@
 
         public int MaxReadPoolSize { get; set; }
         public int MaxWritePoolSize { get; set; }
-        
+
         public ConnectionPool(IEnumerable<string> readHosts)
             : this(readHosts, readHosts)
         { }
@@ -85,7 +83,6 @@
                     WritePoolIndex = 0;
 
                 WritePoolIndex++;
-
 
                 return (T)inActiveClient;
             }
@@ -223,7 +220,6 @@
             }
             catch
             {
-
             }
         }
     }

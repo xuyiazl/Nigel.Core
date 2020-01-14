@@ -1,15 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Nigel.Core.Middlewares
 {
-
     /// <summary>
     /// 安全管理列表中间件
     /// </summary>
@@ -19,6 +16,7 @@ namespace Nigel.Core.Middlewares
         /// 方法
         /// </summary>
         private readonly RequestDelegate _next;
+
         private readonly ILogger<AdminSafeListMiddleware> _logger;
 
         /// <summary>

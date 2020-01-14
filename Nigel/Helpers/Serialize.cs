@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Nigel.Extensions;
+using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Xml.Serialization;
-using Nigel.Extensions;
 
 namespace Nigel.Helpers
 {
@@ -107,7 +107,7 @@ namespace Nigel.Helpers
             }
         }
 
-        #endregion
+        #endregion 二进制序列化
 
         #region Xml序列化
 
@@ -177,6 +177,6 @@ namespace Nigel.Helpers
             }
         }
 
-        #endregion
+        #endregion Xml序列化
     }
 }

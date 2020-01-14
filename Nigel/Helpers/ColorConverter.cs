@@ -54,7 +54,7 @@ namespace Nigel.Helpers
                         byte.Parse(m1.Groups[4].Value, NumberStyles.HexNumber));
                 }
 
-                return Color.FromArgb(0xFF, 
+                return Color.FromArgb(0xFF,
                     byte.Parse(m1.Groups[1].Value, NumberStyles.HexNumber),
                     byte.Parse(m1.Groups[2].Value, NumberStyles.HexNumber),
                     byte.Parse(m1.Groups[3].Value, NumberStyles.HexNumber));
@@ -66,7 +66,7 @@ namespace Nigel.Helpers
                 if (m2.Success && m2.Groups.Count == 4)
                 {
                     var r = byte.Parse(m2.Groups[1].Value, NumberStyles.HexNumber);
-                    r += (byte) (r << 4);
+                    r += (byte)(r << 4);
                     var g = byte.Parse(m2.Groups[2].Value, NumberStyles.HexNumber);
                     g += (byte)(g << 4);
                     var b = byte.Parse(m2.Groups[3].Value, NumberStyles.HexNumber);
@@ -147,6 +147,7 @@ namespace Nigel.Helpers
                     case "fuschia":
                     case "purple":
                         return Color.FromName(cssColour);
+
                     default:
                         throw new ArgumentException("无效颜色");
                 }
@@ -177,7 +178,7 @@ namespace Nigel.Helpers
                 var m = l + l - v;
                 var sv = (v - m) / v;
                 h *= 6.0;
-                var sextant = (int) h;
+                var sextant = (int)h;
                 var fract = h - sextant;
                 var vsf = v * sv * fract;
                 var mid1 = m + vsf;
@@ -190,26 +191,31 @@ namespace Nigel.Helpers
                         g = mid1;
                         b = m;
                         break;
+
                     case 1:
                         r = mid2;
                         g = v;
                         b = m;
                         break;
+
                     case 2:
                         r = m;
                         g = v;
                         b = mid1;
                         break;
+
                     case 3:
                         r = m;
                         g = mid2;
                         b = v;
                         break;
+
                     case 4:
                         r = mid1;
                         g = m;
                         b = v;
                         break;
+
                     case 5:
                         r = v;
                         g = m;
@@ -231,10 +237,10 @@ namespace Nigel.Helpers
             string parseString = input.Trim();
             if (parseString.EndsWith("%"))
             {
-                return (byte) (ParseClamp(parseString.Remove(parseString.Length - 1), 100) * 2.55);
+                return (byte)(ParseClamp(parseString.Remove(parseString.Length - 1), 100) * 2.55);
             }
 
-            return (byte) (ParseClamp(parseString, 255));
+            return (byte)(ParseClamp(parseString, 255));
         }
 
         /// <summary>
@@ -274,7 +280,7 @@ namespace Nigel.Helpers
                 return (byte)(ParseClamp(parseString.Remove(parseString.Length - 1), 100) * 2.55);
             }
 
-            return (byte)(ParseClamp(parseString, 1)*255);
+            return (byte)(ParseClamp(parseString, 1) * 255);
         }
 
         /// <summary>
@@ -286,7 +292,7 @@ namespace Nigel.Helpers
             string parseString = input.Trim();
             if (double.TryParse(input, out var parsedValue))
             {
-                return (short) (((parsedValue % 360) + 360) % 360);
+                return (short)(((parsedValue % 360) + 360) % 360);
             }
             throw new ArgumentException($"无效数字 \"{input}\"");
         }

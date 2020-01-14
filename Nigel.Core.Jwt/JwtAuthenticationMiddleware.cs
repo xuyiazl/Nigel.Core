@@ -1,24 +1,15 @@
-﻿using System;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using Microsoft.Net.Http.Headers;
-using Nigel.Core.Jwt;
-using Nigel.Core.Jwt.Algorithms;
-using Nigel.Core.Jwt.Serializers;
-using Nigel.Extensions;
-using Nigel.Helpers;
-using Nigel.Json;
+using System;
+using System.Threading.Tasks;
 
 namespace Nigel.Core.Jwt
 {
     public sealed class JwtAuthenticationMiddleware
     {
         private readonly RequestDelegate _next;
+
         public JwtAuthenticationMiddleware(RequestDelegate next, IAuthenticationSchemeProvider schemes)
         {
             if (next == null)
@@ -59,6 +50,5 @@ namespace Nigel.Core.Jwt
 
             await _next.Invoke(context);
         }
-
     }
 }

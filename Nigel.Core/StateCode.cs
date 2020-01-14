@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
+﻿using System.ComponentModel;
 
 namespace Nigel.Core
 {
@@ -15,6 +12,7 @@ namespace Nigel.Core
         /// </summary>
         [Description("成功")]
         Ok = 0,
+
         /// <summary>
         /// 失败
         /// </summary>

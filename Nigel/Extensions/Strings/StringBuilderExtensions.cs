@@ -31,7 +31,7 @@ namespace Nigel.Extensions
         /// <param name="sb">StringBuilder</param>
         /// <param name="c">字符</param>
         /// <returns></returns>
-        public static StringBuilder TrimStart(this StringBuilder sb,char c)
+        public static StringBuilder TrimStart(this StringBuilder sb, char c)
         {
             if (sb == null)
             {
@@ -90,7 +90,7 @@ namespace Nigel.Extensions
                 return sb;
             }
 
-            while (sb.SubString(0,str.Length).Equals(str))
+            while (sb.SubString(0, str.Length).Equals(str))
             {
                 sb.Remove(0, str.Length);
                 if (str.Length > sb.Length)
@@ -102,7 +102,7 @@ namespace Nigel.Extensions
             return sb;
         }
 
-        #endregion
+        #endregion TrimStart(去除StringBuilder开头指定值)
 
         #region TrimEnd(去除StringBuilder尾部指定值)
 
@@ -138,9 +138,9 @@ namespace Nigel.Extensions
                 return sb;
             }
 
-            while (c.Equals(sb[sb.Length-1]))
+            while (c.Equals(sb[sb.Length - 1]))
             {
-                sb.Remove(sb.Length-1, 1);
+                sb.Remove(sb.Length - 1, 1);
             }
 
             return sb;
@@ -185,7 +185,7 @@ namespace Nigel.Extensions
                 return sb;
             }
 
-            while (sb.SubString(sb.Length-str.Length, str.Length).Equals(str))
+            while (sb.SubString(sb.Length - str.Length, str.Length).Equals(str))
             {
                 sb.Remove(sb.Length - str.Length, str.Length);
                 if (sb.Length < str.Length)
@@ -197,7 +197,7 @@ namespace Nigel.Extensions
             return sb;
         }
 
-        #endregion
+        #endregion TrimEnd(去除StringBuilder尾部指定值)
 
         #region Trim(去除StringBuilder两端的空格)
 
@@ -221,7 +221,7 @@ namespace Nigel.Extensions
             return sb.TrimEnd().TrimStart();
         }
 
-        #endregion
+        #endregion Trim(去除StringBuilder两端的空格)
 
         #region SubString(返回StringBuilder从起始位置指定长度的字符串)
 
@@ -243,7 +243,7 @@ namespace Nigel.Extensions
             {
                 throw new IndexOutOfRangeException("超出字符串索引长度");
             }
-            char[] chars=new char[length];
+            char[] chars = new char[length];
             for (int i = 0; i < length; i++)
             {
                 chars[i] = sb[start + i];
@@ -251,7 +251,7 @@ namespace Nigel.Extensions
             return new string(chars);
         }
 
-        #endregion
+        #endregion SubString(返回StringBuilder从起始位置指定长度的字符串)
 
         #region AppendLine(添加内容并换行)
 
@@ -267,7 +267,7 @@ namespace Nigel.Extensions
             return sb.AppendLine(string.Format(value, parameters));
         }
 
-        #endregion
+        #endregion AppendLine(添加内容并换行)
 
         #region AppendJoin(添加数组内容)
 
@@ -285,7 +285,7 @@ namespace Nigel.Extensions
             return sb;
         }
 
-        #endregion
+        #endregion AppendJoin(添加数组内容)
 
         #region AppendIf(根据条件添加内容)
 
@@ -306,7 +306,7 @@ namespace Nigel.Extensions
             return sb;
         }
 
-        #endregion
+        #endregion AppendIf(根据条件添加内容)
 
         #region AppendFormatIf(根据条件添加内容)
 
@@ -329,7 +329,7 @@ namespace Nigel.Extensions
             return sb;
         }
 
-        #endregion
+        #endregion AppendFormatIf(根据条件添加内容)
 
         #region AppendLineIf(根据条件添加内容并换行)
 
@@ -369,6 +369,6 @@ namespace Nigel.Extensions
             return sb;
         }
 
-        #endregion
+        #endregion AppendLineIf(根据条件添加内容并换行)
     }
 }

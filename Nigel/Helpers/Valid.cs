@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Nigel.Extensions;
+using System;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Nigel.Extensions;
 
 namespace Nigel.Helpers
 {
@@ -32,7 +32,7 @@ namespace Nigel.Helpers
             return value.IsMatch(pattern, RegexOptions.IgnoreCase);
         }
 
-        #endregion
+        #endregion IsEmail(是否邮箱)
 
         #region HasEmail(是否存在邮箱)
 
@@ -54,9 +54,10 @@ namespace Nigel.Helpers
             return value.IsMatch(pattern, RegexOptions.IgnoreCase);
         }
 
-        #endregion
+        #endregion HasEmail(是否存在邮箱)
 
         #region IsPhoneNumber(是否合法的手机号码)
+
         /// <summary>
         /// 是否合法的手机号码
         /// </summary>
@@ -70,9 +71,11 @@ namespace Nigel.Helpers
             }
             return value.IsMatch(@"^(0|86|17951)?(13[0-9]|15[012356789]|18[0-9]|14[57]|17[678])[0-9]{8}$");
         }
-        #endregion
+
+        #endregion IsPhoneNumber(是否合法的手机号码)
 
         #region IsMobileNumber(是否手机号码)
+
         /// <summary>
         /// 是否手机号码
         /// </summary>
@@ -88,6 +91,7 @@ namespace Nigel.Helpers
             string pattern = isRestrict ? @"^[1][3-8]\d{9}$" : @"^[1]\d{10}$";
             return value.IsMatch(pattern);
         }
+
         /// <summary>
         /// 是否手机号码
         /// </summary>
@@ -101,7 +105,7 @@ namespace Nigel.Helpers
             }
             value = value.Trim().Replace("^", "").Replace("$", "");
             /*
-             * 手机号码: 
+             * 手机号码:
              * 13[0-9], 14[5,7], 15[0, 1, 2, 3, 5, 6, 7, 8, 9], 17[6, 7, 8], 18[0-9], 170[0-9]
              * 移动号段: 134,135,136,137,138,139,150,151,152,157,158,159,182,183,184,187,188,147,178,1705
              * 联通号段: 130,131,132,155,156,185,186,145,176,1709
@@ -125,9 +129,11 @@ namespace Nigel.Helpers
             string pattern = isRestrict ? @"[1][3-8]\d{9}" : @"[1]\d{10}";
             return value.IsMatch(pattern);
         }
-        #endregion
+
+        #endregion IsMobileNumber(是否手机号码)
 
         #region IsChinaMobilePhone(是否中国移动号码)
+
         /// <summary>
         /// 是否中国移动号码
         /// </summary>
@@ -146,9 +152,11 @@ namespace Nigel.Helpers
              */
             return value.IsMatch(@"(^1(3[4-9]|4[7]|5[0-27-9]|7[8]|8[2-478])\d{8}$)|(^1705\d{7}$)");
         }
-        #endregion
+
+        #endregion IsChinaMobilePhone(是否中国移动号码)
 
         #region IsChinaUnicomPhone(是否中国联通号码)
+
         /// <summary>
         /// 是否中国联通号码
         /// </summary>
@@ -166,9 +174,11 @@ namespace Nigel.Helpers
              */
             return value.IsMatch(@"(^1(3[0-2]|4[5]|5[56]|7[6]|8[56])\d{8}$)|(^1709\d{7}$)");
         }
-        #endregion
+
+        #endregion IsChinaUnicomPhone(是否中国联通号码)
 
         #region IsChinaTelecomPhone(是否中国电信号码)
+
         /// <summary>
         /// 是否中国电信号码
         /// </summary>
@@ -186,9 +196,11 @@ namespace Nigel.Helpers
              */
             return value.IsMatch(@"(^1(33|53|77|8[019])\d{8}$)|(^1700\d{7}$)");
         }
-        #endregion
+
+        #endregion IsChinaTelecomPhone(是否中国电信号码)
 
         #region IsTel(是否中国电话)
+
         /// <summary>
         /// 是否中国电话，格式：010-85849685
         /// </summary>
@@ -202,9 +214,11 @@ namespace Nigel.Helpers
             }
             return value.IsMatch(@"^\d{3,4}-?\d{6,8}$", RegexOptions.IgnoreCase);
         }
-        #endregion
+
+        #endregion IsTel(是否中国电话)
 
         #region IsIdCard(是否身份证号码)
+
         /// <summary>
         /// 是否身份证号码
         /// </summary>
@@ -224,9 +238,11 @@ namespace Nigel.Helpers
                    value.IsMatch(@"^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$",
                        RegexOptions.IgnoreCase);
         }
-        #endregion
+
+        #endregion IsIdCard(是否身份证号码)
 
         #region IsBase64String(是否Base64编码)
+
         /// <summary>
         /// 是否Base64编码
         /// </summary>
@@ -236,9 +252,11 @@ namespace Nigel.Helpers
         {
             return value.IsMatch(@"[A-Za-z0-9\+\/\=]");
         }
-        #endregion
+
+        #endregion IsBase64String(是否Base64编码)
 
         #region IsGuid(是否Guid)
+
         /// <summary>
         /// 是否Guid
         /// </summary>
@@ -252,9 +270,11 @@ namespace Nigel.Helpers
             }
             return guid.IsMatch(@"[A-F0-9]{8}(-[A-F0-9]{4}){3}-[A-F0-9]{12}|[A-F0-9]{32}", RegexOptions.IgnoreCase);
         }
-        #endregion
+
+        #endregion IsGuid(是否Guid)
 
         #region IsUrl(是否Url地址)
+
         /// <summary>
         /// 是否Url地址（统一资源定位）
         /// </summary>
@@ -271,9 +291,11 @@ namespace Nigel.Helpers
                     @"^(http|https)\://([a-zA-Z0-9\.\-]+(\:[a-zA-Z0-9\.&%\$\-]+)*@)*((25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])|localhost|([a-zA-Z0-9\-]+\.)*[a-zA-Z0-9\-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{1,10}))(\:[0-9]+)*(/($|[a-zA-Z0-9\.\,\?\'\\\+&%\$#\=~_\-]+))*$",
                     RegexOptions.IgnoreCase);
         }
-        #endregion
+
+        #endregion IsUrl(是否Url地址)
 
         #region IsUri(是否Uri)
+
         /// <summary>
         /// 是否Uri（统一资源标识）
         /// </summary>
@@ -324,9 +346,11 @@ namespace Nigel.Helpers
             }
             return Uri.IsWellFormedUriString(value, UriKind.Absolute);
         }
-        #endregion
+
+        #endregion IsUri(是否Uri)
 
         #region IsMainDomainUrl(是否主域名Url地址)
+
         /// <summary>
         /// 是否主域名或者www开头的域名
         /// </summary>
@@ -342,7 +366,8 @@ namespace Nigel.Helpers
                 value.IsMatch(
                     @"^http(s)?\://((www.)?[a-zA-Z0-9\-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{1,10}))(\:[0-9]+)*(/($|[a-zA-Z0-9\.\,\?\'\\\+&%\$#\=~_\-]+))*$");
         }
-        #endregion
+
+        #endregion IsMainDomainUrl(是否主域名Url地址)
 
         #region IsMainDomain(是否主域名)
 
@@ -362,7 +387,7 @@ namespace Nigel.Helpers
                 RegexOptions.IgnoreCase);
         }
 
-        #endregion
+        #endregion IsMainDomain(是否主域名)
 
         #region IsDomain(是否域名)
 
@@ -382,9 +407,10 @@ namespace Nigel.Helpers
                 RegexOptions.IgnoreCase);
         }
 
-        #endregion
+        #endregion IsDomain(是否域名)
 
         #region IsMac(是否Mac地址)
+
         /// <summary>
         /// 是否Mac地址
         /// </summary>
@@ -398,9 +424,11 @@ namespace Nigel.Helpers
             }
             return value.IsMatch(@"^([0-9A-F]{2}-){5}[0-9A-F]{2}$") || value.IsMatch(@"^[0-9A-F]{12}$");
         }
-        #endregion
+
+        #endregion IsMac(是否Mac地址)
 
         #region IsPositiveInteger(是否大于0的正整数)
+
         /// <summary>
         /// 是否大于0的正整数
         /// </summary>
@@ -414,9 +442,11 @@ namespace Nigel.Helpers
             }
             return value.IsMatch(@"^[1-9]+\d*$");
         }
-        #endregion
+
+        #endregion IsPositiveInteger(是否大于0的正整数)
 
         #region IsInt32(是否Int32类型)
+
         /// <summary>
         /// 是否Int32类型
         /// </summary>
@@ -430,9 +460,11 @@ namespace Nigel.Helpers
             }
             return value.IsMatch(@"^[0-9]*$");
         }
-        #endregion
+
+        #endregion IsInt32(是否Int32类型)
 
         #region IsDouble(是否Double类型，如果带有.默认为1位0)
+
         /// <summary>
         /// 是否Double类型
         /// </summary>
@@ -446,6 +478,7 @@ namespace Nigel.Helpers
             }
             return value.IsMatch(@"^\d[.]?\d?$");
         }
+
         /// <summary>
         /// 是否Double类型
         /// </summary>
@@ -475,9 +508,11 @@ namespace Nigel.Helpers
             }
             return false;
         }
-        #endregion
+
+        #endregion IsDouble(是否Double类型，如果带有.默认为1位0)
 
         #region IsPassword(是否密码格式)
+
         /// <summary>
         /// 是否密码One的格式，6-25位包含特殊字符
         /// </summary>
@@ -491,6 +526,7 @@ namespace Nigel.Helpers
             }
             return value.IsMatch(@"^[\@A-Za-z0-9\!\#\$\%\^\&\*\.\~_]{6,25}$");
         }
+
         /// <summary>
         /// 是否密码One的格式，指定密码长度，包含特殊字符
         /// </summary>
@@ -506,6 +542,7 @@ namespace Nigel.Helpers
             }
             return value.IsMatch(string.Format(@"^[\@A-Za-z0-9\!\#\$\%\^\&\*\.\~_]{0},{1}$", "{" + min, max + "}"));
         }
+
         /// <summary>
         /// 是否密码Two的格式，6-25位包含特殊字符
         /// </summary>
@@ -521,9 +558,11 @@ namespace Nigel.Helpers
                 value.IsMatch(
                     @"(?=^.{6,25}$)(?=(?:.*?\d){1})(?=.*[a-z])(?=(?:.*?[A-Z]){1})(?=(?:.*?[!@#$%*()_+^&}{:;?.]){1})(?!.*\s)[0-9a-zA-Z!@#$%*()_+^&]*$");
         }
-        #endregion
+
+        #endregion IsPassword(是否密码格式)
 
         #region IsLoginName(是否登录账号)
+
         /// <summary>
         /// 是否登录账号，6-30位长度
         /// </summary>
@@ -537,6 +576,7 @@ namespace Nigel.Helpers
             }
             return value.IsMatch(@"^(?![^a-zA-Z]+$)[A-Za-z0-9]{6,30}$");
         }
+
         /// <summary>
         /// 是否登录账号
         /// </summary>
@@ -552,9 +592,11 @@ namespace Nigel.Helpers
             }
             return value.IsMatch(string.Format(@"^(?![^a-zA-Z]+$)[A-Za-z0-9]{0},{1}$", "{" + min, max + "}"));
         }
-        #endregion
+
+        #endregion IsLoginName(是否登录账号)
 
         #region IsBankCard(是否银行卡号)
+
         /// <summary>
         /// 是否银行卡号，16位或19位银行卡（简单校验）
         /// </summary>
@@ -568,9 +610,11 @@ namespace Nigel.Helpers
             }
             return value.IsMatch(@"^(\d{16}|\d{19})$");
         }
-        #endregion
+
+        #endregion IsBankCard(是否银行卡号)
 
         #region IsSafeSqlString(是否安全Sql语句)
+
         /// <summary>
         /// 是否安全Sql语句
         /// </summary>
@@ -592,9 +636,11 @@ namespace Nigel.Helpers
 
             return false;
         }
-        #endregion
+
+        #endregion IsSafeSqlString(是否安全Sql语句)
 
         #region IsVersion(是否有效的版本号)
+
         /// <summary>
         /// 是否有效版本号，范例：1.3,1.1.5,1.25.256
         /// </summary>
@@ -610,7 +656,8 @@ namespace Nigel.Helpers
             value = value.Replace("^", "").Replace("$", "");
             return value.IsMatch(string.Format(@"^{0}{1}{2}$", @"\d{0,4}\.(\d{1,4}\.){0,", length, @"}\d{1,4}"));
         }
-        #endregion
+
+        #endregion IsVersion(是否有效的版本号)
 
         #region IsChineseWord(是否中文字符)
 
@@ -629,7 +676,7 @@ namespace Nigel.Helpers
             return value.IsMatch(@"^[\u4e00-\u9fa5]{0,}$");
         }
 
-        #endregion
+        #endregion IsChineseWord(是否中文字符)
 
         #region IsChinese(是否中文)
 
@@ -647,7 +694,7 @@ namespace Nigel.Helpers
             return value.IsMatch(@"^[\u4e00-\u9fa5]+$", RegexOptions.IgnoreCase);
         }
 
-        #endregion
+        #endregion IsChinese(是否中文)
 
         #region IsContainsChinese(是否包含中文)
 
@@ -665,7 +712,7 @@ namespace Nigel.Helpers
             return value.IsMatch(@"[\u4e00-\u9fa5]+", RegexOptions.IgnoreCase);
         }
 
-        #endregion
+        #endregion IsContainsChinese(是否包含中文)
 
         #region IsContainsNumber(是否包含数字)
 
@@ -683,9 +730,10 @@ namespace Nigel.Helpers
             return value.IsMatch(@"[0-9]+");
         }
 
-        #endregion
+        #endregion IsContainsNumber(是否包含数字)
 
         #region IsIpAddress(是否IP地址)
+
         /// <summary>
         /// 是否IP地址
         /// </summary>
@@ -699,9 +747,11 @@ namespace Nigel.Helpers
             }
             return value.IsMatch(@"^(\d(25[0-5]|2[0-4][0-9]|1?[0-9]?[0-9])\d\.){3}\d(25[0-5]|2[0-4][0-9]|1?[0-9]?[0-9])\d$");
         }
-        #endregion
+
+        #endregion IsIpAddress(是否IP地址)
 
         #region IsInteger(是否整数)
+
         /// <summary>
         /// 是否整数
         /// </summary>
@@ -715,9 +765,11 @@ namespace Nigel.Helpers
             }
             return value.IsMatch(@"^\-?[0-9]+$");
         }
-        #endregion
+
+        #endregion IsInteger(是否整数)
 
         #region IsUnicode(是否Unicode字符串)
+
         /// <summary>
         /// 是否Unicode字符串
         /// </summary>
@@ -733,9 +785,11 @@ namespace Nigel.Helpers
                 value.IsMatch(
                     @"^(http|https|ftp|rtsp|mms):(\/\/|\\\\)[A-Za-z0-9%\-_@]+\.[A-Za-z0-9%\-_@]+[A-Za-z0-9\.\/=\?%\-&_~`@:\+!;]*$");
         }
-        #endregion
+
+        #endregion IsUnicode(是否Unicode字符串)
 
         #region IsLengthStr(字符串长度是否在指定范围内)
+
         /// <summary>
         /// 字符串长度是否在指定范围内，一个中文为2个字符
         /// </summary>
@@ -752,9 +806,11 @@ namespace Nigel.Helpers
             }
             return true;
         }
-        #endregion
+
+        #endregion IsLengthStr(字符串长度是否在指定范围内)
 
         #region IsPostalCode(是否中国邮政编码)
+
         /// <summary>
         /// 是否中国邮政编码，6位数字
         /// </summary>
@@ -768,9 +824,11 @@ namespace Nigel.Helpers
             }
             return value.IsMatch(@"^[1-9]\d{5}$", RegexOptions.IgnoreCase);
         }
-        #endregion
+
+        #endregion IsPostalCode(是否中国邮政编码)
 
         #region IsNormalChar(是否正常字符，字母、数字、下划线的组合)
+
         /// <summary>
         /// 是否正常字符，字母、数字、下划线的组合
         /// </summary>
@@ -784,9 +842,11 @@ namespace Nigel.Helpers
             }
             return value.IsMatch(@"[\w\d_]+", RegexOptions.IgnoreCase);
         }
-        #endregion
+
+        #endregion IsNormalChar(是否正常字符，字母、数字、下划线的组合)
 
         #region IsPostfix(是否指定后缀)
+
         /// <summary>
         /// 是否指定后缀
         /// </summary>
@@ -802,9 +862,11 @@ namespace Nigel.Helpers
             string postfix = string.Join("|", postfixs);
             return value.IsMatch(string.Format(@".(?i:{0})$", postfix));
         }
-        #endregion
+
+        #endregion IsPostfix(是否指定后缀)
 
         #region IsDecimal(是否数字型)
+
         /// <summary>
         /// 是否数字型
         /// </summary>
@@ -818,9 +880,11 @@ namespace Nigel.Helpers
             }
             return value.IsMatch(@"^([0-9])[0-9]*(\.\w*)?$");
         }
-        #endregion
+
+        #endregion IsDecimal(是否数字型)
 
         #region IsRepeat(是否重复)
+
         /// <summary>
         /// 是否重复，范例：112,返回true
         /// </summary>
@@ -835,9 +899,11 @@ namespace Nigel.Helpers
             var array = value.ToCharArray();
             return array.Any(c => array.Count(t => t == c) > 1);
         }
-        #endregion
+
+        #endregion IsRepeat(是否重复)
 
         #region IsQQ(是否合法QQ号码)
+
         /// <summary>
         /// 是否合法QQ号码
         /// </summary>
@@ -852,7 +918,8 @@ namespace Nigel.Helpers
             }
             return value.IsMatch(@"^[1-9][0-9]{4,9}$");
         }
-        #endregion
+
+        #endregion IsQQ(是否合法QQ号码)
 
         #region IsColorValue(是否颜色值)
 
@@ -878,7 +945,7 @@ namespace Nigel.Helpers
             return !value.IsMatch(@"[^0-9a-f]", RegexOptions.IgnoreCase);
         }
 
-        #endregion
+        #endregion IsColorValue(是否颜色值)
 
         #region IsWideWord(是否全角字符)
 
@@ -897,7 +964,7 @@ namespace Nigel.Helpers
             return value.IsMatch(@"[^/x00-/xff]");
         }
 
-        #endregion
+        #endregion IsWideWord(是否全角字符)
 
         #region IsNarrowWord(是否半角字符)
 
@@ -916,7 +983,7 @@ namespace Nigel.Helpers
             return value.IsMatch(@"[/x00-/xff]");
         }
 
-        #endregion
+        #endregion IsNarrowWord(是否半角字符)
 
         #region IsOnlyNumber(是否数字)
 
@@ -935,7 +1002,7 @@ namespace Nigel.Helpers
             return value.IsMatch(@"^\d+$");
         }
 
-        #endregion
+        #endregion IsOnlyNumber(是否数字)
 
         #region IsUpperCaseChar(是否大写英文字母)
 
@@ -964,7 +1031,7 @@ namespace Nigel.Helpers
             return IsUpperCaseChar(value.ToString());
         }
 
-        #endregion
+        #endregion IsUpperCaseChar(是否大写英文字母)
 
         #region IsLowerCaseChar(是否小写英文字母)
 
@@ -989,16 +1056,16 @@ namespace Nigel.Helpers
         /// <param name="value">值</param>
         /// <returns></returns>
         public static bool IsLowerCaseChar(char value)
-        {            
+        {
             return IsLowerCaseChar(value.ToString());
         }
 
-        #endregion
+        #endregion IsLowerCaseChar(是否小写英文字母)
 
         /// <summary>
         /// 是否数字
         /// </summary>
-        /// <param name="input">输入值</param>        
+        /// <param name="input">输入值</param>
         public static bool IsNumber(string input)
         {
             if (input.IsEmpty())
@@ -1028,7 +1095,7 @@ namespace Nigel.Helpers
             return value.IsMatch(@"^((([0-1]?[0-9])|(2[0-3])):([0-5]?[0-9])(:[0-5]?[0-9])?)$");
         }
 
-        #endregion
+        #endregion IsTime(是否时间格式)
 
         #region IsDate(是否日期)
 
@@ -1082,9 +1149,11 @@ namespace Nigel.Helpers
 
             return DateTime.TryParseExact(value, format, provider, styles, out var minValue);
         }
-        #endregion
+
+        #endregion IsDate(是否日期)
 
         #region IsDateTime(是否有效时间)
+
         /// <summary>
         /// 是否大于最小时间
         /// </summary>
@@ -1107,6 +1176,7 @@ namespace Nigel.Helpers
             }
             return false;
         }
+
         /// <summary>
         /// 是否小于最大时间
         /// </summary>
@@ -1129,8 +1199,9 @@ namespace Nigel.Helpers
             }
             return false;
         }
-        #endregion
 
-        #endregion
+        #endregion IsDateTime(是否有效时间)
+
+        #endregion 日期类型
     }
 }

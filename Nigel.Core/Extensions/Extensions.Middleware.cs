@@ -5,8 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Nigel.Core.Middlewares;
 using Nigel.Helpers;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Nigel.Core.Extensions
 {

@@ -1,8 +1,8 @@
-﻿using System.Collections.Concurrent;
+﻿using Nigel.Extensions;
+using Nigel.Helpers;
+using System.Collections.Concurrent;
 using System.IO;
 using System.Threading.Tasks;
-using Nigel.Extensions;
-using Nigel.Helpers;
 
 namespace Nigel.IO
 {
@@ -190,7 +190,7 @@ namespace Nigel.IO
             fsw.NotifyFilter = (NotifyFilters)383;
             fsw.EnableRaisingEvents = true;
             return fsw;
-        }        
+        }
     }
 
     /// <summary>

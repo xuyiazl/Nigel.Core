@@ -29,7 +29,7 @@ namespace Nigel.Drawing
             return string.Empty;
         }
 
-        #endregion
+        #endregion GetImageExtensions(获取图片扩展名)
 
         #region GetCodecInfo(获取特定图像编解码信息)
 
@@ -49,6 +49,6 @@ namespace Nigel.Drawing
             return codecs.FirstOrDefault(x => x.FormatID == imageFormat.Guid);
         }
 
-        #endregion
+        #endregion GetCodecInfo(获取特定图像编解码信息)
     }
 }

@@ -2,7 +2,7 @@
 {
     /********************************************************************
     *           Copyright:       2009-2010
-    *           Company:         
+    *           Company:
     *           CRL Version :    4.0.30319.1
     *           Created by 徐毅 at 2010/12/12 12:44:36
     *                   mailto:3624091@qq.com
@@ -10,9 +10,6 @@
     ********************************************************************/
 
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// Holds the paging data.
@@ -27,7 +24,6 @@
         private int _nextPage;
         private PagerSettings _pagerSettings;
 
-
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -35,7 +31,6 @@
             : this(1, 1, PagerSettings.Default)
         {
         }
-
 
         /// <summary>
         /// Constructor to set properties.
@@ -46,7 +41,6 @@
             : this(currentPage, totalPages, PagerSettings.Default)
         {
         }
-
 
         /// <summary>
         /// Constructor to set properties.
@@ -60,10 +54,8 @@
             SetCurrentPage(currentPage, totalPages);
         }
 
-
         private static IPagerCalculator _instance = new PagerCalculator();
         private static readonly object _syncRoot = new object();
-
 
         /// <summary>
         /// Initialize pager calculator.
@@ -74,8 +66,8 @@
             _instance = pager;
         }
 
-
         #region Data Members
+
         /// <summary>
         /// Set the current page and calculate the rest of the pages.
         /// </summary>
@@ -84,7 +76,6 @@
         {
             SetCurrentPage(currentPage, _totalPages);
         }
-
 
         /// <summary>
         /// Set the current page and calculate the rest of the pages.
@@ -101,7 +92,6 @@
             Calculate();
         }
 
-
         /// <summary>
         /// Current page
         /// </summary>
@@ -110,7 +100,6 @@
             get { return _currentPage; }
             set { _currentPage = value; }
         }
-
 
         /// <summary>
         /// Total pages available
@@ -121,12 +110,10 @@
             set { _totalPages = value; }
         }
 
-
         /// <summary>
         /// Always 1.
         /// </summary>
         public int FirstPage { get { return 1; } }
-
 
         /// <summary>
         /// What is the previous page number if applicable.
@@ -136,7 +123,6 @@
             get { return _previousPage; }
             set { _previousPage = value; }
         }
-
 
         /// <summary>
         /// Starting page.
@@ -150,7 +136,6 @@
             set { _startingPage = value; }
         }
 
-
         /// <summary>
         /// Starting page.
         /// e.g.
@@ -163,7 +148,6 @@
             set { _endingPage = value; }
         }
 
-
         /// <summary>
         /// What is the next page number if applicable.
         /// </summary>
@@ -173,12 +157,10 @@
             set { _nextPage = value; }
         }
 
-
         /// <summary>
         /// Last page number is always the Total pages.
         /// </summary>
         public int LastPage { get { return _totalPages; } }
-
 
         /// <summary>
         /// Whether or not there are more than 1 page.
@@ -188,7 +170,6 @@
             get { return _totalPages > 1; }
         }
 
-
         /// <summary>
         /// Get the pager settings.
         /// </summary>
@@ -197,10 +178,11 @@
             get { return _pagerSettings; }
             set { _pagerSettings = value; }
         }
-        #endregion
 
+        #endregion Data Members
 
         #region Navigation Checks
+
         /// <summary>
         /// Can show First page link?
         /// </summary>
@@ -208,7 +190,6 @@
         {
             get { return (_startingPage != 1); }
         }
-
 
         /// <summary>
         /// Can show previous link?
@@ -218,7 +199,6 @@
             get { return (_startingPage > 2); }
         }
 
-
         /// <summary>
         /// Can show Next page link?
         /// </summary>
@@ -227,7 +207,6 @@
             get { return (_endingPage < (_totalPages - 1)); }
         }
 
-
         /// <summary>
         /// Can show Last page link?
         /// </summary>
@@ -235,10 +214,11 @@
         {
             get { return (_endingPage != _totalPages); }
         }
-        #endregion
 
+        #endregion Navigation Checks
 
         #region Navigation
+
         /// <summary>
         /// Move to the fist page.
         /// </summary>
@@ -247,7 +227,6 @@
             _currentPage = 1;
             Calculate();
         }
-
 
         /// <summary>
         /// Move to the previous page.
@@ -258,7 +237,6 @@
             Calculate();
         }
 
-
         /// <summary>
         /// Move to the next page.
         /// </summary>
@@ -267,7 +245,6 @@
             _currentPage = _nextPage;
             Calculate();
         }
-
 
         /// <summary>
         /// Move to the last page.
@@ -278,7 +255,6 @@
             Calculate();
         }
 
-
         /// <summary>
         /// Move to a specific page.
         /// </summary>
@@ -288,10 +264,11 @@
             _currentPage = selectedPage;
             Calculate();
         }
-        #endregion
 
+        #endregion Navigation
 
         #region Calculation
+
         /// <summary>
         /// Calcuate pages.
         /// </summary>
@@ -299,7 +276,6 @@
         {
             Calculate(this, _pagerSettings);
         }
-
 
         /// <summary>
         /// Calculate the starting page and ending page.
@@ -310,10 +286,11 @@
         {
             _instance.Calculate(pagerData, pagerSettings);
         }
-        #endregion
 
+        #endregion Calculation
 
         #region Html Generation
+
         /// <summary>
         /// Builds the html for non-ajax based url based paging.
         /// </summary>
@@ -324,7 +301,6 @@
             string html = PagerBuilderWeb.Instance.Build(this, this.Settings, urlBuilder);
             return html;
         }
-
 
         /// <summary>
         /// Builds the html for non-ajax based url based paging.
@@ -337,10 +313,11 @@
             string html = PagerBuilderWeb.Instance.Build(this, settings, urlBuilder);
             return html;
         }
-        #endregion
 
+        #endregion Html Generation
 
         #region Helper Methods
+
         /// <summary>
         /// Get the pager data using current page and totalPages.
         /// </summary>
@@ -352,10 +329,11 @@
             Pager data = new Pager(currentPage, totalPages, settings);
             return data;
         }
-        #endregion
 
+        #endregion Helper Methods
 
         #region ICloneable Members
+
         /// <summary>
         /// Clones the object.
         /// Good as long as properties are not objects.
@@ -365,6 +343,7 @@
         {
             return MemberwiseClone();
         }
-        #endregion
+
+        #endregion ICloneable Members
     }
 }

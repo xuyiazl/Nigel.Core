@@ -98,7 +98,7 @@ namespace Nigel.Develops
         /// <summary>
         /// 输出调用方法实际执行时间间隔（毫秒）
         /// </summary>
-        /// <param name="action">执行方法</param>                
+        /// <param name="action">执行方法</param>
         public static void InvokeAndWriteTimeSpan(Action action)
         {
             WriteLine(string.Format("执行时间:{0:N4}ms", InvokeAndGetTimeSpan(action).TotalMilliseconds));

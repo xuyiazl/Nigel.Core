@@ -1,6 +1,6 @@
-﻿using System.Security.Claims;
+﻿using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 using System.Security.Principal;
-using Microsoft.AspNetCore.Authentication;
 
 namespace Nigel.Core.Jwt.Internal
 {

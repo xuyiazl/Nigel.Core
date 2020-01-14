@@ -23,7 +23,7 @@ namespace Nigel.Extensions
             return Regex.Split(value, pattern, options);
         }
 
-        #endregion
+        #endregion RegexSplit(根据正则表达式拆分为字符串数组)
 
         #region GetWords(获取单词)
 
@@ -54,7 +54,7 @@ namespace Nigel.Extensions
             return words[index];
         }
 
-        #endregion
+        #endregion GetWords(获取单词)
 
         #region SpaceOnUpper(大写字母添加空格)
 
@@ -68,7 +68,7 @@ namespace Nigel.Extensions
             return Regex.Replace(value, @"([A-Z])(?=[a-z])|(?<=[a-z])([A-Z]|[0-9]+)", " $1$2").TrimStart();
         }
 
-        #endregion
+        #endregion SpaceOnUpper(大写字母添加空格)
 
         #region ReplaceWith(替换字符串)
 
@@ -147,6 +147,6 @@ namespace Nigel.Extensions
             return Regex.Replace(value, pattern, evaluator, options);
         }
 
-        #endregion
+        #endregion ReplaceWith(替换字符串)
     }
 }

@@ -1,11 +1,11 @@
-﻿using System.Text;
-using Nigel.Drawing;
+﻿using Nigel.Drawing;
+using System.Text;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace Nigel.Tests.Drawing
 {
-    public class CaptchaBuilderTest:TestBase
+    public class CaptchaBuilderTest : TestBase
     {
         private CaptchaBuilder _coder;
 
@@ -43,7 +43,7 @@ namespace Nigel.Tests.Drawing
             _coder.RandomPointPercent = 5;
             _coder.Height = 50;
             _coder.RandomColor = true;
-            using (var image = _coder.CreateImage(4, out code,CaptchaType.ChineseChar))
+            using (var image = _coder.CreateImage(4, out code, CaptchaType.ChineseChar))
             {
                 image.Save("D:\\test.png");
             }

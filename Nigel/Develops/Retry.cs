@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Nigel.Develops
 {
     /// <summary>
     /// 异常重试类
-    /// 
+    ///
     /// Retry.Task(RetryMode.Sync,
     ///      RetryAdapter.Create().MaxRuns(5).Waits(TimeSpan.FromMilliseconds(100)),
     ///      (ndx) =>
@@ -21,7 +19,6 @@ namespace Nigel.Develops
     /// </summary>
     public static class Retry
     {
-
         /// <summary>
         /// 任务
         /// </summary>
@@ -49,6 +46,7 @@ namespace Nigel.Develops
                 case RetryMode.Async:
                     AsyncExecute(() => { Run(RetryMode.Sync, trigger, callback, errorCallback); });
                     break;
+
                 default:
                     int current = 1;
                     while (current <= trigger.MaxRun)
@@ -141,6 +139,7 @@ namespace Nigel.Develops
         /// 同步
         /// </summary>
         Sync,
+
         /// <summary>
         /// 异步
         /// </summary>

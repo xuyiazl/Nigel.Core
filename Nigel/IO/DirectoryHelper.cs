@@ -1,7 +1,7 @@
-﻿using System;
-using System.IO;
-using Nigel.Extensions;
+﻿using Nigel.Extensions;
 using Nigel.Helpers;
+using System;
+using System.IO;
 
 namespace Nigel.IO
 {
@@ -29,7 +29,7 @@ namespace Nigel.IO
             }
         }
 
-        #endregion
+        #endregion CreateIfNotExists(创建文件夹，如果不存在)
 
         #region IsSubDirectoryOf(是否指定父目录路径的子目录)
 
@@ -70,7 +70,7 @@ namespace Nigel.IO
             return IsSubDirectoryOf(parentDirectory, parentOfChild);
         }
 
-        #endregion
+        #endregion IsSubDirectoryOf(是否指定父目录路径的子目录)
 
         #region ChangeCurrentDirectory(更改当前目录)
 
@@ -91,7 +91,7 @@ namespace Nigel.IO
             return new DisposeAction(() => { Directory.SetCurrentDirectory(currentDirectory); });
         }
 
-        #endregion
+        #endregion ChangeCurrentDirectory(更改当前目录)
 
         #region GetFileNames(获取指定目录中的文件列表)
 
@@ -136,7 +136,7 @@ namespace Nigel.IO
             }
         }
 
-        #endregion
+        #endregion GetFileNames(获取指定目录中的文件列表)
 
         #region GetDirectories(获取指定目录中所有子目录列表)
 
@@ -155,7 +155,7 @@ namespace Nigel.IO
             return Directory.GetDirectories(directoryPath);
         }
 
-        #endregion
+        #endregion GetDirectories(获取指定目录中所有子目录列表)
 
         #region Contains(查找指定目录中是否存在指定的文件)
 
@@ -179,7 +179,7 @@ namespace Nigel.IO
             }
         }
 
-        #endregion
+        #endregion Contains(查找指定目录中是否存在指定的文件)
 
         #region IsEmpty(是否空目录)
 
@@ -207,7 +207,7 @@ namespace Nigel.IO
             }
         }
 
-        #endregion
+        #endregion IsEmpty(是否空目录)
 
         #region Copy(递归复制文件夹及文件夹/文件)
 
@@ -272,7 +272,7 @@ namespace Nigel.IO
             }
         }
 
-        #endregion
+        #endregion Copy(递归复制文件夹及文件夹/文件)
 
         #region Delete(递归删除目录)
 
@@ -315,7 +315,7 @@ namespace Nigel.IO
             return flag;
         }
 
-        #endregion
+        #endregion Delete(递归删除目录)
 
         #region SetAttributes(设置目录属性)
 
@@ -345,6 +345,6 @@ namespace Nigel.IO
             }
         }
 
-        #endregion
+        #endregion SetAttributes(设置目录属性)
     }
 }

@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Nigel.Extensions;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Nigel.Core
@@ -17,22 +14,27 @@ namespace Nigel.Core
         /// 状态码
         /// </summary>
         public int Code { get; }
+
         /// <summary>
         /// 业务状态码
         /// </summary>
         public string SubCode { get; }
+
         /// <summary>
         /// 消息
         /// </summary>
         public string Message { get; }
+
         /// <summary>
         /// 数据
         /// </summary>
         public dynamic Data { get; }
+
         /// <summary>
         /// 操作时间
         /// </summary>
         public DateTime OperationTime { get; }
+
         /// <summary>
         /// 请求耗时
         /// </summary>
@@ -91,5 +93,4 @@ namespace Nigel.Core
             return base.ExecuteResultAsync(context);
         }
     }
-
 }

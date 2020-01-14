@@ -32,7 +32,7 @@ namespace Nigel.Extensions.Bases
             return Math.Round(value, decimals);
         }
 
-        #endregion
+        #endregion Rounding(将数值四舍五入，保留指定小数位数)
 
         #region Abs(返回数字的绝对值)
 
@@ -56,6 +56,6 @@ namespace Nigel.Extensions.Bases
             return values.Select(x => x.Abs());
         }
 
-        #endregion
+        #endregion Abs(返回数字的绝对值)
     }
 }

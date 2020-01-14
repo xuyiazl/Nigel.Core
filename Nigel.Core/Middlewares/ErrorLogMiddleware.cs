@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using Nigel.Extensions;
+using System;
+using System.Threading.Tasks;
 
 namespace Nigel.Core.Middlewares
 {
@@ -17,6 +15,7 @@ namespace Nigel.Core.Middlewares
         /// 方法
         /// </summary>
         private readonly RequestDelegate _next;
+
         private readonly ILogger<ErrorLogMiddleware> _logger;
 
         /// <summary>

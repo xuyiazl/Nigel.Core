@@ -79,7 +79,7 @@ namespace Nigel.Files
             var extension = System.IO.Path.GetExtension(path);
             if (string.IsNullOrWhiteSpace(extension))
             {
-                extension= System.IO.Path.GetExtension(fileName);
+                extension = System.IO.Path.GetExtension(fileName);
             }
 
             return extension?.TrimStart('.');

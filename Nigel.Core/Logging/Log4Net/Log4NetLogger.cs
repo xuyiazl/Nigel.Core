@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
-using System.Xml;
-using log4net;
+﻿using log4net;
 using log4net.Repository;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Reflection;
+using System.Xml;
 
 namespace Nigel.Core.Logging.Log4Net
 {
-
     public class Log4NetLogger : ILogger
     {
         private readonly ILog _log;
         private ILoggerRepository _loggerRepository;
+
         public Log4NetLogger(string name, XmlElement xmlElement)
         {
             _loggerRepository = log4net.LogManager.CreateRepository(
@@ -33,15 +31,20 @@ namespace Nigel.Core.Logging.Log4Net
             {
                 case LogLevel.Critical:
                     return _log.IsFatalEnabled;
+
                 case LogLevel.Debug:
                 case LogLevel.Trace:
                     return _log.IsDebugEnabled;
+
                 case LogLevel.Error:
                     return _log.IsErrorEnabled;
+
                 case LogLevel.Information:
                     return _log.IsInfoEnabled;
+
                 case LogLevel.Warning:
                     return _log.IsWarnEnabled;
+
                 default:
                     throw new ArgumentOutOfRangeException(nameof(logLevel));
             }
@@ -71,19 +74,24 @@ namespace Nigel.Core.Logging.Log4Net
                     case LogLevel.Critical:
                         _log.Fatal(message);
                         break;
+
                     case LogLevel.Debug:
                     case LogLevel.Trace:
                         _log.Debug(message);
                         break;
+
                     case LogLevel.Error:
                         _log.Error(message, exception);
                         break;
+
                     case LogLevel.Information:
                         _log.Info(message);
                         break;
+
                     case LogLevel.Warning:
                         _log.Warn(message);
                         break;
+
                     default:
                         _log.Warn($"Encountered unknown log level {logLevel}, writing out as Info.");
                         _log.Info(message, exception);

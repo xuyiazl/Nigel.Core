@@ -1,6 +1,6 @@
-﻿using System;
+﻿using AspectCore.DynamicProxy;
+using System;
 using System.Threading.Tasks;
-using AspectCore.DynamicProxy;
 using Xunit;
 
 namespace Nigel.Tests.XUnitHelpers

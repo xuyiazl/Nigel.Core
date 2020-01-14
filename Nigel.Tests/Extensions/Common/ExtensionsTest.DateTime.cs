@@ -1,6 +1,6 @@
-﻿using System;
-using Nigel.Extensions;
+﻿using Nigel.Extensions;
 using Nigel.Helpers;
+using System;
 using Xunit;
 
 // ReSharper disable once CheckNamespace
@@ -18,9 +18,9 @@ namespace Nigel.Tests.Extensions
         public void Test_ToDateTimeString()
         {
             string date = "2018-03-12 15:00:00";
-            Assert.Equal(date,Conv.ToDate(date).ToDateTimeString());
-            Assert.Equal("2018-03-12 15:00",Conv.ToDate(date).ToDateTimeString(true));
-            Assert.Equal("",Conv.ToDateOrNull("").ToDateTimeString());
+            Assert.Equal(date, Conv.ToDate(date).ToDateTimeString());
+            Assert.Equal("2018-03-12 15:00", Conv.ToDate(date).ToDateTimeString(true));
+            Assert.Equal("", Conv.ToDateOrNull("").ToDateTimeString());
             Assert.Equal(date, Conv.ToDateOrNull(date).ToDateTimeString());
         }
 
@@ -31,9 +31,9 @@ namespace Nigel.Tests.Extensions
         public void Test_ToDateString()
         {
             string date = "2018-03-12";
-            Assert.Equal(date,Conv.ToDate(date).ToDateString());
-            Assert.Equal("",Conv.ToDateOrNull("").ToDateString());
-            Assert.Equal(date,Conv.ToDateOrNull(date).ToDateString());
+            Assert.Equal(date, Conv.ToDate(date).ToDateString());
+            Assert.Equal("", Conv.ToDateOrNull("").ToDateString());
+            Assert.Equal(date, Conv.ToDateOrNull(date).ToDateString());
         }
 
         /// <summary>
@@ -43,9 +43,9 @@ namespace Nigel.Tests.Extensions
         public void Test_ToTimeString()
         {
             string date = "2018-03-12 11:11:11";
-            Assert.Equal("11:11:11",Conv.ToDate(date).ToTimeString());
-            Assert.Equal("",Conv.ToDateOrNull("").ToTimeString());
-            Assert.Equal("11:11:11",Conv.ToDateOrNull(date).ToTimeString());
+            Assert.Equal("11:11:11", Conv.ToDate(date).ToTimeString());
+            Assert.Equal("", Conv.ToDateOrNull("").ToTimeString());
+            Assert.Equal("11:11:11", Conv.ToDateOrNull(date).ToTimeString());
         }
 
         /// <summary>

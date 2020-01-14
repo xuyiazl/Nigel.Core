@@ -1,9 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using Nigel.Extensions;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -11,9 +6,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.DependencyInjection;
-using Nigel.Helpers;
 using Microsoft.Extensions.Logging;
+using Nigel.Extensions;
+using Nigel.Helpers;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Nigel.Core.Razors
 {
@@ -24,6 +22,7 @@ namespace Nigel.Core.Razors
     {
         private readonly ILogger<DefaultRazorHtmlGenerator> _logger;
         private readonly IRouteAnalyzer _routeAnalyzer;
+
         /// <summary>
         /// 初始化一个<see cref="DefaultRazorHtmlGenerator"/>类型的实例
         /// </summary>

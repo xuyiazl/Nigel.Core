@@ -22,7 +22,6 @@ namespace Nigel.Maths
             return Math.Sqrt(Math.Pow((x1 - x2), 2) + Math.Pow((y1 - y2), 2));
         }
 
-        #endregion
-
+        #endregion GetDistance(获取两点之间的距离)
     }
 }

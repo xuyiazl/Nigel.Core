@@ -1,6 +1,6 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
 
 namespace Nigel.Json.Converters
 {
@@ -16,7 +16,7 @@ namespace Nigel.Json.Converters
         /// <summary>
         /// 时间转换器
         /// </summary>
-        private static readonly IsoDateTimeConverter DtConverter=new IsoDateTimeConverter(){DateTimeFormat = "yyyy-MM-dd HH:mm:ss"};
+        private static readonly IsoDateTimeConverter DtConverter = new IsoDateTimeConverter() { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" };
 
         /// <summary>
         /// 写入JSON对象

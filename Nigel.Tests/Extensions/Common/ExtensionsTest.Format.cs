@@ -1,5 +1,4 @@
-﻿using System;
-using Nigel.Extensions;
+﻿using Nigel.Extensions;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -9,7 +8,7 @@ namespace Nigel.Tests.Extensions
     /// <summary>
     /// 系统扩展测试 - 格式化扩展
     /// </summary>
-    public partial class ExtensionsTest:TestBase
+    public partial class ExtensionsTest : TestBase
     {
         public ExtensionsTest(ITestOutputHelper output) : base(output)
         {

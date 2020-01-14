@@ -1,5 +1,5 @@
-﻿using Nigel.Json;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+using Nigel.Json;
 
 namespace Nigel.Extensions.Http
 {

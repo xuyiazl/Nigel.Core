@@ -2,7 +2,7 @@
 {
     /********************************************************************
     *           Copyright:       2009-2010
-    *           Company:         
+    *           Company:
     *           CRL Version :    4.0.30319.1
     *           Created by 徐毅 at 2010/12/12 12:46:09
     *                   mailto:3624091@qq.com
@@ -10,8 +10,6 @@
     ********************************************************************/
 
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Text;
 
     /// <summary>
@@ -21,7 +19,6 @@
     {
         private static IPagerBuilderWeb _instance;
         private static readonly object _syncRoot = new object();
-
 
         /// <summary>
         /// Get singleton instance.
@@ -45,7 +42,6 @@
             }
         }
 
-
         /// <summary>
         /// Builds the entire html for the specified page index / total pages.
         /// </summary>
@@ -58,7 +54,6 @@
             Pager pager = Pager.Get(pageIndex, totalPages, PagerSettings.Default);
             return Build(pager, PagerSettings.Default, urlBuilder);
         }
-
 
         /// <summary>
         /// Builds the entire html for the specified page index / total pages.
@@ -73,7 +68,6 @@
             Pager pager = Pager.Get(pageIndex, totalPages, settings);
             return Build(pager, pager.Settings, urlBuilder);
         }
-
 
         /// <summary>
         /// Build the entire html for the pager.
@@ -94,8 +88,7 @@
 
             string cssClassForPage = string.IsNullOrEmpty(settings.CssClass) ? string.Empty : " class=\"" + settings.CssClass + "\"";
 
-
-            // Build the starting page link.            
+            // Build the starting page link.
             if (pagerData.CanShowFirst && settings.ShowFirstAndLastPage)
             {
                 // First
@@ -130,7 +123,7 @@
 
                 url = (ndx == pagerData.CurrentPage) ? string.Empty : " href=\"" + url + "\"";
 
-                // Build page number link. <a href="<%=Url %>" class="<%=cssClass %>" ><%=ndx %></a>                
+                // Build page number link. <a href="<%=Url %>" class="<%=cssClass %>" ><%=ndx %></a>
                 buffer.Append("<li" + cssClass + "><a" + url + ">" + ndx + "</a></li>");
             }
 

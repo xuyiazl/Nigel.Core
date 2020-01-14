@@ -59,9 +59,10 @@ namespace Nigel.Core.Jwt
         /// <returns>A string containing the JSON payload</returns>
         string Decode(string token, byte[][] keys, bool verify);
 
-        #endregion
+        #endregion Decode
 
         #region IDictionary<string, object> DecodeToObject
+
         /// <summary>
         /// Given a JWT, decodes it and return the payload as an object.
         /// </summary>
@@ -113,7 +114,7 @@ namespace Nigel.Core.Jwt
         /// <exception cref="TokenExpiredException">Thrown if the verify parameter was true and the token has an expired exp claim</exception>
         IDictionary<string, object> DecodeToObject(string token, byte[][] keys, bool verify);
 
-        #endregion
+        #endregion IDictionary<string, object> DecodeToObject
 
         #region T DecodeToObject<T>
 
@@ -173,6 +174,6 @@ namespace Nigel.Core.Jwt
         /// <exception cref="TokenExpiredException">Thrown if the verify parameter was true and the token has an expired exp claim</exception>
         T DecodeToObject<T>(string token, byte[][] keys, bool verify);
 
-        #endregion
+        #endregion T DecodeToObject<T>
     }
 }

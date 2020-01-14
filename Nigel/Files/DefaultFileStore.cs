@@ -1,15 +1,15 @@
-﻿using System;
+﻿using Nigel.Files.Paths;
+using Nigel.Helpers;
+using System;
 using System.IO;
 using System.Threading.Tasks;
-using Nigel.Files.Paths;
-using Nigel.Helpers;
 
 namespace Nigel.Files
 {
     /// <summary>
     /// 本地文件存储服务
     /// </summary>
-    public class DefaultFileStore:IFileStore
+    public class DefaultFileStore : IFileStore
     {
         /// <summary>
         /// 路径生成器
@@ -45,7 +45,7 @@ namespace Nigel.Files
                 Directory.CreateDirectory(directory);
             }
 
-            using (var stream=new FileStream(physicalPath,FileMode.Create))
+            using (var stream = new FileStream(physicalPath, FileMode.Create))
             {
                 await fileControl.CopyToAsync(stream);
             }

@@ -23,7 +23,7 @@ namespace Nigel.Extensions
             return Array.IndexOf(values, @this) != -1;
         }
 
-        #endregion
+        #endregion In(判断当前字符是否在目标字符数组中)
 
         #region NotIn(判断当前字符是否不在目标字符数组中)
 
@@ -38,7 +38,7 @@ namespace Nigel.Extensions
             return Array.IndexOf(values, @this) == -1;
         }
 
-        #endregion
+        #endregion NotIn(判断当前字符是否不在目标字符数组中)
 
         #region Repeat(重复拼接字符)
 
@@ -53,7 +53,7 @@ namespace Nigel.Extensions
             return new string(@this, repeatCount);
         }
 
-        #endregion
+        #endregion Repeat(重复拼接字符)
 
         #region GetAscii(获取ASCII编码)
 
@@ -73,7 +73,7 @@ namespace Nigel.Extensions
             return (((bytes[0] * 0x100) + bytes[1]) - 0x10000);
         }
 
-        #endregion
+        #endregion GetAscii(获取ASCII编码)
 
         #region IsChinese(是否中文字符串)
 
@@ -87,7 +87,7 @@ namespace Nigel.Extensions
             return Regex.IsMatch(value.ToString(), "^[一-龥]$");
         }
 
-        #endregion
+        #endregion IsChinese(是否中文字符串)
 
         #region IsLine(是否行标识)
 
@@ -106,7 +106,7 @@ namespace Nigel.Extensions
             return true;
         }
 
-        #endregion
+        #endregion IsLine(是否行标识)
 
         #region IsDoubleByte(是否双字节字符)
 
@@ -120,7 +120,7 @@ namespace Nigel.Extensions
             return Regex.IsMatch(value.ToString(), @"[^\x00-\xff]");
         }
 
-        #endregion
+        #endregion IsDoubleByte(是否双字节字符)
 
         #region ToDBC(转换为半角字符)
 
@@ -134,18 +134,18 @@ namespace Nigel.Extensions
         {
             if (value == 12288)
             {
-                value = (char) 32;
+                value = (char)32;
             }
 
             if (value > 65280 && value < 65375)
             {
-                value = (char) (value - 65248);
+                value = (char)(value - 65248);
             }
 
             return value;
         }
 
-        #endregion
+        #endregion ToDBC(转换为半角字符)
 
         #region ToSBC(转换为全角字符)
 
@@ -159,17 +159,17 @@ namespace Nigel.Extensions
         {
             if (value == 32)
             {
-                value = (char) 12288;
+                value = (char)12288;
             }
 
             if (value < 127)
             {
-                value = (char) (value + 65248);
+                value = (char)(value + 65248);
             }
 
             return value;
         }
 
-        #endregion
+        #endregion ToSBC(转换为全角字符)
     }
 }

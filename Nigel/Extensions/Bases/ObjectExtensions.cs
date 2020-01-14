@@ -40,7 +40,7 @@ namespace Nigel.Extensions
             }
         }
 
-        #endregion
+        #endregion DeepClone(对象深拷贝)
 
         #region PropertyClone 对象值克隆
 
@@ -167,7 +167,7 @@ namespace Nigel.Extensions
             return destination.ClonePropertyFrom(source, source.GetType(), excludeName);
         }
 
-        #endregion
+        #endregion PropertyClone 对象值克隆
 
         #region ToDynamic(将对象转换为dynamic)
 
@@ -199,7 +199,7 @@ namespace Nigel.Extensions
         //    return (ExpandoObject) expando;
         //}
 
-        #endregion
+        #endregion ToDynamic(将对象转换为dynamic)
 
         #region ToNullable(将指定值转换为对应的可空类型)
 
@@ -214,7 +214,7 @@ namespace Nigel.Extensions
             return value.IsNull() ? null : (T?)value;
         }
 
-        #endregion
+        #endregion ToNullable(将指定值转换为对应的可空类型)
 
         #region Locking(锁定)
 
@@ -266,6 +266,6 @@ namespace Nigel.Extensions
                 return func(source);
         }
 
-        #endregion
+        #endregion Locking(锁定)
     }
 }

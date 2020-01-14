@@ -67,7 +67,7 @@ namespace Nigel.Helpers
 
         /// <summary>
         /// 把阿拉伯数字的金额转换为中文大写数字
-        ///<example>Console.WriteLine("{0,14:N2}: {1}", x, ConvertToChinese(x));</example>        
+        ///<example>Console.WriteLine("{0,14:N2}: {1}", x, ConvertToChinese(x));</example>
         /// </summary>
         /// <param name="x"></param>
         /// <returns></returns>
@@ -77,10 +77,11 @@ namespace Nigel.Helpers
             string d = Regex.Replace(s, @"((?<=-|^)[^1-9]*)|((?'z'0)[0A-E]*((?=[1-9])|(?'-z'(?=[F-L\.]|$))))|((?'b'[F-L])(?'z'0)[0A-L]*((?=[1-9])|(?'-z'(?=[\.]|$))))", "${b}${z}");
             return Regex.Replace(d, ".", delegate (Match m) { return "负元 零壹贰叁肆伍陆柒捌玖       分角拾佰仟萬億兆京垓秭穰"[m.Value[0] - '-'].ToString(); });
         }
+
         /// <summary>
         /// 把阿拉伯数字的金额转换为中文大写数字
         /// </summary>
-        ///<example>Console.WriteLine("{0,14:N2}: {1}", x, ConvertToChinese(x));</example>  
+        ///<example>Console.WriteLine("{0,14:N2}: {1}", x, ConvertToChinese(x));</example>
         /// <param name="x"></param>
         /// <returns></returns>
         public static string ToChinese(string x)
@@ -89,6 +90,6 @@ namespace Nigel.Helpers
             return ToChinese(money);
         }
 
-        #endregion
+        #endregion ToChinese(阿拉伯数字金额、中文大写互转)
     }
 }

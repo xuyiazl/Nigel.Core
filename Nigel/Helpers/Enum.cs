@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Nigel.Extensions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using Nigel.Extensions;
 
 namespace Nigel.Helpers
 {
@@ -36,7 +36,7 @@ namespace Nigel.Helpers
             return (TEnum)System.Enum.Parse(Common.GetType<TEnum>(), value, true);
         }
 
-        #endregion
+        #endregion Parse(获取实例)
 
         #region ParseByDescription(通过描述获取实例)
 
@@ -49,7 +49,7 @@ namespace Nigel.Helpers
         {
             if (desc.IsEmpty())
             {
-                if(typeof(TEnum).IsGenericType)
+                if (typeof(TEnum).IsGenericType)
                     return default;
                 throw new ArgumentNullException(nameof(desc));
             }
@@ -62,7 +62,7 @@ namespace Nigel.Helpers
             return (TEnum)System.Enum.Parse(type, fieldInfo.Name);
         }
 
-        #endregion
+        #endregion ParseByDescription(通过描述获取实例)
 
         #region GetName(获取成员名)
 
@@ -91,7 +91,7 @@ namespace Nigel.Helpers
             return System.Enum.GetName(type, member);
         }
 
-        #endregion
+        #endregion GetName(获取成员名)
 
         #region GetNames(获取枚举所有成员名称)
 
@@ -107,7 +107,7 @@ namespace Nigel.Helpers
         /// <param name="type">枚举类型</param>
         public static string[] GetNames(Type type) => System.Enum.GetNames(type);
 
-        #endregion
+        #endregion GetNames(获取枚举所有成员名称)
 
         #region GetValue(获取成员值)
 
@@ -133,7 +133,7 @@ namespace Nigel.Helpers
             return (int)System.Enum.Parse(type, member.ToString(), true);
         }
 
-        #endregion
+        #endregion GetValue(获取成员值)
 
         #region GetDescription(获取描述)
 
@@ -151,7 +151,7 @@ namespace Nigel.Helpers
         /// <param name="member">成员名、值、实例均可,范例:Enum1枚举有成员A=0,可传入"A"、0、Enum1.A，获取值0</param>
         public static string GetDescription(Type type, object member) => Reflection.GetDescription(type, GetName(type, member));
 
-        #endregion
+        #endregion GetDescription(获取描述)
 
         #region GetItems(获取描述项集合)
 
@@ -200,7 +200,7 @@ namespace Nigel.Helpers
             result.Add(new Item(description, value, value));
         }
 
-        #endregion
+        #endregion GetItems(获取描述项集合)
 
         #region GetDictionary(获取枚举字典)
 
@@ -233,7 +233,7 @@ namespace Nigel.Helpers
             result.Add(value, description);
         }
 
-        #endregion
+        #endregion GetDictionary(获取枚举字典)
 
         #region GetMemberInfos(获取枚举成员信息)
 
@@ -258,7 +258,6 @@ namespace Nigel.Helpers
             return collection;
         }
 
-        #endregion
-
+        #endregion GetMemberInfos(获取枚举成员信息)
     }
 }

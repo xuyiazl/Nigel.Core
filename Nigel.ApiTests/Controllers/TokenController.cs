@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Nigel.Core.Controllers;
 using Nigel.Core.Jwt;
 using Nigel.Core.Jwt.Algorithms;
 using Nigel.Core.Jwt.Builder;
-using Nigel.Helpers;
 using Nigel.Extensions;
-using Microsoft.AspNetCore.Authentication;
-using System.Security.Claims;
+using Nigel.Helpers;
+using System;
 
 namespace Nigel.ApiTests.Controllers
 {
@@ -20,6 +15,7 @@ namespace Nigel.ApiTests.Controllers
     public class TokenController : ApiControllerBase
     {
         private readonly JwtOptions _jwtOptions;
+
         public TokenController(ILogger<TokenController> logger, JwtOptions jwtOptions)
             : base(logger)
         {

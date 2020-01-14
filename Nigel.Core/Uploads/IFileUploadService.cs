@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Nigel.Core.Uploads.Params;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using FileInfo = Nigel.Files.FileInfo;
@@ -21,6 +18,7 @@ namespace Nigel.Core.Uploads
         /// <param name="param">参数</param>
         /// <param name="cancellationToken">取消令牌</param>
         Task<FileInfo> UploadAsync(SingleFileUploadParam param, CancellationToken cancellationToken = default(CancellationToken));
+
         /// <summary>
         /// 上传图片。单张图片
         /// </summary>

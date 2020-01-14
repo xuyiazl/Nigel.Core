@@ -1,20 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Abstractions;
+﻿using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.Options;
-using Microsoft.Net.Http.Headers;
-using Nigel.Core.Jwt.Algorithms;
-using Nigel.Core.Jwt.Builder;
-using Nigel.Core.Jwt.Serializers;
-using Nigel.Extensions;
-using Nigel.Helpers;
 using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Security.Claims;
-using System.Text;
-using System.Web;
 
 namespace Nigel.Core.Jwt
 {

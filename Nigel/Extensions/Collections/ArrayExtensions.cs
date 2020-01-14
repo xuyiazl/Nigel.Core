@@ -35,7 +35,7 @@ namespace Nigel.Extensions
                    index <= source.GetUpperBound(dimension);
         }
 
-        #endregion
+        #endregion WithInIndex(判断索引是否在数组中)
 
         #region CombineArray(合并数组)
 
@@ -65,7 +65,7 @@ namespace Nigel.Extensions
             return combineWith;
         }
 
-        #endregion
+        #endregion CombineArray(合并数组)
 
         #region ClearAll(清空数组内容)
 
@@ -103,7 +103,7 @@ namespace Nigel.Extensions
             return source;
         }
 
-        #endregion
+        #endregion ClearAll(清空数组内容)
 
         #region ClearAt(清除数组中指定索引的内容)
 
@@ -148,7 +148,7 @@ namespace Nigel.Extensions
             return array;
         }
 
-        #endregion
+        #endregion ClearAt(清除数组中指定索引的内容)
 
         #region BlockCopy(复制数据块)
 
@@ -188,15 +188,15 @@ namespace Nigel.Extensions
                 n = source.Length - index;// n=source数组剩余长度
                 if (padToLength)
                 {
-                    b=new T[length];
+                    b = new T[length];
                 }
             }
 
             if (b == null)
             {
-                b=new T[n];
+                b = new T[n];
             }
-            Array.Copy(source,index,b,0,n);// 从source数组指定索引开始复制数据到b数组当中，直至到达指定长度结束复制
+            Array.Copy(source, index, b, 0, n);// 从source数组指定索引开始复制数据到b数组当中，直至到达指定长度结束复制
             return b;
         }
 
@@ -210,12 +210,12 @@ namespace Nigel.Extensions
         /// <returns></returns>
         public static IEnumerable<T[]> BlockCopy<T>(this T[] source, int length, bool padToLength)
         {
-            for (int i = 0; i < source.Length; i+= length)
+            for (int i = 0; i < source.Length; i += length)
             {
                 yield return source.BlockCopy(i, length, padToLength);
             }
         }
 
-        #endregion
+        #endregion BlockCopy(复制数据块)
     }
 }

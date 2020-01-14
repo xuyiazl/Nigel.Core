@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Nigel.Properties;
+using System;
 using System.Linq;
-using Nigel.Properties;
 
 namespace Nigel.Maths
 {
@@ -239,21 +239,27 @@ namespace Nigel.Maths
                 case 26:
                     result = "abcdefghijklmnopqrstuvwxyz";
                     break;
+
                 case 32:
                     result = "0123456789ABCDEFGHJKMNPQRSTVWXYZabcdefghijklmnopqrstuvwxyz";
                     break;
+
                 case 36:
                     result = "0123456789abcdefghijklmnopqrstuvwxyz";
                     break;
+
                 case 52:
                     result = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
                     break;
+
                 case 58:
                     result = "123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ";
                     break;
+
                 case 62:
                     result = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
                     break;
+
                 default:
                     result = BaseChar;
                     break;

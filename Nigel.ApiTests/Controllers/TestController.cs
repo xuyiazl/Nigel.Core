@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Nigel.Core.Controllers;
-using Nigel.Extensions;
+using System;
 
 namespace Nigel.ApiTests.Controllers
 {
@@ -16,7 +10,6 @@ namespace Nigel.ApiTests.Controllers
         public TestController(ILogger<TestController> logger)
           : base(logger)
         {
-
         }
 
         [Route("create")]

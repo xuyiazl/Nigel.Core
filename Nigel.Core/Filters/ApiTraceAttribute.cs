@@ -1,20 +1,14 @@
-﻿
-using Microsoft.AspNetCore.Http.Internal;
-using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.DependencyInjection;
 using Nigel.Extensions;
 using Nigel.Helpers;
 using Nigel.IO;
 using Nigel.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Nigel.Core.Filters
 {
-
     /// <summary>
     /// API跟踪日志过滤器
     /// </summary>
@@ -24,6 +18,7 @@ namespace Nigel.Core.Filters
         public ApiTraceAttribute()
         {
         }
+
         /// <summary>
         /// 是否忽略，为true不记录日志
         /// </summary>

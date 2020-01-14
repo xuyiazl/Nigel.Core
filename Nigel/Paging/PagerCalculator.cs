@@ -2,22 +2,17 @@
 {
     /********************************************************************
     *           Copyright:       2009-2010
-    *           Company:         
+    *           Company:
     *           CRL Version :    4.0.30319.1
     *           Created by 徐毅 at 2010/12/12 12:45:08
     *                   mailto:3624091@qq.com
     *
     ********************************************************************/
 
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-
     /// <summary>
     /// Default implementation of a pager.
     /// This uses a calculation scheme where the rules are the following :
-    /// 
+    ///
     /// 1. All possible links include ( first, previous, page1, page2, pageX, next, last )
     /// 2. The number of pages in the middle ( page1, page2 ) can be configured.
     /// 3. If current page = 1 ( links first and previous are not applicable )
@@ -27,6 +22,7 @@
     public class PagerCalculator : IPagerCalculator
     {
         #region IPagerCalculator Members
+
         /// <summary>
         /// Calculate the pager properties such as starting, ending, next, previous pages.
         /// </summary>
@@ -56,10 +52,11 @@
             else
                 pagerData.PreviousPage = currentPage;
         }
-        #endregion
 
+        #endregion IPagerCalculator Members
 
         #region Private methods
+
         private static int GetStartingPage(Pager pagerData, PagerSettings settings)
         {
             // Total pages = 5 = number of pages to display.. so starting page is 1;
@@ -88,7 +85,6 @@
             return (range * settings.NumberPagesToDisplay) + 1;
         }
 
-
         private static int GetEndingPage(Pager pagerData, PagerSettings settings)
         {
             // Total pages = 5 = Number to display 1 - 5
@@ -109,7 +105,6 @@
             return range * settings.NumberPagesToDisplay;
         }
 
-
         /// <summary>
         /// Get the total number of ranges.
         /// </summary>
@@ -121,12 +116,11 @@
             return GetRange(totalPages, numberPagesToDisplay);
         }
 
-
         /// <summary>
         /// Get the total ranges.
         /// e.g.
         /// Total pages = 18
-        /// 
+        ///
         /// 1  - 5  = Range 1
         /// 6  - 10 = Range 2
         /// 11 - 15 = Range 3
@@ -150,7 +144,7 @@
             int range = currentPage / numberPagesToDisplay;
             int remainingPages = currentPage % numberPagesToDisplay;
 
-            // If there is any left over, then increment the range.            
+            // If there is any left over, then increment the range.
             // this means range 2
             if (remainingPages > 0)
             {
@@ -159,6 +153,7 @@
 
             return range;
         }
-        #endregion
+
+        #endregion Private methods
     }
 }

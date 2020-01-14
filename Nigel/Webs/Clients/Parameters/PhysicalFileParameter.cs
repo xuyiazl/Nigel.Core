@@ -5,7 +5,7 @@ namespace Nigel.Webs.Clients.Parameters
     /// <summary>
     /// 物理文件参数
     /// </summary>
-    public class PhysicalFileParameter:IFileParameter
+    public class PhysicalFileParameter : IFileParameter
     {
         /// <summary>
         /// 文件流

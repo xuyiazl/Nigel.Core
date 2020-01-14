@@ -35,12 +35,15 @@ namespace Nigel.Drawing
             {
                 case ThumbnailMode.FixedBoth:
                     break;
+
                 case ThumbnailMode.FixedW:
                     toheight = oh * width / ow;
                     break;
+
                 case ThumbnailMode.FixedH:
                     towidth = ow * height / oh;
                     break;
+
                 case ThumbnailMode.Cut:
                     if (ow / (double)oh > towidth / (double)toheight)
                     {
@@ -120,7 +123,7 @@ namespace Nigel.Drawing
             }
         }
 
-        #endregion
+        #endregion MakeThumbnail(生成缩略图)
 
         #region TextWatermark(文字水印)
 
@@ -200,7 +203,7 @@ namespace Nigel.Drawing
         //    return coords;
         //}
 
-        #endregion
+        #endregion TextWatermark(文字水印)
 
         #region DeleteCoordinate(删除图片中的经纬度信息)
 
@@ -253,7 +256,7 @@ namespace Nigel.Drawing
                0x0005	PropertyTagGpsAltitudeRef
                0x0006	PropertyTagGpsAltitude
              */
-            var ids = new[] {0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006};
+            var ids = new[] { 0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006 };
             foreach (var id in ids)
             {
                 if (image.PropertyIdList.Contains(id))
@@ -263,7 +266,7 @@ namespace Nigel.Drawing
             }
         }
 
-        #endregion
+        #endregion DeleteCoordinate(删除图片中的经纬度信息)
 
         #region BrightnessHandle(亮度处理)
 
@@ -293,7 +296,7 @@ namespace Nigel.Drawing
             return bm;
         }
 
-        #endregion
+        #endregion BrightnessHandle(亮度处理)
 
         #region FilterColor(滤色处理)
 
@@ -317,7 +320,7 @@ namespace Nigel.Drawing
             return bitmap;
         }
 
-        #endregion
+        #endregion FilterColor(滤色处理)
 
         #region LeftRightTurn(左右翻转)
 
@@ -341,7 +344,7 @@ namespace Nigel.Drawing
             return bitmap;
         }
 
-        #endregion
+        #endregion LeftRightTurn(左右翻转)
 
         #region TopBottomTurn(上下翻转)
 
@@ -365,7 +368,7 @@ namespace Nigel.Drawing
             return bitmap;
         }
 
-        #endregion
+        #endregion TopBottomTurn(上下翻转)
 
         #region ToBlackWhiteImage(转换为黑白图片)
 
@@ -390,7 +393,7 @@ namespace Nigel.Drawing
             return bitmap;
         }
 
-        #endregion
+        #endregion ToBlackWhiteImage(转换为黑白图片)
 
         #region TwistImage(扭曲图片，滤镜效果)
 
@@ -434,7 +437,7 @@ namespace Nigel.Drawing
             return destBitmap;
         }
 
-        #endregion
+        #endregion TwistImage(扭曲图片，滤镜效果)
 
         #region Rotate(图片旋转)
 
@@ -479,7 +482,7 @@ namespace Nigel.Drawing
             return newBmp;
         }
 
-        #endregion
+        #endregion Rotate(图片旋转)
 
         #region Gray(图片灰度化)
 
@@ -514,7 +517,7 @@ namespace Nigel.Drawing
             return bitmap;
         }
 
-        #endregion
+        #endregion Gray(图片灰度化)
 
         #region Plate(底片效果)
 
@@ -541,7 +544,7 @@ namespace Nigel.Drawing
             return bitmap;
         }
 
-        #endregion
+        #endregion Plate(底片效果)
 
         #region Emboss(浮雕效果)
 
@@ -575,7 +578,7 @@ namespace Nigel.Drawing
             return bitmap;
         }
 
-        #endregion
+        #endregion Emboss(浮雕效果)
 
         #region Soften(柔化效果)
 
@@ -623,7 +626,7 @@ namespace Nigel.Drawing
             return bitmap;
         }
 
-        #endregion
+        #endregion Soften(柔化效果)
 
         #region Sharpen(锐化效果)
 
@@ -671,7 +674,7 @@ namespace Nigel.Drawing
             return bitmap;
         }
 
-        #endregion
+        #endregion Sharpen(锐化效果)
 
         #region Atomizing(雾化效果)
 
@@ -708,6 +711,6 @@ namespace Nigel.Drawing
             return bitmap;
         }
 
-        #endregion
+        #endregion Atomizing(雾化效果)
     }
 }

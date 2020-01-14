@@ -46,7 +46,7 @@ namespace Nigel.Extensions
                 LambdaExpression lambda = expression;
                 if (lambda.Body is UnaryExpression body)
                 {
-                    operand=body.Operand as MemberExpression;
+                    operand = body.Operand as MemberExpression;
                 }
                 else
                 {
@@ -58,7 +58,7 @@ namespace Nigel.Extensions
             }
             catch (Exception e)
             {
-                throw new ArgumentNullException("属性或字段访问器表达式不是 “ o => o.Property” 格式",e);
+                throw new ArgumentNullException("属性或字段访问器表达式不是 “ o => o.Property” 格式", e);
             }
 
             return info;

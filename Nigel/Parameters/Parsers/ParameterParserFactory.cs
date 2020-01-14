@@ -5,7 +5,7 @@ namespace Nigel.Parameters.Parsers
     /// <summary>
     /// 参数解析器工厂
     /// </summary>
-    public class ParameterParserFactory:IParameterParserFactory
+    public class ParameterParserFactory : IParameterParserFactory
     {
         /// <summary>
         /// 创建参数解析器
@@ -18,10 +18,13 @@ namespace Nigel.Parameters.Parsers
             {
                 case ParameterParserType.Url:
                     return new UrlParameterParser();
+
                 case ParameterParserType.Json:
                     return new JsonParameterParser();
+
                 case ParameterParserType.Jsonp:
                     return new JsonpParameterParser();
+
                 default:
                     throw new NotImplementedException();
             }

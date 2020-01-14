@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using Microsoft.EntityFrameworkCore.Storage;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
-using Nigel.Data.Collection;
 
 namespace Nigel.Data.DbRepositories
 {
@@ -41,6 +35,5 @@ namespace Nigel.Data.DbRepositories
         {
             return await Context.SaveChangesAsync(cancellationToken) > 0;
         }
-
     }
 }

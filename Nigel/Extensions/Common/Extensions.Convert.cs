@@ -19,7 +19,7 @@ namespace Nigel.Extensions
         /// <param name="input">输入值</param>
         public static string SafeString(this object input) => input == null ? string.Empty : input.ToString().Trim();
 
-        #endregion
+        #endregion SafeString(安全转换为字符串)
 
         #region ToBool(转换为bool)
 
@@ -35,7 +35,7 @@ namespace Nigel.Extensions
         /// <param name="obj">数据</param>
         public static bool? ToBoolOrNull(this string obj) => Conv.ToBoolOrNull(obj);
 
-        #endregion
+        #endregion ToBool(转换为bool)
 
         #region ToInt(转换为int)
 
@@ -51,7 +51,7 @@ namespace Nigel.Extensions
         /// <param name="obj">数据</param>
         public static int? ToIntOrNull(this string obj) => Conv.ToIntOrNull(obj);
 
-        #endregion
+        #endregion ToInt(转换为int)
 
         #region ToShort(转换为Short)
 
@@ -67,7 +67,7 @@ namespace Nigel.Extensions
         /// <param name="obj">数据</param>
         public static short? ToShortOrNull(this string obj) => Conv.ToShortOrNull(obj);
 
-        #endregion
+        #endregion ToShort(转换为Short)
 
         #region ToLong(转换为long)
 
@@ -83,7 +83,7 @@ namespace Nigel.Extensions
         /// <param name="obj">数据</param>
         public static long? ToLongOrNull(this string obj) => Conv.ToLongOrNull(obj);
 
-        #endregion
+        #endregion ToLong(转换为long)
 
         #region ToDouble(转换为double)
 
@@ -99,7 +99,7 @@ namespace Nigel.Extensions
         /// <param name="obj">数据</param>
         public static double? ToDoubleOrNull(this string obj) => Conv.ToDoubleOrNull(obj);
 
-        #endregion
+        #endregion ToDouble(转换为double)
 
         #region ToDecimal(转换为decimal)
 
@@ -115,7 +115,7 @@ namespace Nigel.Extensions
         /// <param name="obj">数据</param>
         public static decimal? ToDecimalOrNull(this string obj) => Conv.ToDecimalOrNull(obj);
 
-        #endregion
+        #endregion ToDecimal(转换为decimal)
 
         #region ToDate(转换为日期)
 
@@ -131,7 +131,7 @@ namespace Nigel.Extensions
         /// <param name="obj">数据</param>
         public static DateTime? ToDateOrNull(this string obj) => Conv.ToDateOrNull(obj);
 
-        #endregion
+        #endregion ToDate(转换为日期)
 
         #region ToGuid(转换为Guid)
 
@@ -159,7 +159,7 @@ namespace Nigel.Extensions
         /// <param name="obj">字符串集合</param>
         public static List<Guid> ToGuidList(this IList<string> obj) => obj == null ? new List<Guid>() : obj.Select(t => t.ToGuid()).ToList();
 
-        #endregion
+        #endregion ToGuid(转换为Guid)
 
         #region ToSnakeCase(将字符串转换为蛇形策略)
 
@@ -169,7 +169,7 @@ namespace Nigel.Extensions
         /// <param name="str">字符串</param>
         public static string ToSnakeCase(this string str) => Nigel.Helpers.Str.ToSnakeCase(str);
 
-        #endregion
+        #endregion ToSnakeCase(将字符串转换为蛇形策略)
 
         #region ToCamelCase(将字符串转换为骆驼策略)
 
@@ -179,6 +179,6 @@ namespace Nigel.Extensions
         /// <param name="str">字符串</param>
         public static string ToCamelCase(this string str) => Nigel.Helpers.Str.ToCamelCase(str);
 
-        #endregion
+        #endregion ToCamelCase(将字符串转换为骆驼策略)
     }
 }

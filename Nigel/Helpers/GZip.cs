@@ -153,7 +153,7 @@ namespace Nigel.Helpers
             return buffer;
         }
 
-        #endregion
+        #endregion Compress(压缩)
 
         #region Decompress(解压缩)
 
@@ -246,6 +246,6 @@ namespace Nigel.Helpers
             }
         }
 
-        #endregion
+        #endregion Decompress(解压缩)
     }
 }

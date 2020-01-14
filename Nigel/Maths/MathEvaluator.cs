@@ -179,7 +179,7 @@ namespace Nigel.Maths
         public IEnumerable<CalculateNode> GetAllNodes()
         {
             var node = GetNextNode();
-            while (node.Symbol!=CalculationSymbol.EOF)
+            while (node.Symbol != CalculationSymbol.EOF)
             {
                 yield return node;
                 node = GetNextNode();
@@ -206,7 +206,7 @@ namespace Nigel.Maths
                     {
                         goto case 1;
                     }
-                    else if(ch == '(')
+                    else if (ch == '(')
                     {
                         return new CalculateNode(CalculationSymbol.OpenBracket);
                     }
@@ -242,12 +242,12 @@ namespace Nigel.Maths
                 case 2:
                     var node = new CalculateNode(CalculationSymbol.Number);
                     var dotIndex = _currentIndex + 1;
-                    while (dotIndex<_expressionStr.Length&&char.IsDigit(_expressionStr[dotIndex]))
+                    while (dotIndex < _expressionStr.Length && char.IsDigit(_expressionStr[dotIndex]))
                     {
                         dotIndex++;
                     }
 
-                    while (_currentIndex<_expressionStr.Length&&char.IsDigit(ch=_expressionStr[_currentIndex]))
+                    while (_currentIndex < _expressionStr.Length && char.IsDigit(ch = _expressionStr[_currentIndex]))
                     {
                         var digit = ch - 48;
                         if (digit > 0)
@@ -260,7 +260,7 @@ namespace Nigel.Maths
                     if (ch == ',' || ch == '.')
                     {
                         _currentIndex++;
-                        while (_currentIndex<_expressionStr.Length&&char.IsDigit(ch=_expressionStr[_currentIndex]))
+                        while (_currentIndex < _expressionStr.Length && char.IsDigit(ch = _expressionStr[_currentIndex]))
                         {
                             var digit = ch - 48;
                             if (digit > 0)
@@ -274,8 +274,6 @@ namespace Nigel.Maths
                     return node;
             }
         }
-
-
     }
 
     /// <summary>
@@ -338,34 +336,42 @@ namespace Nigel.Maths
         /// 未知
         /// </summary>
         Unknown,
+
         /// <summary>
         /// 括号"("
         /// </summary>
         OpenBracket,
+
         /// <summary>
         /// 括号")"
         /// </summary>
         CloseBracket,
+
         /// <summary>
         /// 加 +
         /// </summary>
         Add,
+
         /// <summary>
         /// 减 -
         /// </summary>
         Sub,
+
         /// <summary>
         /// 乘 *
         /// </summary>
         Mul,
+
         /// <summary>
         /// 除 /
         /// </summary>
         Div,
+
         /// <summary>
         /// 数值
         /// </summary>
         Number,
+
         /// <summary>
         /// 等于
         /// </summary>
@@ -375,6 +381,5 @@ namespace Nigel.Maths
 
     public class MathEvaluatorException : Exception
     {
-
     }
 }

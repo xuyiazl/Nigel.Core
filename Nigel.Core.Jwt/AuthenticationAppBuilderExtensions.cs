@@ -1,9 +1,8 @@
-﻿using System;
-using Nigel.Core.Jwt.Serializers;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Nigel.Core.Jwt;
 using Nigel.Core.Jwt.Internal;
+using Nigel.Core.Jwt.Serializers;
+using System;
 
 namespace Nigel.Core.Jwt
 {

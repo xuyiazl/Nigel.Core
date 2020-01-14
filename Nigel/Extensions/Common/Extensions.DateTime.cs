@@ -33,7 +33,7 @@ namespace Nigel.Extensions
             return dateTime == null ? string.Empty : ToDateTimeString(dateTime.Value, isRemoveSecond);
         }
 
-        #endregion
+        #endregion ToDateTimeString(yyyy-MM-dd HH:mm:ss)
 
         #region ToDateString(yyyy-MM-dd)
 
@@ -57,7 +57,7 @@ namespace Nigel.Extensions
             return dateTime == null ? string.Empty : ToDateString(dateTime.Value);
         }
 
-        #endregion
+        #endregion ToDateString(yyyy-MM-dd)
 
         #region ToTimeString(HH:mm:ss)
 
@@ -81,7 +81,7 @@ namespace Nigel.Extensions
             return dateTime == null ? string.Empty : ToTimeString(dateTime.Value);
         }
 
-        #endregion
+        #endregion ToTimeString(HH:mm:ss)
 
         #region ToMillisecondString(yyyy-MM-dd HH:mm:ss.fff)
 
@@ -105,7 +105,7 @@ namespace Nigel.Extensions
             return dateTime == null ? string.Empty : ToMillisecondString(dateTime.Value);
         }
 
-        #endregion
+        #endregion ToMillisecondString(yyyy-MM-dd HH:mm:ss.fff)
 
         #region ToChineseDateString(yyyy年MM月dd日)
 
@@ -129,7 +129,7 @@ namespace Nigel.Extensions
             return dateTime == null ? string.Empty : ToChineseDateString(dateTime.Value);
         }
 
-        #endregion
+        #endregion ToChineseDateString(yyyy年MM月dd日)
 
         #region ToChineseDateTimeString(yyyy年MM月dd日 HH时mm分)
 
@@ -163,7 +163,7 @@ namespace Nigel.Extensions
             return dateTime == null ? string.Empty : ToChineseDateTimeString(dateTime.Value, isRemoveSecond);
         }
 
-        #endregion
+        #endregion ToChineseDateTimeString(yyyy年MM月dd日 HH时mm分)
 
         #region DateDiff(时间间隔)
 
@@ -180,7 +180,7 @@ namespace Nigel.Extensions
             return ts1.Subtract(ts2).Duration();
         }
 
-        #endregion
+        #endregion DateDiff(时间间隔)
 
         #region Description(获取描述)
 
@@ -225,7 +225,6 @@ namespace Nigel.Extensions
             return $"{span.TotalSeconds * 1000}毫秒";
         }
 
-        #endregion
-
+        #endregion Description(获取描述)
     }
 }

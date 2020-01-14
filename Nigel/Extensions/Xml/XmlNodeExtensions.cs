@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Nigel.Helpers;
+using System;
 using System.Linq;
 using System.Xml;
-using Nigel.Helpers;
 
 // ReSharper disable once CheckNamespace
 namespace Nigel.Extensions
@@ -35,7 +35,7 @@ namespace Nigel.Extensions
             return node;
         }
 
-        #endregion
+        #endregion CreateChildNode(创建Xml子节点)
 
         #region CreateCDataSection(创建CData节点)
 
@@ -58,7 +58,7 @@ namespace Nigel.Extensions
             return node;
         }
 
-        #endregion
+        #endregion CreateCDataSection(创建CData节点)
 
         #region GetCDataSection(获取CData节点的内容)
 
@@ -72,7 +72,7 @@ namespace Nigel.Extensions
             return parentNode.ChildNodes.OfType<XmlCDataSection>().Select(node => node.Value).FirstOrDefault();
         }
 
-        #endregion
+        #endregion GetCDataSection(获取CData节点的内容)
 
         #region GetAttribute(获取Xml节点属性值)
 
@@ -112,7 +112,7 @@ namespace Nigel.Extensions
             return Conv.To<T>(value);
         }
 
-        #endregion
+        #endregion GetAttribute(获取Xml节点属性值)
 
         #region SetAttribute(设置Xml节点属性值)
 
@@ -159,7 +159,6 @@ namespace Nigel.Extensions
             attribute.InnerText = value;
         }
 
-        #endregion
-
+        #endregion SetAttribute(设置Xml节点属性值)
     }
 }

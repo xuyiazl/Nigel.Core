@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Nigel.Json;
 
 // ReSharper disable once CheckNamespace
 namespace Nigel.Extensions
@@ -47,7 +46,7 @@ namespace Nigel.Extensions
             return (index - startIndex);
         }
 
-        #endregion
+        #endregion InsertIfNotExists(插入项。如果不存在，则插入)
 
         #region IndexOf(获取第一匹配项的索引)
 
@@ -71,7 +70,7 @@ namespace Nigel.Extensions
             return -1;
         }
 
-        #endregion
+        #endregion IndexOf(获取第一匹配项的索引)
 
         #region Join(将列表连接为字符串)
 
@@ -127,7 +126,7 @@ namespace Nigel.Extensions
             return sb.ToString();
         }
 
-        #endregion
+        #endregion Join(将列表连接为字符串)
 
         #region EqaulsAll(是否完全相等)
 
@@ -162,7 +161,7 @@ namespace Nigel.Extensions
             return true;
         }
 
-        #endregion
+        #endregion EqaulsAll(是否完全相等)
 
         #region Slice(获取列表指定范围的列表)
 
@@ -225,6 +224,7 @@ namespace Nigel.Extensions
             return result;
         }
 
-        #endregion        
+        #endregion Slice(获取列表指定范围的列表)
+
     }
 }

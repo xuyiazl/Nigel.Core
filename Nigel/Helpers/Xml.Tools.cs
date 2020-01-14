@@ -35,9 +35,9 @@ namespace Nigel.Helpers
         /// <param name="schemaFile">架构文件</param>
         public static void Validate(string xmlFile, string schemaFile)
         {
-            if(string.IsNullOrWhiteSpace(xmlFile))
+            if (string.IsNullOrWhiteSpace(xmlFile))
                 throw new ArgumentNullException(nameof(xmlFile));
-            if(string.IsNullOrWhiteSpace(schemaFile))
+            if (string.IsNullOrWhiteSpace(schemaFile))
                 throw new ArgumentNullException(nameof(schemaFile));
             XmlReader reader = null;
             try
@@ -57,7 +57,7 @@ namespace Nigel.Helpers
                 {
                     while (reader.Read()) { }
                 }
-                if(!result.Item1)
+                if (!result.Item1)
                     throw new ArgumentException(result.Item2);
             }
             finally

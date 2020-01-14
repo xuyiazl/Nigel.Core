@@ -3,7 +3,7 @@
     /// <summary>
     /// 默认基路径
     /// </summary>
-    public class DefaultBasePath:IBasePath
+    public class DefaultBasePath : IBasePath
     {
         /// <summary>
         /// 基路径

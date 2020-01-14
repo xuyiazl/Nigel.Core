@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Nigel.Helpers;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using Nigel.Helpers;
 
 // ReSharper disable once CheckNamespace
 namespace Nigel.Extensions
@@ -12,6 +12,7 @@ namespace Nigel.Extensions
     public static partial class Extensions
     {
         #region Required(断言)
+
         /// <summary>
         /// 验证指定值的断言表达式是否为真，不为值抛出<see cref="Exception"/>异常
         /// </summary>
@@ -33,7 +34,7 @@ namespace Nigel.Extensions
             where TException : Exception =>
             Check.Required<T, TException>(value, assertionFunc, message);
 
-        #endregion
+        #endregion Required(断言)
 
         #region CheckNotNull(不可空检查)
 
@@ -79,7 +80,7 @@ namespace Nigel.Extensions
             Check.NotNullOrEmpty<T>(collection, paramName);
         }
 
-        #endregion
+        #endregion CheckNotNull(不可空检查)
 
         #region CheckBetween(范围检查)
 
@@ -127,7 +128,7 @@ namespace Nigel.Extensions
             Check.Between<T>(value, paramName, start, end, startEqual, endEqual);
         }
 
-        #endregion
+        #endregion CheckBetween(范围检查)
 
         #region CheckIO(文件检查)
 
@@ -151,6 +152,6 @@ namespace Nigel.Extensions
             Check.FileExists(fileName, paramName);
         }
 
-        #endregion
+        #endregion CheckIO(文件检查)
     }
 }

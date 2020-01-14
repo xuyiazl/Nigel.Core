@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Nigel.Core.Jwt.Algorithms;
+using Nigel.Core.Jwt.Serializers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Nigel.Core.Jwt.Algorithms;
-using Nigel.Core.Jwt.Serializers;
-
 using static Nigel.Core.Jwt.Internal.EncodingHelper;
 
 namespace Nigel.Core.Jwt.Builder
@@ -305,7 +304,7 @@ namespace Nigel.Core.Jwt.Builder
             if (!CanBuild())
             {
                 throw new InvalidOperationException(
-                    "Can't build a token. Check if you have call all of the following methods:" +Environment.NewLine +
+                    "Can't build a token. Check if you have call all of the following methods:" + Environment.NewLine +
                     $"-{nameof(WithAlgorithm)}" + Environment.NewLine +
                     $"-{nameof(WithSerializer)}" + Environment.NewLine +
                     $"-{nameof(WithUrlEncoder)}.");

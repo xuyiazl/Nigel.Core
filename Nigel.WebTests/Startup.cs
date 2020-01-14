@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -11,9 +7,9 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Nigel.Core.Extensions;
-using Nigel.Core.Filters;
 using Nigel.Core.HttpFactory;
 using Nigel.Core.Logging.Log4Net;
+using System;
 
 namespace Nigel.WebTests
 {
@@ -45,7 +41,7 @@ namespace Nigel.WebTests
             {
                 //需要引入nuget
                 //<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0" />
-                //EF Core中默认为驼峰样式序列化处理key   
+                //EF Core中默认为驼峰样式序列化处理key
                 //options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 //使用默认方式，不更改元数据的key的大小写
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();//new DefaultContractResolver();

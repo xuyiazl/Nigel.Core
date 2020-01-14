@@ -22,7 +22,7 @@ namespace Nigel.Helpers
         /// <param name="type">类型</param>
         public static Type GetType(Type type) => Nullable.GetUnderlyingType(type) ?? type;
 
-        #endregion
+        #endregion GetType(获取类型)
 
         #region Line(换行符)
 
@@ -31,7 +31,7 @@ namespace Nigel.Helpers
         /// </summary>
         public static string Line => Environment.NewLine;
 
-        #endregion
+        #endregion Line(换行符)
 
         #region GetPhysicalPath(获取物理路径)
 
@@ -49,7 +49,7 @@ namespace Nigel.Helpers
             return $"{Web.RootPath}\\{relativePath.Replace("/", "\\").TrimStart('\\')}";
         }
 
-        #endregion
+        #endregion GetPhysicalPath(获取物理路径)
 
         #region GetWebRootPath(获取wwwroot路径)
 
@@ -67,7 +67,7 @@ namespace Nigel.Helpers
             return $"{Web.WebRootPath}\\{relativePath.Replace("/", "\\").TrimStart('\\')}";
         }
 
-        #endregion
+        #endregion GetWebRootPath(获取wwwroot路径)
 
         #region Swap(交换值)
 
@@ -84,7 +84,6 @@ namespace Nigel.Helpers
             b = swap;
         }
 
-        #endregion
-
+        #endregion Swap(交换值)
     }
 }

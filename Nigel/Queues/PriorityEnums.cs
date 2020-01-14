@@ -2,17 +2,12 @@
 {
     /********************************************************************
     *           Copyright:       2009-2011
-    *           Company:         
+    *           Company:
     *           CRL Version :    4.0.30319.1
     *           Created by 徐毅 at 2011/1/14 10:25:20
     *                   mailto:3624091@qq.com
     *
     ********************************************************************/
-
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     public enum PriorityEnums
     {

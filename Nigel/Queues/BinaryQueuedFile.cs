@@ -2,7 +2,7 @@
 {
     /********************************************************************
     *           Copyright:       2009-2011
-    *           Company:         
+    *           Company:
     *           CRL Version :    4.0.30319.1
     *           Created by 徐毅 at 2011/1/30 18:07:10
     *                   mailto:3624091@qq.com
@@ -11,19 +11,17 @@
 
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Runtime.Serialization.Formatters.Binary;
     using System.IO;
+    using System.Runtime.Serialization.Formatters.Binary;
 
     public class BinaryQueuedFile : IDisposable
     {
-        StreamRW dataFile;
+        private StreamRW dataFile;
 
-        string FileName;
-        int count, current, realCurrent;
-        int cursor, realCursor;
-        object SyObject;
+        private string FileName;
+        private int count, current, realCurrent;
+        private int cursor, realCursor;
+        private object SyObject;
         private BinaryFormatter mSerialize;
 
         public int Count { get { return count; } }
@@ -82,7 +80,7 @@
             return tmp;
         }
 
-        #endregion
+        #endregion Ctor
 
         /*////////////////////////////////////////////////////////////////////////////////////////*/
 
@@ -175,7 +173,6 @@
                     }
                     return R;
                 }
-
             }
         }
 
@@ -189,7 +186,6 @@
                 current = realCurrent;
 
                 dataFile.WriteFileHeader(cursor, current, count);
-
             }
         }
 
@@ -211,9 +207,7 @@
         {
             using (MemoryStream mem = new MemoryStream(bytes))
                 return mSerialize.Deserialize(mem);
-
         }
-
 
         #region IDisposable Members
 
@@ -222,7 +216,6 @@
             dataFile.Dispose();
         }
 
-        #endregion
-
+        #endregion IDisposable Members
     }
 }

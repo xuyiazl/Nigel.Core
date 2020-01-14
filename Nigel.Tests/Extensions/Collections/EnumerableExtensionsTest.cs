@@ -1,7 +1,5 @@
-﻿using System;
+﻿using Nigel.Extensions;
 using System.Collections.Generic;
-using System.Text;
-using Nigel.Extensions;
 using Xunit;
 
 namespace Nigel.Tests.Extensions

@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Nigel.Extensions;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nigel.Extensions;
 
 namespace Nigel.Threading.Asyncs
 {

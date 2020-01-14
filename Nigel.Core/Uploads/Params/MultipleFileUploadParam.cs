@@ -1,12 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace Nigel.Core.Uploads.Params
 {
-
     /// <summary>
     /// 多文件上传参数
     /// </summary>

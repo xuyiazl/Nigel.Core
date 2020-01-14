@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
 
 namespace Nigel.Extensions
 {
-
     public static class LinqExtensions
     {
         private static PropertyInfo GetPropertyInfo(Type objType, string name)
@@ -114,6 +112,7 @@ namespace Nigel.Extensions
             var genericMethod = method.MakeGenericMethod(typeof(T), propInfo.PropertyType);
             return (IQueryable<T>)genericMethod.Invoke(null, new object[] { query, expr });
         }
+
         /// <summary>
         /// 正序排序单个（非首个）
         /// </summary>
@@ -130,6 +129,7 @@ namespace Nigel.Extensions
             var genericMethod = method.MakeGenericMethod(typeof(T), propInfo.PropertyType);
             return (IQueryable<T>)genericMethod.Invoke(null, new object[] { query, expr });
         }
+
         /// <summary>
         /// 反序排序单个
         /// </summary>
@@ -146,6 +146,7 @@ namespace Nigel.Extensions
             var genericMethod = method.MakeGenericMethod(typeof(T), propInfo.PropertyType);
             return (IQueryable<T>)genericMethod.Invoke(null, new object[] { query, expr });
         }
+
         /// <summary>
         /// 反序排序单个（非首个）
         /// </summary>

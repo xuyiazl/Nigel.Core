@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Nigel.Core.Filters;
-using Nigel.Core.Properties;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Nigel.Core.Controllers
 {
@@ -17,7 +12,6 @@ namespace Nigel.Core.Controllers
         public AreaApiControllerBase(ILogger logger)
             : base(logger)
         {
-
         }
     }
 }

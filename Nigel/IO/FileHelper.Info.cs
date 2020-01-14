@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Nigel.Files;
+using Nigel.Helpers;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using Nigel.Files;
-using Nigel.Helpers;
 using FileInfo = System.IO.FileInfo;
 
 namespace Nigel.IO
@@ -30,7 +30,7 @@ namespace Nigel.IO
             return fileNameWithExtension.Substring(lastDotIndex + 1);
         }
 
-        #endregion
+        #endregion GetExtension(获取文件扩展名)
 
         #region GetContentType(根据扩展名获取文件内容类型)
 
@@ -52,7 +52,7 @@ namespace Nigel.IO
             return contentType;
         }
 
-        #endregion
+        #endregion GetContentType(根据扩展名获取文件内容类型)
 
         #region GetFileSize(获取文件大小)
 
@@ -86,7 +86,7 @@ namespace Nigel.IO
             return new FileSize(fileInfo.Length);
         }
 
-        #endregion
+        #endregion GetFileSize(获取文件大小)
 
         #region GetVersion(获取文件版本号)
 
@@ -106,7 +106,7 @@ namespace Nigel.IO
             return null;
         }
 
-        #endregion
+        #endregion GetVersion(获取文件版本号)
 
         #region GetEncoding(获取文件编码)
 
@@ -162,7 +162,7 @@ namespace Nigel.IO
             return targetEncoding;
         }
 
-        #endregion
+        #endregion GetEncoding(获取文件编码)
 
         #region GetMd5(获取文件的MD5值)
 
@@ -238,7 +238,7 @@ namespace Nigel.IO
             return BitConverter.ToString(bytes).Replace("-", "");
         }
 
-        #endregion
+        #endregion GetMd5(获取文件的MD5值)
 
         #region GetSha1(获取文件的SHA1值)
 
@@ -252,6 +252,6 @@ namespace Nigel.IO
             return HashFile(file, "sha1");
         }
 
-        #endregion
+        #endregion GetSha1(获取文件的SHA1值)
     }
 }

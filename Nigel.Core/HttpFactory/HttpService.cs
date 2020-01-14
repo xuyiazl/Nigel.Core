@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Nigel.Helpers;
+using Nigel.Json;
+using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Nigel.Helpers;
-using Nigel.Json;
 
 namespace Nigel.Core.HttpFactory
 {
     /// <summary>
-    /// HttpRequestMessage服务类 
+    /// HttpRequestMessage服务类
     /// </summary>
     public class HttpService : IHttpService
     {
@@ -32,7 +31,7 @@ namespace Nigel.Core.HttpFactory
             where T : class, new()
             => await HttpSendAsync<T>(urlArguments, HttpMethod.Get, new HttpFormData(), cancellationToken);
 
-        #endregion
+        #endregion [ GET ]
 
         #region [ POST ]
 
@@ -52,7 +51,7 @@ namespace Nigel.Core.HttpFactory
             where T : class, new()
             => await HttpSendAsync<T>(urlArguments, HttpMethod.Post, formData, cancellationToken);
 
-        #endregion
+        #endregion [ POST ]
 
         #region [ PUT ]
 
@@ -72,7 +71,7 @@ namespace Nigel.Core.HttpFactory
             where T : class, new()
             => await HttpSendAsync<T>(urlArguments, HttpMethod.Put, formData, cancellationToken);
 
-        #endregion
+        #endregion [ PUT ]
 
         #region [ PATCH ]
 
@@ -92,7 +91,7 @@ namespace Nigel.Core.HttpFactory
             where T : class, new()
             => await HttpSendAsync<T>(urlArguments, HttpMethod.Patch, formData, cancellationToken);
 
-        #endregion
+        #endregion [ PATCH ]
 
         #region [ DELETE ]
 
@@ -112,10 +111,9 @@ namespace Nigel.Core.HttpFactory
             where T : class, new()
             => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Delete, data, cancellationToken);
 
-        #endregion
+        #endregion [ DELETE ]
 
         #region [ 内部方法 ]
-
 
         private async Task<T> HttpSendAsync<T>(UrlArguments urlArguments, HttpMethod method, HttpFormData formData, CancellationToken cancellationToken)
             where T : class, new()
@@ -133,7 +131,7 @@ namespace Nigel.Core.HttpFactory
             string requestUrl = urlArguments.Complete().Url;
 
             /*
-            
+
             //如果使用了 nginx 反向代理，需要在nginx里配置，并使用该方法获取IP
 
             if (_accessor.HttpContext.Request.Headers.ContainsKey("X-Real-IP"))
@@ -142,7 +140,6 @@ namespace Nigel.Core.HttpFactory
                 ipAddress = _accessor.HttpContext.Connection.RemoteIpAddress.NullToEmpty();
 
             */
-
 
             if (client.BaseAddress == null)
             {
@@ -176,15 +173,19 @@ namespace Nigel.Core.HttpFactory
                     case "GET":
                         responseMessage = await client.GetAsync(requestUrl, cancellationToken);
                         break;
+
                     case "POST":
                         responseMessage = await client.PostAsync(requestUrl, contentCall(), cancellationToken);
                         break;
+
                     case "PUT":
                         responseMessage = await client.PutAsync(requestUrl, contentCall(), cancellationToken);
                         break;
+
                     case "DELETE":
                         responseMessage = await client.DeleteAsync(requestUrl, cancellationToken);
                         break;
+
                     case "PATCH":
                         responseMessage = await client.PatchAsync(requestUrl, contentCall(), cancellationToken);
                         break;
@@ -206,6 +207,6 @@ namespace Nigel.Core.HttpFactory
             headers.Add("ClientIP", Web.IP);
         }
 
-        #endregion
+        #endregion [ 内部方法 ]
     }
 }

@@ -5,7 +5,6 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Web;
 using Enum = System.Enum;
 
 // ReSharper disable once CheckNamespace
@@ -17,6 +16,7 @@ namespace Nigel.Extensions
     public static partial class StringExtensions
     {
         #region Remove(移除字符串)
+
         /// <summary>
         /// 从当前字符串中移除任何指定的字符
         /// </summary>
@@ -131,9 +131,11 @@ namespace Nigel.Extensions
                 return src;
             return Regex.Replace(src, @"( |　)+", "");
         }
-        #endregion
+
+        #endregion Remove(移除字符串)
 
         #region FormatWith(格式化填充)
+
         /// <summary>
         /// 将指定字符串中的格式项替换为指定数组中相应对象的字符串表示形式
         /// </summary>
@@ -145,9 +147,11 @@ namespace Nigel.Extensions
             format.CheckNotNull("format");
             return string.Format(CultureInfo.CurrentCulture, format, args);
         }
-        #endregion
+
+        #endregion FormatWith(格式化填充)
 
         #region ReverseString(反转字符串)
+
         /// <summary>
         /// 反转字符串
         /// </summary>
@@ -158,9 +162,11 @@ namespace Nigel.Extensions
             value.CheckNotNull("value");
             return new string(value.Reverse().ToArray());
         }
-        #endregion
+
+        #endregion ReverseString(反转字符串)
 
         #region Split(字符串分割成数组)
+
         /// <summary>
         /// 以指定字符串作为分隔符将指定字符串分隔成数组
         /// </summary>
@@ -173,7 +179,8 @@ namespace Nigel.Extensions
             return value.Split(new[] { strSplit },
                 removeEmptyEntries ? StringSplitOptions.RemoveEmptyEntries : StringSplitOptions.None);
         }
-        #endregion
+
+        #endregion Split(字符串分割成数组)
 
         #region ToMap(字符串转换为字典)
 
@@ -223,9 +230,10 @@ namespace Nigel.Extensions
             return map;
         }
 
-        #endregion
+        #endregion ToMap(字符串转换为字典)
 
         #region GetTextLength(获取字符串长度)
+
         /// <summary>
         /// 获取字符串长度，支持汉字，每个汉字长度为2个字节
         /// </summary>
@@ -249,9 +257,11 @@ namespace Nigel.Extensions
             }
             return tempLen;
         }
-        #endregion
+
+        #endregion GetTextLength(获取字符串长度)
 
         #region TrimToMaxLength(切割字符串)
+
         /// <summary>
         /// 切割字符串，指定最大长度
         /// </summary>
@@ -274,9 +284,11 @@ namespace Nigel.Extensions
         {
             return (value == null || value.Length <= maxLength ? value : string.Concat(value.Substring(0, maxLength), suffix));
         }
-        #endregion
+
+        #endregion TrimToMaxLength(切割字符串)
 
         #region Truncate(截断字符串)
+
         /// <summary>
         /// 截取字符串
         /// </summary>
@@ -330,9 +342,10 @@ namespace Nigel.Extensions
             return TruncateWithText(txt, maxChars, "...");
         }
 
-        #endregion
+        #endregion Truncate(截断字符串)
 
         #region PadBoth(指定字符串长度)
+
         /// <summary>
         /// 指定字符串长度，如果字符串长度大于指定的字符串长度，则截断字符串，若字符串长度小于指定字符串长度，则填充字符到指定字符串长度
         /// </summary>
@@ -357,9 +370,11 @@ namespace Nigel.Extensions
                 return value.PadLeft(width - diff / 2, padChar).PadRight(width, padChar);
             }
         }
-        #endregion
+
+        #endregion PadBoth(指定字符串长度)
 
         #region Ensure(确保字符串包含指定字符串)
+
         /// <summary>
         /// 确保字符串包含指定前缀
         /// </summary>
@@ -370,6 +385,7 @@ namespace Nigel.Extensions
         {
             return value.StartsWith(prefix) ? value : string.Concat(prefix, value);
         }
+
         /// <summary>
         /// 确保字符串包含指定后缀
         /// </summary>
@@ -380,9 +396,11 @@ namespace Nigel.Extensions
         {
             return value.EndsWith(suffix) ? value : string.Concat(value, suffix);
         }
-        #endregion
+
+        #endregion Ensure(确保字符串包含指定字符串)
 
         #region Repeat(重复指定字符串)
+
         /// <summary>
         /// 重复指定字符串，根据指定重复次数
         /// </summary>
@@ -402,9 +420,11 @@ namespace Nigel.Extensions
             }
             return sb.ToString();
         }
-        #endregion
+
+        #endregion Repeat(重复指定字符串)
 
         #region ExtractNumber(提取字符串中所有数字)
+
         /// <summary>
         /// 提取指定字符串中所有数字
         /// </summary>
@@ -415,9 +435,11 @@ namespace Nigel.Extensions
             return
                 value.Where(Char.IsDigit).Aggregate(new StringBuilder(value.Length), (sb, c) => sb.Append(c)).ToString();
         }
-        #endregion
+
+        #endregion ExtractNumber(提取字符串中所有数字)
 
         #region ConcatWith(连接字符串)
+
         /// <summary>
         /// 连接两个字符串
         /// </summary>
@@ -428,9 +450,11 @@ namespace Nigel.Extensions
         {
             return string.Concat(value, string.Concat(values));
         }
-        #endregion
+
+        #endregion ConcatWith(连接字符串)
 
         #region Join(连接元素)
+
         /// <summary>
         /// 连接字符串数组的所有元素，根据指定分隔符
         /// </summary>
@@ -467,9 +491,11 @@ namespace Nigel.Extensions
             var items = values.Where(s => !string.IsNullOrEmpty(s)).ToList();
             return string.Join(separator, items.ToArray());
         }
-        #endregion
+
+        #endregion Join(连接元素)
 
         #region Get(获取范围字符串)
+
         /// <summary>
         /// 获取指定字符串参数之前的字符串
         /// </summary>
@@ -528,9 +554,11 @@ namespace Nigel.Extensions
         {
             return index < 0 && index < value.Length ? value : value.Substring(index, value.Length - index);
         }
-        #endregion
+
+        #endregion Get(获取范围字符串)
 
         #region WordCase(单词大小写)
+
         /// <summary>
         /// 首字母大写
         /// </summary>
@@ -628,9 +656,11 @@ namespace Nigel.Extensions
             //-s为后缀结束规则
             return singular + "s";
         }
-        #endregion
+
+        #endregion WordCase(单词大小写)
 
         #region ReplaceAll(替换字符串指定的所有值)
+
         /// <summary>
         /// 替换字符串中指定的所有值
         /// </summary>
@@ -657,6 +687,7 @@ namespace Nigel.Extensions
             }
             return sb.ToString();
         }
+
         /// <summary>
         /// 替换字符串中指定的所有值
         /// </summary>
@@ -681,6 +712,7 @@ namespace Nigel.Extensions
             }
             return sb.ToString();
         }
+
         /// <summary>
         /// 替换字符串中指定的所有值
         /// </summary>
@@ -715,9 +747,11 @@ namespace Nigel.Extensions
             }
             return sb.ToString();
         }
-        #endregion
+
+        #endregion ReplaceAll(替换字符串指定的所有值)
 
         #region ParseCommandlineParams(解析命令行参数)
+
         /// <summary>
         /// 解析命令行参数
         /// </summary>
@@ -788,9 +822,11 @@ namespace Nigel.Extensions
             }
             return parameters;
         }
-        #endregion
+
+        #endregion ParseCommandlineParams(解析命令行参数)
 
         #region ParseStringToEnum(解析字符串到枚举项)
+
         /// <summary>
         /// 如果存在该枚举，解析字符串到字符串枚举项，否则返回默认枚举
         /// </summary>
@@ -811,9 +847,11 @@ namespace Nigel.Extensions
                 ? default
                 : (TEnum)Enum.Parse(typeof(TEnum), value, ignorecase);
         }
-        #endregion
+
+        #endregion ParseStringToEnum(解析字符串到枚举项)
 
         #region EncodeEmailAddress(编码电子邮件地址)
+
         /// <summary>
         /// 将电子邮件地址进行编码，以便于链接仍然有效
         /// </summary>
@@ -831,18 +869,23 @@ namespace Nigel.Extensions
                     case 32:
                         repl = " ";
                         break;
+
                     case 34:
                         repl = "\"";
                         break;
+
                     case 38:
                         repl = "&";
                         break;
+
                     case 60:
                         repl = "<";
                         break;
+
                     case 62:
                         repl = ">";
                         break;
+
                     default:
                         if (acode >= 32 && acode <= 127)
                         {
@@ -862,9 +905,11 @@ namespace Nigel.Extensions
             }
             return tempHtmlEncode;
         }
-        #endregion
+
+        #endregion EncodeEmailAddress(编码电子邮件地址)
 
         #region RepairZero(补足位数)
+
         /// <summary>
         /// 补足位数，指定字符串的固定长度，如果字符串小于固定长度，则在字符串的前面补足零，可设置的固定长度最大为9位
         /// </summary>
@@ -875,7 +920,8 @@ namespace Nigel.Extensions
         {
             return text.PadLeft(limitedLength, '0');
         }
-        #endregion
+
+        #endregion RepairZero(补足位数)
 
         #region ReplaceFirst(替换字符串-首匹配)
 
@@ -917,7 +963,7 @@ namespace Nigel.Extensions
                    + string.Join(oldValue, listEnd);
         }
 
-        #endregion
+        #endregion ReplaceFirst(替换字符串-首匹配)
 
         #region ReplaceLast(替换字符串-尾匹配)
 
@@ -959,7 +1005,7 @@ namespace Nigel.Extensions
                    + string.Join(newValue, listEnd);
         }
 
-        #endregion
+        #endregion ReplaceLast(替换字符串-尾匹配)
 
         #region Left(获取从字符串开头指定长度的子字符串)
 
@@ -979,7 +1025,7 @@ namespace Nigel.Extensions
             return value.Substring(0, length);
         }
 
-        #endregion
+        #endregion Left(获取从字符串开头指定长度的子字符串)
 
         #region Right(获取从字符串末尾指定长度的子字符串)
 
@@ -999,7 +1045,7 @@ namespace Nigel.Extensions
             return value.Substring(value.Length - length, length);
         }
 
-        #endregion
+        #endregion Right(获取从字符串末尾指定长度的子字符串)
 
         #region ToIntArray ... (字符串转换为int、Long、Short...数组，默认分隔符(,))
 
@@ -1044,6 +1090,7 @@ namespace Nigel.Extensions
         {
             return Array.ConvertAll(Split(delimitedText, delimeter, true), c => c.ToLong());
         }
+
         /// <summary>
         /// 字符串转换为double数组，默认分隔符(,)
         /// </summary>
@@ -1053,6 +1100,7 @@ namespace Nigel.Extensions
         {
             return ToDoubleArray(delimitedText, ",");
         }
+
         /// <summary>
         /// 字符串转换为double数组
         /// </summary>
@@ -1073,6 +1121,7 @@ namespace Nigel.Extensions
         {
             return ToShortArray(delimitedText, ",");
         }
+
         /// <summary>
         /// 字符串转换为short数组
         /// </summary>
@@ -1084,6 +1133,6 @@ namespace Nigel.Extensions
             return Array.ConvertAll(Split(delimitedText, delimeter), c => c.ToShort());
         }
 
-        #endregion
+        #endregion ToIntArray ... (字符串转换为int、Long、Short...数组，默认分隔符(,))
     }
 }

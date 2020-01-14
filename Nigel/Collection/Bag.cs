@@ -2,18 +2,16 @@
 {
     /********************************************************************
     *           Copyright:       2009-2011
-    *           Company:         
+    *           Company:
     *           CRL Version :    4.0.30319.239
     *           Created by 徐毅 at 2011/11/29 12:38:03
     *                   mailto:3624091@qq.com
-    *                         
+    *
     ********************************************************************/
 
     using System;
     using System.Collections.Concurrent;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     public class Bag<T> : ICollection<T>
     {

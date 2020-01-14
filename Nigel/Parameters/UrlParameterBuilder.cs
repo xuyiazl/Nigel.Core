@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Nigel.Helpers;
+using Nigel.Parameters.Formats;
+using System;
 using System.Collections.Generic;
 using System.Web;
-using Nigel.Helpers;
-using Nigel.Parameters.Formats;
 
 namespace Nigel.Parameters
 {
@@ -29,7 +29,7 @@ namespace Nigel.Parameters
             set => Add(name, value);
         }
 
-        #endregion
+        #endregion 属性
 
         #region 构造函数
 
@@ -65,7 +65,7 @@ namespace Nigel.Parameters
             LoadUrl(url);
         }
 
-        #endregion
+        #endregion 构造函数
 
         #region LoadUrl(加载Url)
 
@@ -92,7 +92,7 @@ namespace Nigel.Parameters
             }
         }
 
-        #endregion
+        #endregion LoadUrl(加载Url)
 
         #region LoadForm(从Request加载表单参数)
 
@@ -116,7 +116,7 @@ namespace Nigel.Parameters
             }
         }
 
-        #endregion
+        #endregion LoadForm(从Request加载表单参数)
 
         #region LoadQuery(从Request加载查询参数)
 
@@ -140,7 +140,7 @@ namespace Nigel.Parameters
             }
         }
 
-        #endregion
+        #endregion LoadQuery(从Request加载查询参数)
 
         #region Add(添加参数)
 
@@ -156,7 +156,7 @@ namespace Nigel.Parameters
             return this;
         }
 
-        #endregion
+        #endregion Add(添加参数)
 
         #region GetValue(获取值)
 
@@ -170,7 +170,7 @@ namespace Nigel.Parameters
             return ParameterBuilder.GetValue(name);
         }
 
-        #endregion
+        #endregion GetValue(获取值)
 
         #region GetDictionary(获取字典)
 
@@ -187,7 +187,7 @@ namespace Nigel.Parameters
             return ParameterBuilder.GetDictionary(isSort, isUrlEncode, encoding);
         }
 
-        #endregion
+        #endregion GetDictionary(获取字典)
 
         #region GetKeyValuePairs(获取键值对集合)
 
@@ -200,7 +200,7 @@ namespace Nigel.Parameters
             return ParameterBuilder.GetKeyValuePairs();
         }
 
-        #endregion
+        #endregion GetKeyValuePairs(获取键值对集合)
 
         #region Result(获取结果)
 
@@ -216,7 +216,7 @@ namespace Nigel.Parameters
             return ParameterBuilder.Result(UrlParameterFormat.Instance, isSort, isUrlEncode, encoding);
         }
 
-        #endregion
+        #endregion Result(获取结果)
 
         #region JoinUrl(连接Url)
 
@@ -230,7 +230,7 @@ namespace Nigel.Parameters
             return Url.Join(url, Result());
         }
 
-        #endregion
+        #endregion JoinUrl(连接Url)
 
         #region Clear(清空)
 
@@ -242,7 +242,7 @@ namespace Nigel.Parameters
             ParameterBuilder.Clear();
         }
 
-        #endregion
+        #endregion Clear(清空)
 
         #region Remove(移除参数)
 
@@ -256,7 +256,6 @@ namespace Nigel.Parameters
             return ParameterBuilder.Remove(key);
         }
 
-        #endregion
-
+        #endregion Remove(移除参数)
     }
 }

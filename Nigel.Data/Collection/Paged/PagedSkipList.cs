@@ -1,14 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Nigel.Data.Collection.Paged
 {
-
     /// <summary>
     /// 分页列表
     /// </summary>
@@ -19,18 +16,22 @@ namespace Nigel.Data.Collection.Paged
         /// 初始化空对象
         /// </summary>
         public readonly static PagedSkipList<T> Empty = new PagedSkipList<T>(default(List<T>), 0, 1, 1);
+
         /// <summary>
         /// 获取记录数
         /// </summary>
         public int Limit { get; private set; }
+
         /// <summary>
         /// 偏移量
         /// </summary>
         public int Offset { get; private set; }
+
         /// <summary>
         /// 总记录数
         /// </summary>
         public int TotalRecords { get; private set; }
+
         /// <summary>
         /// 构造函数
         /// </summary>
@@ -48,6 +49,7 @@ namespace Nigel.Data.Collection.Paged
                 this.AddRange(items);
             }
         }
+
         /// <summary>
         /// 创建分页对象
         /// </summary>
@@ -61,6 +63,7 @@ namespace Nigel.Data.Collection.Paged
             var items = source.Skip(offset).Take(limit).ToList();
             return new PagedSkipList<T>(items, limit, offset, count);
         }
+
         /// <summary>
         /// 异步创建分页对象
         /// </summary>
@@ -74,6 +77,7 @@ namespace Nigel.Data.Collection.Paged
             var items = await source.Skip(offset).Take(limit).ToListAsync();
             return new PagedSkipList<T>(items, limit, offset, count);
         }
+
         /// <summary>
         /// 异步创建分页对象
         /// </summary>

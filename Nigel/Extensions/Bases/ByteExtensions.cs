@@ -21,7 +21,7 @@ namespace Nigel.Extensions
             return Math.Max(value1, value2);
         }
 
-        #endregion
+        #endregion Max(获取两个数中最大值)
 
         #region Min(获取两个数中最小值)
 
@@ -36,7 +36,6 @@ namespace Nigel.Extensions
             return Math.Min(value1, value2);
         }
 
-        #endregion
-
+        #endregion Min(获取两个数中最小值)
     }
 }

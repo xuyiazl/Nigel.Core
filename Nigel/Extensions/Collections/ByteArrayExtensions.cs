@@ -23,7 +23,7 @@ namespace Nigel.Extensions
             return encoding.GetString(value);
         }
 
-        #endregion
+        #endregion ToString(将byte[]转换成字符串)
 
         #region ToHexString(将byte[]转换成16进制字符串表示形式)
 
@@ -34,7 +34,7 @@ namespace Nigel.Extensions
         /// <returns></returns>
         public static string ToHexString(this byte[] value)
         {
-            var sb=new StringBuilder();
+            var sb = new StringBuilder();
             foreach (var b in value)
             {
                 sb.AppendFormat(" {0}", b.ToString("X2").PadLeft(2, '0'));
@@ -43,7 +43,7 @@ namespace Nigel.Extensions
             return sb.Length > 0 ? sb.ToString().Substring(1) : sb.ToString();
         }
 
-        #endregion
+        #endregion ToHexString(将byte[]转换成16进制字符串表示形式)
 
         #region ToInt(将byte[]转换成int)
 
@@ -75,7 +75,7 @@ namespace Nigel.Extensions
             return num;
         }
 
-        #endregion
+        #endregion ToInt(将byte[]转换成int)
 
         #region ToLong(将byte[]转换成long)
 
@@ -104,7 +104,7 @@ namespace Nigel.Extensions
             return num;
         }
 
-        #endregion
+        #endregion ToLong(将byte[]转换成long)
 
         #region ToBase64String(将byte[]转换成Base64字符串)
 
@@ -118,7 +118,7 @@ namespace Nigel.Extensions
             return Convert.ToBase64String(value);
         }
 
-        #endregion
+        #endregion ToBase64String(将byte[]转换成Base64字符串)
 
         #region ToMemoryStream(将byte[]转换成内存流)
 
@@ -132,7 +132,7 @@ namespace Nigel.Extensions
             return new MemoryStream(value);
         }
 
-        #endregion
+        #endregion ToMemoryStream(将byte[]转换成内存流)
 
         #region Copy(复制一份二维数组的副本)
 
@@ -149,6 +149,6 @@ namespace Nigel.Extensions
             return newBytes;
         }
 
-        #endregion
+        #endregion Copy(复制一份二维数组的副本)
     }
 }

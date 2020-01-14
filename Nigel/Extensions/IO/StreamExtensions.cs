@@ -57,7 +57,7 @@ namespace Nigel.Extensions
             return (result && File.Exists(path));
         }
 
-        #endregion
+        #endregion ToFile(将流写入指定文件路径)
 
         #region ContentsEqual(比较流内容是否相等)
 
@@ -108,7 +108,7 @@ namespace Nigel.Extensions
             }
         }
 
-        #endregion
+        #endregion ContentsEqual(比较流内容是否相等)
 
         #region GetReader(获取流读取器)
 
@@ -138,7 +138,7 @@ namespace Nigel.Extensions
             return new StreamReader(stream, encoding);
         }
 
-        #endregion
+        #endregion GetReader(获取流读取器)
 
         #region GetWriter(获取流写入器)
 
@@ -169,7 +169,7 @@ namespace Nigel.Extensions
             return new StreamWriter(stream, encoding);
         }
 
-        #endregion
+        #endregion GetWriter(获取流写入器)
 
         #region ReadToEnd(读取所有文本)
 
@@ -197,7 +197,7 @@ namespace Nigel.Extensions
             }
         }
 
-        #endregion
+        #endregion ReadToEnd(读取所有文本)
 
         #region SeekToBegin(设置流指针指向流的开始位置)
 
@@ -217,7 +217,7 @@ namespace Nigel.Extensions
             return stream;
         }
 
-        #endregion
+        #endregion SeekToBegin(设置流指针指向流的开始位置)
 
         #region SeekToEnd(设置流指针指向流的结束位置)
 
@@ -237,7 +237,7 @@ namespace Nigel.Extensions
             return stream;
         }
 
-        #endregion
+        #endregion SeekToEnd(设置流指针指向流的结束位置)
 
         #region CopyToMemory(复制流到内存流)
 
@@ -253,7 +253,7 @@ namespace Nigel.Extensions
             return memoryStream;
         }
 
-        #endregion
+        #endregion CopyToMemory(复制流到内存流)
 
         #region ReadAllBytes(将流写入字节数组)
 
@@ -270,7 +270,7 @@ namespace Nigel.Extensions
             }
         }
 
-        #endregion
+        #endregion ReadAllBytes(将流写入字节数组)
 
         #region Write(将字节数组写入流)
 
@@ -284,7 +284,7 @@ namespace Nigel.Extensions
             stream.Write(bytes, 0, bytes.Length);
         }
 
-        #endregion
+        #endregion Write(将字节数组写入流)
 
         #region Write(将字符串写入流)
 
@@ -300,7 +300,7 @@ namespace Nigel.Extensions
             stream.Write(buffer, 0, buffer.Length);
         }
 
-        #endregion
+        #endregion Write(将字符串写入流)
 
         #region GetMd5(获取流的MD5值)
 
@@ -323,6 +323,6 @@ namespace Nigel.Extensions
             }
         }
 
-        #endregion
+        #endregion GetMd5(获取流的MD5值)
     }
 }

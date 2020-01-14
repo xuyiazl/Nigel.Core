@@ -1,6 +1,6 @@
-﻿using Xunit;
-using Nigel.Extensions;
+﻿using Nigel.Extensions;
 using System.Collections.Generic;
+using Xunit;
 
 namespace Nigel.Tests.Extensions.Base
 {
@@ -140,5 +140,5 @@ namespace Nigel.Tests.Extensions.Base
         public string Description { get; set; }
     }
 
-    #endregion
+    #endregion 辅助类
 }

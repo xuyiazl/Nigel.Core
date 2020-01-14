@@ -1,7 +1,7 @@
-﻿using System;
-using System.Linq;
-using Nigel.Tests.Samples;
+﻿using Nigel.Tests.Samples;
 using Nigel.Tests.XUnitHelpers;
+using System;
+using System.Linq;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -62,7 +62,7 @@ namespace Nigel.Tests.Helpers
         /// 测试通过描述获取实例
         /// </summary>
         [Theory]
-        [InlineData("B2",EnumSample.B)]
+        [InlineData("B2", EnumSample.B)]
         [InlineData("C3", EnumSample.C)]
         [InlineData("D4", EnumSample.D)]
         [InlineData("E5", EnumSample.E)]
@@ -272,7 +272,8 @@ namespace Nigel.Tests.Helpers
         [Fact]
         public void Test_GetItems_Validate()
         {
-            AssertHelper.Throws<InvalidOperationException>(() => {
+            AssertHelper.Throws<InvalidOperationException>(() =>
+            {
                 Nigel.Helpers.Enum.GetItems<Sample>();
             }, "类型 Nigel.Tests.Samples.Sample 不是枚举");
         }

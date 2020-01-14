@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Nigel.Expressions;
+using Nigel.Helpers;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Nigel.Expressions;
-using Nigel.Helpers;
 
 // ReSharper disable once CheckNamespace
 namespace Nigel.Extensions
@@ -52,7 +52,7 @@ namespace Nigel.Extensions
             return Expression.MakeMemberAccess(expression, member);
         }
 
-        #endregion
+        #endregion Property(属性表达式)
 
         #region And(与表达式)
 
@@ -96,7 +96,7 @@ namespace Nigel.Extensions
             return left.Compose(right, Expression.AndAlso);
         }
 
-        #endregion
+        #endregion And(与表达式)
 
         #region Or(或表达式)
 
@@ -140,7 +140,7 @@ namespace Nigel.Extensions
             return left.Compose(right, Expression.OrElse);
         }
 
-        #endregion
+        #endregion Or(或表达式)
 
         #region Value(获取Lambda表达式的值)
 
@@ -155,7 +155,7 @@ namespace Nigel.Extensions
             return Lambda.GetValue(expression);
         }
 
-        #endregion
+        #endregion Value(获取Lambda表达式的值)
 
         #region Equal(等于表达式)
 
@@ -181,7 +181,7 @@ namespace Nigel.Extensions
             return left.Equal(Lambda.Constant(value, left));
         }
 
-        #endregion
+        #endregion Equal(等于表达式)
 
         #region NotEqual(不等于表达式)
 
@@ -207,7 +207,7 @@ namespace Nigel.Extensions
             return left.NotEqual(Lambda.Constant(value, left));
         }
 
-        #endregion
+        #endregion NotEqual(不等于表达式)
 
         #region Greater(大于表达式)
 
@@ -233,7 +233,7 @@ namespace Nigel.Extensions
             return left.Greater(Lambda.Constant(value, left));
         }
 
-        #endregion
+        #endregion Greater(大于表达式)
 
         #region GreaterEqual(大于等于表达式)
 
@@ -259,7 +259,7 @@ namespace Nigel.Extensions
             return left.GreaterEqual(Lambda.Constant(value, left));
         }
 
-        #endregion
+        #endregion GreaterEqual(大于等于表达式)
 
         #region Less(小于表达式)
 
@@ -285,7 +285,7 @@ namespace Nigel.Extensions
             return left.Less(Lambda.Constant(value, left));
         }
 
-        #endregion
+        #endregion Less(小于表达式)
 
         #region LessEqual(小于等于表达式)
 
@@ -311,7 +311,7 @@ namespace Nigel.Extensions
             return left.LessEqual(Lambda.Constant(value, left));
         }
 
-        #endregion
+        #endregion LessEqual(小于等于表达式)
 
         #region StartsWith(头匹配)
 
@@ -326,7 +326,7 @@ namespace Nigel.Extensions
             return left.Call("StartsWith", new[] { typeof(string) }, value);
         }
 
-        #endregion
+        #endregion StartsWith(头匹配)
 
         #region EndsWith(尾匹配)
 
@@ -341,7 +341,7 @@ namespace Nigel.Extensions
             return left.Call("EndsWith", new[] { typeof(string) }, value);
         }
 
-        #endregion
+        #endregion EndsWith(尾匹配)
 
         #region Contains(模糊匹配)
 
@@ -356,7 +356,7 @@ namespace Nigel.Extensions
             return left.Call("Contains", new[] { typeof(string) }, value);
         }
 
-        #endregion
+        #endregion Contains(模糊匹配)
 
         #region Operation(操作)
 
@@ -373,20 +373,28 @@ namespace Nigel.Extensions
             {
                 case Operator.Equal:
                     return left.Equal(value);
+
                 case Operator.NotEqual:
                     return left.NotEqual(value);
+
                 case Operator.Greater:
                     return left.Greater(value);
+
                 case Operator.GreaterEqual:
                     return left.GreaterEqual(value);
+
                 case Operator.Less:
                     return left.Less(value);
+
                 case Operator.LessEqual:
                     return left.LessEqual(value);
+
                 case Operator.Starts:
                     return left.StartsWith(value);
+
                 case Operator.Ends:
                     return left.EndsWith(value);
+
                 case Operator.Contains:
                     return left.Contains(value);
             }
@@ -406,21 +414,26 @@ namespace Nigel.Extensions
             {
                 case Operator.Equal:
                     return left.Equal(value);
+
                 case Operator.NotEqual:
                     return left.NotEqual(value);
+
                 case Operator.Greater:
                     return left.Greater(value);
+
                 case Operator.GreaterEqual:
                     return left.GreaterEqual(value);
+
                 case Operator.Less:
                     return left.Less(value);
+
                 case Operator.LessEqual:
                     return left.LessEqual(value);
             }
             throw new NotImplementedException();
         }
 
-        #endregion
+        #endregion Operation(操作)
 
         #region Call(调用方法表达式)
 
@@ -472,7 +485,7 @@ namespace Nigel.Extensions
                 values.Select(Expression.Constant));
         }
 
-        #endregion
+        #endregion Call(调用方法表达式)
 
         #region Compose(组合表达式)
 
@@ -493,7 +506,7 @@ namespace Nigel.Extensions
             return Expression.Lambda<T>(merge(first.Body, secondBody), first.Parameters);
         }
 
-        #endregion
+        #endregion Compose(组合表达式)
 
         #region ToLambda(创建Lambda表达式)
 
@@ -514,7 +527,7 @@ namespace Nigel.Extensions
             return Expression.Lambda<TDelegate>(body, parameters);
         }
 
-        #endregion
+        #endregion ToLambda(创建Lambda表达式)
 
         #region ToPredicate(创建谓词表达式)
 
@@ -531,6 +544,6 @@ namespace Nigel.Extensions
             return ToLambda<Func<T, bool>>(body, parameters);
         }
 
-        #endregion
+        #endregion ToPredicate(创建谓词表达式)
     }
 }

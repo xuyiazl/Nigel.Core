@@ -47,7 +47,7 @@ namespace Nigel.Helpers
                 result.Add(resultPattern, match.Result(resultPattern));
         }
 
-        #endregion
+        #endregion GetValues(获取匹配值集合)
 
         #region GetValue(获取匹配值)
 
@@ -69,7 +69,7 @@ namespace Nigel.Helpers
             return string.IsNullOrWhiteSpace(resultPattern) ? match.Value : match.Result(resultPattern);
         }
 
-        #endregion
+        #endregion GetValue(获取匹配值)
 
         #region Split(分割成字符串数组)
 
@@ -84,7 +84,7 @@ namespace Nigel.Helpers
                 ? new string[] { }
                 : System.Text.RegularExpressions.Regex.Split(input, pattern, options);
 
-        #endregion
+        #endregion Split(分割成字符串数组)
 
         #region Replace(替换)
 
@@ -100,7 +100,7 @@ namespace Nigel.Helpers
             ? string.Empty
             : System.Text.RegularExpressions.Regex.Replace(input, pattern, replacement, options);
 
-        #endregion
+        #endregion Replace(替换)
 
         #region IsMatch(验证输入与模式是否匹配)
 
@@ -119,6 +119,6 @@ namespace Nigel.Helpers
         /// <param name="options">选项</param>
         public static bool IsMatch(string input, string pattern, RegexOptions options) => Regex.IsMatch(input, pattern, options);
 
-        #endregion
+        #endregion IsMatch(验证输入与模式是否匹配)
     }
 }

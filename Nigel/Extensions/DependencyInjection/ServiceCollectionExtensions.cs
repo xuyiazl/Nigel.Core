@@ -1,6 +1,6 @@
-﻿using System.Linq;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
 using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
 
 // ReSharper disable once CheckNamespace
 namespace Nigel.Extensions

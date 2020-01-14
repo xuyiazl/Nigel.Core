@@ -1,15 +1,15 @@
-﻿using System;
+﻿using Nigel.Helpers;
+using Nigel.Randoms;
+using System;
 using System.IO;
 using System.Text.RegularExpressions;
-using Nigel.Helpers;
-using Nigel.Randoms;
 
 namespace Nigel.Files.Paths
 {
     /// <summary>
     /// 路径生成器基类
     /// </summary>
-    public abstract class PathGeneratorBase:IPathGenerator
+    public abstract class PathGeneratorBase : IPathGenerator
     {
         /// <summary>
         /// 随机数生成器

@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Nigel.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Nigel.Json;
 
 // ReSharper disable once CheckNamespace
 namespace Nigel.Extensions
@@ -32,6 +32,7 @@ namespace Nigel.Extensions
                 throw new ArgumentNullException(nameof(converter), @"操作表达式不可为空！");
             return enumerable.ForEach(converter);
         }
+
         /// <summary>
         /// 模型转换
         /// </summary>
@@ -49,7 +50,7 @@ namespace Nigel.Extensions
             return enumerable.ForEach(converter);
         }
 
-        #endregion
+        #endregion ToMap(模型转换)
 
         #region ForEach(对指定集合中的每个元素执行指定操作)
 
@@ -109,6 +110,7 @@ namespace Nigel.Extensions
 
             return val;
         }
+
         /// <summary>
         /// 对指定集合中的每个元素执行指定操作
         /// </summary>
@@ -130,6 +132,7 @@ namespace Nigel.Extensions
 
             return list;
         }
+
         /// <summary>
         /// 对指定集合中的每个元素执行指定操作
         /// </summary>
@@ -150,6 +153,7 @@ namespace Nigel.Extensions
 
             return val;
         }
+
         /// <summary>
         /// 对指定集合中的每个元素执行指定操作
         /// </summary>
@@ -188,7 +192,7 @@ namespace Nigel.Extensions
             return Task.WhenAll(from item in enumerable select Task.Run(() => action(item)));
         }
 
-        #endregion
+        #endregion ForEach(对指定集合中的每个元素执行指定操作)
 
         #region EqualsTo(判断两个集合中的元素是否相等)
 
@@ -221,7 +225,7 @@ namespace Nigel.Extensions
             return false;
         }
 
-        #endregion
+        #endregion EqualsTo(判断两个集合中的元素是否相等)
 
         #region DistinctBy(根据指定条件返回集合中不重复的元素)
 
@@ -244,7 +248,7 @@ namespace Nigel.Extensions
             return enumerable.Where(item => seenKeys.Add(keySelector(item)));
         }
 
-        #endregion
+        #endregion DistinctBy(根据指定条件返回集合中不重复的元素)
 
         #region ExpandAndToString(展开集合并转换为字符串)
 
@@ -297,7 +301,7 @@ namespace Nigel.Extensions
             return sb.ToString();
         }
 
-        #endregion
+        #endregion ExpandAndToString(展开集合并转换为字符串)
 
         #region ToDataTable(转换为DataTable)
 
@@ -332,7 +336,7 @@ namespace Nigel.Extensions
             return dataTable;
         }
 
-        #endregion
+        #endregion ToDataTable(转换为DataTable)
 
         #region WhereIf(是否执行条件查询)
 
@@ -351,6 +355,6 @@ namespace Nigel.Extensions
             return condition ? enumerable.Where(predicate) : enumerable;
         }
 
-        #endregion
+        #endregion WhereIf(是否执行条件查询)
     }
 }

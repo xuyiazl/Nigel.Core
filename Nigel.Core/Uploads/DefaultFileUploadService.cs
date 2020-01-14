@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Nigel.Core.Uploads.Params;
+using Nigel.Drawing;
 using Nigel.Extensions;
 using Nigel.Files;
 using Nigel.IO;
@@ -8,15 +9,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Nigel.Drawing;
 using FileInfo = Nigel.Files.FileInfo;
 
 namespace Nigel.Core.Uploads
 {
-
     /// <summary>
     /// 默认文件上传服务
     /// </summary>
@@ -72,7 +70,6 @@ namespace Nigel.Core.Uploads
             fileInfo.Md5 = await SaveWithMd5Async(formFile, fullPath, cancellationToken);
             return fileInfo;
         }
-
 
         /// <summary>
         /// 上传文件。多文件
@@ -178,7 +175,6 @@ namespace Nigel.Core.Uploads
             fileInfo.Md5 = await SaveWithMd5Async(formFile, fullPath, cancellationToken);
             return fileInfo;
         }
-
 
         /// <summary>
         /// 保存文件

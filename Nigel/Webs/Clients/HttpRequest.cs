@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Nigel.Extensions;
+using Nigel.Helpers;
+using Nigel.Json;
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Nigel.Extensions;
-using Nigel.Helpers;
-using Nigel.Json;
 
 namespace Nigel.Webs.Clients
 {

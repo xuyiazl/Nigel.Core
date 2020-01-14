@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Nigel.Extensions;
+using System;
 using System.Web;
-using Nigel.Extensions;
 
 namespace Nigel.Parameters.Parsers
 {

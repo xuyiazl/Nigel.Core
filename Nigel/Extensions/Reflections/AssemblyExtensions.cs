@@ -28,7 +28,7 @@ namespace Nigel.Extensions
             return new Version(info.FileVersion);
         }
 
-        #endregion
+        #endregion GetFileVersion(获取程序集的文件版本)
 
         #region GetProductVersion(获取程序集的产品版本)
 
@@ -44,11 +44,10 @@ namespace Nigel.Extensions
                 throw new ArgumentNullException(nameof(assembly));
             }
 
-            FileVersionInfo info=FileVersionInfo.GetVersionInfo(assembly.Location);
+            FileVersionInfo info = FileVersionInfo.GetVersionInfo(assembly.Location);
             return new Version(info.ProductVersion);
         }
 
-        #endregion
-
+        #endregion GetProductVersion(获取程序集的产品版本)
     }
 }

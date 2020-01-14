@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Nigel.IdGenerators.Abstractions;
+using System;
 using System.Security.Cryptography;
-using Nigel.IdGenerators.Abstractions;
 
 namespace Nigel.IdGenerators.Core
 {
@@ -53,12 +53,16 @@ namespace Nigel.IdGenerators.Core
             {
                 case SequentialGuidDatabaseType.SqlServer:
                     return Create(SequentialGuidType.SequentialAtEnd);
+
                 case SequentialGuidDatabaseType.Oracle:
                     return Create(SequentialGuidType.SequentialAsBinary);
+
                 case SequentialGuidDatabaseType.MySql:
                     return Create(SequentialGuidType.SequentialAsString);
+
                 case SequentialGuidDatabaseType.PostgreSql:
                     return Create(SequentialGuidType.SequentialAsString);
+
                 default:
                     throw new InvalidOperationException();
             }
@@ -155,14 +159,17 @@ namespace Nigel.IdGenerators.Core
         /// SqlServer
         /// </summary>
         SqlServer,
+
         /// <summary>
         /// Oracle
         /// </summary>
         Oracle,
+
         /// <summary>
         /// MySql
         /// </summary>
         MySql,
+
         /// <summary>
         /// PostgreSql
         /// </summary>
@@ -178,10 +185,12 @@ namespace Nigel.IdGenerators.Core
         /// 生成的GUID 按照字符串顺序排列
         /// </summary>
         SequentialAsString,
+
         /// <summary>
         /// 生成的GUID 按照二进制的顺序排列
         /// </summary>
         SequentialAsBinary,
+
         /// <summary>
         /// 生成的GUID 像SQL Server, 按照末尾部分排列
         /// </summary>

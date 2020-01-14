@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Nigel.Develops;
+﻿using Nigel.Develops;
 using Nigel.IdGenerators.Core;
+using System.Collections.Generic;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace Nigel.Tests.IdGenerators
 {
-    public class SnowflakeIdGeneratorTest:TestBase
+    public class SnowflakeIdGeneratorTest : TestBase
     {
         public SnowflakeIdGeneratorTest(ITestOutputHelper output) : base(output)
         {
@@ -22,7 +20,7 @@ namespace Nigel.Tests.IdGenerators
             {
                 var result = SnowflakeIdGenerator.Current.Create();
                 Output.WriteLine(result.ToString());
-            });            
+            });
         }
 
         [Fact]
@@ -34,7 +32,7 @@ namespace Nigel.Tests.IdGenerators
                 {
                     var result = SnowflakeIdGenerator.Current.Create();
                     Output.WriteLine(result.ToString());
-                }                
+                }
             });
         }
 
@@ -76,13 +74,13 @@ namespace Nigel.Tests.IdGenerators
             UnitTester.TestConcurrency(() =>
             {
                 Create(1000000);
-            },10);
-            Output.WriteLine("数量："+_set.Count);
+            }, 10);
+            Output.WriteLine("数量：" + _set.Count);
         }
 
-        private static object _lock=new object();
+        private static object _lock = new object();
 
-        private static HashSet<long> _set= new HashSet<long>();
+        private static HashSet<long> _set = new HashSet<long>();
 
         private void Create(long length)
         {
@@ -95,7 +93,7 @@ namespace Nigel.Tests.IdGenerators
                     {
                         if (_set.Contains(result))
                         {
-                            Output.WriteLine("发现重复项：{0}",result);
+                            Output.WriteLine("发现重复项：{0}", result);
                         }
                         else
                         {

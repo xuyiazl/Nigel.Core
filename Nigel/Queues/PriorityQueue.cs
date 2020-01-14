@@ -2,18 +2,15 @@
 {
     /********************************************************************
     *           Copyright:       2009-2011
-    *           Company:         
+    *           Company:
     *           CRL Version :    4.0.30319.1
     *           Created by 徐毅 at 2011/1/14 10:24:32
     *                   mailto:3624091@qq.com
     *
     ********************************************************************/
 
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Collections;
+    using System.Collections.Generic;
 
     /// <summary>
     /// 双向链表优先级队列
@@ -188,7 +185,7 @@
                 return true;
             }
 
-            #endregion
+            #endregion IEnumerator Members
         }
     }
 }

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Nigel.Helpers;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Nigel.Helpers;
 
 // ReSharper disable once CheckNamespace
 namespace Nigel.Extensions
@@ -33,7 +33,7 @@ namespace Nigel.Extensions
             return genericParameterType == Nullable.GetUnderlyingType(type);
         }
 
-        #endregion
+        #endregion IsNullableType(是否可空类型)
 
         #region IsNullableEnum(是否可空枚举类型)
 
@@ -43,7 +43,7 @@ namespace Nigel.Extensions
         /// <param name="type">类型</param>
         public static bool IsNullableEnum(this Type type) => Nullable.GetUnderlyingType(type)?.GetTypeInfo().IsEnum ?? false;
 
-        #endregion
+        #endregion IsNullableEnum(是否可空枚举类型)
 
         #region HasAttribute(是否有指定特性)
 
@@ -55,7 +55,7 @@ namespace Nigel.Extensions
         /// <param name="inherit">是否允许继承链搜索</param>
         public static bool HasAttribute<T>(this Type type, bool inherit = false) where T : Attribute => type.GetTypeInfo().IsDefined(typeof(T), inherit);
 
-        #endregion
+        #endregion HasAttribute(是否有指定特性)
 
         #region GetAttributes(获取指定特性集合)
 
@@ -67,7 +67,7 @@ namespace Nigel.Extensions
         /// <param name="inherit">是否允许继承链搜索</param>
         public static IEnumerable<T> GetAttributes<T>(this Type type, bool inherit = false) where T : Attribute => type.GetTypeInfo().GetCustomAttributes<T>(inherit);
 
-        #endregion
+        #endregion GetAttributes(获取指定特性集合)
 
         #region GetAttribute(获取指定特性)
 
@@ -79,7 +79,7 @@ namespace Nigel.Extensions
         /// <param name="inherit">是否允许继承链搜索</param>
         public static T GetAttribute<T>(this Type type, bool inherit = false) where T : Attribute => type.GetTypeInfo().GetCustomAttributes<T>(inherit).FirstOrDefault();
 
-        #endregion
+        #endregion GetAttribute(获取指定特性)
 
         #region IsCustomType(是否自定义类型)
 
@@ -97,7 +97,7 @@ namespace Nigel.Extensions
                    Type.GetTypeCode(type) == TypeCode.Object && !type.IsGenericType;
         }
 
-        #endregion
+        #endregion IsCustomType(是否自定义类型)
 
         #region IsAnonymousType(是否匿名类型)
 
@@ -113,7 +113,7 @@ namespace Nigel.Extensions
             return typeName.StartsWith(csharpAnonPrefix) || typeName.StartsWith(vbAnonPrefix);
         }
 
-        #endregion
+        #endregion IsAnonymousType(是否匿名类型)
 
         #region IsBaseType(是否基类型)
 
@@ -135,7 +135,7 @@ namespace Nigel.Extensions
             return false;
         }
 
-        #endregion
+        #endregion IsBaseType(是否基类型)
 
         #region CanUseForDb(能否用于数据库存储)
 
@@ -162,7 +162,7 @@ namespace Nigel.Extensions
             || type.GetTypeInfo().IsEnum
             || Nullable.GetUnderlyingType(type) != null && CanUseForDb(Nullable.GetUnderlyingType(type));
 
-        #endregion
+        #endregion CanUseForDb(能否用于数据库存储)
 
         #region IsDeriveClassFrom(判断当前类型是否可由指定类型派生)
 
@@ -182,7 +182,7 @@ namespace Nigel.Extensions
         /// <param name="canAbstract">能否是抽象类</param>
         public static bool IsDeriveClassFrom(this Type type, Type baseType, bool canAbstract = false) => Reflection.IsDeriveClassFrom(type, baseType, canAbstract);
 
-        #endregion
+        #endregion IsDeriveClassFrom(判断当前类型是否可由指定类型派生)
 
         #region IsBaseOn(返回当前类型是否是指定基类的派生类)
 
@@ -200,7 +200,7 @@ namespace Nigel.Extensions
         /// <param name="baseType">基类类型</param>
         public static bool IsBaseOn(this Type type, Type baseType) => Reflection.IsBaseOn(type, baseType);
 
-        #endregion
+        #endregion IsBaseOn(返回当前类型是否是指定基类的派生类)
 
         #region IsGenericAssignableFrom(判断当前泛型类型是否可由指定类型的实例填充)
 
@@ -211,7 +211,7 @@ namespace Nigel.Extensions
         /// <param name="type">指定类型</param>
         public static bool IsGenericAssignableFrom(this Type genericType, Type type) => Reflection.IsGenericAssignableFrom(genericType, type);
 
-        #endregion
+        #endregion IsGenericAssignableFrom(判断当前泛型类型是否可由指定类型的实例填充)
 
         #region IsIntegerType(是否整数类型)
 
@@ -232,12 +232,13 @@ namespace Nigel.Extensions
                 case TypeCode.Int64:
                 case TypeCode.UInt64:
                     return true;
+
                 default:
                     return false;
             }
         }
 
-        #endregion
+        #endregion IsIntegerType(是否整数类型)
 
         #region IsCollectionType(是否集合类型)
 
@@ -247,7 +248,7 @@ namespace Nigel.Extensions
         /// <param name="type">类型</param>
         public static bool IsCollectionType(this Type type) => type.GetInterfaces().Any(n => n.Name == nameof(IEnumerable));
 
-        #endregion
+        #endregion IsCollectionType(是否集合类型)
 
         #region IsValueType(是否值类型)
 
@@ -272,6 +273,7 @@ namespace Nigel.Extensions
                     case TypeCode.Single:
                         result = true;
                         break;
+
                     default:
                         result = false;
                         break;
@@ -280,6 +282,6 @@ namespace Nigel.Extensions
             return result;
         }
 
-        #endregion
+        #endregion IsValueType(是否值类型)
     }
 }

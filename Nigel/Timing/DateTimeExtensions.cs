@@ -30,7 +30,7 @@ namespace Nigel.Timing
         /// </summary>
         public static long InitialJavaScriptDateTicks = (new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).Ticks;
 
-        #endregion
+        #endregion 字段
 
         #region IsWeekend(当前时间是否周末)
 
@@ -44,9 +44,10 @@ namespace Nigel.Timing
             return weeks.Contains(dateTime.DayOfWeek);
         }
 
-        #endregion
+        #endregion IsWeekend(当前时间是否周末)
 
         #region IsWorkday(当前时间是否工作日)
+
         /// <summary>
         /// 当前时间是否工作日
         /// </summary>
@@ -58,9 +59,10 @@ namespace Nigel.Timing
             return weeks.Contains(dateTime.DayOfWeek);
         }
 
-        #endregion
+        #endregion IsWorkday(当前时间是否工作日)
 
         #region ToUniqueString(获取时间相对唯一字符串)
+
         /// <summary>
         /// 获取时间相对唯一字符串
         /// </summary>
@@ -74,9 +76,10 @@ namespace Nigel.Timing
             return milsec ? value + dateTime.ToString("fff") : value;
         }
 
-        #endregion
+        #endregion ToUniqueString(获取时间相对唯一字符串)
 
         #region ToJsGetTime(将时间转换为Js时间格式)
+
         /// <summary>
         /// 将时间转换为Js时间格式（Date.getTiem()）
         /// </summary>
@@ -89,9 +92,10 @@ namespace Nigel.Timing
             return Math.Round(milsec ? span.TotalMilliseconds : span.TotalSeconds).ToString();
         }
 
-        #endregion
+        #endregion ToJsGetTime(将时间转换为Js时间格式)
 
         #region SetTime(设置时间)
+
         /// <summary>
         /// 设置时间，设置时分秒
         /// </summary>
@@ -104,6 +108,7 @@ namespace Nigel.Timing
         {
             return date.SetTime(new TimeSpan(hours, minutes, seconds));
         }
+
         /// <summary>
         /// 设置时间，设置时分秒毫秒
         /// </summary>
@@ -117,6 +122,7 @@ namespace Nigel.Timing
         {
             return date.SetTime(new TimeSpan(0, hours, minutes, seconds, milliseconds));
         }
+
         /// <summary>
         /// 设置时间，设置时间间隔
         /// </summary>
@@ -127,9 +133,11 @@ namespace Nigel.Timing
         {
             return date.Date.Add(time);
         }
-        #endregion
+
+        #endregion SetTime(设置时间)
 
         #region EndOfDay(设置指定时间为当天的结束时间)
+
         /// <summary>
         /// 设置指定时间为当天的结束时间。范例：yyyy-MM-dd 23:59:59.999
         /// </summary>
@@ -139,9 +147,11 @@ namespace Nigel.Timing
         {
             return date.SetTime(23, 59, 59, 999);
         }
-        #endregion
+
+        #endregion EndOfDay(设置指定时间为当天的结束时间)
 
         #region BeginOfDay(设置指定时间为当天的开始时间)
+
         /// <summary>
         /// 设置指定时间为当天的开始时间（凌晨）。范例：yyyy-MM-dd 00:00:00
         /// </summary>
@@ -151,7 +161,8 @@ namespace Nigel.Timing
         {
             return time.SetTime(0, 0, 0, 0);
         }
-        #endregion
+
+        #endregion BeginOfDay(设置指定时间为当天的开始时间)
 
         #region EndOfMonth(设置指定时间为当月的结束时间)
 
@@ -165,7 +176,7 @@ namespace Nigel.Timing
             return new DateTime(date.Year, date.Month, DateTime.DaysInMonth(date.Year, date.Month), 23, 59, 59, 999);
         }
 
-        #endregion
+        #endregion EndOfMonth(设置指定时间为当月的结束时间)
 
         #region BeginOfMonth(设置指定时间为当月的开始时间)
 
@@ -179,9 +190,10 @@ namespace Nigel.Timing
             return new DateTime(date.Year, date.Month, 1, 0, 0, 0, 0);
         }
 
-        #endregion
+        #endregion BeginOfMonth(设置指定时间为当月的开始时间)
 
         #region GetFirstDayOfMonth(获取指定日期的月份第一天)
+
         /// <summary>
         /// 获取指定日期的月份第一天
         /// </summary>
@@ -191,6 +203,7 @@ namespace Nigel.Timing
         {
             return new DateTime(date.Year, date.Month, 1);
         }
+
         /// <summary>
         /// 获取指定日期的月份第一天，指定星期几
         /// </summary>
@@ -204,9 +217,11 @@ namespace Nigel.Timing
                 dt = dt.AddDays(1);
             return dt;
         }
-        #endregion
+
+        #endregion GetFirstDayOfMonth(获取指定日期的月份第一天)
 
         #region GetLastDayOfMonth(获取指定日期的月份最后一天)
+
         /// <summary>
         /// 获取指定日期的月份最后一天
         /// </summary>
@@ -216,6 +231,7 @@ namespace Nigel.Timing
         {
             return new DateTime(date.Year, date.Month, GetCountDaysOfMonth(date));
         }
+
         /// <summary>
         /// 获取指定日期的月份最后一天，指定星期几
         /// </summary>
@@ -229,9 +245,11 @@ namespace Nigel.Timing
                 dt = dt.AddDays(-1);
             return dt;
         }
-        #endregion
+
+        #endregion GetLastDayOfMonth(获取指定日期的月份最后一天)
 
         #region GetCountDaysOfMonth(获取月总天数)
+
         /// <summary>
         /// 获取月总天数
         /// </summary>
@@ -242,9 +260,11 @@ namespace Nigel.Timing
             var nextMonth = date.AddMonths(1);
             return new DateTime(nextMonth.Year, nextMonth.Month, 1).AddDays(-1).Day;
         }
-        #endregion
+
+        #endregion GetCountDaysOfMonth(获取月总天数)
 
         #region GetMillisecondsSince1970(获取当前毫秒数)
+
         /// <summary>
         /// 获取当前毫秒数，毫秒数=1970年1月1日-当前时间，UNIX
         /// </summary>
@@ -255,7 +275,8 @@ namespace Nigel.Timing
             var ts = datetime.Subtract(Date1970);
             return (long)ts.TotalMilliseconds;
         }
-        #endregion
+
+        #endregion GetMillisecondsSince1970(获取当前毫秒数)
 
         #region CompareInterval(计算两个时间的间隔)
 
@@ -276,28 +297,34 @@ namespace Nigel.Timing
                 case "fff":
                     interval /= 10000;
                     break;
+
                 case "s":
                     interval /= 10000000;
                     break;
+
                 case "m":
                     interval /= 600000000;
                     break;
+
                 case "h":
                     interval /= 36000000000;
                     break;
+
                 case "d":
                     interval /= 864000000000;
                     break;
+
                 case "M":
                     dt1 = (begin.CompareTo(end) >= 0) ? end : begin;
                     dt2 = (begin.CompareTo(end) >= 0) ? begin : end;
                     interval = -1;
-                    while (dt2.CompareTo(dt1)>=0)
+                    while (dt2.CompareTo(dt1) >= 0)
                     {
                         interval++;
                         dt1 = dt1.AddMonths(1);
                     }
                     break;
+
                 case "y":
                     dt1 = (begin.CompareTo(end) >= 0) ? end : begin;
                     dt2 = (begin.CompareTo(end) >= 0) ? begin : end;
@@ -315,7 +342,7 @@ namespace Nigel.Timing
             return interval;
         }
 
-        #endregion
+        #endregion CompareInterval(计算两个时间的间隔)
 
         #region IsBetweenTime(判断当前时间是否在指定时间段内)
 
@@ -348,7 +375,7 @@ namespace Nigel.Timing
             return false;
         }
 
-        #endregion
+        #endregion IsBetweenTime(判断当前时间是否在指定时间段内)
 
         #region IsBetweenDate(判断当前时间是否在指定日期时间段内)
 
@@ -368,7 +395,7 @@ namespace Nigel.Timing
             return now >= begin && now <= end;
         }
 
-        #endregion
+        #endregion IsBetweenDate(判断当前时间是否在指定日期时间段内)
 
         #region IsBetween(判断当前时间是否在指定时间范围内)
 
@@ -385,7 +412,7 @@ namespace Nigel.Timing
             return ticks >= begin.Ticks && ticks <= end.Ticks;
         }
 
-        #endregion
+        #endregion IsBetween(判断当前时间是否在指定时间范围内)
 
         #region IsValid(是否有效时间)
 
@@ -399,7 +426,7 @@ namespace Nigel.Timing
             return (value >= MinDate) && (value <= MaxDate);
         }
 
-        #endregion
+        #endregion IsValid(是否有效时间)
 
         #region ToTimeStamp(将时间转换为时间戳)
 
@@ -410,10 +437,10 @@ namespace Nigel.Timing
         /// <returns></returns>
         public static int ToTimeStamp(this DateTime time)
         {
-            return (int) (time.ToUniversalTime().Ticks / 10000000 - 62135596800);
+            return (int)(time.ToUniversalTime().Ticks / 10000000 - 62135596800);
         }
 
-        #endregion
+        #endregion ToTimeStamp(将时间转换为时间戳)
 
         #region CsharpTime2JavascriptTime(将C#时间转换为Javascript时间)
 
@@ -424,10 +451,10 @@ namespace Nigel.Timing
         /// <returns></returns>
         public static long CsharpTime2JavascriptTime(this DateTime dateTime)
         {
-            return (long) new TimeSpan(dateTime.Ticks - Date1970.Ticks).TotalMilliseconds;
+            return (long)new TimeSpan(dateTime.Ticks - Date1970.Ticks).TotalMilliseconds;
         }
 
-        #endregion
+        #endregion CsharpTime2JavascriptTime(将C#时间转换为Javascript时间)
 
         #region PhpTime2CsharpTime(将PHP时间转换为C#时间)
 
@@ -443,7 +470,7 @@ namespace Nigel.Timing
             return new DateTime(t);
         }
 
-        #endregion
+        #endregion PhpTime2CsharpTime(将PHP时间转换为C#时间)
 
         #region CsharpTime2PhpTime(将C#时间转换为PHP时间)
 
@@ -457,7 +484,7 @@ namespace Nigel.Timing
             return (DateTime.UtcNow.Ticks - Date1970.Ticks) / 10000000;
         }
 
-        #endregion
+        #endregion CsharpTime2PhpTime(将C#时间转换为PHP时间)
 
         #region AddWeeks(添加星期)
 
@@ -472,7 +499,7 @@ namespace Nigel.Timing
             return dateTime.AddDays(weeks * 7);
         }
 
-        #endregion
+        #endregion AddWeeks(添加星期)
 
         #region ConvertToTimeZone(将当前时间转换为特定时区的时间)
 
@@ -487,6 +514,6 @@ namespace Nigel.Timing
             return TimeZoneInfo.ConvertTime(dateTime, timeZone);
         }
 
-        #endregion
+        #endregion ConvertToTimeZone(将当前时间转换为特定时区的时间)
     }
 }

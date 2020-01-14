@@ -74,6 +74,5 @@ namespace Nigel.Core.Jwt.Builder
         {
             return identity.GetValue<T>(claimName.GetPublicClaimName());
         }
-
     }
 }

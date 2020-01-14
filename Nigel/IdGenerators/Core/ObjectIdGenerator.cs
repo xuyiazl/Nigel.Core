@@ -6,7 +6,7 @@ namespace Nigel.IdGenerators.Core
     /// <summary>
     /// ObjectId 生成器
     /// </summary>
-    public class ObjectIdGenerator:IStringGenerator
+    public class ObjectIdGenerator : IStringGenerator
     {
         /// <summary>
         /// 获取<see cref="ObjectIdGenerator"/>类型的实例

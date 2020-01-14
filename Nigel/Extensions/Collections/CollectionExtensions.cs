@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Nigel.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Nigel.Helpers;
 
 // ReSharper disable once CheckNamespace
 namespace Nigel.Extensions
@@ -80,7 +80,7 @@ namespace Nigel.Extensions
             return true;
         }
 
-        #endregion
+        #endregion AddIfNotContains(添加项。如果未包含，则添加)
 
         #region RemoveAll(移除项)
 
@@ -92,7 +92,7 @@ namespace Nigel.Extensions
         /// <param name="items">集合项</param>
         public static void RemoveAll<T>(this ICollection<T> source, IEnumerable<T> items)
         {
-            Check.NotNull(source,nameof(source));
+            Check.NotNull(source, nameof(source));
             Check.NotNull(items, nameof(items));
 
             foreach (var item in items)
@@ -112,7 +112,7 @@ namespace Nigel.Extensions
         {
             Check.NotNull(source, nameof(source));
             Check.NotNull(predicate, nameof(predicate));
-            
+
             var items = source.Where(predicate).ToList();
             foreach (var item in items)
             {
@@ -122,7 +122,7 @@ namespace Nigel.Extensions
             return items;
         }
 
-        #endregion
+        #endregion RemoveAll(移除项)
 
         #region AddRange(添加批量项)
 
@@ -137,12 +137,12 @@ namespace Nigel.Extensions
         {
             if (collection == null)
                 throw new ArgumentNullException(nameof(collection), $@"源{typeof(T).Name}集合对象不可为空！");
-            if(enumerable==null)
+            if (enumerable == null)
                 throw new ArgumentNullException(nameof(enumerable), $@"要添加的{typeof(T).Name}集合项不可为空！");
             enumerable.ForEach(collection.Add);
         }
 
-        #endregion
+        #endregion AddRange(添加批量项)
 
         #region Sort(排序)
 
@@ -155,12 +155,12 @@ namespace Nigel.Extensions
         public static void Sort<T>(this ICollection<T> collection, IComparer<T> comparer = null)
         {
             comparer = comparer ?? Comparer<T>.Default;
-            var list=new List<T>(collection);
+            var list = new List<T>(collection);
             list.Sort(comparer);
             collection.ReplaceItems(list);
         }
 
-        #endregion
+        #endregion Sort(排序)
 
         #region ReplaceItems(替换项)
 
@@ -198,6 +198,7 @@ namespace Nigel.Extensions
             collection.ReplaceItems(newItems, x => x);
         }
 
-        #endregion        
+        #endregion ReplaceItems(替换项)
+
     }
 }

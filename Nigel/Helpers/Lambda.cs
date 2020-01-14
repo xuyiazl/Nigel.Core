@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Nigel.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using Nigel.Extensions;
 
 namespace Nigel.Helpers
 {
@@ -25,9 +25,10 @@ namespace Nigel.Helpers
             return memberExpression?.Type;
         }
 
-        #endregion
+        #endregion GetType(获取类型)
 
         #region GetMember(获取成员)
+
         /// <summary>
         /// 获取成员
         /// </summary>
@@ -45,7 +46,7 @@ namespace Nigel.Helpers
         /// <param name="expression">表达式</param>
         /// <param name="right">取表达式右侧，(l,r)=> l.LId == r.RId，设置为true，返回 RID</param>
         /// <returns></returns>
-        public static MemberExpression GetMemberExpression(Expression expression,bool right=false)
+        public static MemberExpression GetMemberExpression(Expression expression, bool right = false)
         {
             if (expression == null)
             {
@@ -54,12 +55,15 @@ namespace Nigel.Helpers
             switch (expression.NodeType)
             {
                 case ExpressionType.Lambda:
-                    return GetMemberExpression(((LambdaExpression) expression).Body, right);
+                    return GetMemberExpression(((LambdaExpression)expression).Body, right);
+
                 case ExpressionType.Convert:
                 case ExpressionType.Not:
-                    return GetMemberExpression(((UnaryExpression) expression).Operand, right);
+                    return GetMemberExpression(((UnaryExpression)expression).Operand, right);
+
                 case ExpressionType.MemberAccess:
                     return (MemberExpression)expression;
+
                 case ExpressionType.Equal:
                 case ExpressionType.NotEqual:
                 case ExpressionType.GreaterThan:
@@ -67,8 +71,9 @@ namespace Nigel.Helpers
                 case ExpressionType.GreaterThanOrEqual:
                 case ExpressionType.LessThanOrEqual:
                     return GetMemberExpression(right
-                        ? ((BinaryExpression) expression).Right
-                        : ((BinaryExpression) expression).Left);
+                        ? ((BinaryExpression)expression).Right
+                        : ((BinaryExpression)expression).Left);
+
                 case ExpressionType.Call:
                     return GetMethodCallExpressionName(expression);
             }
@@ -82,21 +87,23 @@ namespace Nigel.Helpers
         /// <returns></returns>
         private static MemberExpression GetMethodCallExpressionName(Expression expression)
         {
-            var methodCallExpression = (MethodCallExpression) expression;
-            var left = (MemberExpression) methodCallExpression.Object;
+            var methodCallExpression = (MethodCallExpression)expression;
+            var left = (MemberExpression)methodCallExpression.Object;
             if (Reflection.IsGenericCollection(left?.Type))
             {
                 var argumentExpression = methodCallExpression.Arguments.FirstOrDefault();
                 if (argumentExpression != null && argumentExpression.NodeType == ExpressionType.MemberAccess)
                 {
-                    return (MemberExpression) argumentExpression;
+                    return (MemberExpression)argumentExpression;
                 }
             }
             return left;
         }
-        #endregion
+
+        #endregion GetMember(获取成员)
 
         #region GetName(获取成员名称)
+
         /// <summary>
         /// 获取成员名称，范例：t => t.A.Name，返回 A.Name
         /// </summary>
@@ -122,9 +129,11 @@ namespace Nigel.Helpers
             string result = memberExpression.ToString();
             return result.Substring(result.IndexOf(".", StringComparison.Ordinal) + 1);
         }
-        #endregion
+
+        #endregion GetName(获取成员名称)
 
         #region GetNames(获取名称列表)
+
         /// <summary>
         /// 获取名称列表，范例：t => new object[] {t.A.B,t.C}，返回 A.B,C
         /// </summary>
@@ -164,7 +173,8 @@ namespace Nigel.Helpers
             }
             result.Add(name);
         }
-        #endregion
+
+        #endregion GetNames(获取名称列表)
 
         #region GetLastName(获取最后一级成员名称)
 
@@ -205,7 +215,8 @@ namespace Nigel.Helpers
             switch (expression.NodeType)
             {
                 case ExpressionType.MemberAccess:
-                    return IsValueExpression(((MemberExpression) expression).Expression);
+                    return IsValueExpression(((MemberExpression)expression).Expression);
+
                 case ExpressionType.Constant:
                     return true;
             }
@@ -213,7 +224,7 @@ namespace Nigel.Helpers
             return false;
         }
 
-        #endregion
+        #endregion GetLastName(获取最后一级成员名称)
 
         #region GetLastNames(获取最后一级成员名称列表)
 
@@ -245,7 +256,7 @@ namespace Nigel.Helpers
             return result;
         }
 
-        #endregion
+        #endregion GetLastNames(获取最后一级成员名称列表)
 
         #region GetValue(获取值)
 
@@ -261,8 +272,10 @@ namespace Nigel.Helpers
             {
                 case ExpressionType.Lambda:
                     return GetValue(((LambdaExpression)expression).Body);
+
                 case ExpressionType.Convert:
                     return GetValue(((UnaryExpression)expression).Operand);
+
                 case ExpressionType.Equal:
                 case ExpressionType.NotEqual:
                 case ExpressionType.GreaterThan:
@@ -273,12 +286,16 @@ namespace Nigel.Helpers
                     if (hasParameter)
                         return GetValue(((BinaryExpression)expression).Right);
                     return GetValue(((BinaryExpression)expression).Left);
+
                 case ExpressionType.Call:
                     return GetMethodCallExpressionValue(expression);
+
                 case ExpressionType.MemberAccess:
                     return GetMemberValue((MemberExpression)expression);
+
                 case ExpressionType.Constant:
                     return GetConstantExpressionValue(expression);
+
                 case ExpressionType.Not:
                     if (expression.Type == typeof(bool))
                     {
@@ -301,8 +318,10 @@ namespace Nigel.Helpers
             {
                 case ExpressionType.Convert:
                     return HasParameter(((UnaryExpression)expression).Operand);
+
                 case ExpressionType.MemberAccess:
                     return HasParameter(((MemberExpression)expression).Expression);
+
                 case ExpressionType.Parameter:
                     return true;
             }
@@ -378,7 +397,8 @@ namespace Nigel.Helpers
             var constantExpression = (ConstantExpression)expression;
             return constantExpression.Value;
         }
-        #endregion
+
+        #endregion GetValue(获取值)
 
         #region GetOperator(获取查询操作符)
 
@@ -396,21 +416,29 @@ namespace Nigel.Helpers
             switch (expression.NodeType)
             {
                 case ExpressionType.Lambda:
-                    return GetOperator(((LambdaExpression) expression).Body);
+                    return GetOperator(((LambdaExpression)expression).Body);
+
                 case ExpressionType.Convert:
-                    return GetOperator(((UnaryExpression) expression).Operand);
+                    return GetOperator(((UnaryExpression)expression).Operand);
+
                 case ExpressionType.Equal:
                     return Operator.Equal;
+
                 case ExpressionType.NotEqual:
                     return Operator.NotEqual;
+
                 case ExpressionType.GreaterThan:
                     return Operator.Greater;
+
                 case ExpressionType.LessThan:
                     return Operator.Less;
+
                 case ExpressionType.GreaterThanOrEqual:
                     return Operator.GreaterEqual;
+
                 case ExpressionType.LessThanOrEqual:
                     return Operator.LessEqual;
+
                 case ExpressionType.Call:
                     return GetMethodCallExpressionOperator(expression);
             }
@@ -424,22 +452,25 @@ namespace Nigel.Helpers
         /// <returns></returns>
         private static Operator? GetMethodCallExpressionOperator(Expression expression)
         {
-            var methodCallExpression = (MethodCallExpression) expression;
+            var methodCallExpression = (MethodCallExpression)expression;
             switch (methodCallExpression?.Method?.Name?.ToLower())
             {
                 case "contains":
                     return Operator.Contains;
+
                 case "endswith":
                     return Operator.Ends;
+
                 case "startswith":
-                    return Operator.Starts;                    
+                    return Operator.Starts;
             }
             return null;
         }
 
-        #endregion
+        #endregion GetOperator(获取查询操作符)
 
         #region GetParameter(获取参数)
+
         /// <summary>
         /// 获取参数，范例：t.Name，返回 t
         /// </summary>
@@ -455,8 +486,10 @@ namespace Nigel.Helpers
             {
                 case ExpressionType.Lambda:
                     return GetParameter(((LambdaExpression)expression).Body);
+
                 case ExpressionType.Convert:
                     return GetParameter(((UnaryExpression)expression).Operand);
+
                 case ExpressionType.Equal:
                 case ExpressionType.NotEqual:
                 case ExpressionType.GreaterThan:
@@ -464,16 +497,20 @@ namespace Nigel.Helpers
                 case ExpressionType.LessThan:
                 case ExpressionType.LessThanOrEqual:
                     return GetParameter(((BinaryExpression)expression).Left);
+
                 case ExpressionType.MemberAccess:
                     return GetParameter(((MemberExpression)expression).Expression);
+
                 case ExpressionType.Call:
                     return GetParameter(((MethodCallExpression)expression).Object);
+
                 case ExpressionType.Parameter:
                     return (ParameterExpression)expression;
             }
             return null;
         }
-        #endregion
+
+        #endregion GetParameter(获取参数)
 
         #region GetGroupPredicates(获取分组的谓词表达式)
 
@@ -516,25 +553,29 @@ namespace Nigel.Helpers
             switch (expression.NodeType)
             {
                 case ExpressionType.Lambda:
-                    AddPredicates(((LambdaExpression) expression).Body, result, group);
+                    AddPredicates(((LambdaExpression)expression).Body, result, group);
                     break;
+
                 case ExpressionType.OrElse:
-                    AddPredicates(((BinaryExpression)expression).Left,result,group);
-                    AddPredicates(((BinaryExpression) expression).Right, result, CreateGroup(result));
+                    AddPredicates(((BinaryExpression)expression).Left, result, group);
+                    AddPredicates(((BinaryExpression)expression).Right, result, CreateGroup(result));
                     break;
+
                 case ExpressionType.AndAlso:
                     AddPredicates(((BinaryExpression)expression).Left, result, group);
                     AddPredicates(((BinaryExpression)expression).Right, result, group);
                     break;
+
                 default:
                     group.Add(expression);
                     break;
             }
         }
 
-        #endregion
+        #endregion GetGroupPredicates(获取分组的谓词表达式)
 
         #region GetConditionCount(获取查询条件个数)
+
         /// <summary>
         /// 获取查询条件个数
         /// </summary>
@@ -549,9 +590,11 @@ namespace Nigel.Helpers
             var result = expression.ToString().Replace("AndAlso", "|").Replace("OrElse", "|");
             return result.Split('|').Length;
         }
-        #endregion
+
+        #endregion GetConditionCount(获取查询条件个数)
 
         #region GetAttribute(获取特性)
+
         /// <summary>
         /// 获取特性
         /// </summary>
@@ -590,9 +633,11 @@ namespace Nigel.Helpers
         {
             return GetAttribute<TAttribute>(propertyExpression);
         }
-        #endregion
+
+        #endregion GetAttribute(获取特性)
 
         #region GetAttributes(获取特性列表)
+
         /// <summary>
         /// 获取特性列表
         /// </summary>
@@ -607,7 +652,8 @@ namespace Nigel.Helpers
             var memberInfo = GetMember(propertyExpression);
             return memberInfo.GetCustomAttributes<TAttribute>();
         }
-        #endregion
+
+        #endregion GetAttributes(获取特性列表)
 
         #region Constant(获取常量表达式)
 
@@ -628,7 +674,7 @@ namespace Nigel.Helpers
             return Expression.Constant(value, type);
         }
 
-        #endregion
+        #endregion Constant(获取常量表达式)
 
         #region CreateParameter(创建参数表达式)
 
@@ -642,7 +688,7 @@ namespace Nigel.Helpers
             return Expression.Parameter(typeof(T), "t");
         }
 
-        #endregion
+        #endregion CreateParameter(创建参数表达式)
 
         #region Equal(等于表达式)
 
@@ -662,7 +708,7 @@ namespace Nigel.Helpers
                 .ToPredicate<T>(parameter);
         }
 
-        #endregion
+        #endregion Equal(等于表达式)
 
         #region NotEqual(不等于表达式)
 
@@ -682,7 +728,7 @@ namespace Nigel.Helpers
                 .ToPredicate<T>(parameter);
         }
 
-        #endregion
+        #endregion NotEqual(不等于表达式)
 
         #region Greater(大于表达式)
 
@@ -702,7 +748,7 @@ namespace Nigel.Helpers
                 .ToPredicate<T>(parameter);
         }
 
-        #endregion
+        #endregion Greater(大于表达式)
 
         #region GreaterEqual(大于等于表达式)
 
@@ -722,7 +768,7 @@ namespace Nigel.Helpers
                 .ToPredicate<T>(parameter);
         }
 
-        #endregion
+        #endregion GreaterEqual(大于等于表达式)
 
         #region Less(小于表达式)
 
@@ -742,7 +788,7 @@ namespace Nigel.Helpers
                 .ToPredicate<T>(parameter);
         }
 
-        #endregion
+        #endregion Less(小于表达式)
 
         #region LessEqual(小于等于表达式)
 
@@ -762,7 +808,7 @@ namespace Nigel.Helpers
                 .ToPredicate<T>(parameter);
         }
 
-        #endregion
+        #endregion LessEqual(小于等于表达式)
 
         #region Starts(调用StartsWith方法)
 
@@ -782,7 +828,7 @@ namespace Nigel.Helpers
                 .ToPredicate<T>(parameter);
         }
 
-        #endregion
+        #endregion Starts(调用StartsWith方法)
 
         #region Ends(调用EndsWith方法)
 
@@ -802,7 +848,7 @@ namespace Nigel.Helpers
                 .ToPredicate<T>(parameter);
         }
 
-        #endregion
+        #endregion Ends(调用EndsWith方法)
 
         #region Contains(调用Contains方法)
 
@@ -822,7 +868,7 @@ namespace Nigel.Helpers
                 .ToPredicate<T>(parameter);
         }
 
-        #endregion
+        #endregion Contains(调用Contains方法)
 
         #region ParsePredicate(解析为谓词表达式)
 
@@ -843,6 +889,6 @@ namespace Nigel.Helpers
                 .ToPredicate<T>(parameter);
         }
 
-        #endregion
+        #endregion ParsePredicate(解析为谓词表达式)
     }
 }

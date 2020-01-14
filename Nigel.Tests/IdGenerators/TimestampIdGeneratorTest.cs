@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Nigel.Develops;
+﻿using Nigel.Develops;
 using Nigel.IdGenerators.Core;
+using System.Collections.Generic;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace Nigel.Tests.IdGenerators
 {
-    public class TimestampIdGeneratorTest:TestBase
+    public class TimestampIdGeneratorTest : TestBase
     {
         public TimestampIdGeneratorTest(ITestOutputHelper output) : base(output)
         {

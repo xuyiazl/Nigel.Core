@@ -1,6 +1,6 @@
-﻿using System.IO;
+﻿using Nigel.Helpers;
+using System.IO;
 using System.Threading.Tasks;
-using Nigel.Helpers;
 
 namespace Nigel.IO
 {
@@ -24,7 +24,7 @@ namespace Nigel.IO
             }
         }
 
-        #endregion
+        #endregion ReadAllText(读取文件所有文本)
 
         #region ReadAllBytes(读取文件所有字节)
 
@@ -43,7 +43,6 @@ namespace Nigel.IO
             }
         }
 
-        #endregion
-
+        #endregion ReadAllBytes(读取文件所有字节)
     }
 }

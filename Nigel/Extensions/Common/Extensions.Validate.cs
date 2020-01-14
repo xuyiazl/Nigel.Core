@@ -25,7 +25,7 @@ namespace Nigel.Extensions
                 throw new ArgumentNullException(parameterName);
         }
 
-        #endregion
+        #endregion CheckNull(检查对象是否为null)
 
         #region IsEmpty(是否为空)
 
@@ -74,7 +74,7 @@ namespace Nigel.Extensions
         /// <param name="dictionary">数据</param>
         public static bool IsEmpty(this IDictionary dictionary) => null == dictionary || dictionary.Count == 0;
 
-        #endregion
+        #endregion IsEmpty(是否为空)
 
         #region IsNull(是否为空)
 
@@ -91,7 +91,7 @@ namespace Nigel.Extensions
         /// <param name="target">目标对象</param>
         public static bool IsNull<T>(this T target) => ReferenceEquals(target, null);
 
-        #endregion
+        #endregion IsNull(是否为空)
 
         #region NotEmpty(是否非空)
 
@@ -133,7 +133,7 @@ namespace Nigel.Extensions
             return false;
         }
 
-        #endregion
+        #endregion NotEmpty(是否非空)
 
         #region IsZeroOrMinus(是否为0或负数)
 
@@ -173,7 +173,7 @@ namespace Nigel.Extensions
         /// <param name="value">数据</param>
         public static bool IsZeroOrMinus(this decimal value) => value <= 0;
 
-        #endregion
+        #endregion IsZeroOrMinus(是否为0或负数)
 
         #region IsPercentage(是否为百分数)
 
@@ -195,7 +195,7 @@ namespace Nigel.Extensions
         /// <param name="value">数据</param>
         public static bool IsPercentage(this decimal value) => value > 0 && value <= 1;
 
-        #endregion
+        #endregion IsPercentage(是否为百分数)
 
         #region IsZeroOrPercentage(是否为0或百分数)
 
@@ -217,6 +217,6 @@ namespace Nigel.Extensions
         /// <param name="value">数据</param>
         public static bool IsZeroOrPercentage(this decimal value) => value.IsPercentage() || value.Equals(0m);
 
-        #endregion
+        #endregion IsZeroOrPercentage(是否为0或百分数)
     }
 }

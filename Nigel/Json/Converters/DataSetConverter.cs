@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Data;
-using Newtonsoft.Json;
 
 namespace Nigel.Json.Converters
 {

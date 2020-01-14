@@ -148,7 +148,7 @@ namespace Nigel.IO
             lock (this)
             {
                 var offset = length - startIndex;
-                if(offset<=0)
+                if (offset <= 0)
                     return;
                 var total = offset + _writeIndex;
                 var len = _buffer.Length;
@@ -169,7 +169,6 @@ namespace Nigel.IO
         /// <param name="length">写入长度</param>
         public void WriteBytes(byte[] bytes, int length)
         {
-
         }
     }
 }

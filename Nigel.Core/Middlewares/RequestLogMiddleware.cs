@@ -1,16 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Nigel.Core.Middlewares
 {
-
     /// <summary>
     /// 请求日志中间件
     /// </summary>
@@ -20,6 +16,7 @@ namespace Nigel.Core.Middlewares
         /// 方法
         /// </summary>
         private readonly RequestDelegate _next;
+
         private readonly ILogger<RequestLogMiddleware> _logger;
 
         /// <summary>

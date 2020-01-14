@@ -1,6 +1,6 @@
-﻿using System.IO;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace Nigel.Configs
 {
@@ -30,7 +30,7 @@ namespace Nigel.Configs
             return configuration;
         }
 
-        #endregion
+        #endregion GetJsonConfig(获取Json配置文件)
 
         #region GetXmlConfig(获取Xml配置文件)
 
@@ -46,15 +46,15 @@ namespace Nigel.Configs
                 ? Directory.GetCurrentDirectory()
                 : Path.Combine(Directory.GetCurrentDirectory(), basePath);
 
-            var configuration=new ConfigurationBuilder().AddXmlFile(config =>
-            {
-                config.Path = configFileName;
-                config.FileProvider=new PhysicalFileProvider(basePath);
-            });
+            var configuration = new ConfigurationBuilder().AddXmlFile(config =>
+              {
+                  config.Path = configFileName;
+                  config.FileProvider = new PhysicalFileProvider(basePath);
+              });
 
             return configuration.Build();
         }
 
-        #endregion
+        #endregion GetXmlConfig(获取Xml配置文件)
     }
 }

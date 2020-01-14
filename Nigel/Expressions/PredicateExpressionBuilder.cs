@@ -1,7 +1,7 @@
-﻿using System;
-using System.Linq.Expressions;
-using Nigel.Extensions;
+﻿using Nigel.Extensions;
 using Nigel.Helpers;
+using System;
+using System.Linq.Expressions;
 
 namespace Nigel.Expressions
 {

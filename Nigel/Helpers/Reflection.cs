@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Nigel.Extensions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Nigel.Extensions;
 
 namespace Nigel.Helpers
 {
@@ -55,7 +55,8 @@ namespace Nigel.Helpers
                 ? attribute.Description
                 : member.Name;
         }
-        #endregion
+
+        #endregion GetDescription(获取类型描述)
 
         #region GetDisplayName(获取类型显示名称)
 
@@ -82,9 +83,10 @@ namespace Nigel.Helpers
             return string.Empty;
         }
 
-        #endregion
+        #endregion GetDisplayName(获取类型显示名称)
 
         #region GetDisplayNameOrDescription(获取显示名称或类型描述)
+
         /// <summary>
         /// 获取类型显示名称或描述，使用<see cref="DescriptionAttribute"/>设置描述，使用<see cref="DisplayNameAttribute"/>设置显示名称
         /// </summary>
@@ -102,10 +104,11 @@ namespace Nigel.Helpers
         /// <returns></returns>
         public static string GetDisplayNameOrDescription(MemberInfo member)
         {
-            var result = GetDisplayName(member);            
+            var result = GetDisplayName(member);
             return string.IsNullOrWhiteSpace(result) ? GetDescription(member) : result;
         }
-        #endregion
+
+        #endregion GetDisplayNameOrDescription(获取显示名称或类型描述)
 
         #region FindTypes(查找类型列表)
 
@@ -190,7 +193,7 @@ namespace Nigel.Helpers
 
             result.Add(type);
         }
-        
+
         /// <summary>
         /// 泛型匹配
         /// </summary>
@@ -205,7 +208,7 @@ namespace Nigel.Helpers
             }
 
             var definition = findType.GetGenericTypeDefinition();
-            foreach (var implementedInterface in type.FindInterfaces((filiter,criteria)=>true,null))
+            foreach (var implementedInterface in type.FindInterfaces((filiter, criteria) => true, null))
             {
                 if (implementedInterface.IsGenericType == false)
                 {
@@ -217,8 +220,8 @@ namespace Nigel.Helpers
 
             return false;
         }
-        
-        #endregion
+
+        #endregion FindTypes(查找类型列表)
 
         #region GetInstancesByInterface(获取实现了接口的所有实例)
 
@@ -240,7 +243,7 @@ namespace Nigel.Helpers
                     .ToList();
         }
 
-        #endregion
+        #endregion GetInstancesByInterface(获取实现了接口的所有实例)
 
         #region CreateInstance(动态创建实例)
 
@@ -264,9 +267,10 @@ namespace Nigel.Helpers
             return CreateInstance<T>(type, parameters);
         }
 
-        #endregion
+        #endregion CreateInstance(动态创建实例)
 
         #region GetAssembly(获取程序集)
+
         /// <summary>
         /// 获取程序集
         /// </summary>
@@ -274,9 +278,10 @@ namespace Nigel.Helpers
         /// <returns></returns>
         public static Assembly GetAssembly(string assemblyName) => Assembly.Load(new AssemblyName(assemblyName));
 
-        #endregion
+        #endregion GetAssembly(获取程序集)
 
         #region GetAssemblies(从目录获取所有程序集)
+
         /// <summary>
         /// 从目录获取所有程序集
         /// </summary>
@@ -291,7 +296,8 @@ namespace Nigel.Helpers
                     .Select(path => Assembly.Load(new AssemblyName(path)))
                     .ToList();
         }
-        #endregion
+
+        #endregion GetAssemblies(从目录获取所有程序集)
 
         #region GetCurrentAssemblyName(获取当前程序集名称)
 
@@ -300,7 +306,7 @@ namespace Nigel.Helpers
         /// </summary>
         public static string GetCurrentAssemblyName() => Assembly.GetCallingAssembly().GetName().Name;
 
-        #endregion
+        #endregion GetCurrentAssemblyName(获取当前程序集名称)
 
         #region GetAttribute(获取特性信息)
 
@@ -314,7 +320,7 @@ namespace Nigel.Helpers
             return (TAttribute)memberInfo.GetCustomAttributes(typeof(TAttribute), false).FirstOrDefault();
         }
 
-        #endregion
+        #endregion GetAttribute(获取特性信息)
 
         #region GetAttributes(获取特性信息数据)
 
@@ -329,7 +335,7 @@ namespace Nigel.Helpers
             return Array.ConvertAll(memberInfo.GetCustomAttributes(typeof(TAttribute), false), x => (TAttribute)x);
         }
 
-        #endregion
+        #endregion GetAttributes(获取特性信息数据)
 
         #region GetPropertyInfo(获取属性信息)
 
@@ -341,9 +347,10 @@ namespace Nigel.Helpers
         /// <returns>存在时返回PropertyInfo，不存在时返回null</returns>
         public static PropertyInfo GetPropertyInfo(Type type, string propertyName) => type.GetProperties().FirstOrDefault(p => p.Name.Equals(propertyName));
 
-        #endregion
+        #endregion GetPropertyInfo(获取属性信息)
 
         #region IsBool(是否布尔类型)
+
         /// <summary>
         /// 是否布尔类型
         /// </summary>
@@ -359,6 +366,7 @@ namespace Nigel.Helpers
             {
                 case MemberTypes.TypeInfo:
                     return member.ToString() == "System.Boolean";
+
                 case MemberTypes.Property:
                     return IsBool((PropertyInfo)member);
             }
@@ -374,9 +382,11 @@ namespace Nigel.Helpers
         {
             return property.PropertyType == typeof(bool) || property.PropertyType == typeof(bool?);
         }
-        #endregion
+
+        #endregion IsBool(是否布尔类型)
 
         #region IsEnum(是否枚举类型)
+
         /// <summary>
         /// 是否枚举类型
         /// </summary>
@@ -392,6 +402,7 @@ namespace Nigel.Helpers
             {
                 case MemberTypes.TypeInfo:
                     return ((TypeInfo)member).IsEnum;
+
                 case MemberTypes.Property:
                     return IsEnum((PropertyInfo)member);
             }
@@ -416,9 +427,11 @@ namespace Nigel.Helpers
             }
             return value.GetTypeInfo().IsEnum;
         }
-        #endregion
+
+        #endregion IsEnum(是否枚举类型)
 
         #region IsDate(是否日期类型)
+
         /// <summary>
         /// 是否日期类型
         /// </summary>
@@ -434,6 +447,7 @@ namespace Nigel.Helpers
             {
                 case MemberTypes.TypeInfo:
                     return member.ToString() == "System.DateTime";
+
                 case MemberTypes.Property:
                     return IsDate((PropertyInfo)member);
             }
@@ -457,9 +471,11 @@ namespace Nigel.Helpers
             }
             return false;
         }
-        #endregion
+
+        #endregion IsDate(是否日期类型)
 
         #region IsInt(是否整型)
+
         /// <summary>
         /// 是否整型
         /// </summary>
@@ -476,6 +492,7 @@ namespace Nigel.Helpers
                 case MemberTypes.TypeInfo:
                     return member.ToString() == "System.Int32" || member.ToString() == "System.Int16" ||
                            member.ToString() == "System.Int64";
+
                 case MemberTypes.Property:
                     return IsInt((PropertyInfo)member);
             }
@@ -515,9 +532,11 @@ namespace Nigel.Helpers
             }
             return false;
         }
-        #endregion
+
+        #endregion IsInt(是否整型)
 
         #region IsNumber(是否数值类型)
+
         /// <summary>
         /// 是否数值类型
         /// </summary>
@@ -539,6 +558,7 @@ namespace Nigel.Helpers
                 case MemberTypes.TypeInfo:
                     return member.ToString() == "System.Double" || member.ToString() == "System.Decimal" ||
                            member.ToString() == "System.Single";
+
                 case MemberTypes.Property:
                     return IsNumber((PropertyInfo)member);
             }
@@ -578,7 +598,8 @@ namespace Nigel.Helpers
             }
             return false;
         }
-        #endregion
+
+        #endregion IsNumber(是否数值类型)
 
         #region IsCollection(是否集合)
 
@@ -588,9 +609,10 @@ namespace Nigel.Helpers
         /// <param name="type">类型</param>
         public static bool IsCollection(Type type) => type.IsArray || IsGenericCollection(type);
 
-        #endregion
+        #endregion IsCollection(是否集合)
 
         #region IsGenericCollection(是否泛型集合)
+
         /// <summary>
         /// 是否泛型集合
         /// </summary>
@@ -607,7 +629,8 @@ namespace Nigel.Helpers
                    || typeDefinition == typeof(IList<>)
                    || typeDefinition == typeof(List<>);
         }
-        #endregion
+
+        #endregion IsGenericCollection(是否泛型集合)
 
         #region GetPublicProperties(获取公共属性列表)
 
@@ -621,7 +644,7 @@ namespace Nigel.Helpers
             return properties.ToList().Select(t => new Item(t.Name, t.GetValue(instance))).ToList();
         }
 
-        #endregion
+        #endregion GetPublicProperties(获取公共属性列表)
 
         #region GetTopBaseType(获取顶级基类)
 
@@ -660,7 +683,7 @@ namespace Nigel.Helpers
             return GetTopBaseType(type.BaseType);
         }
 
-        #endregion
+        #endregion GetTopBaseType(获取顶级基类)
 
         #region IsDeriveClassFrom(判断当前类型是否可由指定类型派生)
 
@@ -686,7 +709,7 @@ namespace Nigel.Helpers
             return type.IsClass && (!canAbstract && !type.IsAbstract) && type.IsBaseOn(baseType);
         }
 
-        #endregion
+        #endregion IsDeriveClassFrom(判断当前类型是否可由指定类型派生)
 
         #region IsBaseOn(返回当前类型是否是指定基类的派生类)
 
@@ -706,7 +729,7 @@ namespace Nigel.Helpers
             ? baseType.IsGenericAssignableFrom(type)
             : baseType.IsAssignableFrom(type);
 
-        #endregion
+        #endregion IsBaseOn(返回当前类型是否是指定基类的派生类)
 
         #region IsGenericAssignableFrom(判断当前泛型类型是否可由指定类型的实例填充)
 
@@ -725,7 +748,7 @@ namespace Nigel.Helpers
                 throw new ArgumentException("该功能只支持泛型类型的调用，非泛型类型可使用 IsAssignableFrom 方法。");
             }
 
-            var allOthers = new List<Type>() {type};
+            var allOthers = new List<Type>() { type };
             if (genericType.IsInterface)
             {
                 allOthers.AddRange(type.GetInterfaces());
@@ -734,7 +757,7 @@ namespace Nigel.Helpers
             foreach (var other in allOthers)
             {
                 var cur = other;
-                while (cur!=null)
+                while (cur != null)
                 {
                     if (cur.IsGenericType)
                     {
@@ -753,6 +776,6 @@ namespace Nigel.Helpers
             return false;
         }
 
-        #endregion
+        #endregion IsGenericAssignableFrom(判断当前泛型类型是否可由指定类型的实例填充)
     }
 }

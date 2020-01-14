@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
-using Nigel.Extensions;
-using Microsoft.AspNetCore.Mvc.Controllers;
+﻿using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Nigel.Extensions;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace Nigel.Core.Razors
 {

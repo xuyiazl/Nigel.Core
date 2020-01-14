@@ -40,7 +40,7 @@ namespace Nigel.Extensions
             return Math.Abs(longRand % (max - min)) + min;
         }
 
-        #endregion
+        #endregion NextLong(获取下一个随机数)
 
         #region NextDouble(获取下一个随机数)
 
@@ -62,7 +62,7 @@ namespace Nigel.Extensions
         public static double NextDouble(this Random random, double min, double max) =>
             random.NextDouble() * (max - min) + min;
 
-        #endregion
+        #endregion NextDouble(获取下一个随机数)
 
         #region NormalDouble(标准正态分布生成随机双精度浮点数)
 
@@ -88,7 +88,7 @@ namespace Nigel.Extensions
         public static double NormalDouble(this Random random, double mean, double deviation) =>
             mean + deviation * random.NormalDouble();
 
-        #endregion
+        #endregion NormalDouble(标准正态分布生成随机双精度浮点数)
 
         #region NextFloat(获取下一个随机数)
 
@@ -97,7 +97,7 @@ namespace Nigel.Extensions
         /// </summary>
         /// <param name="random">随机数</param>
         /// <returns></returns>
-        public static float NextFloat(this Random random) => (float) random.NextDouble();
+        public static float NextFloat(this Random random) => (float)random.NextDouble();
 
         /// <summary>
         /// 获取下一个随机数。范围：[0.0,max]
@@ -105,7 +105,7 @@ namespace Nigel.Extensions
         /// <param name="random">随机数</param>
         /// <param name="max">最大值</param>
         /// <returns></returns>
-        public static float NextFloat(this Random random, float max) => (float) (random.NextDouble() * max);
+        public static float NextFloat(this Random random, float max) => (float)(random.NextDouble() * max);
 
         /// <summary>
         /// 获取下一个随机数。范围：[min,max]
@@ -115,9 +115,9 @@ namespace Nigel.Extensions
         /// <param name="max">最大值</param>
         /// <returns></returns>
         public static float NextFloat(this Random random, float min, float max) =>
-            (float) (random.NextDouble() * (max - min) + min);
+            (float)(random.NextDouble() * (max - min) + min);
 
-        #endregion
+        #endregion NextFloat(获取下一个随机数)
 
         #region NormalFloat(标准正态分布生成随机单精度浮点数)
 
@@ -126,7 +126,7 @@ namespace Nigel.Extensions
         /// </summary>
         /// <param name="random">随机数</param>
         /// <returns></returns>
-        public static float NormalFloat(this Random random) => (float) random.NormalDouble();
+        public static float NormalFloat(this Random random) => (float)random.NormalDouble();
 
         /// <summary>
         /// 标准正态分布生成随机单精度浮点数
@@ -136,9 +136,9 @@ namespace Nigel.Extensions
         /// <param name="deviation">偏差</param>
         /// <returns></returns>
         public static float NormalFloat(this Random random, float mean, float deviation) =>
-            mean + (float) (deviation * random.NormalDouble());
+            mean + (float)(deviation * random.NormalDouble());
 
-        #endregion
+        #endregion NormalFloat(标准正态分布生成随机单精度浮点数)
 
         #region NextSign(获取下一个随机数)
 
@@ -149,7 +149,7 @@ namespace Nigel.Extensions
         /// <returns></returns>
         public static int NextSign(this Random random) => 2 * random.Next(2) - 1;
 
-        #endregion
+        #endregion NextSign(获取下一个随机数)
 
         #region NextBool(获取下一个随机数)
 
@@ -168,6 +168,6 @@ namespace Nigel.Extensions
         /// <returns></returns>
         public static bool NextBool(this Random random, double probability) => random.NextDouble() < probability;
 
-        #endregion
+        #endregion NextBool(获取下一个随机数)
     }
 }

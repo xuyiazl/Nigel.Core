@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Nigel.Data.Collection.Paged;
+using Nigel.Extensions;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
-using Nigel.Data.Collection.Paged;
-using Nigel.Extensions;
 
 namespace Nigel.Data.DbRepositories
 {
@@ -86,6 +83,7 @@ namespace Nigel.Data.DbRepositories
                 query = orderDesc ? query.OrderByDescending(orderBy) : query.OrderBy(orderBy);
             return await PagedList<TEntity>.CreateAsync(query, pageNumber, pageSize, cancellationToken);
         }
+
         public async Task<PagedList<TEntity>> GetPagedListAsync(
             Expression<Func<TEntity, bool>> selector,
             string orderBy = "",
@@ -116,7 +114,6 @@ namespace Nigel.Data.DbRepositories
                 query = orderDesc ? query.OrderByDescending(orderBy) : query.OrderBy(orderBy);
             return PagedList<TResult>.Create(query.Select(converter), pageNumber, pageSize);
         }
-
 
         public PagedList<TResult> GetPagedList<TResult>(
             Expression<Func<TEntity, TResult>> converter,

@@ -1,12 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Nigel.Extensions;
 using Nigel.Core.Extensions;
 using Nigel.Core.Properties;
+using Nigel.Extensions;
+using System;
 
 namespace Nigel.Core.Filters
 {
@@ -40,7 +37,6 @@ namespace Nigel.Core.Filters
             }
             else
             {
-
                 if (_logger.IsEnabled(LogLevel.Error))
                 {
                     var areaName = context.GetAreaName();

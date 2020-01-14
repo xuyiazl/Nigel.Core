@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace Nigel.Core.Razors
+﻿namespace Nigel.Core.Razors
 {
     /// <summary>
     /// 路由信息

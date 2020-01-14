@@ -47,7 +47,7 @@ namespace Nigel.Helpers
         {
             if (args == null)
             {
-                args = new object[] {string.Empty};
+                args = new object[] { string.Empty };
             }
 
             if (args.Length == 0)

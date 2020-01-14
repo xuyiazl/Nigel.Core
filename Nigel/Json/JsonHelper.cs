@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
+using Nigel.Extensions;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
-using Nigel.Extensions;
 
 namespace Nigel.Json
 {
@@ -39,7 +39,7 @@ namespace Nigel.Json
             return json;
         }
 
-        #endregion
+        #endregion JsonDateTimeFormat(Json时间格式化)
 
         #region ToObject(将Json字符串转换为对象)
 
@@ -80,7 +80,7 @@ namespace Nigel.Json
             return JsonConvert.DeserializeObject(json);
         }
 
-        #endregion
+        #endregion ToObject(将Json字符串转换为对象)
 
         #region ToJson(将对象转换为Json字符串)
 
@@ -120,7 +120,7 @@ namespace Nigel.Json
             return result;
         }
 
-        #endregion
+        #endregion ToJson(将对象转换为Json字符串)
 
         #region SerializableToFile(将对象序列化到Json文件)
 
@@ -143,7 +143,7 @@ namespace Nigel.Json
             }
         }
 
-        #endregion
+        #endregion SerializableToFile(将对象序列化到Json文件)
 
         #region DeserializeFromFile(从Json文件反序列成对象)
 
@@ -171,7 +171,7 @@ namespace Nigel.Json
             }
         }
 
-        #endregion
+        #endregion DeserializeFromFile(从Json文件反序列成对象)
 
         #region ToJsonByForm(将Form表单转换成Json字符串)
 
@@ -199,7 +199,7 @@ namespace Nigel.Json
             return dicData.ToJson();
         }
 
-        #endregion
+        #endregion ToJsonByForm(将Form表单转换成Json字符串)
 
         #region ToJObject(将Json字符串转换为Linq对象)
 
@@ -218,7 +218,7 @@ namespace Nigel.Json
             return JObject.Parse(json.Replace("&nbsp;", ""));
         }
 
-        #endregion
+        #endregion ToJObject(将Json字符串转换为Linq对象)
 
         #region IsJson(判断字符串是否为Json格式)
 
@@ -232,7 +232,7 @@ namespace Nigel.Json
             return json.StartsWith("{") && json.EndsWith("}") || json.StartsWith("[") && json.EndsWith("]");
         }
 
-        #endregion
+        #endregion IsJson(判断字符串是否为Json格式)
 
         #region ToJson and ToObject (将Json字符串集合转换成Json对象集合)
 
@@ -246,6 +246,7 @@ namespace Nigel.Json
         {
             return ToJsonNotNullOrEmpty(list).ToObject<List<T>>();
         }
+
         /// <summary>
         /// json列表 转换为 json字符串(去除空记录)
         /// </summary>
@@ -258,6 +259,7 @@ namespace Nigel.Json
 
             return $"[{list.Where(t => !string.IsNullOrEmpty(t)).ToArray().Join(",")}]";
         }
+
         /// <summary>
         /// json列表转换为对象集合
         /// </summary>
@@ -268,6 +270,7 @@ namespace Nigel.Json
         {
             return ToJson(list).ToObject<List<T>>();
         }
+
         /// <summary>
         /// json列表 转换为 json字符串
         /// </summary>
@@ -281,6 +284,6 @@ namespace Nigel.Json
             return $"[{list.ToArray().Join(",")}]";
         }
 
-        #endregion
+        #endregion ToJson and ToObject (将Json字符串集合转换成Json对象集合)
     }
 }

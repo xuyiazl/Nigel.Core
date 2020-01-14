@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Data;
-using Newtonsoft.Json;
 
 namespace Nigel.Json.Converters.Internals
 {
     /// <summary>
     /// DataRow 转换器
     /// </summary>
-    internal class DataRowConverter:JsonConverter
+    internal class DataRowConverter : JsonConverter
     {
         /// <summary>
         /// 写入JSON对象
@@ -22,7 +22,7 @@ namespace Nigel.Json.Converters.Internals
             foreach (DataColumn column in row.Table.Columns)
             {
                 writer.WritePropertyName(column.ColumnName);
-                serializer.Serialize(writer,row[column]);
+                serializer.Serialize(writer, row[column]);
             }
             writer.WriteEndObject();
         }

@@ -16,7 +16,7 @@ namespace Nigel.Tests.Extensions.Reflections
         {
             var assembly = typeof(AssemblyExtensionsTest).Assembly;
             var result = assembly.GetFileVersion();
-            Assert.Equal("1.0.0.0",result.ToString());
+            Assert.Equal("1.0.0.0", result.ToString());
         }
 
         /// <summary>

@@ -34,7 +34,7 @@ namespace Nigel.Extensions
             return sb.ToString();
         }
 
-        #endregion
+        #endregion ToQueryString(将键值对集合转换成查询字符串)
 
         /// <summary>
         /// Gets the value associated w/ the key, if it's empty returns the default value.

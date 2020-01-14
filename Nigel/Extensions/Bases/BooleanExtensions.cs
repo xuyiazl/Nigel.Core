@@ -20,7 +20,7 @@ namespace Nigel.Extensions
             return value.ToString().ToLower();
         }
 
-        #endregion
+        #endregion ToLower(将布尔值转换为小写字符串)
 
         #region ToYestNoString(将布尔值转换为等效的字符串表示形式)
 
@@ -34,7 +34,7 @@ namespace Nigel.Extensions
             return value ? "Yes" : "No";
         }
 
-        #endregion
+        #endregion ToYestNoString(将布尔值转换为等效的字符串表示形式)
 
         #region ToBinaryTypeNumber(将布尔值转换为二进制数字类型)
 
@@ -48,7 +48,7 @@ namespace Nigel.Extensions
             return value ? 1 : 0;
         }
 
-        #endregion
+        #endregion ToBinaryTypeNumber(将布尔值转换为二进制数字类型)
 
         #region ToChineseString(将布尔值转换为等效中文字符串表示形式)
 
@@ -96,7 +96,7 @@ namespace Nigel.Extensions
             return value.GetValueOrDefault() ? trueStr : falseStr;
         }
 
-        #endregion
+        #endregion ToChineseString(将布尔值转换为等效中文字符串表示形式)
 
         #region IfTrue(结果为true时，输出参数)
 
@@ -124,7 +124,7 @@ namespace Nigel.Extensions
             return value.GetValueOrDefault() ? t : default(T);
         }
 
-        #endregion
+        #endregion IfTrue(结果为true时，输出参数)
 
         #region IfTrue(结果为true时，执行方法)
 
@@ -154,7 +154,7 @@ namespace Nigel.Extensions
             }
         }
 
-        #endregion
+        #endregion IfTrue(结果为true时，执行方法)
 
         #region IfFalse(结果为false时，输出参数)
 
@@ -182,7 +182,7 @@ namespace Nigel.Extensions
             return !value.GetValueOrDefault() ? t : default(T);
         }
 
-        #endregion
+        #endregion IfFalse(结果为false时，输出参数)
 
         #region IfFalse(结果为false时，执行方法)
 
@@ -212,6 +212,6 @@ namespace Nigel.Extensions
             }
         }
 
-        #endregion
+        #endregion IfFalse(结果为false时，执行方法)
     }
 }

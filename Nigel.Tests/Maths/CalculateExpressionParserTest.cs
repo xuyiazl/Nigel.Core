@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using Nigel.Maths;
+﻿using Nigel.Maths;
+using System.Linq;
 using Xunit;
 
 namespace Nigel.Tests.Maths

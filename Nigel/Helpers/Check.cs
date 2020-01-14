@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Nigel.Properties;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Nigel.Properties;
 
 namespace Nigel.Helpers
 {
@@ -62,7 +62,7 @@ namespace Nigel.Helpers
             Require<TException>(assertionFunc(value), message);
         }
 
-        #endregion
+        #endregion Required(断言)
 
         #region NotNull(不可空检查)
 
@@ -125,7 +125,7 @@ namespace Nigel.Helpers
             Require<ArgumentException>(dictionary.Any(), string.Format(R.ParameterCheck_NotNullOrEmpty_Collection));
         }
 
-        #endregion
+        #endregion NotNull(不可空检查)
 
         #region Between(范围检查)
 
@@ -198,7 +198,7 @@ namespace Nigel.Helpers
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static void NotNegativeOrZero(TimeSpan timeSpan, string paramaName) => Require<ArgumentOutOfRangeException>(timeSpan > TimeSpan.Zero, paramaName);
 
-        #endregion
+        #endregion Between(范围检查)
 
         #region IO(文件检查)
 
@@ -226,6 +226,6 @@ namespace Nigel.Helpers
             Require<FileNotFoundException>(File.Exists(fileName), string.Format(R.ParameterCheck_FileNotExists, fileName));
         }
 
-        #endregion
+        #endregion IO(文件检查)
     }
 }

@@ -33,7 +33,7 @@ namespace Nigel.Extensions.Common
         public static decimal KeepDigits(this decimal value, int digits) =>
             Math.Round(value, digits, MidpointRounding.AwayFromZero);
 
-        #endregion
+        #endregion KeepDigits(保留小数位数)
 
         #region IsIn(是否在给定闭区间)
 
@@ -128,6 +128,6 @@ namespace Nigel.Extensions.Common
             return value >= min && value <= max;
         }
 
-        #endregion
+        #endregion IsIn(是否在给定闭区间)
     }
 }

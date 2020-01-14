@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Nigel.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using Nigel.Extensions;
 
 namespace Nigel.Helpers
 {
@@ -13,6 +13,7 @@ namespace Nigel.Helpers
     public partial class Str
     {
         #region Join(将集合连接为带分隔符的字符串)
+
         /// <summary>
         /// 将集合连接为带分隔符的字符串
         /// </summary>
@@ -39,7 +40,7 @@ namespace Nigel.Helpers
             return result.ToString().TrimEnd(separator.ToCharArray());
         }
 
-        #endregion
+        #endregion Join(将集合连接为带分隔符的字符串)
 
         #region ToUnicode(字符串转Unicode)
 
@@ -61,7 +62,7 @@ namespace Nigel.Helpers
             return sb.ToString();
         }
 
-        #endregion
+        #endregion ToUnicode(字符串转Unicode)
 
         #region ToUnicodeByCn(中文字符串转Unicode)
 
@@ -88,7 +89,7 @@ namespace Nigel.Helpers
             return sb.ToString();
         }
 
-        #endregion
+        #endregion ToUnicodeByCn(中文字符串转Unicode)
 
         #region UnicodeToStr(Unicode转字符串)
 
@@ -103,7 +104,7 @@ namespace Nigel.Helpers
                 x => Convert.ToChar(Convert.ToUInt16(x.Result("$1"), 16)).ToString());
         }
 
-        #endregion
+        #endregion UnicodeToStr(Unicode转字符串)
 
         #region PinYin(获取汉字的拼音简码)
 
@@ -266,7 +267,7 @@ namespace Nigel.Helpers
             return Const.ChinesePinYin.Substring(index + 1, 1);
         }
 
-        #endregion
+        #endregion PinYin(获取汉字的拼音简码)
 
         #region FullPinYin(获取汉字的全拼)
 
@@ -347,7 +348,7 @@ namespace Nigel.Helpers
             return pyString;
         }
 
-        #endregion
+        #endregion FullPinYin(获取汉字的全拼)
 
         #region FirstLower(首字母小写)
 
@@ -366,7 +367,7 @@ namespace Nigel.Helpers
             return $"{value.Substring(0, 1).ToLower()}{value.Substring(1)}";
         }
 
-        #endregion
+        #endregion FirstLower(首字母小写)
 
         #region FirstUpper(首字母大写)
 
@@ -379,7 +380,7 @@ namespace Nigel.Helpers
             return $"{value.Substring(0, 1).ToUpper()}{value.Substring(1)}";
         }
 
-        #endregion
+        #endregion FirstUpper(首字母大写)
 
         #region Empty(空字符串)
 
@@ -388,7 +389,7 @@ namespace Nigel.Helpers
         /// </summary>
         public static string Empty => string.Empty;
 
-        #endregion
+        #endregion Empty(空字符串)
 
         #region Distinct(去除重复)
 
@@ -403,7 +404,7 @@ namespace Nigel.Helpers
             return new string(array.Distinct().ToArray());
         }
 
-        #endregion
+        #endregion Distinct(去除重复)
 
         #region Truncate(截断字符串)
 
@@ -444,7 +445,7 @@ namespace Nigel.Helpers
             return sb.ToString();
         }
 
-        #endregion
+        #endregion Truncate(截断字符串)
 
         #region GetLastProperty(获取最后一个属性)
 
@@ -460,7 +461,7 @@ namespace Nigel.Helpers
             return propertyName.Substring(lastIndex);
         }
 
-        #endregion
+        #endregion GetLastProperty(获取最后一个属性)
 
         #region GetHideMobile(获取隐藏中间几位后的手机号码)
 
@@ -478,7 +479,7 @@ namespace Nigel.Helpers
             return $"{value.Substring(0, 3)}******{value.Substring(value.Length - 3)}";
         }
 
-        #endregion
+        #endregion GetHideMobile(获取隐藏中间几位后的手机号码)
 
         #region GetStringLength(获取字符串的字节数)
 
@@ -508,7 +509,7 @@ namespace Nigel.Helpers
             return strLength;
         }
 
-        #endregion
+        #endregion GetStringLength(获取字符串的字节数)
 
         #region ToSnakeCase(将字符串转换为蛇形策略)
 
@@ -550,6 +551,7 @@ namespace Nigel.Helpers
                                 }
                             }
                             break;
+
                         case SnakeCaseState.Lower:
                         case SnakeCaseState.NewWord:
                             sb.Append('_');
@@ -579,7 +581,7 @@ namespace Nigel.Helpers
             return sb.ToString();
         }
 
-        #endregion
+        #endregion ToSnakeCase(将字符串转换为蛇形策略)
 
         #region ToCamelCase(将字符串转换为骆驼策略)
 
@@ -618,7 +620,7 @@ namespace Nigel.Helpers
             return new string(chars);
         }
 
-        #endregion
+        #endregion ToCamelCase(将字符串转换为骆驼策略)
 
         #region GenerateNonceStr(生成随机字符串)
 
@@ -631,7 +633,7 @@ namespace Nigel.Helpers
             return Guid.NewGuid().ToString("N");
         }
 
-        #endregion
+        #endregion GenerateNonceStr(生成随机字符串)
 
         #region SplitWordGroup(分隔词组)
 
@@ -646,9 +648,10 @@ namespace Nigel.Helpers
             return string.IsNullOrWhiteSpace(value) ? string.Empty : System.Text.RegularExpressions.Regex.Replace(value, pattern, $"{separator}$1$2").TrimStart(separator).ToLower();
         }
 
-        #endregion
+        #endregion SplitWordGroup(分隔词组)
 
         #region IsStrictIDNumber(身份证号码格式验证)
+
         /// <summary>
         /// 验证字符串是否严格是一个身份证号码
         /// </summary>
@@ -666,6 +669,7 @@ namespace Nigel.Helpers
             }
             return false;
         }
+
         //验证15位身份证号码
         private static bool checkIDNumber15(string src)
         {
@@ -687,6 +691,7 @@ namespace Nigel.Helpers
             }
             return true;//符合15位身份证标准
         }
+
         //验证18位身份证号码
         private static bool checkIDNumber18(string src)
         {
@@ -722,7 +727,8 @@ namespace Nigel.Helpers
             }
             return true;//符合GB11643-1999标准
         }
-        #endregion
+
+        #endregion IsStrictIDNumber(身份证号码格式验证)
 
         #region ConvertToDialLink(将源字符串中包含的数字转换为手机拨号链接)
 
@@ -747,7 +753,7 @@ namespace Nigel.Helpers
             return source;
         }
 
-        #endregion
+        #endregion ConvertToDialLink(将源字符串中包含的数字转换为手机拨号链接)
 
         #region FormatAsLicensePlate(将字符串按车牌号码的要求格式化)
 
@@ -766,7 +772,7 @@ namespace Nigel.Helpers
             return src;
         }
 
-        #endregion
+        #endregion FormatAsLicensePlate(将字符串按车牌号码的要求格式化)
 
         #region IsStrictLicensePlate(验证字符串是否严格是一个车牌号码)
 
@@ -780,7 +786,7 @@ namespace Nigel.Helpers
             return Regex.IsMatch(src, @"^[\u4E00-\u9FA5]{1}[A-Z]{1} ?[a-zA-Z0-9]{5}$");
         }
 
-        #endregion
+        #endregion IsStrictLicensePlate(验证字符串是否严格是一个车牌号码)
 
         #region IsBankCard(验证字符串是否严格是银行帐号格式)
 
@@ -813,7 +819,7 @@ namespace Nigel.Helpers
             return r.ToString() == src.Substring(src.Length - 1, 1);
         }
 
-        #endregion
+        #endregion IsBankCard(验证字符串是否严格是银行帐号格式)
 
         #region GetImgUrl(获取HTML内容中的所有Img url)
 
@@ -858,7 +864,7 @@ namespace Nigel.Helpers
             return resultStr;
         }
 
-        #endregion
+        #endregion GetImgUrl(获取HTML内容中的所有Img url)
 
         #region GetNoceStr(获取指定位数的随机数字符串)
 
@@ -883,7 +889,7 @@ namespace Nigel.Helpers
             return result;
         }
 
-        #endregion
+        #endregion GetNoceStr(获取指定位数的随机数字符串)
 
         #region CreateOrderNumber(创建指定日期的订单号码（yyyyMMddHHmmssfff +4 位随机数）)
 
@@ -897,7 +903,7 @@ namespace Nigel.Helpers
             return string.Format("{0}{1}{2}", name, DateTime.Now.ToString("yyyyMMddHHmmssfff"), GetNoceStr(4));
         }
 
-        #endregion
+        #endregion CreateOrderNumber(创建指定日期的订单号码（yyyyMMddHHmmssfff +4 位随机数）)
     }
 
     /// <summary>
@@ -909,10 +915,12 @@ namespace Nigel.Helpers
         /// 蛇形策略
         /// </summary>
         Snake,
+
         /// <summary>
         /// 骆驼策略
         /// </summary>
         Camel,
+
         /// <summary>
         /// 不执行策略
         /// </summary>
@@ -928,14 +936,17 @@ namespace Nigel.Helpers
         /// 开头
         /// </summary>
         Start,
+
         /// <summary>
         /// 小写
         /// </summary>
         Lower,
+
         /// <summary>
         /// 大写
         /// </summary>
         Upper,
+
         /// <summary>
         /// 单词
         /// </summary>

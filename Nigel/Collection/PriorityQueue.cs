@@ -2,17 +2,14 @@
 {
     /********************************************************************
     *           Copyright:       2009-2011
-    *           Company:         
+    *           Company:
     *           CRL Version :    4.0.30319.239
     *           Created by 徐毅 at 2011/11/29 12:42:31
     *                   mailto:3624091@qq.com
-    *                         
+    *
     ********************************************************************/
 
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     public class PriorityQueue<T> : ListMapping<int, T>
     {
@@ -27,7 +24,7 @@
             HighestKey = int.MinValue;
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Public Functions
 
@@ -85,7 +82,7 @@
             return ReturnValue;
         }
 
-        #endregion
+        #endregion Public Functions
 
         #region Protected Variables
 
@@ -94,6 +91,6 @@
         /// </summary>
         protected virtual int HighestKey { get; set; }
 
-        #endregion
+        #endregion Protected Variables
     }
 }

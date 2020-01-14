@@ -53,10 +53,10 @@ namespace Nigel.Tests.Helpers
         }
 
         [Theory]
-        [InlineData("http://www.baidu.com","baidu.com")]
+        [InlineData("http://www.baidu.com", "baidu.com")]
         [InlineData("http://baidu.com", "http://baidu.com")]
         [InlineData("http://www.baidu.com?a=xxx.aaa.cc", "baidu.com")]
-        public void Test_GetMainDomain(string domain,string result)
+        public void Test_GetMainDomain(string domain, string result)
         {
             Assert.Equal(result, Url.GetMainDomain(domain));
         }

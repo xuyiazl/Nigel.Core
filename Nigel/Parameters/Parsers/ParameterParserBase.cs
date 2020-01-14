@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using Nigel.Extensions;
+﻿using Nigel.Extensions;
 using Nigel.Helpers;
 using Nigel.Json;
+using System;
+using System.Collections.Generic;
 
 namespace Nigel.Parameters.Parsers
 {
     /// <summary>
     /// 参数解析器基类
     /// </summary>
-    public abstract class ParameterParserBase:IParameterParser
+    public abstract class ParameterParserBase : IParameterParser
     {
         /// <summary>
         /// 参数字典

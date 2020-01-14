@@ -31,7 +31,7 @@ namespace Nigel.Helpers
             Task.WaitAll(tasks.ToArray());
         }
 
-        #endregion
+        #endregion WaitAll(执行多个操作)
 
         #region ParallelExecute(并发执行多个操作)
 
@@ -61,7 +61,7 @@ namespace Nigel.Helpers
             Parallel.For(0, count, options, i => action());
         }
 
-        #endregion
+        #endregion ParallelExecute(并发执行多个操作)
 
         #region ThreadId(获取线程编号)
 
@@ -70,7 +70,7 @@ namespace Nigel.Helpers
         /// </summary>
         public static string ThreadId => System.Threading.Thread.CurrentThread.ManagedThreadId.ToString();
 
-        #endregion
+        #endregion ThreadId(获取线程编号)
 
         #region CurrentPrincipal(获取或设置 线程的当前负责人)
 
@@ -83,7 +83,7 @@ namespace Nigel.Helpers
             set { System.Threading.Thread.CurrentPrincipal = value; }
         }
 
-        #endregion
+        #endregion CurrentPrincipal(获取或设置 线程的当前负责人)
 
         #region MaxThreadNumberInThreadPool(获取线程池中最大线程)
 
@@ -101,7 +101,7 @@ namespace Nigel.Helpers
             }
         }
 
-        #endregion
+        #endregion MaxThreadNumberInThreadPool(获取线程池中最大线程)
 
         #region Sleep(将当前线程挂起指定的时间)
 
@@ -114,7 +114,7 @@ namespace Nigel.Helpers
             System.Threading.Thread.Sleep(time);
         }
 
-        #endregion
+        #endregion Sleep(将当前线程挂起指定的时间)
 
         #region StartTask(启动异步任务)
 
@@ -137,6 +137,6 @@ namespace Nigel.Helpers
             Task.Factory.StartNew(handler, state);
         }
 
-        #endregion
+        #endregion StartTask(启动异步任务)
     }
 }

@@ -2,14 +2,12 @@
 using Nigel.Core.Jwt.Serializers;
 using Nigel.Extensions;
 using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace Nigel.Core.Jwt
 {
     internal static class JwtVerifyExtensions
     {
-
         /// <summary>
         /// 验证token完整性和时效性
         /// </summary>

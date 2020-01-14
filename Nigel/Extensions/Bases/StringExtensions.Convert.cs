@@ -31,7 +31,7 @@ namespace Nigel.Extensions
             return encoding.GetBytes(value);
         }
 
-        #endregion
+        #endregion ToBytes(转换成Byte[])
 
         #region ToXDocument(转换成XDocument)
 
@@ -45,7 +45,7 @@ namespace Nigel.Extensions
             return XDocument.Parse(xml);
         }
 
-        #endregion
+        #endregion ToXDocument(转换成XDocument)
 
         #region ToXElement(转换成XElement)
 
@@ -59,7 +59,7 @@ namespace Nigel.Extensions
             return XElement.Parse(xml);
         }
 
-        #endregion
+        #endregion ToXElement(转换成XElement)
 
         #region ToXmlDocument(转换成XmlDocument)
 
@@ -75,7 +75,7 @@ namespace Nigel.Extensions
             return documnet;
         }
 
-        #endregion
+        #endregion ToXmlDocument(转换成XmlDocument)
 
         #region ToXPath(转换成XPath)
 
@@ -90,7 +90,9 @@ namespace Nigel.Extensions
             return documnet.CreateNavigator();
         }
 
-        #endregion        
+        #endregion ToXPath(转换成XPath)
+
+
 
         #region HexStringToBytes(16进制字符串转换成字节数组)
 
@@ -111,7 +113,7 @@ namespace Nigel.Extensions
             return bytes;
         }
 
-        #endregion
+        #endregion HexStringToBytes(16进制字符串转换成字节数组)
 
         #region ToUnicodeString(转换成Unicode字符串)
 
@@ -130,7 +132,7 @@ namespace Nigel.Extensions
             return outString;
         }
 
-        #endregion
+        #endregion ToUnicodeString(转换成Unicode字符串)
 
         #region ToSecureString(转换成安全字符串)
 
@@ -158,7 +160,7 @@ namespace Nigel.Extensions
             return temp;
         }
 
-        #endregion
+        #endregion ToSecureString(转换成安全字符串)
 
         #region ToUnSecureString(转换成普通字符串)
 
@@ -185,7 +187,7 @@ namespace Nigel.Extensions
             }
         }
 
-        #endregion
+        #endregion ToUnSecureString(转换成普通字符串)
 
         #region ToSbcCase(转换成全角)
 
@@ -212,7 +214,7 @@ namespace Nigel.Extensions
             return new string(c);
         }
 
-        #endregion
+        #endregion ToSbcCase(转换成全角)
 
         #region ToDbcCase(转换成半角)
 
@@ -239,7 +241,7 @@ namespace Nigel.Extensions
             return new string(c);
         }
 
-        #endregion
+        #endregion ToDbcCase(转换成半角)
 
         #region ToDateTime(时间戳转换成时间)
 
@@ -260,6 +262,6 @@ namespace Nigel.Extensions
             return dateTimeStart.Add(toNow);
         }
 
-        #endregion
+        #endregion ToDateTime(时间戳转换成时间)
     }
 }

@@ -2,7 +2,7 @@
 {
     /********************************************************************
     *           Copyright:       2009-2011
-    *           Company:         
+    *           Company:
     *           CRL Version :    4.0.30319.1
     *           Created by 徐毅 at 2011/1/30 18:07:31
     *                   mailto:3624091@qq.com
@@ -11,9 +11,8 @@
 
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.IO;
+    using System.Text;
 
     internal sealed class FileHeader
     {
@@ -36,11 +35,9 @@
 
     internal sealed class StreamRW : FileStream
     {
-
         public StreamRW(string fileName)
             : base(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.ReadWrite)
         {
-
         }
 
         /*////////////////////////////////////////////////////////////////////////////////////////*/
@@ -76,7 +73,6 @@
             tmp.Count = BitConverter.ToInt32(data, 8);
 
             return tmp;
-
         }
 
         /*////////////////////////////////////////////////////////////////////////////////////////*/
@@ -90,7 +86,7 @@
             var encoding = UnicodeEncoding.UTF8;
             byte[] tmp = encoding.GetBytes(item);
 
-            var size =  BitConverter.GetBytes(tmp.Length);
+            var size = BitConverter.GetBytes(tmp.Length);
 
             Write(size, 0, size.Length);
             Write(tmp, 0, tmp.Length);
@@ -197,7 +193,6 @@
             while (Position < Length)
                 tmp.AddLast(ReadBinaryEntry());
 
-
             Seek(pos, SeekOrigin.Begin);
             return tmp;
         }
@@ -238,13 +233,12 @@
             return tmp;
         }
 
-
-        string ReadString(byte[] bytes)
+        private string ReadString(byte[] bytes)
         {
             return UTF32Encoding.UTF8.GetString(bytes);
         }
 
-        string ReadString(byte[] bytes, int index, int count)
+        private string ReadString(byte[] bytes, int index, int count)
         {
             return UTF32Encoding.UTF8.GetString(bytes, index, count);
         }

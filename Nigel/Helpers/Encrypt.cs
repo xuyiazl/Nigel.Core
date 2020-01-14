@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Nigel.Extensions;
+using Nigel.Helpers.Internal;
+using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using Nigel.Extensions;
-using Nigel.Helpers.Internal;
 
 namespace Nigel.Helpers
 {
@@ -16,7 +16,7 @@ namespace Nigel.Helpers
     public static class Encrypt
     {
         #region Md5加密
-        
+
         /// <summary>
         /// Md5加密，返回16位结果
         /// </summary>
@@ -90,7 +90,7 @@ namespace Nigel.Helpers
             return result.Replace("-", "");
         }
 
-        #endregion
+        #endregion Md5加密
 
         #region DES加密
 
@@ -220,7 +220,7 @@ namespace Nigel.Helpers
                 return string.Empty;
             }
 
-            using (var transform=CreateDesProvider(key).CreateDecryptor())
+            using (var transform = CreateDesProvider(key).CreateDecryptor())
             {
                 return GetDecryptResult(text, encoding, transform);
             }
@@ -240,7 +240,7 @@ namespace Nigel.Helpers
             return encoding.GetString(result);
         }
 
-        #endregion
+        #endregion DES加密
 
         #region AES加密
 
@@ -259,7 +259,7 @@ namespace Nigel.Helpers
                 if (_iv == null)
                 {
                     var size = 16;
-                    _iv=new byte[size];
+                    _iv = new byte[size];
                     for (int i = 0; i < size; i++)
                     {
                         _iv[i] = 0;
@@ -367,13 +367,13 @@ namespace Nigel.Helpers
             }
 
             var rijndaelManaged = CreateRijndaelManaged(key);
-            using (var transform=rijndaelManaged.CreateDecryptor(rijndaelManaged.Key,rijndaelManaged.IV))
+            using (var transform = rijndaelManaged.CreateDecryptor(rijndaelManaged.Key, rijndaelManaged.IV))
             {
                 return GetDecryptResult(value, encoding, transform);
             }
         }
 
-        #endregion
+        #endregion AES加密
 
         #region RSA签名
 
@@ -387,6 +387,7 @@ namespace Nigel.Helpers
         {
             return RsaSign(value, key, Encoding.UTF8);
         }
+
         /// <summary>
         /// RSA签名，采用 SHA1 算法
         /// </summary>
@@ -398,6 +399,7 @@ namespace Nigel.Helpers
         {
             return RsaSign(value, key, encoding, RSAType.RSA);
         }
+
         /// <summary>
         /// RSA签名，采用 SHA256 算法
         /// </summary>
@@ -416,7 +418,7 @@ namespace Nigel.Helpers
         /// <param name="key">私钥</param>
         /// <param name="encoding">字符编码</param>
         /// <returns></returns>
-        public static string Rsa2Sign(string value, string key,Encoding encoding)
+        public static string Rsa2Sign(string value, string key, Encoding encoding)
         {
             return RsaSign(value, key, encoding, RSAType.RSA2);
         }
@@ -508,7 +510,7 @@ namespace Nigel.Helpers
             return rsa.Verify(value, sign);
         }
 
-        #endregion
+        #endregion RSA签名
 
         #region HmacMd5加密
 
@@ -541,7 +543,7 @@ namespace Nigel.Helpers
             return string.Join("", hash.ToList().Select(x => x.ToString("x2")).ToArray());
         }
 
-        #endregion
+        #endregion HmacMd5加密
 
         #region HmacSha1加密
 
@@ -574,7 +576,7 @@ namespace Nigel.Helpers
             return string.Join("", hash.ToList().Select(x => x.ToString("x2")).ToArray());
         }
 
-        #endregion
+        #endregion HmacSha1加密
 
         #region HmacSha256加密
 
@@ -607,7 +609,7 @@ namespace Nigel.Helpers
             return string.Join("", hash.ToList().Select(x => x.ToString("x2")).ToArray());
         }
 
-        #endregion
+        #endregion HmacSha256加密
 
         #region HmacSha384加密
 
@@ -640,7 +642,7 @@ namespace Nigel.Helpers
             return string.Join("", hash.ToList().Select(x => x.ToString("x2")).ToArray());
         }
 
-        #endregion
+        #endregion HmacSha384加密
 
         #region HmacSha512加密
 
@@ -673,7 +675,7 @@ namespace Nigel.Helpers
             return string.Join("", hash.ToList().Select(x => x.ToString("x2")).ToArray());
         }
 
-        #endregion
+        #endregion HmacSha512加密
 
         #region SHA1加密
 
@@ -706,7 +708,7 @@ namespace Nigel.Helpers
             }
         }
 
-        #endregion
+        #endregion SHA1加密
 
         #region SHA256加密
 
@@ -739,7 +741,7 @@ namespace Nigel.Helpers
             }
         }
 
-        #endregion
+        #endregion SHA256加密
 
         #region SHA384加密
 
@@ -772,7 +774,7 @@ namespace Nigel.Helpers
             }
         }
 
-        #endregion
+        #endregion SHA384加密
 
         #region SHA512加密
 
@@ -805,7 +807,7 @@ namespace Nigel.Helpers
             }
         }
 
-        #endregion
+        #endregion SHA512加密
 
         #region Base64加密
 
@@ -853,6 +855,6 @@ namespace Nigel.Helpers
                 : encoding.GetString(Convert.FromBase64String(value));
         }
 
-        #endregion
+        #endregion Base64加密
     }
 }

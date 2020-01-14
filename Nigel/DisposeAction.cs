@@ -1,5 +1,5 @@
-﻿using System;
-using Nigel.Helpers;
+﻿using Nigel.Helpers;
+using System;
 
 namespace Nigel
 {

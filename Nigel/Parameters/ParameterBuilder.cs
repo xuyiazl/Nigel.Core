@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Nigel.Extensions;
+﻿using Nigel.Extensions;
 using Nigel.Helpers;
 using Nigel.Json;
 using Nigel.Parameters.Formats;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Nigel.Parameters
 {

@@ -1,4 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Http.Internal;
+using Microsoft.Extensions.DependencyInjection;
+using Nigel.Extensions;
+using Nigel.IO;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,13 +15,6 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using Nigel.Extensions;
-using Nigel.IO;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.AspNetCore.Http.Internal;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Nigel.Helpers
 {
@@ -32,7 +32,7 @@ namespace Nigel.Helpers
         /// </summary>
         public static IHttpContextAccessor HttpContextAccessor { get; set; }
 
-        #endregion
+        #endregion HttpContextAccessor(Http上下文访问器)
 
         #region HttpContext(当前Http上下文)
 
@@ -41,9 +41,10 @@ namespace Nigel.Helpers
         /// </summary>
         public static HttpContext HttpContext => HttpContextAccessor?.HttpContext;
 
-        #endregion
+        #endregion HttpContext(当前Http上下文)
 
         #region IServiceProvider(Http上下文中获取服务)
+
         /// <summary>
         /// Http上下文中获取服务
         /// </summary>
@@ -51,7 +52,7 @@ namespace Nigel.Helpers
         /// <returns></returns>
         public static T GetService<T>() => HttpContext.RequestServices.GetService<T>();
 
-        #endregion
+        #endregion IServiceProvider(Http上下文中获取服务)
 
         #region Environment(宿主环境)
 
@@ -60,7 +61,7 @@ namespace Nigel.Helpers
         /// </summary>
         public static IHostingEnvironment Environment { get; set; }
 
-        #endregion
+        #endregion Environment(宿主环境)
 
         #region Request(当前Http请求)
 
@@ -69,7 +70,7 @@ namespace Nigel.Helpers
         /// </summary>
         public static HttpRequest Request => HttpContext?.Request;
 
-        #endregion
+        #endregion Request(当前Http请求)
 
         #region Response(当前Http响应)
 
@@ -78,7 +79,7 @@ namespace Nigel.Helpers
         /// </summary>
         public static HttpResponse Response => HttpContext?.Response;
 
-        #endregion
+        #endregion Response(当前Http响应)
 
         #region LocalIpAddress(本地IP)
 
@@ -103,7 +104,7 @@ namespace Nigel.Helpers
             }
         }
 
-        #endregion
+        #endregion LocalIpAddress(本地IP)
 
         #region RequestType(请求类型)
 
@@ -112,7 +113,7 @@ namespace Nigel.Helpers
         /// </summary>
         public static string RequestType => HttpContext?.Request?.Method;
 
-        #endregion
+        #endregion RequestType(请求类型)
 
         #region Form(表单)
 
@@ -121,7 +122,7 @@ namespace Nigel.Helpers
         /// </summary>
         public static IFormCollection Form => HttpContext?.Request?.Form;
 
-        #endregion
+        #endregion Form(表单)
 
         #region Body(请求正文)
 
@@ -137,7 +138,7 @@ namespace Nigel.Helpers
             }
         }
 
-        #endregion
+        #endregion Body(请求正文)
 
         #region Url(请求地址)
 
@@ -146,7 +147,7 @@ namespace Nigel.Helpers
         /// </summary>
         public static string Url => HttpContext?.Request?.GetDisplayUrl();
 
-        #endregion
+        #endregion Url(请求地址)
 
         #region IP(客户端IP地址)
 
@@ -251,7 +252,7 @@ namespace Nigel.Helpers
             return string.Empty;
         }
 
-        #endregion
+        #endregion IP(客户端IP地址)
 
         #region Host(主机)
 
@@ -289,7 +290,7 @@ namespace Nigel.Helpers
                    HttpContext?.Request?.Headers["REMOTE_ADDR"];
         }
 
-        #endregion
+        #endregion Host(主机)
 
         #region Browser(浏览器)
 
@@ -298,7 +299,7 @@ namespace Nigel.Helpers
         /// </summary>
         public static string Browser => HttpContext?.Request?.Headers["User-Agent"];
 
-        #endregion
+        #endregion Browser(浏览器)
 
         #region RootPath(根路径)
 
@@ -307,7 +308,7 @@ namespace Nigel.Helpers
         /// </summary>
         public static string RootPath => Environment?.ContentRootPath;
 
-        #endregion
+        #endregion RootPath(根路径)
 
         #region WebRootPath(Web根路径)
 
@@ -316,7 +317,7 @@ namespace Nigel.Helpers
         /// </summary>
         public static string WebRootPath => Environment?.WebRootPath;
 
-        #endregion
+        #endregion WebRootPath(Web根路径)
 
         #region ContentType(内容类型)
 
@@ -325,7 +326,7 @@ namespace Nigel.Helpers
         /// </summary>
         public static string ContentType => HttpContext?.Request?.ContentType;
 
-        #endregion
+        #endregion ContentType(内容类型)
 
         #region QueryString(参数)
 
@@ -334,7 +335,7 @@ namespace Nigel.Helpers
         /// </summary>
         public static string QueryString => HttpContext?.Request?.QueryString.ToString();
 
-        #endregion
+        #endregion QueryString(参数)
 
         #region IsLocal(是否本地请求)
 
@@ -367,9 +368,9 @@ namespace Nigel.Helpers
         /// <param name="address">IP地址</param>
         private static bool IsSet(this IPAddress address) => address != null && address.ToString() != NullIpAddress;
 
-        #endregion
+        #endregion IsLocal(是否本地请求)
 
-        #endregion
+        #endregion 属性
 
         #region 构造函数
 
@@ -378,7 +379,7 @@ namespace Nigel.Helpers
         /// </summary>
         static Web() => ServicePointManager.DefaultConnectionLimit = 512;
 
-        #endregion
+        #endregion 构造函数
 
         #region Client(Web客户端)
 
@@ -393,7 +394,7 @@ namespace Nigel.Helpers
         /// <typeparam name="TResult">返回结果类型</typeparam>
         public static Nigel.Webs.Clients.WebClient<TResult> Client<TResult>() where TResult : class => new Nigel.Webs.Clients.WebClient<TResult>();
 
-        #endregion
+        #endregion Client(Web客户端)
 
         #region GetFiles(获取客户端文件集合)
 
@@ -410,7 +411,7 @@ namespace Nigel.Helpers
             return result;
         }
 
-        #endregion
+        #endregion GetFiles(获取客户端文件集合)
 
         #region GetFile(获取客户端文件)
 
@@ -423,7 +424,7 @@ namespace Nigel.Helpers
             return files.Count == 0 ? null : files[0];
         }
 
-        #endregion
+        #endregion GetFile(获取客户端文件)
 
         #region GetParam(获取请求参数)
 
@@ -451,7 +452,7 @@ namespace Nigel.Helpers
             return result;
         }
 
-        #endregion
+        #endregion GetParam(获取请求参数)
 
         #region UrlEncode(Url编码)
 
@@ -508,7 +509,7 @@ namespace Nigel.Helpers
             return result.ToString();
         }
 
-        #endregion
+        #endregion UrlEncode(Url编码)
 
         #region UrlDecode(Url解码)
 
@@ -525,7 +526,7 @@ namespace Nigel.Helpers
         /// <param name="encoding">字符编码</param>
         public static string UrlDecode(string url, Encoding encoding) => HttpUtility.UrlDecode(url, encoding);
 
-        #endregion
+        #endregion UrlDecode(Url解码)
 
         #region Redirect(跳转到指定链接)
 
@@ -535,7 +536,7 @@ namespace Nigel.Helpers
         /// <param name="url">链接</param>
         public static void Redirect(string url) => Response?.Redirect(url);
 
-        #endregion
+        #endregion Redirect(跳转到指定链接)
 
         #region Write(输出内容)
 
@@ -549,7 +550,7 @@ namespace Nigel.Helpers
             Task.Run(async () => { await Response.WriteAsync(text); }).GetAwaiter().GetResult();
         }
 
-        #endregion
+        #endregion Write(输出内容)
 
         #region Write(输出文件)
 
@@ -573,7 +574,7 @@ namespace Nigel.Helpers
             Response.Body.Close();
         }
 
-        #endregion
+        #endregion Write(输出文件)
 
         #region GetBodyAsync(获取请求正文)
 
@@ -586,7 +587,7 @@ namespace Nigel.Helpers
             return await FileHelper.ToStringAsync(Request.Body, isCloseStream: false);
         }
 
-        #endregion
+        #endregion GetBodyAsync(获取请求正文)
 
         #region DownloadAsync(下载)
 
@@ -649,6 +650,6 @@ namespace Nigel.Helpers
             await Response.Body.WriteAsync(bytes, 0, bytes.Length);
         }
 
-        #endregion
+        #endregion DownloadAsync(下载)
     }
 }

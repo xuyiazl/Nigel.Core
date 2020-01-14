@@ -7,9 +7,9 @@ namespace Nigel.Helpers.Internal
 {
     /// <summary>
     /// RSA加解密 使用OpenSSL的公钥加密/私钥解密
-    /// 
+    ///
     /// 公私钥请使用openssl生成  ssh-keygen -t rsa 命令生成的公钥私钥是不行的
-    /// 
+    ///
     /// 作者：李志强
     /// 时间：2017年10月30日15:50:14
     /// QQ:501232752
@@ -60,7 +60,7 @@ namespace Nigel.Helpers.Internal
             return System.Convert.ToBase64String(signatureBytes);
         }
 
-        #endregion
+        #endregion 使用私钥签名
 
         #region 使用公钥验证签名
 
@@ -80,7 +80,7 @@ namespace Nigel.Helpers.Internal
             return verify;
         }
 
-        #endregion
+        #endregion 使用公钥验证签名
 
         #region 解密
 
@@ -93,7 +93,7 @@ namespace Nigel.Helpers.Internal
             return Encoding.UTF8.GetString(_privateKeyRsaProvider.Decrypt(System.Convert.FromBase64String(cipherText), RSAEncryptionPadding.Pkcs1));
         }
 
-        #endregion
+        #endregion 解密
 
         #region 加密
 
@@ -106,7 +106,7 @@ namespace Nigel.Helpers.Internal
             return System.Convert.ToBase64String(_publicKeyRsaProvider.Encrypt(Encoding.UTF8.GetBytes(text), RSAEncryptionPadding.Pkcs1));
         }
 
-        #endregion
+        #endregion 加密
 
         #region 使用私钥创建RSA实例
 
@@ -151,7 +151,7 @@ namespace Nigel.Helpers.Internal
             return rsa;
         }
 
-        #endregion
+        #endregion 使用私钥创建RSA实例
 
         #region 使用公钥创建RSA实例
 
@@ -244,11 +244,10 @@ namespace Nigel.Helpers.Internal
 
                     return rsa;
                 }
-
             }
         }
 
-        #endregion
+        #endregion 使用公钥创建RSA实例
 
         #region 导入密钥算法
 
@@ -298,8 +297,7 @@ namespace Nigel.Helpers.Internal
             return true;
         }
 
-        #endregion
-
+        #endregion 导入密钥算法
     }
 
     /// <summary>
@@ -311,6 +309,7 @@ namespace Nigel.Helpers.Internal
         /// SHA1
         /// </summary>
         RSA = 0,
+
         /// <summary>
         /// RSA2 密钥长度至少为2048
         /// SHA256

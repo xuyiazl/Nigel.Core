@@ -24,7 +24,7 @@ namespace Nigel.Extensions
         /// <param name="value">值</param>
         public static string Description(this bool? value) => value == null ? "" : Description(value.Value);
 
-        #endregion
+        #endregion Description(获取布尔值描述)
 
         #region FormatInvariant(格式化字符串，不依赖区域性)
 
@@ -35,7 +35,7 @@ namespace Nigel.Extensions
         /// <param name="args">参数</param>
         public static string FormatInvariant(this string format, params object[] args) => string.Format(CultureInfo.InvariantCulture, format, args);
 
-        #endregion
+        #endregion FormatInvariant(格式化字符串，不依赖区域性)
 
         #region FormatCurrent(格式化字符串，依赖当前区域性)
 
@@ -47,7 +47,7 @@ namespace Nigel.Extensions
         public static string FormatCurrent(this string format, params object[] args) =>
             string.Format(CultureInfo.CurrentCulture, format, args);
 
-        #endregion
+        #endregion FormatCurrent(格式化字符串，依赖当前区域性)
 
         #region FormatCurrentUI(格式化字符串，依赖当前UI区域性)
 
@@ -60,7 +60,7 @@ namespace Nigel.Extensions
         public static string FormatCurrentUI(this string format, params object[] args) =>
             string.Format(CultureInfo.CurrentUICulture, format, args);
 
-        #endregion
+        #endregion FormatCurrentUI(格式化字符串，依赖当前UI区域性)
 
         #region FormatMessage(格式化异常消息)
 
@@ -106,6 +106,6 @@ namespace Nigel.Extensions
             return sb.ToString();
         }
 
-        #endregion
+        #endregion FormatMessage(格式化异常消息)
     }
 }

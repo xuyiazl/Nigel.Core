@@ -1,7 +1,7 @@
-﻿using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
 using Nigel.Json;
-using Microsoft.AspNetCore.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Nigel.Extensions.Http
 {
@@ -34,7 +34,7 @@ namespace Nigel.Extensions.Http
             await response.WriteAsync(json);
         }
 
-        #endregion
+        #endregion WriteJsonAsync(写入Json)
 
         #region SetCache(设置缓存头)
 
@@ -58,7 +58,7 @@ namespace Nigel.Extensions.Http
             }
         }
 
-        #endregion
+        #endregion SetCache(设置缓存头)
 
         #region SetNoCache(设置无缓存)
 
@@ -74,7 +74,7 @@ namespace Nigel.Extensions.Http
                 response.Headers.Add("Pragma", "no-cache");
         }
 
-        #endregion
+        #endregion SetNoCache(设置无缓存)
 
         #region WriteHtmlAsync(写入Html)
 
@@ -89,7 +89,6 @@ namespace Nigel.Extensions.Http
             await response.WriteAsync(html, Encoding.UTF8);
         }
 
-        #endregion
-
+        #endregion WriteHtmlAsync(写入Html)
     }
 }

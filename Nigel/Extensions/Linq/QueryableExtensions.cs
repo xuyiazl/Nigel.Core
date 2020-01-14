@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Nigel.Helpers;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
-using Nigel.Helpers;
 
 // ReSharper disable once CheckNamespace
 namespace Nigel.Extensions
@@ -30,7 +30,7 @@ namespace Nigel.Extensions
             return condition ? source.Where(predicate) : source;
         }
 
-        #endregion
+        #endregion WhereIf(是否执行指定条件的查询)
 
         #region PageBy(分页)
 
@@ -66,7 +66,6 @@ namespace Nigel.Extensions
             return (TQueryable)queryable.Skip(skipCount).Take(pageSize);
         }
 
-        #endregion
-
+        #endregion PageBy(分页)
     }
 }

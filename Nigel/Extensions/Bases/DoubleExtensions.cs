@@ -35,7 +35,7 @@ namespace Nigel.Extensions
             return value.InRange(minValue, maxValue) ? value : defaultValue;
         }
 
-        #endregion
+        #endregion InRange(判断值是否在指定范围内)
 
         #region Days(获取日期间隔)
 
@@ -49,7 +49,7 @@ namespace Nigel.Extensions
             return TimeSpan.FromDays(days);
         }
 
-        #endregion
+        #endregion Days(获取日期间隔)
 
         #region Hours(获取小时间隔)
 
@@ -63,7 +63,7 @@ namespace Nigel.Extensions
             return TimeSpan.FromHours(hours);
         }
 
-        #endregion
+        #endregion Hours(获取小时间隔)
 
         #region Minutes(获取分钟间隔)
 
@@ -77,7 +77,7 @@ namespace Nigel.Extensions
             return TimeSpan.FromMinutes(minutes);
         }
 
-        #endregion
+        #endregion Minutes(获取分钟间隔)
 
         #region Seconds(获取秒间隔)
 
@@ -91,7 +91,7 @@ namespace Nigel.Extensions
             return TimeSpan.FromSeconds(seconds);
         }
 
-        #endregion
+        #endregion Seconds(获取秒间隔)
 
         #region Milliseconds(获取毫秒间隔)
 
@@ -105,6 +105,6 @@ namespace Nigel.Extensions
             return TimeSpan.FromMilliseconds(milliseconds);
         }
 
-        #endregion
+        #endregion Milliseconds(获取毫秒间隔)
     }
 }

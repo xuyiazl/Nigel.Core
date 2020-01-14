@@ -3,7 +3,7 @@
     /// <summary>
     /// 签名密钥
     /// </summary>
-    public class SignKey:ISignKey
+    public class SignKey : ISignKey
     {
         /// <summary>
         /// 私钥

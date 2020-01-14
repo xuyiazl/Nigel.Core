@@ -2,17 +2,15 @@
 {
     /********************************************************************
     *           Copyright:       2009-2011
-    *           Company:         
+    *           Company:
     *           CRL Version :    4.0.30319.239
     *           Created by 徐毅 at 2011/11/29 12:41:51
     *                   mailto:3624091@qq.com
-    *                         
+    *
     ********************************************************************/
 
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     public class ListMapping<T1, T2> : IDictionary<T1, List<T2>>
     {
@@ -26,7 +24,7 @@
             Items = new Dictionary<T1, List<T2>>();
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Private Variables
 
@@ -35,7 +33,7 @@
         /// </summary>
         protected virtual Dictionary<T1, List<T2>> Items { get; set; }
 
-        #endregion
+        #endregion Private Variables
 
         #region Public Functions
 
@@ -80,7 +78,7 @@
             Items[Key].AddRange(Value);
         }
 
-        #endregion
+        #endregion Add
 
         #region ContainsKey
 
@@ -94,7 +92,7 @@
             return Items.ContainsKey(key);
         }
 
-        #endregion
+        #endregion ContainsKey
 
         #region Remove
 
@@ -140,7 +138,7 @@
             return true;
         }
 
-        #endregion
+        #endregion Remove
 
         #region Clear
 
@@ -152,7 +150,7 @@
             Items.Clear();
         }
 
-        #endregion
+        #endregion Clear
 
         #region TryGetValue
 
@@ -173,7 +171,7 @@
             return false;
         }
 
-        #endregion
+        #endregion TryGetValue
 
         #region Contains
 
@@ -222,7 +220,7 @@
             return true;
         }
 
-        #endregion
+        #endregion Contains
 
         #region CopyTo
 
@@ -236,7 +234,7 @@
             throw new NotImplementedException();
         }
 
-        #endregion
+        #endregion CopyTo
 
         #region GetEnumerator
 
@@ -260,9 +258,9 @@
                 yield return this[Key];
         }
 
-        #endregion
+        #endregion GetEnumerator
 
-        #endregion
+        #endregion Public Functions
 
         #region Properties
 
@@ -318,6 +316,6 @@
             get { return false; }
         }
 
-        #endregion
+        #endregion Properties
     }
 }

@@ -1,6 +1,6 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using System;
 
 namespace Nigel.Core.Jwt
 {

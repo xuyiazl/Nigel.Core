@@ -1,11 +1,8 @@
-﻿
-using System;
+﻿using Microsoft.AspNetCore.Mvc.Filters;
 using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Nigel.Core.Filters
 {
-
     /// <summary>
     /// API查询时间
     /// </summary>

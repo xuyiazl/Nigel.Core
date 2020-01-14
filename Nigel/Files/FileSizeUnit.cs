@@ -1,5 +1,5 @@
-﻿using System.ComponentModel;
-using Nigel.Extensions;
+﻿using Nigel.Extensions;
+using System.ComponentModel;
 
 namespace Nigel.Files
 {
@@ -13,16 +13,19 @@ namespace Nigel.Files
         /// </summary>
         [Description("B")]
         Byte,
+
         /// <summary>
         /// K字节
         /// </summary>
         [Description("KB")]
         K,
+
         /// <summary>
         /// M字节
         /// </summary>
         [Description("MB")]
         M,
+
         /// <summary>
         /// G字节
         /// </summary>

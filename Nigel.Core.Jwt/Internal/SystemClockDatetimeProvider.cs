@@ -1,6 +1,5 @@
-﻿using System;
-using Microsoft.AspNetCore.Authentication;
-using Nigel.Core.Jwt;
+﻿using Microsoft.AspNetCore.Authentication;
+using System;
 
 namespace Nigel.Core.Jwt.Internal
 {

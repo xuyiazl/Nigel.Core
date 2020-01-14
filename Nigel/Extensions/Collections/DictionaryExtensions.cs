@@ -30,7 +30,7 @@ namespace Nigel.Extensions
             return dictionary.TryGetValue(key, out var obj) ? obj : defaultValue;
         }
 
-        #endregion
+        #endregion GetOrDefault(获取指定Key对应的Value，若未找到则返回默认值)
 
         #region AddRange(批量添加键值对到字典)
 
@@ -61,7 +61,7 @@ namespace Nigel.Extensions
             return dict;
         }
 
-        #endregion
+        #endregion AddRange(批量添加键值对到字典)
 
         #region GetOrAdd(获取指定键的值，不存在则按指定委托添加值)
 
@@ -105,7 +105,7 @@ namespace Nigel.Extensions
             return dictionary[key] = addFunc();
         }
 
-        #endregion
+        #endregion GetOrAdd(获取指定键的值，不存在则按指定委托添加值)
 
         #region Sort(字段排序)
 
@@ -161,7 +161,7 @@ namespace Nigel.Extensions
                 .ToDictionary(x => x.Key, x => x.Value);
         }
 
-        #endregion
+        #endregion Sort(字段排序)
 
         #region ToQueryString(将字典转换成查询字符串)
 
@@ -189,7 +189,7 @@ namespace Nigel.Extensions
             return sb.ToString();
         }
 
-        #endregion
+        #endregion ToQueryString(将字典转换成查询字符串)
 
         #region GetKey(根据Value反向查找Key)
 
@@ -203,7 +203,7 @@ namespace Nigel.Extensions
         /// <returns></returns>
         public static TKey GetKey<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TValue value)
         {
-            foreach (var item in dictionary.Where(x=>x.Value.Equals(value)))
+            foreach (var item in dictionary.Where(x => x.Value.Equals(value)))
             {
                 return item.Key;
             }
@@ -211,7 +211,7 @@ namespace Nigel.Extensions
             return default(TKey);
         }
 
-        #endregion
+        #endregion GetKey(根据Value反向查找Key)
 
         #region TryAdd(尝试添加键值对到字典)
 
@@ -229,13 +229,13 @@ namespace Nigel.Extensions
         {
             if (!dictionary.ContainsKey(key))
             {
-                dictionary.Add(key,value);
+                dictionary.Add(key, value);
             }
 
             return dictionary;
         }
 
-        #endregion
+        #endregion TryAdd(尝试添加键值对到字典)
 
         #region ToHashTable(将字典转换成哈希表)
 
@@ -248,16 +248,16 @@ namespace Nigel.Extensions
         /// <returns></returns>
         public static Hashtable ToHashTable<TKey, TValue>(this IDictionary<TKey, TValue> dictionary)
         {
-            var table=new Hashtable();
+            var table = new Hashtable();
             foreach (var item in dictionary)
             {
-                table.Add(item.Key,item.Value);
+                table.Add(item.Key, item.Value);
             }
 
             return table;
         }
 
-        #endregion
+        #endregion ToHashTable(将字典转换成哈希表)
 
         #region Invert(字典颠倒)
 
@@ -278,7 +278,7 @@ namespace Nigel.Extensions
             return dictionary.ToDictionary(x => x.Value, x => x.Key);
         }
 
-        #endregion
+        #endregion Invert(字典颠倒)
 
         #region AsReadOnly(转换成只读字典)
 
@@ -295,7 +295,7 @@ namespace Nigel.Extensions
             return new ReadOnlyDictionary<TKey, TValue>(dictionary);
         }
 
-        #endregion
+        #endregion AsReadOnly(转换成只读字典)
 
         #region EqualsTo(判断两个字典中的元素是否相等)
 
@@ -331,6 +331,6 @@ namespace Nigel.Extensions
             return false;
         }
 
-        #endregion
+        #endregion EqualsTo(判断两个字典中的元素是否相等)
     }
 }

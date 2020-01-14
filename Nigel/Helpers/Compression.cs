@@ -33,7 +33,7 @@ namespace Nigel.Helpers
             }
         }
 
-        #endregion
+        #endregion Compress(对byte[]数组进行压缩)
 
         #region Decompress(对byte[]数组进行解压)
 
@@ -58,7 +58,7 @@ namespace Nigel.Helpers
             }
         }
 
-        #endregion
+        #endregion Decompress(对byte[]数组进行解压)
 
         #region Compress(对字符串进行压缩)
 
@@ -75,7 +75,7 @@ namespace Nigel.Helpers
             return Convert.ToBase64String(bytes);
         }
 
-        #endregion
+        #endregion Compress(对字符串进行压缩)
 
         #region Decompress(对字符串进行解压)
 
@@ -92,7 +92,7 @@ namespace Nigel.Helpers
             return Encoding.UTF8.GetString(bytes);
         }
 
-        #endregion
+        #endregion Decompress(对字符串进行解压)
 
         #region Zip(将文件夹压缩成zip文件)
 
@@ -103,7 +103,7 @@ namespace Nigel.Helpers
         /// <param name="zipFile">压缩文件存放路径</param>
         public static void Zip(string sourceDir, string zipFile) => ZipFile.CreateFromDirectory(sourceDir, zipFile);
 
-        #endregion
+        #endregion Zip(将文件夹压缩成zip文件)
 
         #region UnZip(将zip文件解压到指定文件夹)
 
@@ -114,7 +114,6 @@ namespace Nigel.Helpers
         /// <param name="targetDir">目标解压目录</param>
         public static void UnZip(string zipFile, string targetDir) => ZipFile.ExtractToDirectory(zipFile, targetDir);
 
-        #endregion
-
+        #endregion UnZip(将zip文件解压到指定文件夹)
     }
 }

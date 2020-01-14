@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
-using Nigel.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Extensions.DependencyInjection;
-using Nigel.Extensions;
 using Nigel.Core.Extensions;
 using Nigel.Core.Properties;
+using Nigel.Extensions;
+using Nigel.Helpers;
+using System;
 
 namespace Nigel.Core.Filters
 {

@@ -7,7 +7,7 @@ namespace Nigel.Tests.Helpers
     /// <summary>
     /// 字符串操作测试
     /// </summary>
-    public class StrTest:TestBase
+    public class StrTest : TestBase
     {
         public StrTest(ITestOutputHelper output) : base(output)
         {

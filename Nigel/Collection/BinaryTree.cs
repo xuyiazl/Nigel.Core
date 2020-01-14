@@ -2,16 +2,15 @@
 {
     /********************************************************************
     *           Copyright:       2009-2011
-    *           Company:         
+    *           Company:
     *           CRL Version :    4.0.30319.239
     *           Created by 徐毅 at 2011/11/29 12:51:24
     *                   mailto:3624091@qq.com
-    *                         
+    *
     ********************************************************************/
 
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Text;
 
     /// <summary>
@@ -271,7 +270,7 @@
 
         public override string ToString()
         {
-            StringBuilder Builder=new StringBuilder();
+            StringBuilder Builder = new StringBuilder();
             foreach (T Value in this)
                 Builder.Append(Value.ToString() + " ");
             return Builder.ToString();

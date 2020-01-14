@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Nigel.Extensions;
+using System;
 using System.Data;
 using System.IO;
 using System.Xml;
-using Nigel.Extensions;
 
 namespace Nigel.Helpers
 {
@@ -23,7 +23,7 @@ namespace Nigel.Helpers
         /// </summary>
         public XmlElement Root { get; }
 
-        #endregion
+        #endregion 属性
 
         #region 构造函数
 
@@ -59,7 +59,7 @@ namespace Nigel.Helpers
         /// <param name="xml">Xml字符串</param>
         private string GetXml(string xml) => string.IsNullOrWhiteSpace(xml) ? "<xml></xml>" : xml;
 
-        #endregion
+        #endregion 构造函数
 
         #region AddNode(添加节点)
 
@@ -96,7 +96,7 @@ namespace Nigel.Helpers
             return node;
         }
 
-        #endregion
+        #endregion AddNode(添加节点)
 
         #region AddCDataNode(添加CDATA节点)
 
@@ -124,7 +124,7 @@ namespace Nigel.Helpers
             return AddCDataNode(value, parent);
         }
 
-        #endregion
+        #endregion AddCDataNode(添加CDATA节点)
 
         #region UpdateNode(更新节点)
 
@@ -135,13 +135,13 @@ namespace Nigel.Helpers
         /// <param name="content">内容</param>
         public void UpdateNode(string xmlPathNode, string content)
         {
-            var node= Root.SelectSingleNode(xmlPathNode);
+            var node = Root.SelectSingleNode(xmlPathNode);
             if (node == null)
                 return;
             node.InnerText = content;
         }
 
-        #endregion
+        #endregion UpdateNode(更新节点)
 
         #region DeleteNode(删除节点)
 
@@ -158,7 +158,7 @@ namespace Nigel.Helpers
             Root.SelectSingleNode(mainNode)?.RemoveChild(currentNode);
         }
 
-        #endregion
+        #endregion DeleteNode(删除节点)
 
         #region SelectNodes(选择节点列表)
 
@@ -168,7 +168,7 @@ namespace Nigel.Helpers
         /// <param name="xpath">XPath表达式</param>
         public XmlNodeList SelectNodes(string xpath) => Root.SelectNodes(xpath);
 
-        #endregion
+        #endregion SelectNodes(选择节点列表)
 
         #region GetDataView(获取数据视图)
 
@@ -191,7 +191,7 @@ namespace Nigel.Helpers
             }
         }
 
-        #endregion
+        #endregion GetDataView(获取数据视图)
 
         #region GetAllDataView(获取所有数据视图)
 
@@ -217,7 +217,7 @@ namespace Nigel.Helpers
             }
         }
 
-        #endregion
+        #endregion GetAllDataView(获取所有数据视图)
 
         #region ToString(输出Xml)
 
@@ -226,7 +226,6 @@ namespace Nigel.Helpers
         /// </summary>
         public override string ToString() => Document.OuterXml;
 
-        #endregion
-
+        #endregion ToString(输出Xml)
     }
 }

@@ -7,7 +7,7 @@ namespace Nigel.Signatures
     /// <summary>
     /// 签名管理器
     /// </summary>
-    public class SignManager:ISignManager
+    public class SignManager : ISignManager
     {
         /// <summary>
         /// 签名密钥

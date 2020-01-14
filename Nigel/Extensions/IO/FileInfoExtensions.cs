@@ -37,7 +37,7 @@ namespace Nigel.Extensions
             return file1.Read().Equals(file2.Read());
         }
 
-        #endregion
+        #endregion CompareTo(比较文件)
 
         #region Read(读取文件并转换为字符串)
 
@@ -52,19 +52,19 @@ namespace Nigel.Extensions
             {
                 throw new ArgumentNullException(nameof(file));
             }
-            
+
             if (file.Exists == false)
             {
                 return string.Empty;
             }
-            
+
             using (var reader = file.OpenText())
             {
                 return reader.ReadToEnd();
             }
         }
 
-        #endregion
+        #endregion Read(读取文件并转换为字符串)
 
         #region ReadBinary(读取文件并转换为二进制数组)
 
@@ -91,6 +91,6 @@ namespace Nigel.Extensions
             }
         }
 
-        #endregion
+        #endregion ReadBinary(读取文件并转换为二进制数组)
     }
 }

@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Nigel.Extensions;
+using Nigel.Json;
+using Nigel.Webs.Clients.Internal;
+using Nigel.Webs.Clients.Parameters;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -9,10 +13,6 @@ using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using Nigel.Extensions;
-using Nigel.Json;
-using Nigel.Webs.Clients.Internal;
-using Nigel.Webs.Clients.Parameters;
 
 namespace Nigel.Webs.Clients
 {
@@ -95,7 +95,7 @@ namespace Nigel.Webs.Clients
         /// </summary>
         private readonly IList<IFileParameter> _files;
 
-        #endregion
+        #endregion 字段
 
         #region 构造函数
 
@@ -127,7 +127,7 @@ namespace Nigel.Webs.Clients
         /// </summary>
         private TRequest This() => (TRequest)(object)this;
 
-        #endregion
+        #endregion 构造函数
 
         #region Encoding(设置字符编码)
 
@@ -147,7 +147,7 @@ namespace Nigel.Webs.Clients
         /// <param name="encoding">字符编码</param>
         public TRequest Encoding(string encoding) => Encoding(System.Text.Encoding.GetEncoding(encoding));
 
-        #endregion
+        #endregion Encoding(设置字符编码)
 
         #region ContentType(设置内容类型)
 
@@ -167,7 +167,7 @@ namespace Nigel.Webs.Clients
             return This();
         }
 
-        #endregion
+        #endregion ContentType(设置内容类型)
 
         #region Cookie(设置Cookie)
 
@@ -209,7 +209,7 @@ namespace Nigel.Webs.Clients
             return This();
         }
 
-        #endregion
+        #endregion Cookie(设置Cookie)
 
         #region Timeout(设置超时时间)
 
@@ -229,7 +229,7 @@ namespace Nigel.Webs.Clients
             return This();
         }
 
-        #endregion
+        #endregion Timeout(设置超时时间)
 
         #region Header(设置请求头)
 
@@ -245,7 +245,7 @@ namespace Nigel.Webs.Clients
             return This();
         }
 
-        #endregion
+        #endregion Header(设置请求头)
 
         #region Data(添加参数)
 
@@ -318,7 +318,7 @@ namespace Nigel.Webs.Clients
             return This();
         }
 
-        #endregion
+        #endregion Data(添加参数)
 
         #region OnFail(请求失败回调函数)
 
@@ -342,7 +342,7 @@ namespace Nigel.Webs.Clients
             return This();
         }
 
-        #endregion
+        #endregion OnFail(请求失败回调函数)
 
         #region IgnoreSsl(忽略Ssl)
 
@@ -355,7 +355,7 @@ namespace Nigel.Webs.Clients
             return This();
         }
 
-        #endregion
+        #endregion IgnoreSsl(忽略Ssl)
 
         #region BearerToken(设置Bearer令牌)
 
@@ -369,7 +369,7 @@ namespace Nigel.Webs.Clients
             return This();
         }
 
-        #endregion
+        #endregion BearerToken(设置Bearer令牌)
 
         #region ResultAsync(获取结果)
 
@@ -385,7 +385,7 @@ namespace Nigel.Webs.Clients
             return result;
         }
 
-        #endregion
+        #endregion ResultAsync(获取结果)
 
         #region SendBefore(发送前操作)
 
@@ -396,7 +396,7 @@ namespace Nigel.Webs.Clients
         {
         }
 
-        #endregion
+        #endregion SendBefore(发送前操作)
 
         #region SendAsync(发送请求)
 
@@ -462,10 +462,13 @@ namespace Nigel.Webs.Clients
             {
                 case "application/x-www-form-urlencoded":
                     return new FormUrlEncodedContent(_params.ToDictionary(t => t.Key, t => t.Value.SafeString()));
+
                 case "application/json":
                     return CreateJsonContent();
+
                 case "text/xml":
                     return CreateXmlContent();
+
                 case "multipart/form-data":
                     return CreateMultipartFormDataContent();
             }
@@ -501,7 +504,7 @@ namespace Nigel.Webs.Clients
             return content;
         }
 
-        #endregion
+        #endregion SendAsync(发送请求)
 
         #region SendAfter(发送后操作)
 
@@ -554,6 +557,6 @@ namespace Nigel.Webs.Clients
             _failStatusCodeAction?.Invoke(result, statusCode);
         }
 
-        #endregion
+        #endregion SendAfter(发送后操作)
     }
 }

@@ -1,5 +1,5 @@
-﻿using System;
-using Nigel.Timing;
+﻿using Nigel.Timing;
+using System;
 
 // ReSharper disable once CheckNamespace
 namespace Nigel.Extensions
@@ -23,6 +23,7 @@ namespace Nigel.Extensions
                 action();
             }
         }
+
         /// <summary>
         /// 执行n次指定操作，基于底层long值
         /// </summary>
@@ -36,7 +37,7 @@ namespace Nigel.Extensions
             }
         }
 
-        #endregion
+        #endregion Times(执行n次指定操作)
 
         #region IsEven(是否偶数)
 
@@ -50,7 +51,7 @@ namespace Nigel.Extensions
             return value % 2 == 0;
         }
 
-        #endregion
+        #endregion IsEven(是否偶数)
 
         #region IsOdd(是否奇数)
 
@@ -64,7 +65,7 @@ namespace Nigel.Extensions
             return value % 2 != 0;
         }
 
-        #endregion
+        #endregion IsOdd(是否奇数)
 
         #region InRange(判断值是否在指定范围内)
 
@@ -93,7 +94,7 @@ namespace Nigel.Extensions
             return value.InRange(minValue, maxValue) ? value : defaultValue;
         }
 
-        #endregion
+        #endregion InRange(判断值是否在指定范围内)
 
         #region IsPrime(是否质数)
 
@@ -122,7 +123,7 @@ namespace Nigel.Extensions
             return value != 1;
         }
 
-        #endregion
+        #endregion IsPrime(是否质数)
 
         #region ToOrdinal(数值转换为顺序序号)
 
@@ -140,15 +141,18 @@ namespace Nigel.Extensions
                 case 12:
                 case 13:
                     break;
+
                 default:
                     switch (i % 10)
                     {
                         case 1:
                             suffix = "st";
                             break;
+
                         case 2:
                             suffix = "nd";
                             break;
+
                         case 3:
                             suffix = "rd";
                             break;
@@ -169,10 +173,10 @@ namespace Nigel.Extensions
             return string.Format(format, i.ToOrdinal());
         }
 
-        #endregion
+        #endregion ToOrdinal(数值转换为顺序序号)
 
         #region Days(获取日期间隔)
-        
+
         /// <summary>
         /// 获取日期间隔，根据数值获取时间间隔
         /// </summary>
@@ -183,7 +187,7 @@ namespace Nigel.Extensions
             return TimeSpan.FromDays(days);
         }
 
-        #endregion
+        #endregion Days(获取日期间隔)
 
         #region Hours(获取小时间隔)
 
@@ -197,10 +201,10 @@ namespace Nigel.Extensions
             return TimeSpan.FromHours(hours);
         }
 
-        #endregion
+        #endregion Hours(获取小时间隔)
 
         #region Minutes(获取分钟间隔)
-        
+
         /// <summary>
         /// 获取分钟间隔，根据数值获取时间间隔
         /// </summary>
@@ -211,7 +215,7 @@ namespace Nigel.Extensions
             return TimeSpan.FromMinutes(minutes);
         }
 
-        #endregion
+        #endregion Minutes(获取分钟间隔)
 
         #region Seconds(获取秒间隔)
 
@@ -225,7 +229,7 @@ namespace Nigel.Extensions
             return TimeSpan.FromSeconds(seconds);
         }
 
-        #endregion
+        #endregion Seconds(获取秒间隔)
 
         #region Milliseconds(获取毫秒间隔)
 
@@ -239,7 +243,7 @@ namespace Nigel.Extensions
             return TimeSpan.FromMilliseconds(milliseconds);
         }
 
-        #endregion
+        #endregion Milliseconds(获取毫秒间隔)
 
         #region Ticks(获取刻度间隔)
 
@@ -253,7 +257,7 @@ namespace Nigel.Extensions
             return TimeSpan.FromTicks(ticks);
         }
 
-        #endregion
+        #endregion Ticks(获取刻度间隔)
 
         #region ToDateTime(将给定Unix时间戳转换为DateTime时间)
 
@@ -268,6 +272,6 @@ namespace Nigel.Extensions
             return DateTimeExtensions.Date1970.AddTicks(value);
         }
 
-        #endregion
+        #endregion ToDateTime(将给定Unix时间戳转换为DateTime时间)
     }
 }

@@ -27,7 +27,7 @@ namespace Nigel.Extensions
             return xdoc.Root;
         }
 
-        #endregion
+        #endregion ToXElement(将XmlNode转换为XElement)
 
         #region ToXmlNode(将XElement转换为XmlNode)
 
@@ -46,7 +46,6 @@ namespace Nigel.Extensions
             }
         }
 
-        #endregion
-
+        #endregion ToXmlNode(将XElement转换为XmlNode)
     }
 }

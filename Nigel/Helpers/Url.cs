@@ -22,7 +22,7 @@ namespace Nigel.Helpers
             return Path.Combine(urls).Replace(@"\", "/");
         }
 
-        #endregion
+        #endregion Combine(合并Url)
 
         #region Join(连接Url)
 
@@ -112,7 +112,7 @@ namespace Nigel.Helpers
             return new Uri(Join(url.AbsoluteUri, parameters));
         }
 
-        #endregion
+        #endregion Join(连接Url)
 
         #region GetMainDomain(获取主域名)
 
@@ -140,10 +140,6 @@ namespace Nigel.Helpers
             return tok[0] + "." + tok[1];
         }
 
-        #endregion
-
-
-
-
+        #endregion GetMainDomain(获取主域名)
     }
 }

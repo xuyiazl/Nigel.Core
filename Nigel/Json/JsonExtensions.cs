@@ -31,7 +31,7 @@ namespace Nigel.Json
             return JsonHelper.ToObject(json);
         }
 
-        #endregion
+        #endregion ToObject(将Json字符串转换为对象)
 
         #region ToJson(将对象转换为Json字符串)
 
@@ -49,7 +49,7 @@ namespace Nigel.Json
             return JsonHelper.ToJson(target, isConvertToSingleQuotes, camelCase, indented);
         }
 
-        #endregion
+        #endregion ToJson(将对象转换为Json字符串)
 
         #region ToJObject(将Json字符串转换为Linq对象)
 
@@ -63,7 +63,7 @@ namespace Nigel.Json
             return JsonHelper.ToJObject(json);
         }
 
-        #endregion
+        #endregion ToJObject(将Json字符串转换为Linq对象)
 
         #region IsJson(判断字符串是否为Json格式)
 
@@ -76,7 +76,7 @@ namespace Nigel.Json
             return JsonHelper.IsJson(json);
         }
 
-        #endregion
+        #endregion IsJson(判断字符串是否为Json格式)
 
         #region ToJson and ToObject (将Json字符串集合转换成Json对象集合)
 
@@ -122,6 +122,6 @@ namespace Nigel.Json
             return JsonHelper.ToJson(list);
         }
 
-        #endregion
+        #endregion ToJson and ToObject (将Json字符串集合转换成Json对象集合)
     }
 }

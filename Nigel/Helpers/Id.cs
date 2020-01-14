@@ -1,6 +1,6 @@
-﻿using System;
-using Nigel.IdGenerators.Abstractions;
+﻿using Nigel.IdGenerators.Abstractions;
 using Nigel.IdGenerators.Core;
+using System;
 
 namespace Nigel.Helpers
 {

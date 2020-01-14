@@ -3,14 +3,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Nigel.Core.Middlewares
 {
-
     /// <summary>
     /// 真实IP中间件
     /// </summary>

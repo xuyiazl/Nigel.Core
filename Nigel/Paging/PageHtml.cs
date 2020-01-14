@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Nigel.Paging
 {
@@ -20,6 +18,7 @@ namespace Nigel.Paging
         {
             return Build(pageNumber, totalPages, 7, "current", string.Empty, true, PagerLanguage.Default, urlBuilder);
         }
+
         /// <summary>
         /// web 分页HTML
         /// </summary>
@@ -32,6 +31,7 @@ namespace Nigel.Paging
         {
             return Build(pageNumber, totalPages, 7, "current", string.Empty, showFirstAndLastPage, PagerLanguage.Default, urlBuilder);
         }
+
         /// <summary>
         /// web 分页HTML
         /// </summary>
@@ -46,6 +46,7 @@ namespace Nigel.Paging
         {
             return Build(pageNumber, totalPages, numberPagesToDisplay, "current", string.Empty, showFirstAndLastPage, language, urlBuilder);
         }
+
         /// <summary>
         /// web 分页HTML
         /// </summary>

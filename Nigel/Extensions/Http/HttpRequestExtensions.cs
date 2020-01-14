@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Http;
 
 // ReSharper disable once CheckNamespace
 namespace Nigel.Extensions
@@ -27,7 +27,7 @@ namespace Nigel.Extensions
             .Append(request.QueryString)
             .ToString();
 
-        #endregion
+        #endregion GetAbsoluteUri(获取Http请求的绝对路径)
 
         #region Query(获取查询参数)
 
@@ -54,7 +54,7 @@ namespace Nigel.Extensions
             }
         }
 
-        #endregion
+        #endregion Query(获取查询参数)
 
         #region Form(获取表单参数)
 
@@ -81,7 +81,7 @@ namespace Nigel.Extensions
             }
         }
 
-        #endregion
+        #endregion Form(获取表单参数)
 
         #region Params(获取参数)
 
@@ -105,7 +105,7 @@ namespace Nigel.Extensions
             return null;
         }
 
-        #endregion
+        #endregion Params(获取参数)
 
         #region IsAjaxRequest(是否Ajax请求)
 
@@ -121,7 +121,7 @@ namespace Nigel.Extensions
             return flag.HasValue && flag.Value;
         }
 
-        #endregion
+        #endregion IsAjaxRequest(是否Ajax请求)
 
         #region IsJsonContentType(是否Json内容类型)
 
@@ -146,7 +146,7 @@ namespace Nigel.Extensions
             return flag;
         }
 
-        #endregion
+        #endregion IsJsonContentType(是否Json内容类型)
 
         #region IsMobileBrowser(是否移动端浏览器)
 
@@ -174,7 +174,7 @@ namespace Nigel.Extensions
             return BrowserRegex.IsMatch(userAgent) || VersionRegex.IsMatch(userAgent.Substring(0, 4));
         }
 
-        #endregion
+        #endregion IsMobileBrowser(是否移动端浏览器)
 
         #region UserAgent(用户代理)
 
@@ -184,6 +184,6 @@ namespace Nigel.Extensions
         /// <param name="request">Http请求</param>
         public static string UserAgent(this HttpRequest request) => request.Headers["User-Agent"];
 
-        #endregion
+        #endregion UserAgent(用户代理)
     }
 }

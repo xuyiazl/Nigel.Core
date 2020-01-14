@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Nigel.Data.Collection.Paged
 {
-
     [Serializable]
     public class PagedSkipModel<T>
     {

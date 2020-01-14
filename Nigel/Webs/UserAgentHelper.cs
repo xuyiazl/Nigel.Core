@@ -27,7 +27,7 @@ namespace Nigel.Webs
             {"FreeBSD","FreeBSD" },
         };
 
-        public static IDictionary<string,string> BrowserDict { get; set; }=new Dictionary<string, string>()
+        public static IDictionary<string, string> BrowserDict { get; set; } = new Dictionary<string, string>()
         {
             {"Maxthon","遨游浏览器" },
             {"MetaSr","搜狗高速浏览器" },
@@ -62,7 +62,7 @@ namespace Nigel.Webs
             return "Other OperationSystem";
         }
 
-        #endregion
+        #endregion GetOperatingSystemName(根据 UserAgent 获取操作系统名称)
 
         #region GetBrowserName(根据 UserAgent 获取浏览器名称)
 
@@ -80,7 +80,7 @@ namespace Nigel.Webs
             return "Other Browser";
         }
 
-        #endregion
+        #endregion GetBrowserName(根据 UserAgent 获取浏览器名称)
 
         #region IsWechatBrowser(是否微信浏览器)
 
@@ -90,7 +90,7 @@ namespace Nigel.Webs
         /// <param name="userAgent">UA</param>
         public static bool IsWechatBrowser(string userAgent) => userAgent.Contains("MicroMessenger");
 
-        #endregion
+        #endregion IsWechatBrowser(是否微信浏览器)
     }
 
     /// <summary>

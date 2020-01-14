@@ -1,6 +1,6 @@
-﻿using System.Text;
-using Nigel.Extensions;
+﻿using Nigel.Extensions;
 using Nigel.Helpers;
+using System.Text;
 using Xunit;
 using Xunit.Abstractions;
 

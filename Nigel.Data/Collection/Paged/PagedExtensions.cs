@@ -1,7 +1,5 @@
 ﻿using Nigel.Extensions;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Nigel.Data.Collection.Paged
 {
@@ -19,6 +17,7 @@ namespace Nigel.Data.Collection.Paged
         {
             return new PagedModel<TResult>(pagedList.ForEach(converter), pagedList.TotalRecords, pagedList.TotalPages, pagedList.PageNumber, pagedList.PageSize);
         }
+
         /// <summary>
         /// 模型转换
         /// </summary>
@@ -31,6 +30,7 @@ namespace Nigel.Data.Collection.Paged
         {
             return new PagedModel<TResult>(pagedList.ForEach(converter), pagedList.TotalRecords, pagedList.TotalPages, pagedList.PageNumber, pagedList.PageSize);
         }
+
         /// <summary>
         /// 模型转换
         /// </summary>
@@ -43,6 +43,7 @@ namespace Nigel.Data.Collection.Paged
         {
             return new PagedSkipModel<TResult>(pagedList.ForEach(converter), pagedList.Limit, pagedList.Offset, pagedList.TotalRecords);
         }
+
         /// <summary>
         /// 模型转换
         /// </summary>

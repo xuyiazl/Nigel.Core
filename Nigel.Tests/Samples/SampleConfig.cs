@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Nigel.Tests.Samples
+﻿namespace Nigel.Tests.Samples
 {
     public class SampleConfig
     {

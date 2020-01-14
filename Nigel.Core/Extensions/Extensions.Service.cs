@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Nigel.Core.HttpFactory;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Nigel.Core.Razors;
-using System.Net.Http;
-using System.Net;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.AspNetCore.Http;
-using Nigel.Extensions;
+using Nigel.Core.HttpFactory;
+using Nigel.Core.Razors;
 using Nigel.Core.Uploads;
+using Nigel.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
 
 namespace Nigel.Core.Extensions
 {
-
     /// <summary>
     /// 服务扩展
     /// </summary>
@@ -54,8 +52,7 @@ namespace Nigel.Core.Extensions
 
         #region 注册HttpFactory
 
-
-        static HttpClientHandler CreateClientHandler()
+        private static HttpClientHandler CreateClientHandler()
         {
             var handler = new HttpClientHandler();
             handler.AllowAutoRedirect = false;
@@ -161,6 +158,7 @@ namespace Nigel.Core.Extensions
 
             return services;
         }
+
         /// <summary>
         /// 注册 HTTPFactory Srevice
         /// </summary>
@@ -200,7 +198,7 @@ namespace Nigel.Core.Extensions
         /// <param name="services"></param>
         /// <param name="serviceLifetime"></param>
         /// <returns></returns>
-        static IServiceCollection AddHttpService<TImplementation>(this IServiceCollection services,
+        private static IServiceCollection AddHttpService<TImplementation>(this IServiceCollection services,
            ServiceLifetime serviceLifetime = ServiceLifetime.Singleton)
            where TImplementation : class, IHttpService
         {
@@ -209,9 +207,11 @@ namespace Nigel.Core.Extensions
                 case ServiceLifetime.Scoped:
                     services.TryAddScoped<IHttpService, TImplementation>();
                     break;
+
                 case ServiceLifetime.Transient:
                     services.TryAddTransient<IHttpService, TImplementation>();
                     break;
+
                 case ServiceLifetime.Singleton:
                     services.TryAddSingleton<IHttpService, TImplementation>();
                     break;
@@ -220,6 +220,6 @@ namespace Nigel.Core.Extensions
             return services;
         }
 
-        #endregion
+        #endregion 注册HttpFactory
     }
 }

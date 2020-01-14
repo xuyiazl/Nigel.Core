@@ -31,7 +31,7 @@ namespace Nigel.Extensions
             return HttpUtility.UrlEncode(source, encoding);
         }
 
-        #endregion
+        #endregion UrlEncode(Url编码)
 
         #region UrlDecode(Url解码)
 
@@ -50,7 +50,7 @@ namespace Nigel.Extensions
             return HttpUtility.UrlDecode(source, encoding);
         }
 
-        #endregion
+        #endregion UrlDecode(Url解码)
 
         #region ToHtmlSafe(Html字符串进行安全编码)
 
@@ -122,7 +122,7 @@ namespace Nigel.Extensions
                 : sb.ToString();
         }
 
-        #endregion
+        #endregion ToHtmlSafe(Html字符串进行安全编码)
 
         #region EncodeBase64(Base64字符串编码)
 
@@ -139,7 +139,7 @@ namespace Nigel.Extensions
             return Convert.ToBase64String(bytes);
         }
 
-        #endregion
+        #endregion EncodeBase64(Base64字符串编码)
 
         #region DecodeBase64(Base64字符串解码)
 
@@ -156,7 +156,7 @@ namespace Nigel.Extensions
             return encoding.GetString(bytes);
         }
 
-        #endregion
+        #endregion DecodeBase64(Base64字符串解码)
 
         #region EncryptToBytes(字符串加密为字节数组)
 
@@ -254,7 +254,7 @@ namespace Nigel.Extensions
             iv = deriveBytes.GetBytes(blockSizeBits / 8);
         }
 
-        #endregion
+        #endregion EncryptToBytes(字符串加密为字节数组)
 
         #region DecryptFromBytes(字节数组解密为字符串)
 
@@ -271,7 +271,7 @@ namespace Nigel.Extensions
             return new string(asciiEncoder.GetChars(bytes));
         }
 
-        #endregion
+        #endregion DecryptFromBytes(字节数组解密为字符串)
 
         #region EncryptToString(字符串加密)
 
@@ -286,7 +286,7 @@ namespace Nigel.Extensions
             return value.EncryptToBytes(pwd).ToString();
         }
 
-        #endregion
+        #endregion EncryptToString(字符串加密)
 
         #region DecryptFromString(字符串解密)
 
@@ -303,7 +303,7 @@ namespace Nigel.Extensions
             return DecryptFromBytes(bytes, pwd);
         }
 
-        #endregion
+        #endregion DecryptFromString(字符串解密)
 
         #region TextHTMLEncode(将纯文本编码为HTML文本)
 
@@ -327,6 +327,7 @@ namespace Nigel.Extensions
             tmpReturnHTML = tmpReturnHTML.Replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
             return tmpReturnHTML;
         }
+
         /// <summary>
         /// 将HTML文本编码为纯文本 解码
         /// </summary>
@@ -348,9 +349,9 @@ namespace Nigel.Extensions
             return tmpReturnHTML;
         }
 
-        #endregion
+        #endregion TextHTMLEncode(将纯文本编码为HTML文本)
 
-        #region  HtmlFilter(过滤脚本、HTML、转义符)
+        #region HtmlFilter(过滤脚本、HTML、转义符)
 
         /// <summary>
         /// 过滤脚本、HTML、转义符
@@ -391,9 +392,11 @@ namespace Nigel.Extensions
             value = value.Replace("\t", "\\t");
             return value;
         }
-        #endregion
 
-        #region  HtmlEncode(字符串编码解码)
+        #endregion HtmlFilter(过滤脚本、HTML、转义符)
+
+        #region HtmlEncode(字符串编码解码)
+
         /// <summary>
         /// 字符串编码
         /// </summary>
@@ -414,7 +417,7 @@ namespace Nigel.Extensions
             return HttpUtility.HtmlDecode(str);
         }
 
-        #endregion
+        #endregion HtmlEncode(字符串编码解码)
 
         #region SqlFilter（过滤 Sql 语句字符串中的注入脚本）
 
@@ -446,6 +449,6 @@ namespace Nigel.Extensions
             return str;
         }
 
-        #endregion
+        #endregion SqlFilter（过滤 Sql 语句字符串中的注入脚本）
     }
 }

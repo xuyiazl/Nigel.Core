@@ -1,7 +1,4 @@
-﻿using System;
-using Nigel.Extensions;
-
-namespace Nigel.Helpers
+﻿namespace Nigel.Helpers
 {
     /// <summary>
     /// 错误操作

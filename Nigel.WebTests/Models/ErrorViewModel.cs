@@ -1,5 +1,3 @@
-using System;
-
 namespace Nigel.WebTests.Models
 {
     public class ErrorViewModel

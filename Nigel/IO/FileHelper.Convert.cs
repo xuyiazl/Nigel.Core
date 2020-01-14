@@ -9,7 +9,7 @@ namespace Nigel.IO
     /// </summary>
     public static partial class FileHelper
     {
-        #region ToString(转换成字符串)        
+        #region ToString(转换成字符串)
 
         /// <summary>
         /// 字节数组转换成字符串
@@ -119,7 +119,7 @@ namespace Nigel.IO
             }
         }
 
-        #endregion
+        #endregion ToString(转换成字符串)
 
         #region ToStream(转换成流)
 
@@ -144,7 +144,7 @@ namespace Nigel.IO
             return new MemoryStream(ToBytes(data, encoding));
         }
 
-        #endregion
+        #endregion ToStream(转换成流)
 
         #region ToBytes(转换成字节数组)
 
@@ -195,6 +195,6 @@ namespace Nigel.IO
             return buffer;
         }
 
-        #endregion
+        #endregion ToBytes(转换成字节数组)
     }
 }

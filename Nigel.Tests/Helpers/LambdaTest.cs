@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using Nigel.Extensions;
+﻿using Nigel.Extensions;
 using Nigel.Helpers;
 using Nigel.Tests.Samples;
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -12,7 +12,7 @@ namespace Nigel.Tests.Helpers
     /// <summary>
     /// 测试Lambda表达式操作
     /// </summary>
-    public class LambdaTest:TestBase
+    public class LambdaTest : TestBase
     {
         public LambdaTest(ITestOutputHelper output) : base(output)
         {
@@ -288,6 +288,6 @@ namespace Nigel.Tests.Helpers
             Assert.Equal("TestStaticSample", Lambda.GetValue(expression));
         }
 
-        #endregion
+        #endregion GetValue(获取成员值)
     }
 }

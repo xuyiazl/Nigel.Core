@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Nigel.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Nigel.Core.Extensions
 {

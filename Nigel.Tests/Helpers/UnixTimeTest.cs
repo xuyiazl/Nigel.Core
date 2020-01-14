@@ -1,8 +1,5 @@
-﻿
+﻿using Nigel.Helpers;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using Nigel.Helpers;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -11,7 +8,7 @@ namespace Nigel.Tests.Helpers
     /// <summary>
     /// Unix时间操作测试
     /// </summary>
-    public class UnixTimeTest:TestBase
+    public class UnixTimeTest : TestBase
     {
         public UnixTimeTest(ITestOutputHelper output) : base(output)
         {
@@ -26,7 +23,5 @@ namespace Nigel.Tests.Helpers
             Output.WriteLine(result.ToString());
             Assert.Equal(dto, result);
         }
-
-
     }
 }

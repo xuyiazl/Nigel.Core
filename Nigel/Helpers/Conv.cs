@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Nigel.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Nigel.Extensions;
 
 namespace Nigel.Helpers
 {
@@ -47,7 +47,7 @@ namespace Nigel.Helpers
             }
         }
 
-        #endregion
+        #endregion ToByte(转换为byte)
 
         #region ToChar(转换为char)
 
@@ -76,7 +76,7 @@ namespace Nigel.Helpers
             return null;
         }
 
-        #endregion
+        #endregion ToChar(转换为char)
 
         #region ToShort(转换为short)
 
@@ -115,7 +115,7 @@ namespace Nigel.Helpers
             }
         }
 
-        #endregion
+        #endregion ToShort(转换为short)
 
         #region ToInt(转换为int)
 
@@ -154,7 +154,7 @@ namespace Nigel.Helpers
             }
         }
 
-        #endregion
+        #endregion ToInt(转换为int)
 
         #region ToLong(转换为long)
 
@@ -193,7 +193,7 @@ namespace Nigel.Helpers
             }
         }
 
-        #endregion
+        #endregion ToLong(转换为long)
 
         #region ToFloat(转换为float)
 
@@ -224,10 +224,10 @@ namespace Nigel.Helpers
                 return null;
             if (digits == null)
                 return result;
-            return (float) Math.Round(result, digits.Value);
+            return (float)Math.Round(result, digits.Value);
         }
 
-        #endregion
+        #endregion ToFloat(转换为float)
 
         #region ToDouble(转换为double)
 
@@ -259,7 +259,7 @@ namespace Nigel.Helpers
             return digits == null ? result : Math.Round(result, digits.Value);
         }
 
-        #endregion
+        #endregion ToDouble(转换为double)
 
         #region ToDecimal(转换为decimal)
 
@@ -291,7 +291,7 @@ namespace Nigel.Helpers
             return digits == null ? result : Math.Round(result, digits.Value);
         }
 
-        #endregion
+        #endregion ToDecimal(转换为decimal)
 
         #region ToBool(转换为bool)
 
@@ -317,7 +317,7 @@ namespace Nigel.Helpers
             bool? value = GetBool(input);
             if (value != null)
                 return value.Value;
-            return bool.TryParse(input.SafeString(), out var result) ? (bool?) result : null;
+            return bool.TryParse(input.SafeString(), out var result) ? (bool?)result : null;
         }
 
         /// <summary>
@@ -334,17 +334,19 @@ namespace Nigel.Helpers
                 case "no":
                 case "fail":
                     return false;
+
                 case "1":
                 case "是":
                 case "ok":
                 case "yes":
                     return true;
+
                 default:
                     return null;
             }
         }
 
-        #endregion
+        #endregion ToBool(转换为bool)
 
         #region ToDate(转换为DateTime)
 
@@ -367,7 +369,7 @@ namespace Nigel.Helpers
             return DateTime.TryParse(input.SafeString(), out var result) ? result : defaultValue;
         }
 
-        #endregion
+        #endregion ToDate(转换为DateTime)
 
         #region ToGuid(转换为Guid)
 
@@ -381,7 +383,7 @@ namespace Nigel.Helpers
         /// 转换为可空Guid
         /// </summary>
         /// <param name="input">输入值</param>
-        public static Guid? ToGuidOrNull(object input) => Guid.TryParse(input.SafeString(), out var result) ? (Guid?) result : null;
+        public static Guid? ToGuidOrNull(object input) => Guid.TryParse(input.SafeString(), out var result) ? (Guid?)result : null;
 
         /// <summary>
         /// 转换为Guid集合
@@ -389,7 +391,7 @@ namespace Nigel.Helpers
         /// <param name="input">输入值，以逗号分隔的Guid集合字符串，范例：83B0233C-A24F-49FD-8083-1337209EBC9A,EAB523C6-2FE7-47BE-89D5-C6D440C3033A</param>
         public static List<Guid> ToGuidList(string input) => ToList<Guid>(input);
 
-        #endregion
+        #endregion ToGuid(转换为Guid)
 
         #region ToList(泛型集合转换)
 
@@ -408,7 +410,7 @@ namespace Nigel.Helpers
             return result;
         }
 
-        #endregion
+        #endregion ToList(泛型集合转换)
 
         #region ToEnum(转换为枚举)
 
@@ -440,7 +442,7 @@ namespace Nigel.Helpers
             return null;
         }
 
-        #endregion
+        #endregion ToEnum(转换为枚举)
 
         #region To(通用泛型转换)
 
@@ -461,14 +463,14 @@ namespace Nigel.Helpers
             try
             {
                 if (typeName == "string")
-                    return (T) (object) input.ToString();
+                    return (T)(object)input.ToString();
                 if (typeName == "guid")
-                    return (T) (object) new Guid(input.ToString());
+                    return (T)(object)new Guid(input.ToString());
                 if (type.IsEnum)
                     return Enum.Parse<T>(input);
                 if (input is IConvertible)
-                    return (T) System.Convert.ChangeType(input, type);
-                return (T) input;
+                    return (T)System.Convert.ChangeType(input, type);
+                return (T)input;
             }
             catch
             {
@@ -476,6 +478,6 @@ namespace Nigel.Helpers
             }
         }
 
-        #endregion
+        #endregion To(通用泛型转换)
     }
 }

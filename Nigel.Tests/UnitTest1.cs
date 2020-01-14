@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
-using Nigel.Extensions;
+﻿using Nigel.Extensions;
 using Nigel.Helpers;
 using Nigel.IdGenerators.Core;
 using Nigel.IO;
 using Nigel.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -425,24 +425,24 @@ namespace Nigel.Tests
         public void Test_Split()
         {
             var source =
-                @"1. Trace: SqlQueryLog >> 跟踪号: 0HLMQ0R8CFGAN:00000001-2    操作时间: 2019-05-17 09:34:47.728    已执行: 1毫秒    
-2. IP: ::ffff:172.18.107.80   主机: lebazer01   线程号: 35   
-3. 浏览器: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36   
+                @"1. Trace: SqlQueryLog >> 跟踪号: 0HLMQ0R8CFGAN:00000001-2    操作时间: 2019-05-17 09:34:47.728    已执行: 1毫秒
+2. IP: ::ffff:172.18.107.80   主机: lebazer01   线程号: 35
+3. 浏览器: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
 4. Url: http://172.18.107.84:8101/api/Permission/GetPermissionMenus?t=1558056887443
-5. 操作人编号: efa31fb6-d94e-429a-b1fe-6502df67b245   操作人: 超级管理员   
-6. 应用程序: 后台管理系统   
-7. 类名: Bing.Datas.Dapper.SqlQuery   
+5. 操作人编号: efa31fb6-d94e-429a-b1fe-6502df67b245   操作人: 超级管理员
+6. 应用程序: 后台管理系统
+7. 类名: Bing.Datas.Dapper.SqlQuery
 8. 标题: SqlQuery查询调试:
 9. Sql语句:
 原始Sql:
-Select `b`.*,`b`.`ResourceId` As `Id` 
-From `Systems.Permission` As `a` 
-Join `Systems.Resource` As `b` On `a`.`ResourceId`=`b`.`ResourceId` And `b`.`IsDeleted`=@_p_3 
+Select `b`.*,`b`.`ResourceId` As `Id`
+From `Systems.Permission` As `a`
+Join `Systems.Resource` As `b` On `a`.`ResourceId`=`b`.`ResourceId` And `b`.`IsDeleted`=@_p_3
 Where `a`.`IsDeny`=@_p_0 And `b`.`ApplicationId`=@_p_1 And `a`.`IsDeleted`=@_p_2
 调试Sql:
-Select `b`.*,`b`.`ResourceId` As `Id` 
-From `Systems.Permission` As `a` 
-Join `Systems.Resource` As `b` On `a`.`ResourceId`=`b`.`ResourceId` And `b`.`IsDeleted`=0 
+Select `b`.*,`b`.`ResourceId` As `Id`
+From `Systems.Permission` As `a`
+Join `Systems.Resource` As `b` On `a`.`ResourceId`=`b`.`ResourceId` And `b`.`IsDeleted`=0
 Where `a`.`IsDeny`=1 And `b`.`ApplicationId`='79c3c002-1474-4b3f-bf83-b17aa173a2bb' And `a`.`IsDeleted`=0
 10. Sql参数:
     @_p_0 : 1 : System.Boolean,
@@ -517,7 +517,6 @@ Where `a`.`IsDeny`=1 And `b`.`ApplicationId`='79c3c002-1474-4b3f-bf83-b17aa173a2
             Output.WriteLine(result);
         }
 
-
         [Fact]
         public void Test_ToObject()
         {
@@ -539,7 +538,6 @@ Where `a`.`IsDeny`=1 And `b`.`ApplicationId`='79c3c002-1474-4b3f-bf83-b17aa173a2
             var item = list.FirstOrDefault(x => x.Item1 == 3);
             Assert.Equal(default, item);
         }
-
     }
 
     public class BingLogModel
@@ -685,4 +683,3 @@ Where `a`.`IsDeny`=1 And `b`.`ApplicationId`='79c3c002-1474-4b3f-bf83-b17aa173a2
         public int Order { get; set; }
     }
 }
-

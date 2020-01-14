@@ -1,13 +1,10 @@
 ﻿using Nigel.Drawing;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Nigel.Core.Uploads.Params
 {
     public class SingleImageUploadParam : SingleFileUploadParam
     {
-
         /// <summary>
         /// 允许上传的文件扩展名
         /// </summary>

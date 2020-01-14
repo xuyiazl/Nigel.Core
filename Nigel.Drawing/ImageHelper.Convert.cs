@@ -53,7 +53,7 @@ namespace Nigel.Drawing
             }
         }
 
-        #endregion
+        #endregion ToBytes(转换为字节数组)
 
         #region ToStream(转换为内存流)
 
@@ -81,7 +81,7 @@ namespace Nigel.Drawing
             return ms;
         }
 
-        #endregion
+        #endregion ToStream(转换为内存流)
 
         #region ToBase64String(转换为Base64字符串)
 
@@ -151,6 +151,6 @@ namespace Nigel.Drawing
             }
         }
 
-        #endregion
+        #endregion ToBase64String(转换为Base64字符串)
     }
 }

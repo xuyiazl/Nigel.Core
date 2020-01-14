@@ -1,7 +1,7 @@
-﻿using System.Linq;
+﻿using Nigel.Helpers;
+using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
-using Nigel.Helpers;
 
 // ReSharper disable once CheckNamespace
 namespace Nigel.Extensions
@@ -41,7 +41,7 @@ namespace Nigel.Extensions
             return result.IsEmpty() ? default(T) : Conv.To<T>(result);
         }
 
-        #endregion
+        #endregion GetValue(获取指定类型的Claim值)
 
         #region GetValues(获取指定类型的所有Claim值)
 
@@ -61,7 +61,7 @@ namespace Nigel.Extensions
             return claimsIdentity.Claims.Where(x => x.Type == type).Select(x => x.Value).ToArray();
         }
 
-        #endregion
+        #endregion GetValues(获取指定类型的所有Claim值)
 
         #region RemoveClaim(移除指定类型的声明)
 
@@ -87,6 +87,6 @@ namespace Nigel.Extensions
             claimsIdentity.RemoveClaim(claim);
         }
 
-        #endregion
+        #endregion RemoveClaim(移除指定类型的声明)
     }
 }

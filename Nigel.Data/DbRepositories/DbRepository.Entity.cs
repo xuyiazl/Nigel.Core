@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using Nigel.Extensions;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Nigel.Extensions;
 
 namespace Nigel.Data.DbRepositories
 {
     public partial class DbRepository<TEntity> : IDbRepository<TEntity> where TEntity : class
     {
-
         public TEntity GetEntity(Expression<Func<TEntity, bool>> selector = null)
         {
             var query = this.AsNoTracking();
@@ -99,6 +97,7 @@ namespace Nigel.Data.DbRepositories
                 query = query.Where(selector);
             return await query.FirstOrDefaultAsync(cancellationToken);
         }
+
         public async Task<TEntity> GetEntityAsync(Expression<Func<TEntity, bool>> selector = null,
             string orderBy = "",
             CancellationToken cancellationToken = default)
@@ -136,6 +135,7 @@ namespace Nigel.Data.DbRepositories
                 .Select(converter)
                 .FirstOrDefault();
         }
+
         public TResult GetEntity<TResult>(Expression<Func<TEntity, TResult>> converter, Expression<Func<TEntity, bool>> selector = null,
             string orderBy = "")
         {
@@ -172,6 +172,7 @@ namespace Nigel.Data.DbRepositories
                 .Select(converter)
                 .FirstOrDefaultAsync();
         }
+
         public async Task<TResult> GetEntityAsync<TResult>(Expression<Func<TEntity, TResult>> converter, Expression<Func<TEntity, bool>> selector = null,
             string orderBy = "")
         {
@@ -209,6 +210,7 @@ namespace Nigel.Data.DbRepositories
                 .Select(converter)
                 .FirstOrDefaultAsync(cancellationToken);
         }
+
         public async Task<TResult> GetEntityAsync<TResult>(Expression<Func<TEntity, TResult>> converter, Expression<Func<TEntity, bool>> selector = null,
             string orderBy = "",
             CancellationToken cancellationToken = default)

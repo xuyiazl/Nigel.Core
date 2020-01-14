@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nigel.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -7,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Nigel.Extensions;
 using FileInfo = System.IO.FileInfo;
 
 namespace Nigel.IO
@@ -17,11 +17,10 @@ namespace Nigel.IO
     /// </summary>
     public static partial class FileHelper
     {
-
         #region Create(创建临时文件 再拷贝 ， 避免引起IO独占的问题)
 
         /// <summary>
-        /// 创建临时文件 再拷贝 ， 避免引起IO独占的问题  
+        /// 创建临时文件 再拷贝 ， 避免引起IO独占的问题
         /// </summary>
         /// <param name="filePath"></param>
         /// <param name="content"></param>
@@ -42,7 +41,7 @@ namespace Nigel.IO
             fi.Delete();
         }
 
-        #endregion
+        #endregion Create(创建临时文件 再拷贝 ， 避免引起IO独占的问题)
 
         #region CreateIfNotExists(创建文件，如果文件不存在)
 
@@ -59,7 +58,7 @@ namespace Nigel.IO
             File.Create(fileName);
         }
 
-        #endregion
+        #endregion CreateIfNotExists(创建文件，如果文件不存在)
 
         #region Delete(删除文件)
 
@@ -96,7 +95,7 @@ namespace Nigel.IO
             File.Delete(filePath);
         }
 
-        #endregion
+        #endregion Delete(删除文件)
 
         #region KillFile(强力粉碎文件)
 
@@ -107,7 +106,7 @@ namespace Nigel.IO
         /// <param name="deleteCount">删除次数</param>
         /// <param name="randomData">随机数据填充文件，默认true</param>
         /// <param name="blanks">空白填充文件，默认false</param>
-        /// <returns>true:粉碎成功,false:粉碎失败</returns>        
+        /// <returns>true:粉碎成功,false:粉碎失败</returns>
         public static bool KillFile(string fileName, int deleteCount, bool randomData = true, bool blanks = false)
         {
             const int bufferLength = 1024000;
@@ -207,7 +206,6 @@ namespace Nigel.IO
                 }
                 catch
                 {
-
                     ret = false;
                 }
             }
@@ -215,7 +213,7 @@ namespace Nigel.IO
             return ret;
         }
 
-        #endregion
+        #endregion KillFile(强力粉碎文件)
 
         #region SetAttribute(设置文件属性)
 
@@ -243,7 +241,7 @@ namespace Nigel.IO
             }
         }
 
-        #endregion
+        #endregion SetAttribute(设置文件属性)
 
         #region GetAllFiles(获取目录中全部文件列表)
 
@@ -257,7 +255,7 @@ namespace Nigel.IO
             return Directory.GetFiles(directoryPath, "*.*", SearchOption.AllDirectories).ToList();
         }
 
-        #endregion
+        #endregion GetAllFiles(获取目录中全部文件列表)
 
         #region Read(读取文件到字符串)
 
@@ -285,7 +283,7 @@ namespace Nigel.IO
                 return reader.ReadToEnd();
         }
 
-        #endregion
+        #endregion Read(读取文件到字符串)
 
         #region ReadToBytes(将文件读取到字节流中)
 
@@ -323,7 +321,7 @@ namespace Nigel.IO
             }
         }
 
-        #endregion
+        #endregion ReadToBytes(将文件读取到字节流中)
 
         #region Write(将字节流写入文件)
 
@@ -351,7 +349,7 @@ namespace Nigel.IO
             File.WriteAllBytes(filePath, bytes);
         }
 
-        #endregion
+        #endregion Write(将字节流写入文件)
 
         #region JoinPath(连接基路径和子路径)
 
@@ -369,7 +367,7 @@ namespace Nigel.IO
             return path.Replace("/", "\\").ToLower();
         }
 
-        #endregion
+        #endregion JoinPath(连接基路径和子路径)
 
         #region CopyToStringAsync(复制流并转换成字符串)
 
@@ -421,7 +419,7 @@ namespace Nigel.IO
             }
         }
 
-        #endregion
+        #endregion CopyToStringAsync(复制流并转换成字符串)
 
         #region Combine(合并文件)
 
@@ -468,7 +466,7 @@ namespace Nigel.IO
             }
         }
 
-        #endregion
+        #endregion Combine(合并文件)
 
         #region Split(分割文件)
 
@@ -544,7 +542,7 @@ namespace Nigel.IO
             return fileSize / splitSize + 1;
         }
 
-        #endregion
+        #endregion Split(分割文件)
 
         #region Compress(压缩)
 
@@ -584,10 +582,9 @@ namespace Nigel.IO
             {
                 return false;
             }
-
         }
 
-        #endregion
+        #endregion Compress(压缩)
 
         #region Decompress(解压缩)
 
@@ -634,7 +631,7 @@ namespace Nigel.IO
             }
         }
 
-        #endregion
+        #endregion Decompress(解压缩)
 
         #region CompressMulti(多文件压缩)
 
@@ -683,7 +680,7 @@ namespace Nigel.IO
             }
         }
 
-        #endregion
+        #endregion CompressMulti(多文件压缩)
 
         #region DecompressMulti(多文件解压缩)
 
@@ -736,7 +733,7 @@ namespace Nigel.IO
             }
         }
 
-        #endregion
+        #endregion DecompressMulti(多文件解压缩)
     }
 
     /// <summary>
@@ -748,6 +745,7 @@ namespace Nigel.IO
         /// 追加
         /// </summary>
         Append = 1,
+
         /// <summary>
         /// 覆盖
         /// </summary>

@@ -2,37 +2,42 @@
 {
     /********************************************************************
     *           Copyright:       2009-2011
-    *           Company:         
+    *           Company:
     *           CRL Version :    4.0.30319.239
     *           Created by 徐毅 at 2011/11/29 12:46:54
     *                   mailto:3624091@qq.com
-    *                         
+    *
     ********************************************************************/
 
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-    using System.Web;
 
     public class UrlArguments
     {
         private IDictionary<string, object>
                 Args = new SortedDictionary<string, object>();
+
         private string _host;
         public string ClientName { get; set; }
         public string Url { get; private set; }
 
-        public UrlArguments() { }
+        public UrlArguments()
+        {
+        }
+
         public UrlArguments(string requestUrl)
         {
             _host = requestUrl;
         }
+
         public UrlArguments(string clientName, string requestUrl)
         {
             _host = requestUrl;
             ClientName = clientName;
         }
+
         public UrlArguments(string requestUrl, params KeyValuePair<string, object>[] keyValues)
         {
             _host = requestUrl;
@@ -41,6 +46,7 @@
                 this.Add(item.Key, item.Value);
             }
         }
+
         public UrlArguments(string clientName, string requestUrl, params KeyValuePair<string, object>[] keyValues)
         {
             _host = requestUrl;
@@ -50,12 +56,19 @@
                 this.Add(item.Key, item.Value);
             }
         }
+
         public static UrlArguments Create() => new UrlArguments();
+
         public static UrlArguments Create(string requestUrl) => Create(string.Empty, requestUrl);
+
         public static UrlArguments Create(string clientName, string requestUrl) => new UrlArguments(clientName, requestUrl);
+
         public static UrlArguments Create(string requestUrl, params KeyValuePair<string, object>[] keyValues) => Create(string.Empty, requestUrl, keyValues);
+
         public static UrlArguments Create(string clientName, string requestUrl, params KeyValuePair<string, object>[] keyValues) => new UrlArguments(clientName, requestUrl, keyValues);
+
         public static UrlArguments Create(string clientName, string requestUrl, string method) => new UrlArguments(clientName, $"{requestUrl}/{method}");
+
         public static UrlArguments Create(string clientName, string host, string area = "api", string controller = null, string method = null)
         {
             if (!string.IsNullOrEmpty(method))
@@ -93,6 +106,7 @@
             _host = host;
             return this;
         }
+
         public UrlArguments Add(string key, object value)
         {
             if (!Args.ContainsKey(key))
@@ -106,6 +120,7 @@
 
             return this;
         }
+
         public UrlArguments Add(string key, object value, Func<bool> filter)
         {
             if (!filter())
@@ -124,6 +139,7 @@
 
             return this;
         }
+
         public UrlArguments Remove(string key)
         {
             if (Args != null)
@@ -136,12 +152,14 @@
 
             return this;
         }
+
         public UrlArguments Clear()
         {
             Args.Clear();
             _host = string.Empty;
             return this;
         }
+
         public UrlArguments Complete()
         {
             StringBuilder url = new StringBuilder();

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Nigel.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Nigel.Json;
 
 namespace Nigel.IO
 {
@@ -81,13 +81,13 @@ namespace Nigel.IO
         /// <returns></returns>
         public static List<FileInfo> GetFilesFromQueue(string queueDir, int takeCount, string type = "")
         {
-            var items=new List<FileInfo>();
+            var items = new List<FileInfo>();
             if (!Directory.Exists(queueDir))
             {
                 return items;
             }
 
-            DirectoryInfo homeDir=new DirectoryInfo(queueDir);
+            DirectoryInfo homeDir = new DirectoryInfo(queueDir);
             DirectoryInfo[] dirs = homeDir.GetDirectories().OrderBy(p => Convert.ToInt32(p.Name)).ToArray();
             for (var i = 0; i < dirs.Length; i++)
             {
@@ -179,7 +179,6 @@ namespace Nigel.IO
             {
                 using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 {
-                    
                     using (var sr = new StreamReader(fs))
                     {
                         content = sr.ReadToEnd();
@@ -198,10 +197,8 @@ namespace Nigel.IO
         /// <returns></returns>
         public static DirectoryInfo[] GetQueueDirs(string queueDir)
         {
-            DirectoryInfo homeDir=new DirectoryInfo(queueDir);
+            DirectoryInfo homeDir = new DirectoryInfo(queueDir);
             return homeDir.GetDirectories();
         }
-
-        
     }
 }

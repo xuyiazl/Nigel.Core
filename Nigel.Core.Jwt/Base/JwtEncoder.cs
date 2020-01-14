@@ -1,7 +1,6 @@
+using Nigel.Core.Jwt.Algorithms;
 using System;
 using System.Collections.Generic;
-using Nigel.Core.Jwt.Algorithms;
-
 using static Nigel.Core.Jwt.Internal.EncodingHelper;
 
 namespace Nigel.Core.Jwt

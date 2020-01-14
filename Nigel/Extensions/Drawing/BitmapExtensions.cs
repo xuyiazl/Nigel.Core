@@ -42,7 +42,7 @@ namespace Nigel.Extensions
             }
         }
 
-        #endregion
+        #endregion ToPixelArray2D(转换为 Color[,]颜色值二维数组)
 
         #region ToGrayArray2D(转换为 byte[,]灰度值二维数组)
 
@@ -117,7 +117,7 @@ namespace Nigel.Extensions
             return GetGrayValue(pixel.R, pixel.G, pixel.B);
         }
 
-        #endregion
+        #endregion ToGrayArray2D(转换为 byte[,]灰度值二维数组)
 
         #region ToBitmap(转换为图像)
 
@@ -133,7 +133,7 @@ namespace Nigel.Extensions
             BitmapData data = bitmap.LockBits(new Rectangle(0, 0, width, height), ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
             unsafe
             {
-                byte* ptr = (byte*) data.Scan0;
+                byte* ptr = (byte*)data.Scan0;
                 int offset = data.Stride - width * 3;
                 for (int y = 0; y < height; y++)
                 {
@@ -184,7 +184,7 @@ namespace Nigel.Extensions
             }
         }
 
-        #endregion
+        #endregion ToBitmap(转换为图像)
 
         #region Binaryzation(将灰度值二维数组二值化)
 
@@ -208,7 +208,7 @@ namespace Nigel.Extensions
             return grayBytes;
         }
 
-        #endregion
+        #endregion Binaryzation(将灰度值二维数组二值化)
 
         #region DeepFore(将灰度值二维数组前景色加黑)
 
@@ -235,7 +235,7 @@ namespace Nigel.Extensions
             return grayBytes;
         }
 
-        #endregion
+        #endregion DeepFore(将灰度值二维数组前景色加黑)
 
         #region ClearNoiseRound(去除附近噪音)
 
@@ -281,7 +281,7 @@ namespace Nigel.Extensions
             return binBytes;
         }
 
-        #endregion
+        #endregion ClearNoiseRound(去除附近噪音)
 
         #region ClearNoiseArea(去除区域噪音)
 
@@ -340,7 +340,7 @@ namespace Nigel.Extensions
             return value == 0;
         }
 
-        #endregion
+        #endregion ClearNoiseArea(去除区域噪音)
 
         #region FloodFill(泛水填充算法)
 
@@ -358,7 +358,7 @@ namespace Nigel.Extensions
             byte gray = binBytes[point.X, point.Y];
             stack.Push(point);
 
-            while (stack.Count>0)
+            while (stack.Count > 0)
             {
                 var p = stack.Pop();
                 if (p.X <= 0 || p.X >= width || p.Y <= 0 || p.Y >= height)
@@ -420,7 +420,7 @@ namespace Nigel.Extensions
             return binBytes;
         }
 
-        #endregion
+        #endregion FloodFill(泛水填充算法)
 
         #region ClearBorder(去除图片边框)
 
@@ -447,7 +447,7 @@ namespace Nigel.Extensions
             return grayBytes;
         }
 
-        #endregion
+        #endregion ClearBorder(去除图片边框)
 
         #region AddBorder(添加图片边框)
 
@@ -477,7 +477,7 @@ namespace Nigel.Extensions
             return newBytes;
         }
 
-        #endregion
+        #endregion AddBorder(添加图片边框)
 
         #region DrawTo(将小图画到大图中)
 
@@ -517,7 +517,7 @@ namespace Nigel.Extensions
             return bigBytes;
         }
 
-        #endregion
+        #endregion DrawTo(将小图画到大图中)
 
         #region ClearGray(去除指定范围的灰度)
 
@@ -541,7 +541,7 @@ namespace Nigel.Extensions
             return grayBytes;
         }
 
-        #endregion
+        #endregion ClearGray(去除指定范围的灰度)
 
         #region ToValid(去除空白边界获取有效的图形)
 
@@ -574,7 +574,7 @@ namespace Nigel.Extensions
             return newBytes;
         }
 
-        #endregion
+        #endregion ToValid(去除空白边界获取有效的图形)
 
         #region Clone(从原矩阵中复制指定矩阵)
 
@@ -603,7 +603,7 @@ namespace Nigel.Extensions
             return newBytes;
         }
 
-        #endregion
+        #endregion Clone(从原矩阵中复制指定矩阵)
 
         #region ShadowY(统计二维二值化数组的的竖直投影)
 
@@ -627,7 +627,7 @@ namespace Nigel.Extensions
             return nums;
         }
 
-        #endregion
+        #endregion ShadowY(统计二维二值化数组的的竖直投影)
 
         #region ShadowX(统计二维二值化数组的横向投影)
 
@@ -651,7 +651,7 @@ namespace Nigel.Extensions
             return nums;
         }
 
-        #endregion
+        #endregion ShadowX(统计二维二值化数组的横向投影)
 
         #region SplitShadowY(根据二值化数组的竖直投影数据分割图片)
 
@@ -697,7 +697,7 @@ namespace Nigel.Extensions
             return splits;
         }
 
-        #endregion
+        #endregion SplitShadowY(根据二值化数组的竖直投影数据分割图片)
 
         #region ToCodeString(将二维二值化数组转换为特征码字符串)
 
@@ -722,7 +722,7 @@ namespace Nigel.Extensions
             return code;
         }
 
-        #endregion
+        #endregion ToCodeString(将二维二值化数组转换为特征码字符串)
 
         private static byte GetAverageColor(byte[,] source, int x, int y, int w, int h)
         {

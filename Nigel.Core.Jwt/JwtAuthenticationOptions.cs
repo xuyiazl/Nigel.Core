@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authentication;
+using Nigel.Core.Jwt.Internal;
+using System;
 using System.Collections.Generic;
 using System.Security.Principal;
-using Microsoft.AspNetCore.Authentication;
-using Nigel.Core.Jwt.Internal;
 
 namespace Nigel.Core.Jwt
 {

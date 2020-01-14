@@ -42,7 +42,7 @@ namespace Nigel.Timing
         /// <param name="toDate">结束时间</param>
         public static int GetDays(DateTime fromDate, DateTime toDate) => Convert.ToInt32(toDate.Subtract(fromDate).TotalDays);
 
-        #endregion
+        #endregion GetDays(获取总天数)
 
         #region CalculateAge(计算年龄)
 
@@ -66,7 +66,7 @@ namespace Nigel.Timing
             return years;
         }
 
-        #endregion
+        #endregion CalculateAge(计算年龄)
 
         #region DateStringFromNow(业务时间格式化)
 
@@ -124,7 +124,8 @@ namespace Nigel.Timing
             else
                 return "刚刚";
         }
-        #endregion
+
+        #endregion DateStringFromNow(业务时间格式化)
 
         #region GetWeekDay(计算当前为星期几)
 
@@ -224,7 +225,7 @@ namespace Nigel.Timing
             return retVal;
         }
 
-        #endregion
+        #endregion GetWeekDay(计算当前为星期几)
 
         #region GetMaxWeekOfYear(计算当前年的最大周数)
 
@@ -270,7 +271,7 @@ namespace Nigel.Timing
             }
         }
 
-        #endregion
+        #endregion GetMaxWeekOfYear(计算当前年的最大周数)
 
         #region GetWeekIndex(计算当前是第几周)
 
@@ -339,7 +340,7 @@ namespace Nigel.Timing
             }
         }
 
-        #endregion
+        #endregion GetWeekIndex(计算当前是第几周)
 
         #region GetWeekRange(计算周范围)
 
@@ -455,7 +456,7 @@ namespace Nigel.Timing
             }
         }
 
-        #endregion
+        #endregion GetWeekRange(计算周范围)
 
         #region GetDateRange(计算当前时间范围)
 
@@ -536,6 +537,6 @@ namespace Nigel.Timing
             }
         }
 
-        #endregion
+        #endregion GetDateRange(计算当前时间范围)
     }
 }

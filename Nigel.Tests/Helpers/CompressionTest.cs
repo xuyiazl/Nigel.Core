@@ -7,7 +7,7 @@ namespace Nigel.Tests.Helpers
     /// <summary>
     /// 压缩操作测试
     /// </summary>
-    public class CompressionTest:TestBase
+    public class CompressionTest : TestBase
     {
         /// <summary>
         /// 初始化一个<see cref="CompressionTest"/>类型的实例
@@ -24,7 +24,7 @@ namespace Nigel.Tests.Helpers
         {
             var result = Compression.Compress("测试中国");
             Output.WriteLine(result);
-            Assert.Equal("测试中国",Compression.Decompress(result));
+            Assert.Equal("测试中国", Compression.Decompress(result));
         }
     }
 }

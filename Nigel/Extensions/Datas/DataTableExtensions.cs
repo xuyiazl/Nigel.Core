@@ -37,7 +37,7 @@ namespace Nigel.Extensions.Datas
                         if (setter != null)
                         {
                             var value = row[property.Name] == DBNull.Value ? null : row[property.Name];
-                            setter.Invoke(instance, new[] {value});
+                            setter.Invoke(instance, new[] { value });
                         }
                     }
                 }
