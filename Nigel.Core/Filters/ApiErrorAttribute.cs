@@ -44,7 +44,7 @@ namespace Nigel.Core.Filters
                     var controllerName = context.GetControllerName();
                     var actionName = context.GetActionName();
 
-                    Str str = new Str();
+                    var str = new Str();
                     str.AppendLine("WebApi全局异常");
                     str.AppendLine($"路由位置：{areaName}{controllerName}/{actionName}");
                     str.AppendLine($"IP：{context.HttpContext.Connection.RemoteIpAddress.ToString()}");

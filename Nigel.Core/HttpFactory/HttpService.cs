@@ -201,7 +201,6 @@ namespace Nigel.Core.HttpFactory
         /// 添加Headers消息头
         /// </summary>
         /// <param name="headers">header</param>
-        /// <param name="isDefault">是否是默认</param>
         public virtual void RequestHeaders(HttpRequestHeaders headers)
         {
             headers.Add("ClientIP", Web.IP);

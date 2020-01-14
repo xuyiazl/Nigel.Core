@@ -64,9 +64,9 @@ namespace Nigel.Core.Razors
         {
             if (MinInterval <= 0) return true;
 
-            string path = Common.GetWebRootPath(context.RouteReplace(Template));
+            var path = Common.GetWebRootPath(context.RouteReplace(Template));
 
-            FileInfo fi = new FileInfo(path);
+            var fi = new FileInfo(path);
 
             if (!fi.Exists) return true;
 

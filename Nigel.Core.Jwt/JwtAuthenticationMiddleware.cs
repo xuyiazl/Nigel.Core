@@ -12,12 +12,8 @@ namespace Nigel.Core.Jwt
 
         public JwtAuthenticationMiddleware(RequestDelegate next, IAuthenticationSchemeProvider schemes)
         {
-            if (next == null)
-                throw new ArgumentNullException(nameof(next));
-            if (schemes == null)
-                throw new ArgumentNullException(nameof(schemes));
-            this._next = next;
-            this.Schemes = schemes;
+            this._next = next ?? throw new ArgumentNullException(nameof(next));
+            this.Schemes = schemes ?? throw new ArgumentNullException(nameof(schemes));
         }
 
         public IAuthenticationSchemeProvider Schemes { get; set; }
@@ -30,10 +26,10 @@ namespace Nigel.Core.Jwt
                 OriginalPathBase = context.Request.PathBase
             });
             var handlers = context.RequestServices.GetRequiredService<IAuthenticationHandlerProvider>();
-            foreach (AuthenticationScheme authenticationScheme in await this.Schemes.GetRequestHandlerSchemesAsync())
+            foreach (var authenticationScheme in await this.Schemes.GetRequestHandlerSchemesAsync())
             {
                 var handlerAsync = await handlers.GetHandlerAsync(context, authenticationScheme.Name) as IAuthenticationRequestHandler;
-                bool flag = handlerAsync != null;
+                var flag = handlerAsync != null;
                 if (flag)
                     flag = await handlerAsync.HandleRequestAsync();
                 if (flag)
