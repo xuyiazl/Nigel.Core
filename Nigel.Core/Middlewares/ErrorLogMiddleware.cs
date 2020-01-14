@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Nigel.Extensions;
 
 namespace Nigel.Core.Middlewares
 {
@@ -58,7 +59,7 @@ namespace Nigel.Core.Middlewares
 
             if (_logger.IsEnabled(LogLevel.Error))
             {
-                _logger.LogError(exception, $"全局异常捕获 - 错误日志中间件 - 状态码：{context.Response.StatusCode}");
+                _logger.LogError(exception.FormatMessage($"全局异常捕获 - 错误日志中间件 - 状态码：{context.Response.StatusCode}"));
             }
         }
     }

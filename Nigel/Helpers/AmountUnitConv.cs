@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Nigel.Extensions;
+using System;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace Nigel.Helpers
 {
@@ -30,7 +32,7 @@ namespace Nigel.Helpers
         /// 元转分
         /// </summary>
         /// <param name="yuan">元</param>
-        public static int ToFen(decimal? yuan)=>yuan==null?0 : Conv.ToInt(CutDecimalWithN(yuan.Value, 2) * 100, 0);
+        public static int ToFen(decimal? yuan) => yuan == null ? 0 : Conv.ToInt(CutDecimalWithN(yuan.Value, 2) * 100, 0);
 
         /// <summary>
         /// 截取保留N位小数且不进行四舍五入
@@ -60,5 +62,33 @@ namespace Nigel.Helpers
         /// </summary>
         /// <param name="input">输入值</param>
         public static string ToN2String(decimal input) => $"{input:N2}";
+
+        #region ToChinese(阿拉伯数字金额、中文大写互转)
+
+        /// <summary>
+        /// 把阿拉伯数字的金额转换为中文大写数字
+        ///<example>Console.WriteLine("{0,14:N2}: {1}", x, ConvertToChinese(x));</example>        
+        /// </summary>
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static string ToChinese(double x)
+        {
+            string s = x.ToString("#L#E#D#C#K#E#D#C#J#E#D#C#I#E#D#C#H#E#D#C#G#E#D#C#F#E#D#C#.0B0A");
+            string d = Regex.Replace(s, @"((?<=-|^)[^1-9]*)|((?'z'0)[0A-E]*((?=[1-9])|(?'-z'(?=[F-L\.]|$))))|((?'b'[F-L])(?'z'0)[0A-L]*((?=[1-9])|(?'-z'(?=[\.]|$))))", "${b}${z}");
+            return Regex.Replace(d, ".", delegate (Match m) { return "负元 零壹贰叁肆伍陆柒捌玖       分角拾佰仟萬億兆京垓秭穰"[m.Value[0] - '-'].ToString(); });
+        }
+        /// <summary>
+        /// 把阿拉伯数字的金额转换为中文大写数字
+        /// </summary>
+        ///<example>Console.WriteLine("{0,14:N2}: {1}", x, ConvertToChinese(x));</example>  
+        /// <param name="x"></param>
+        /// <returns></returns>
+        public static string ToChinese(string x)
+        {
+            double money = x.ToDouble();
+            return ToChinese(money);
+        }
+
+        #endregion
     }
 }

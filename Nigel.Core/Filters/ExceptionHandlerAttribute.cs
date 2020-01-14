@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Nigel.Extensions;
 using Nigel.Core.Extensions;
 using Nigel.Core.Properties;
 
@@ -46,8 +47,7 @@ namespace Nigel.Core.Filters
                     var controllerName = context.GetControllerName();
                     var actionName = context.GetActionName();
 
-                    var msg = $"全局异常捕获:{areaName}{controllerName}/{actionName}";
-                    _logger.LogError(msg, context.Exception);
+                    _logger.LogError(context.Exception.FormatMessage($"全局异常捕获:{areaName}{controllerName}/{actionName}"));
                 }
 
                 context.Result = new Result(StateCode.Fail, "", R.SystemError);

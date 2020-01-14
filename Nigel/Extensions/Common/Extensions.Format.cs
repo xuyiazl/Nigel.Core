@@ -71,10 +71,22 @@ namespace Nigel.Extensions
         /// <param name="isHideStackTrace">是否隐藏异常规模信息</param>
         public static string FormatMessage(this Exception e, bool isHideStackTrace = false)
         {
-            var sb=new StringBuilder();
+            return FormatMessage(e, string.Empty, isHideStackTrace);
+        }
+
+        /// <summary>
+        /// 格式化异常消息
+        /// </summary>
+        /// <param name="e">异常对象</param>
+        /// <param name="message">消息标题</param>
+        /// <param name="isHideStackTrace">是否隐藏异常规模信息</param>
+        public static string FormatMessage(this Exception e, string message, bool isHideStackTrace = false)
+        {
+            var sb = new StringBuilder();
+            sb.Append(message);
             var count = 0;
             var appString = string.Empty;
-            while (e!=null)
+            while (e != null)
             {
                 if (count > 0)
                     appString += "  ";

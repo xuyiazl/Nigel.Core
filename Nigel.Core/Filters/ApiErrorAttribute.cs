@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
+using Nigel.Extensions;
 using Nigel.Core.Extensions;
 using Nigel.Core.Properties;
 
@@ -46,9 +47,13 @@ namespace Nigel.Core.Filters
                     var controllerName = context.GetControllerName();
                     var actionName = context.GetActionName();
 
-                    string message = $"WebApi全局异常 {areaName}{controllerName}/{actionName} - IP：{context.HttpContext.Connection.RemoteIpAddress.ToString()} ， 请求方法：{context.HttpContext.Request.Method}，请求地址：{context.HttpContext.Request.Scheme}://{context.HttpContext.Request.Host}{context.HttpContext.Request.Path}{context.HttpContext.Request.QueryString}";
-
-                    logger.LogError(context.Exception, message);
+                    Str str = new Str();
+                    str.AppendLine("WebApi全局异常");
+                    str.AppendLine($"路由位置：{areaName}{controllerName}/{actionName}");
+                    str.AppendLine($"IP：{context.HttpContext.Connection.RemoteIpAddress.ToString()}");
+                    str.AppendLine($"请求方法：{context.HttpContext.Request.Method}");
+                    str.AppendLine($"请求地址：{context.HttpContext.Request.Scheme}://{context.HttpContext.Request.Host}{context.HttpContext.Request.Path}{context.HttpContext.Request.QueryString}");
+                    logger.LogError(context.Exception.FormatMessage(str.ToString()));
                 }
 
                 context.Result = new Result(StateCode.Fail, "", R.SystemError);
