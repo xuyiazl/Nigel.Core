@@ -20,12 +20,12 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>obj\Release\netstandard2.1\Nigel.xml</DocumentationFile>
+    <DocumentationFile>obj\Release\netstandard2.0\Nigel.xml</DocumentationFile>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>obj\Release\netstandard2.1\Nigel.xml</DocumentationFile>
+    <DocumentationFile>obj\Release\netstandard2.0\Nigel.xml</DocumentationFile>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nigel.Extensions;
+using System;
 using System.Globalization;
 
 namespace Nigel.Timing
@@ -67,54 +68,16 @@ namespace Nigel.Timing
 
         #endregion
 
-        #region BusinessDateFormat(业务时间格式化)
-
-        /// <summary>
-        /// 业务时间格式化，返回:大于60天-"yyyy-MM-dd",31~60天-1个月前，15~30天-2周前,8~14天-1周前,1~7天-x天前 ,大于1小时-x小时前,x秒前
-        /// </summary>
-        /// <param name="dateTime">时间</param>
-        public static string BusinessDateFormat(DateTime dateTime)
-        {
-            var span = (DateTime.Now - dateTime).Duration();
-            if (span.TotalDays > 60)
-            {
-                return dateTime.ToString("yyyy-MM-dd");
-            }
-            if (span.TotalDays > 30)
-            {
-                return "1个月前";
-            }
-            if (span.TotalDays > 14)
-            {
-                return "2周前";
-            }
-            if (span.TotalDays > 7)
-            {
-                return "1周前";
-            }
-            if (span.TotalDays > 1)
-            {
-                return $"{(int)Math.Floor(span.TotalDays)}天前";
-            }
-            if (span.TotalHours > 1)
-            {
-                return $"{(int)Math.Floor(span.TotalHours)}小时前";
-            }
-            if (span.TotalMinutes > 1)
-            {
-                return $"{(int)Math.Floor(span.TotalMinutes)}秒前";
-            }
-            return "1秒前";
-        }
+        #region DateStringFromNow(业务时间格式化)
 
         /// <summary>
         /// 获取时间字符串(小于5分-刚刚、5~60分-x分钟前、1~24小时-x小时前、1~60天-x天前、yyyy-MM-dd HH:mm:ss)
         /// </summary>
-        /// <param name="dt"></param>
+        /// <param name="pastTime"></param>
         /// <param name="defaultFormat"></param>
-        public static string BusinessDateFormat(DateTime dt, string defaultFormat = "yyyy-MM-dd HH:mm:ss")
+        public static string DateStringFromNow(DateTime pastTime, string defaultFormat = "yyyy-MM-dd HH:mm:ss")
         {
-            var timeSpan = DateTime.Now - dt;
+            var timeSpan = DateTime.Now - pastTime;
             string result = string.Empty;
 
             if (timeSpan.TotalMinutes < 5)
@@ -126,11 +89,41 @@ namespace Nigel.Timing
             else if (timeSpan.TotalMinutes <= 60 * 24 * 7)
                 result = string.Format("{0}天前", (int)timeSpan.TotalDays);
             else
-                result = dt.ToString(defaultFormat);
+                result = pastTime.ToString(defaultFormat);
 
             return result;
         }
 
+        /// <summary>
+        /// 日期转换->${time}前 返回:大于60天-"yyyy-MM-dd",31~60天-1个月前，15~30天-2周前,8~14天-1周前,1~7天-x天前 ,大于1小时-x小时前,大于1分钟-x分钟前,x秒前
+        /// </summary>
+        /// <param name="pastTime"></param>
+        /// <param name="displaySeconds">是否显示秒</param>
+        /// <param name="formater">${time}前 自定义字符串，必须保留占位符${time}</param>
+        /// <returns></returns>
+        public static string DateStringFromNow(DateTime pastTime, bool displaySeconds = false, string formater = "${time}前")
+        {
+            TimeSpan span = DateTime.Now.Subtract(pastTime);
+
+            if (span.TotalDays >= 60)
+                return pastTime.ToDateString();
+            else if (span.TotalDays > 30)
+                return formater.Replace("${time}", "1月");
+            else if (span.TotalDays > 14)
+                return formater.Replace("${time}", "2周");
+            else if (span.TotalDays > 7)
+                return formater.Replace("${time}", "1周");
+            else if (span.TotalDays > 1)
+                return formater.Replace("${time}", $"{(int)Math.Floor(span.TotalDays)}天");
+            else if (span.TotalHours > 1)
+                return formater.Replace("${time}", $"{(int)Math.Floor(span.TotalHours)}小时");
+            else if (span.TotalMinutes > 1)
+                return formater.Replace("${time}", $"{(int)Math.Floor(span.TotalMinutes)}分钟");
+            else if (displaySeconds && span.TotalSeconds >= 1)
+                return formater.Replace("${time}", $"{(int)Math.Floor(span.TotalSeconds)}秒");
+            else
+                return "刚刚";
+        }
         #endregion
 
         #region GetWeekDay(计算当前为星期几)

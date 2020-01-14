@@ -227,36 +227,5 @@ namespace Nigel.Extensions
 
         #endregion
 
-        /// <summary>
-        /// 日期转换->${time}前
-        /// </summary>
-        /// <param name="pastTime"></param>
-        /// <param name="formater"></param>
-        /// <returns></returns>
-        public static string DateStringFromNow(this DateTime pastTime, string formater = "${time}前")
-        {
-            TimeSpan span = DateTime.Now.Subtract(pastTime);
-
-            if (span.TotalDays >= 60)
-                return pastTime.ToDateString();
-            else if (span.TotalDays > 30)
-                return formater.Replace("${time}", "1月");
-            else if (span.TotalDays > 21)
-                return formater.Replace("${time}", "3周");
-            else if (span.TotalDays > 14)
-                return formater.Replace("${time}", "2周");
-            else if (span.TotalDays > 7)
-                return formater.Replace("${time}", "1周");
-            else if (span.TotalDays > 1)
-                return formater.Replace("${time}", $"{(int)Math.Floor(span.TotalDays)}天");
-            else if (span.TotalHours > 1)
-                return formater.Replace("${time}", $"{(int)Math.Floor(span.TotalHours)}小时");
-            else if (span.TotalMinutes > 1)
-                return formater.Replace("${time}", $"{(int)Math.Floor(span.TotalMinutes)}分钟");
-            else if (span.TotalSeconds >= 1)
-                return formater.Replace("${time}", $"{(int)Math.Floor(span.TotalSeconds)}秒");
-            else
-                return "刚刚";
-        }
     }
 }
