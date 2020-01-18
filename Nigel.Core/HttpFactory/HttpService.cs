@@ -1,5 +1,6 @@
 ﻿using Nigel.Helpers;
 using Nigel.Json;
+using Nigel.Webs;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;

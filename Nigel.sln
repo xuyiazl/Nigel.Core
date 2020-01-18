@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NUnit", "NUnit", "{2AF38334
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nigel.Core.Jwt", "Nigel.Core.Jwt\Nigel.Core.Jwt.csproj", "{9F6A07C9-DD92-4644-8DF9-7701D26E2F5A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nigel.RazorTests", "Nigel.RazorTests\Nigel.RazorTests.csproj", "{CDB2EE14-5A6D-42F3-861F-DB40A3C60F02}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +67,10 @@ Global
 		{9F6A07C9-DD92-4644-8DF9-7701D26E2F5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F6A07C9-DD92-4644-8DF9-7701D26E2F5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F6A07C9-DD92-4644-8DF9-7701D26E2F5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDB2EE14-5A6D-42F3-861F-DB40A3C60F02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDB2EE14-5A6D-42F3-861F-DB40A3C60F02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDB2EE14-5A6D-42F3-861F-DB40A3C60F02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDB2EE14-5A6D-42F3-861F-DB40A3C60F02}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -79,6 +85,7 @@ Global
 		{1809A299-0BAB-44DB-ABED-4114F4086913} = {66EF3E61-EA97-4FBD-8115-BAC31EAB4C6F}
 		{2AF38334-D69F-4169-B303-B5AAC3A38547} = {66EF3E61-EA97-4FBD-8115-BAC31EAB4C6F}
 		{9F6A07C9-DD92-4644-8DF9-7701D26E2F5A} = {F0B53AF5-65A3-4BD2-8E2A-2E2A44735894}
+		{CDB2EE14-5A6D-42F3-861F-DB40A3C60F02} = {66EF3E61-EA97-4FBD-8115-BAC31EAB4C6F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8608D4F2-FCE9-4E97-A888-360DDE22FF96}
