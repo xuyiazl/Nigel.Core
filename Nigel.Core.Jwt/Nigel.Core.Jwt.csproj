@@ -2,6 +2,30 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <Description>
+      主要自用，三方如果使用请注意风险。
+    </Description>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Authors>Nigel</Authors>
+    <Company>Nigel</Company>
+    <Description>.NET Core Common</Description>
+    <Copyright>Copyright © Nigel 2020</Copyright>
+    <Version>1.0.0</Version>
+    <PackageId>Nigel.Core.Jwt</PackageId>
+    <Product>Nigel.Core.Jwt</Product>
+    <PackageIconUrl>http://www.3624091.com/favicon.ico</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/xuyiazl/Nigel.Core</PackageProjectUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>obj\Release\netstandard2.1\Nigel.Core.Jwt.xml</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>obj\Release\netstandard2.1\Nigel.Core.Jwt.xml</DocumentationFile>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
