@@ -126,6 +126,16 @@ namespace Nigel.Core.Uploads
 
             var imageInfo = await SaveImageAsync(param.FormFile, param.RelativePath, param.RootPath, cancellationToken);
 
+
+            if (param.IsCutOriginal)
+            {
+                string orgin = Path.Combine(param.RootPath, imageInfo.FullPath);
+                string thumPath = $"{orgin}-tmp";
+                ImageHelper.MakeThumbnail(orgin, thumPath, param.OriginalWidth, param.OriginalHeight, ThumbnailMode.Cut);
+                System.IO.File.Copy(thumPath, orgin, true);
+                FileHelper.Delete(thumPath);
+            }
+
             if (param.Thumbs.Count == 0 || param.Thumbs == null || param.Thumbs.Count == 0)
                 return imageInfo;
 
@@ -134,11 +144,11 @@ namespace Nigel.Core.Uploads
                 var _size = thumbSize.Split('x', StringSplitOptions.RemoveEmptyEntries);
                 if (_size.Length < 2) continue;
 
-                var thumbPath = Path.Combine(imageInfo.Path, $"{imageInfo.Id.ToString().Replace("-", "")}_{thumbSize}.{imageInfo.Extension}");
+                var thumbPath = Path.Combine(imageInfo.Path, $"{imageInfo.Id.ToString().Replace("-", "")}-{thumbSize}.{imageInfo.Extension}");
                 var thumb = Path.Combine(param.RootPath, thumbPath);
                 var orgin = Path.Combine(param.RootPath, imageInfo.FullPath);
 
-                ImageHelper.MakeThumbnail(orgin, thumb, _size[0].ToInt(), _size[1].ToInt(), param.CutMode);
+                ImageHelper.MakeThumbnail(orgin, thumb, _size[0].ToInt(), _size[1].ToInt(), param.ThumbCutMode);
 
                 imageInfo.Thumbs.TryAdd(thumbSize, thumbPath);
             }

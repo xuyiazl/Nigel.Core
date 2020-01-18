@@ -8,6 +8,7 @@ using Nigel.Core.Uploads;
 using Nigel.Core.Uploads.Params;
 using Nigel.Drawing;
 using Nigel.Helpers;
+using Nigel.Webs;
 using Nigel.WebTests.Models;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -113,7 +114,7 @@ namespace Nigel.WebTests.Controllers
                 RootPath = Web.WebRootPath,
                 Module = "Test",
                 Group = "Logo",
-                CutMode = ThumbnailMode.Cut,
+                ThumbCutMode = ThumbnailMode.Cut,
                 Thumbs = new List<string> { "200x300", "400x200" },
             };
 
