@@ -203,9 +203,9 @@ namespace Nigel.Core.Filters
         {
             if (!(context.Result is Result result))
                 return;
-            log.AppendLine($"【响应消息】{result.Message}")
+            log.AppendLine($"【响应消息】{result.message}")
                 .AppendLine("【响应结果】")
-                .AppendLine(JsonHelper.ToJson(result.Data));
+                .AppendLine(JsonHelper.ToJson(result.data));
         }
     }
 }

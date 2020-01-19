@@ -13,32 +13,32 @@ namespace Nigel.Core
         /// <summary>
         /// 状态码
         /// </summary>
-        public int Code { get; }
+        public int code { get; }
 
         /// <summary>
         /// 业务状态码
         /// </summary>
-        public string SubCode { get; }
+        public string subCode { get; }
 
         /// <summary>
         /// 消息
         /// </summary>
-        public string Message { get; }
+        public string message { get; }
 
         /// <summary>
         /// 数据
         /// </summary>
-        public dynamic Data { get; }
+        public dynamic data { get; }
 
         /// <summary>
         /// 操作时间
         /// </summary>
-        public DateTime OperationTime { get; }
+        public DateTime operationTime { get; }
 
         /// <summary>
         /// 请求耗时
         /// </summary>
-        public long ElapsedTime { get; set; }
+        public long elapsedTime { get; set; }
 
         /// <summary>
         /// 初始化一个<see cref="Result"/>类型的实例
@@ -49,12 +49,12 @@ namespace Nigel.Core
         /// <param name="data">数据</param>
         public Result(int code, string subCode, string message, dynamic data = null) : base(null)
         {
-            Code = code;
-            SubCode = subCode;
-            Message = message;
-            Data = data;
-            OperationTime = DateTime.Now;
-            ElapsedTime = -1;
+            this.code = code;
+            this.subCode = subCode;
+            this.message = message;
+            this.data = data;
+            this.operationTime = DateTime.Now;
+            this.elapsedTime = -1;
         }
 
         /// <summary>
@@ -66,12 +66,12 @@ namespace Nigel.Core
         /// <param name="data">数据</param>
         public Result(StateCode code, string subCode, string message, dynamic data = null) : base(null)
         {
-            Code = code.Value();
-            SubCode = subCode;
-            Message = message;
-            Data = data;
-            OperationTime = DateTime.Now;
-            ElapsedTime = -1;
+            this.code = code.Value();
+            this.subCode = subCode;
+            this.message = message;
+            this.data = data;
+            this.operationTime = DateTime.Now;
+            this.elapsedTime = -1;
         }
 
         /// <summary>
@@ -83,12 +83,12 @@ namespace Nigel.Core
                 throw new ArgumentNullException(nameof(context));
             this.Value = new
             {
-                Code,
-                SubCode,
-                Message,
-                ElapsedTime,
-                OperationTime,
-                Data
+                code,
+                subCode,
+                message,
+                elapsedTime,
+                operationTime,
+                data
             };
             return base.ExecuteResultAsync(context);
         }

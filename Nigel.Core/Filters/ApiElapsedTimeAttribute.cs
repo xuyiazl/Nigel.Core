@@ -31,7 +31,7 @@ namespace Nigel.Core.Filters
                 var res = (Result)actionExecutedContext.Result;
                 if (res != null)
                 {
-                    res.ElapsedTime = stopwatch.ElapsedMilliseconds;
+                    res.elapsedTime = stopwatch.ElapsedMilliseconds;
                     actionExecutedContext.Result = res;
                 }
             }

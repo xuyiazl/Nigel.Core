@@ -9,7 +9,7 @@ namespace Nigel.Core.Controllers
     /// WebApi控制器基类
     /// </summary>
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiError]
     [ApiTrace]
     [ApiElapsedTime]
@@ -32,7 +32,7 @@ namespace Nigel.Core.Controllers
         /// <param name="data">数据</param>
         /// <param name="message">消息</param>
         /// <returns></returns>
-        protected virtual IActionResult Success(string subCode, dynamic data = null, string message = null)
+        protected virtual IActionResult Success(string subCode, string message = null, dynamic data = null)
         {
             if (message == null)
                 message = R.Success;
