@@ -24,7 +24,7 @@ namespace Nigel.ApiTests.Controllers
         [HttpGet]
         public IActionResult Success()
         {
-            return Success("000", new ReturnModel());
+            return Success("000", "");
         }
 
         [Route("fail")]
