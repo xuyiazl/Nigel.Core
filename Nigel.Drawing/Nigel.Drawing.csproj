@@ -40,13 +40,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="ImageHelper.Convert.cs">
-      <DependentUpon>ImageHelper.cs</DependentUpon>
-    </Compile>
-    <Compile Update="ImageHelper.Info.cs">
-      <DependentUpon>ImageHelper.cs</DependentUpon>
-    </Compile>
-    <Compile Update="ImageHelper.Load.cs">
+    <Compile Update="ImageHelper.*.cs">
       <DependentUpon>ImageHelper.cs</DependentUpon>
     </Compile>
   </ItemGroup>
