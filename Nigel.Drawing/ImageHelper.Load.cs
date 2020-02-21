@@ -62,6 +62,17 @@ namespace Nigel.Drawing
         }
 
         /// <summary>
+        /// 从base64字符串中转换为字节流
+        /// </summary>
+        /// <param name="base64String"></param>
+        /// <returns></returns>
+        public static byte[] ToBytesFromBase64String(string base64String)
+        {
+            byte[] bytes = Convert.FromBase64String(GetBase64String(base64String));
+            return bytes;
+        }
+
+        /// <summary>
         /// 获取真正的图片Base64数据。
         /// 即去掉data:image/jpg;base64,这样的格式
         /// </summary>
