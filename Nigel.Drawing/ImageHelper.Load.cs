@@ -54,7 +54,7 @@ namespace Nigel.Drawing
         /// <param name="base64String">Base64字符串</param>
         public static Image FromBase64String(string base64String)
         {
-            byte[] bytes = Convert.FromBase64String(GetBase64String(base64String));
+            byte[] bytes = ToBytesFromBase64String(base64String);
             using (var ms = new MemoryStream(bytes))
             {
                 return Image.FromStream(ms);
