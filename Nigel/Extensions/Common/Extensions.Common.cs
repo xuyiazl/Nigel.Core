@@ -66,6 +66,20 @@ namespace Nigel.Extensions
 
         #endregion Description(获取枚举描述)
 
+        #region GetName(获取枚举名称)
+
+        /// <summary>
+        /// 获取枚举名
+        /// </summary>
+        /// <param name="instance">枚举实例</param>
+        /// <returns></returns>
+        public static string GetName(this System.Enum instance)
+        {
+            return Enum.GetName(instance.GetType(), instance);
+        }
+
+        #endregion Description(获取枚举描述)
+
         #region Join(转换为用分隔符连接的字符串)
 
         /// <summary>

@@ -340,3 +340,4 @@ ASALocalRun/
 healthchecksdb
 /.vscode/solution-explorer
 /Nigel.Core.WebTest/Entities
+/Nigel.WebTests/logs
