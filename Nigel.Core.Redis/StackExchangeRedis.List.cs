@@ -15,338 +15,177 @@ namespace Nigel.Core.Redis
     {
         public long ListLeftPushWhenExists<T>(string key, T value, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    if (value == null) return 0;
-                    if (value.GetType() == typeof(string))
-                        return db.ListLeftPush(key, value.SafeString(), When.Exists, CommandFlags.None);
-                    else
-                        return db.ListLeftPush(key, value.ToJson(), When.Exists, CommandFlags.None);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return 0;
+                if (value == null) return 0;
+                if (value.GetType() == typeof(string))
+                    return db.ListLeftPush(key, value.SafeString(), When.Exists, CommandFlags.None);
+                else
+                    return db.ListLeftPush(key, value.ToJson(), When.Exists, CommandFlags.None);
+            });
         }
 
         public long ListLeftPush<T>(string key, List<T> value, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                try
+                if (value != null) return 0;
+                RedisValue[] values = new RedisValue[value.Count];
+                for (int i = 0; i < value.Count; i++)
                 {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    if (value != null)
-                    {
-                        RedisValue[] values = new RedisValue[value.Count];
-                        for (int i = 0; i < value.Count; i++)
-                        {
-                            values[i] = value[i].ToJson();
-                        }
-                        return db.ListLeftPush(key, values, CommandFlags.None);
-                    }
+                    values[i] = value[i].ToJson();
                 }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return 0;
+                return db.ListLeftPush(key, values, CommandFlags.None);
+            });
         }
 
         public long ListLeftPushWhenNoExists<T>(string key, T value, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    if (value == null) return 0;
-                    if (value.GetType() == typeof(string))
-                        return db.ListLeftPush(key, value.SafeString(), When.Always, CommandFlags.None);
-                    else
-                        return db.ListLeftPush(key, value.ToJson(), When.Always, CommandFlags.None);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return 0;
+                if (value == null) return 0;
+                if (value.GetType() == typeof(string))
+                    return db.ListLeftPush(key, value.SafeString(), When.Always, CommandFlags.None);
+                else
+                    return db.ListLeftPush(key, value.ToJson(), When.Always, CommandFlags.None);
+            });
         }
 
         public long ListRightPushWhenExists<T>(string key, T value, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    if (value == null) return 0;
-                    if (value.GetType() == typeof(string))
-                        return db.ListRightPush(key, value.SafeString(), When.Exists, CommandFlags.None);
-                    else
-                        return db.ListRightPush(key, value.ToJson(), When.Exists, CommandFlags.None);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return 0;
+                if (value == null) return 0;
+                if (value.GetType() == typeof(string))
+                    return db.ListRightPush(key, value.SafeString(), When.Exists, CommandFlags.None);
+                else
+                    return db.ListRightPush(key, value.ToJson(), When.Exists, CommandFlags.None);
+            });
         }
 
         public long ListRightPushWhenNoExists<T>(string key, T value, string connectionName = null)
         {
-            long result = 0;
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    if (value == null) return 0;
-                    if (value.GetType() == typeof(string))
-                        result = db.ListRightPush(key, value.SafeString(), When.Always, CommandFlags.None);
-                    else
-                        result = db.ListRightPush(key, value.ToJson(), When.Always, CommandFlags.None);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return result;
+                if (value == null) return 0;
+                if (value.GetType() == typeof(string))
+                    return db.ListRightPush(key, value.SafeString(), When.Always, CommandFlags.None);
+                else
+                    return db.ListRightPush(key, value.ToJson(), When.Always, CommandFlags.None);
+            });
         }
 
         public long ListRightPush<T>(string key, List<T> value, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                try
+                if (value != null) return 0;
+                RedisValue[] values = new RedisValue[value.Count];
+                for (int i = 0; i < value.Count; i++)
                 {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    if (value != null)
-                    {
-                        RedisValue[] values = new RedisValue[value.Count];
-                        for (int i = 0; i < value.Count; i++)
-                        {
-                            values[i] = value[i].ToJson();
-                        }
-                        return db.ListRightPush(key, values, CommandFlags.None);
-                    }
+                    values[i] = value[i].ToJson();
                 }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return 0;
+                return db.ListRightPush(key, values, CommandFlags.None);
+            });
         }
 
         public T ListLeftPop<T>(string key, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
-                try
-                {
-                    var db = readConn.Multiplexer.GetDatabase();
-                    string value = db.ListLeftPop(key);
-                    return value.ToObject<T>();
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
-            return default;
+                string value = db.ListLeftPop(key);
+                return value.ToObject<T>();
+            });
         }
 
         public T ListRightPop<T>(string key, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
-                try
-                {
-                    var db = readConn.Multiplexer.GetDatabase();
-                    string value = db.ListRightPop(key);
-                    return value.ToObject<T>();
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
-            return default;
+                string value = db.ListRightPop(key);
+                return value.ToObject<T>();
+            });
         }
 
         public long ListLength(string key, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
-                try
-                {
-                    var db = readConn.Multiplexer.GetDatabase();
-                    return db.ListLength(key);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
-            return 0;
+                return db.ListLength(key);
+            });
         }
 
         public void ListSetByIndex<T>(string key, long index, T value, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    if (value == null) return;
-                    if (value.GetType() == typeof(string))
-                        db.ListSetByIndex(key, index, value.SafeString());
-                    else
-                        db.ListSetByIndex(key, index, value.ToJson());
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
+                if (value.GetType() == typeof(string))
+                    db.ListSetByIndex(key, index, value.SafeString());
+                else
+                    db.ListSetByIndex(key, index, value.ToJson());
+            });
         }
 
         public void ListTrim(string key, long index, long end, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    db.ListTrim(key, index, end);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
+                db.ListTrim(key, index, end);
+            });
         }
 
         public T ListGetByIndex<T>(string key, long index, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
-                try
-                {
-                    var db = readConn.Multiplexer.GetDatabase();
-                    string value = db.ListGetByIndex(key, index);
-                    return value.ToObject<T>();
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
-            return default;
+                string value = db.ListGetByIndex(key, index);
+                return value.ToObject<T>();
+            });
         }
 
         public IList<T> ListRange<T>(string key, long start, long end, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
-                try
-                {
-                    var db = readConn.Multiplexer.GetDatabase();
-                    var result = db.ListRange(key, start, end);
-                    return result.ToStringArray().ToObjectNotNullOrEmpty<T>();
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
-            return default;
+                var result = db.ListRange(key, start, end);
+                return result.ToStringArray().ToObjectNotNullOrEmpty<T>();
+            });
         }
 
-        public void ListInsertBefore<T>(string key, T value, string insertvalue, string connectionName = null)
+        public long ListInsertBefore<T>(string key, T value, string insertvalue, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
-            {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    if (value == null) return;
-                    if (value.GetType() == typeof(string))
-                        db.ListInsertBefore(key, value.SafeString(), insertvalue);
-                    else
-                        db.ListInsertBefore(key, value.ToJson(), insertvalue);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
+            return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
+             {
+                 if (value == null) return 0;
+                 if (value.GetType() == typeof(string))
+                     return db.ListInsertBefore(key, value.SafeString(), insertvalue);
+                 else
+                     return db.ListInsertBefore(key, value.ToJson(), insertvalue);
+             });
         }
 
-        public void ListInsertAfter<T>(string key, T value, string insertvalue, string connectionName = null)
+        public long ListInsertAfter<T>(string key, T value, string insertvalue, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    if (value == null) return;
-                    if (value.GetType() == typeof(string))
-                        db.ListInsertAfter(key, value.SafeString(), insertvalue);
-                    else
-                        db.ListInsertAfter(key, value.ToJson(), insertvalue);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
+                if (value == null) return 0;
+                if (value.GetType() == typeof(string))
+                    return db.ListInsertAfter(key, value.SafeString(), insertvalue);
+                else
+                    return db.ListInsertAfter(key, value.ToJson(), insertvalue);
+            });
         }
 
         public long ListRemove<T>(string key, T value, long removecount, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    if (value == null || value.GetType() == typeof(string))
-                        return db.ListRemove(key, value.SafeString(), removecount);
-                    else
-                        return db.ListRemove(key, value.ToJson(), removecount);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return 0;
+                if (value == null) return 0;
+                if (value.GetType() == typeof(string))
+                    return db.ListRemove(key, value.SafeString(), removecount);
+                else
+                    return db.ListRemove(key, value.ToJson(), removecount);
+            });
         }
     }
 }

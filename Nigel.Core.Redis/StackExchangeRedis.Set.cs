@@ -14,146 +14,74 @@ namespace Nigel.Core.Redis
     {
         public bool SetAdd<T>(string key, T value, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    if (value == null) return false;
-                    if (value.GetType() == typeof(string))
-                        return db.SetAdd(key, value.SafeString());
-                    else
-                        return db.SetAdd(key, value.ToJson());
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return false;
+                if (value == null) return false;
+                if (value.GetType() == typeof(string))
+                    return db.SetAdd(key, value.SafeString());
+                else
+                    return db.SetAdd(key, value.ToJson());
+            });
         }
 
         public string[] SetMembers(string key, string connectionName = null)
         {
-            var writeConn = GetReadConfig(connectionName);
-            if (writeConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    var Redisresult = db.SetMembers(key);
-                    return Redisresult.ToStringArray();
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return null;
+                var Redisresult = db.SetMembers(key);
+                return Redisresult.ToStringArray();
+            });
         }
 
         public bool SetExists<T>(string key, T value, string connectionName = null)
         {
-            var writeConn = GetReadConfig(connectionName);
-            if (writeConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    if (value == null) return false;
-                    if (value.GetType() == typeof(string))
-                        return db.SetContains(key, value.SafeString());
-                    else
-                        return db.SetContains(key, value.ToJson());
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return false;
+                if (value == null) return false;
+                if (value.GetType() == typeof(string))
+                    return db.SetContains(key, value.SafeString());
+                else
+                    return db.SetContains(key, value.ToJson());
+            });
         }
 
         public bool SetRemove<T>(string key, T value, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    if (value == null) return false;
-                    if (value.GetType() == typeof(string))
-                        return db.SetRemove(key, value.SafeString());
-                    else
-                        return db.SetRemove(key, value.ToJson());
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return false;
+                if (value == null) return false;
+                if (value.GetType() == typeof(string))
+                    return db.SetRemove(key, value.SafeString());
+                else
+                    return db.SetRemove(key, value.ToJson());
+            });
         }
 
         public T SetPop<T>(string key, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-
-                    string value = db.SetPop(key);
-                    return value.ToObject<T>();
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return default;
+                string value = db.SetPop(key);
+                return value.ToObject<T>();
+            });
         }
 
         public long GetSetLength(string key, string connectionName = null)
         {
-            var writeConn = GetReadConfig(connectionName);
-            if (writeConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    return db.SetLength(key);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return 0;
+                return db.SetLength(key);
+            });
         }
 
         public T SetRandom<T>(string key, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
-                try
-                {
-                    var db = readConn.Multiplexer.GetDatabase();
+                string value = db.SetRandomMember(key);
 
-                    string value = db.SetRandomMember(key);
-
-                    return value.ToObject<T>();
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
-            return default;
+                return value.ToObject<T>();
+            });
         }
     }
 }

@@ -131,7 +131,7 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <param name="value"></param>
         /// <param name="insertvalue"></param>
         /// <param name="connectionName"></param>
-        Task ListInsertBeforeAsync<T>(string key, T value, string insertvalue, string connectionName = null);
+        Task<long> ListInsertBeforeAsync<T>(string key, T value, string insertvalue, string connectionName = null);
         /// <summary>
         /// 在消息列表指定值之后插入值
         /// </summary>
@@ -140,7 +140,7 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <param name="value"></param>
         /// <param name="insertvalue"></param>
         /// <param name="connectionName"></param>
-        Task ListInsertAfterAsync<T>(string key, T value, string insertvalue, string connectionName = null);
+        Task<long> ListInsertAfterAsync<T>(string key, T value, string insertvalue, string connectionName = null);
         /// <summary>
         /// 移除消息列表
         /// </summary>

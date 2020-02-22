@@ -42,104 +42,59 @@ namespace Nigel.Core.Redis
             }
         }
 
-        public void StringSet<T>(string key, T value, int seconds = 0, string connectionName = null)
+        public bool StringSet<T>(string key, T value, int seconds = 0, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                try
+                if (value == null) return false;
+                if (value.GetType() == typeof(string))
                 {
-                    var db = writeConn.Multiplexer.GetDatabase();
-
-                    if (value == null) return;
-                    if (value.GetType() == typeof(string))
-                    {
-                        if (seconds > 0)
-                            db.StringSet(key, value.SafeString(), TimeSpan.FromSeconds(seconds));
-                        else
-                            db.StringSet(key, value.SafeString());
-                    }
+                    if (seconds > 0)
+                        return db.StringSet(key, value.SafeString(), TimeSpan.FromSeconds(seconds));
                     else
-                    {
-                        if (seconds > 0)
-                            db.StringSet(key, value.ToJson(), TimeSpan.FromSeconds(seconds));
-                        else
-                            db.StringSet(key, value.ToJson());
-                    }
+                        return db.StringSet(key, value.SafeString());
                 }
-                catch (Exception ex)
+                else
                 {
-                    ThrowExceptions(writeConn, ex);
+                    if (seconds > 0)
+                        return db.StringSet(key, value.ToJson(), TimeSpan.FromSeconds(seconds));
+                    else
+                        return db.StringSet(key, value.ToJson());
                 }
-            }
+            });
         }
 
         public long StringIncrement(string key, long value = 1, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    return db.StringIncrement(key, value);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return -1;
+                return db.StringIncrement(key, value);
+            });
         }
 
         public TResult StringGet<TResult>(string key, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
-                try
-                {
-                    var db = readConn.Multiplexer.GetDatabase();
-                    string value = db.StringGet(key);
-                    if (value == null) return default;
-                    return value.ToObject<TResult>();
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
-            return default;
+                string value = db.StringGet(key);
+                return value.ToObject<TResult>();
+            });
         }
 
         public List<TResult> StringGet<TResult>(string[] keys, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
-                try
+                RedisKey[] redisKey = new RedisKey[keys.Length];
+                for (int i = 0; i < redisKey.Length; i++)
                 {
-                    var db = readConn.Multiplexer.GetDatabase();
-                    if (keys != null && keys.Length != 0)
-                    {
-                        RedisKey[] redisKey = new RedisKey[keys.Length];
-                        for (int i = 0; i < redisKey.Length; i++)
-                        {
-                            redisKey[i] = keys[i];
-                        }
-
-                        var redisValue = db.StringGet(redisKey);
-                        var json = redisValue.ToStringArray().ToJsonNotNullOrEmpty();
-                        return json.ToObject<List<TResult>>();
-                    }
-
+                    redisKey[i] = keys[i];
                 }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
-            return default;
+
+                var redisValue = db.StringGet(redisKey);
+                var json = redisValue.ToStringArray().ToJsonNotNullOrEmpty();
+                return json.ToObject<List<TResult>>();
+            });
         }
     }
 }

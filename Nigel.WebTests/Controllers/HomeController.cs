@@ -43,7 +43,10 @@ namespace Nigel.WebTests.Controllers
         [RazorHtmlStatic(Template = "/static/{controller}/{action}-{id}.html")]
         public async Task<IActionResult> Index(int id, CancellationToken cancellationToken)
         {
-            var rm = await _redisService.HashGetOrInsertAsync("asd", "test1", "test-read", "test-write", () => new ReturnModel("sssss", "sdfsdf"));
+            var rm = await _redisService.HashGetOrInsertAsync("asd", "test2", "test-read", "test-write", () => new ReturnModel("sssss", "sdfsdf"));
+
+            var r = await _redisService.StringIncrementAsync("asd1", 10, "test-write");
+            var r1 = await _redisService.StringGetAsync<long>("asd1", "test-read");
 
             var url = UrlArguments.Create("test", $"/api/CommentsLive/GetPaged")
                  .Add("aid", 1539)

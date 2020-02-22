@@ -15,92 +15,42 @@ namespace Nigel.Core.Redis
     {
         public async Task<bool> IsKeyExistsAsync(string key, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
-                try
-                {
-                    var db = readConn.Multiplexer.GetDatabase();
-                    return await db.KeyExistsAsync(key);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
-            return false;
+                return await db.KeyExistsAsync(key);
+            });
         }
 
         public async Task<byte[]> GetKeyDumpAsync(string key, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
-                try
-                {
-                    var db = readConn.Multiplexer.GetDatabase();
-                    return await db.KeyDumpAsync(key);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
-            return null;
+                return await db.KeyDumpAsync(key);
+            });
         }
 
-        public async Task SetKeyExpireAsync(string key, int seconds, string connectionName = null)
+        public async Task<bool> SetKeyExpireAsync(string key, int seconds, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return await ExecuteCommand(ConnectTypeEnum.Write, connectionName, async (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-
-                    await db.KeyExpireAsync(key, TimeSpan.FromSeconds(seconds));
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
+                return await db.KeyExpireAsync(key, TimeSpan.FromSeconds(seconds));
+            });
         }
 
         public async Task<bool> KeyDeleteAsync(string Key, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return await ExecuteCommand(ConnectTypeEnum.Write, connectionName, async (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    return await db.KeyDeleteAsync(Key);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return false;
+                return await db.KeyDeleteAsync(Key);
+            });
         }
 
         public async Task<bool> KeyPersistAsync(string key, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return await ExecuteCommand(ConnectTypeEnum.Write, connectionName, async (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    return await db.KeyPersistAsync(key);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return false;
+                return await db.KeyPersistAsync(key);
+            });
         }
     }
 }

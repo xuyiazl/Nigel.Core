@@ -17,7 +17,7 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <param name="key">字段名（可以当成是列名）</param>
         /// <param name="value">字段值（可以当成是列值）</param>
         /// <param name="connectionName">连接名称</param>
-        void HashSet<T>(string hasId, string key, T value, string connectionName = null);
+        bool HashSet<T>(string hasId, string key, T value, string connectionName = null);
         /// <summary>
         /// 写入时候判断是否写入
         /// </summary>

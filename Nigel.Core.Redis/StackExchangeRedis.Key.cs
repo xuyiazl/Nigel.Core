@@ -15,92 +15,42 @@ namespace Nigel.Core.Redis
     {
         public bool IsKeyExists(string key, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
-                try
-                {
-                    var db = readConn.Multiplexer.GetDatabase();
-                    return db.KeyExists(key);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
-            return false;
+                return db.KeyExists(key);
+            });
         }
 
         public byte[] GetKeyDump(string key, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
-                try
-                {
-                    var db = readConn.Multiplexer.GetDatabase();
-                    return db.KeyDump(key);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
-            return null;
+                return db.KeyDump(key);
+            });
         }
 
-        public void SetKeyExpire(string key, int seconds, string connectionName = null)
+        public bool SetKeyExpire(string key, int seconds, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-
-                    db.KeyExpire(key, TimeSpan.FromSeconds(seconds));
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
+                return db.KeyExpire(key, TimeSpan.FromSeconds(seconds));
+            });
         }
 
         public bool KeyDelete(string Key, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    return db.KeyDelete(Key);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return false;
+                return db.KeyDelete(Key);
+            });
         }
 
         public bool KeyPersist(string key, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    return db.KeyPersist(key);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return false;
+                return db.KeyPersist(key);
+            });
         }
     }
 }

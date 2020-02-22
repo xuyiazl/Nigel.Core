@@ -33,21 +33,14 @@ namespace Nigel.Core.Redis
         /// 延迟加载配置
         /// </summary>
         protected static Lazy<List<StackExchangeConnectionSettings>> lazyconnMultiplexer;
-        /// <summary>
-        /// 抛出异常
-        /// </summary>
-        /// <param name="config"></param>
-        /// <param name="ex"></param>
+
         private void ThrowExceptions(StackExchangeConnectionSettings config, Exception ex)
         {
             throw new RedisException(config.EndPoint, config.Port, ex.Message, "缓存服务器意外终止,请检查缓存服务器并且将缓存服务器打开");
         }
 
-        /// <summary>
-        /// 获得写入的Redis连接配置
-        /// </summary>
-        /// <returns></returns>
-        private StackExchangeConnectionSettings GetWriteConfig(string connectionName = null)
+
+        private StackExchangeConnectionSettings GetWriteConnection(string connectionName = null)
         {
             try
             {
@@ -67,11 +60,7 @@ namespace Nigel.Core.Redis
             }
         }
 
-        /// <summary>
-        /// 获得读取的Redis连接配置
-        /// </summary>
-        /// <returns></returns>
-        private StackExchangeConnectionSettings GetReadConfig(string connectionName = null)
+        private StackExchangeConnectionSettings GetReadConnection(string connectionName = null)
         {
             try
             {
@@ -91,78 +80,87 @@ namespace Nigel.Core.Redis
             }
         }
 
+        private TResult ExecuteCommand<TResult>(ConnectTypeEnum connectTypeEnum, string connectionName, Func<IDatabase, TResult> callback)
+        {
+            var connect = GetConnection(connectTypeEnum, connectionName);
+
+            if (connect != null)
+            {
+                try
+                {
+                    var db = connect.Multiplexer.GetDatabase();
+                    return callback.Invoke(db);
+                }
+                catch (Exception ex)
+                {
+                    ThrowExceptions(connect, ex);
+                }
+            }
+            return default;
+        }
+
+        private void ExecuteCommand(ConnectTypeEnum connectTypeEnum, string connectionName, Action<IDatabase> callback)
+        {
+            var connect = GetConnection(connectTypeEnum, connectionName);
+
+            if (connect != null)
+            {
+                try
+                {
+                    var db = connect.Multiplexer.GetDatabase();
+                    callback.Invoke(db);
+                }
+                catch (Exception ex)
+                {
+                    ThrowExceptions(connect, ex);
+                }
+            }
+        }
+
+        private StackExchangeConnectionSettings GetConnection(ConnectTypeEnum connectTypeEnum, string connectionName)
+        {
+            switch (connectTypeEnum)
+            {
+                case ConnectTypeEnum.Read:
+                    return GetReadConnection(connectionName);
+                    break;
+                case ConnectTypeEnum.Write:
+                    return GetWriteConnection(connectionName);
+                    break;
+                default:
+                    return GetWriteConnection(connectionName);
+                    break;
+            }
+        }
+
         #endregion
 
 
-        public IDatabase QueryDataBase(ConnectTypeEnum connect, string connectionName = null)
+        public IDatabase QueryDataBase(ConnectTypeEnum connectTypeEnum, string connectionName = null)
         {
-            StackExchangeConnectionSettings config;
-            switch (connect)
-            {
-                case ConnectTypeEnum.Read:
-                    config = GetReadConfig(connectionName);
-                    break;
-                case ConnectTypeEnum.Write:
-                    config = GetWriteConfig(connectionName);
-                    break;
-                default:
-                    config = GetWriteConfig(connectionName);
-                    break;
-            }
+            var config = GetConnection(connectTypeEnum, connectionName);
+
             return config.Multiplexer.GetDatabase();
         }
 
-        public ISubscriber QuerySubscriber(ConnectTypeEnum connect, string connectionName = null)
+        public ISubscriber QuerySubscriber(ConnectTypeEnum connectTypeEnum, string connectionName = null)
         {
-            StackExchangeConnectionSettings config;
-            switch (connect)
-            {
-                case ConnectTypeEnum.Read:
-                    config = GetReadConfig(connectionName);
-                    break;
-                case ConnectTypeEnum.Write:
-                    config = GetWriteConfig(connectionName);
-                    break;
-                default:
-                    config = GetWriteConfig(connectionName);
-                    break;
-            }
+            var config = GetConnection(connectTypeEnum, connectionName);
+
             return config.Multiplexer.GetSubscriber();
         }
 
-        public ServerCounters QueryServerCounters(ConnectTypeEnum connect, string connectionName = null)
+        public ServerCounters QueryServerCounters(ConnectTypeEnum connectTypeEnum, string connectionName = null)
         {
-            StackExchangeConnectionSettings config;
-            switch (connect)
-            {
-                case ConnectTypeEnum.Read:
-                    config = GetReadConfig(connectionName);
-                    break;
-                case ConnectTypeEnum.Write:
-                    config = GetWriteConfig(connectionName);
-                    break;
-                default:
-                    config = GetWriteConfig(connectionName);
-                    break;
-            }
+            var config = GetConnection(connectTypeEnum, connectionName);
+
             return config.Multiplexer.GetCounters();
         }
 
-        public ConnectionMultiplexer QueryMultiplexer(ConnectTypeEnum connect, string connectionName = null)
+        public ConnectionMultiplexer QueryMultiplexer(ConnectTypeEnum connectTypeEnum, string connectionName = null)
         {
-            StackExchangeConnectionSettings config;
-            switch (connect)
-            {
-                case ConnectTypeEnum.Read:
-                    config = GetReadConfig(connectionName);
-                    break;
-                case ConnectTypeEnum.Write:
-                    config = GetWriteConfig(connectionName);
-                    break;
-                default:
-                    config = GetWriteConfig(connectionName);
-                    break;
-            }
+            var config = GetConnection(connectTypeEnum, connectionName);
+
             return config.Multiplexer;
         }
     }

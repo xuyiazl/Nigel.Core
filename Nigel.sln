@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nigel.Core.Jwt", "Nigel.Cor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nigel.RazorTests", "Nigel.RazorTests\Nigel.RazorTests.csproj", "{CDB2EE14-5A6D-42F3-861F-DB40A3C60F02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nigel.Core.Redis", "Nigel.Core.Redis\Nigel.Core.Redis.csproj", "{58C11D26-6042-4816-A1FD-66B58D64A52E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nigel.Core.Redis", "Nigel.Core.Redis\Nigel.Core.Redis.csproj", "{58C11D26-6042-4816-A1FD-66B58D64A52E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

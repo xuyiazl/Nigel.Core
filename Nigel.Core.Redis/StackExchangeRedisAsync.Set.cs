@@ -15,146 +15,74 @@ namespace Nigel.Core.Redis
     {
         public async Task<bool> SetAddAsync<T>(string key, T value, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return await ExecuteCommand(ConnectTypeEnum.Write, connectionName, async (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    if (value == null) return false;
-                    if (value.GetType() == typeof(string))
-                        return await db.SetAddAsync(key, value.SafeString());
-                    else
-                        return await db.SetAddAsync(key, value.ToJson());
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return false;
+                if (value == null) return false;
+                if (value.GetType() == typeof(string))
+                    return await db.SetAddAsync(key, value.SafeString());
+                else
+                    return await db.SetAddAsync(key, value.ToJson());
+            });
         }
 
         public async Task<string[]> SetMembersAsync(string key, string connectionName = null)
         {
-            var writeConn = GetReadConfig(connectionName);
-            if (writeConn != null)
+            return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    var Redisresult = await db.SetMembersAsync(key);
-                    return Redisresult.ToStringArray();
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return null;
+                var Redisresult = await db.SetMembersAsync(key);
+                return Redisresult.ToStringArray();
+            });
         }
 
         public async Task<bool> SetExistsAsync<T>(string key, T value, string connectionName = null)
         {
-            var writeConn = GetReadConfig(connectionName);
-            if (writeConn != null)
+            return await ExecuteCommand(ConnectTypeEnum.Write, connectionName, async (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    if (value == null) return false;
-                    if (value.GetType() == typeof(string))
-                        return await db.SetContainsAsync(key, value.SafeString());
-                    else
-                        return await db.SetContainsAsync(key, value.ToJson());
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return false;
+                if (value == null) return false;
+                if (value.GetType() == typeof(string))
+                    return await db.SetContainsAsync(key, value.SafeString());
+                else
+                    return await db.SetContainsAsync(key, value.ToJson());
+            });
         }
 
         public async Task<bool> SetRemoveAsync<T>(string key, T value, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return await ExecuteCommand(ConnectTypeEnum.Write, connectionName, async (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    if (value == null) return false;
-                    if (value.GetType() == typeof(string))
-                        return await db.SetRemoveAsync(key, value.SafeString());
-                    else
-                        return await db.SetRemoveAsync(key, value.ToJson());
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return false;
+                if (value == null) return false;
+                if (value.GetType() == typeof(string))
+                    return await db.SetRemoveAsync(key, value.SafeString());
+                else
+                    return await db.SetRemoveAsync(key, value.ToJson());
+            });
         }
 
         public async Task<T> SetPopAsync<T>(string key, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-
-                    string value = await db.SetPopAsync(key);
-                    return value.ToObject<T>();
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return default;
+                string value = await db.SetPopAsync(key);
+                return value.ToObject<T>();
+            });
         }
 
         public async Task<long> GetSetLengthAsync(string key, string connectionName = null)
         {
-            var writeConn = GetReadConfig(connectionName);
-            if (writeConn != null)
+            return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    return await db.SetLengthAsync(key);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return 0;
+                return await db.SetLengthAsync(key);
+            });
         }
 
         public async Task<T> SetRandomAsync<T>(string key, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
-                try
-                {
-                    var db = readConn.Multiplexer.GetDatabase();
+                string value = await db.SetRandomMemberAsync(key);
 
-                    string value = await db.SetRandomMemberAsync(key);
-
-                    return value.ToObject<T>();
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
-            return default;
+                return value.ToObject<T>();
+            });
         }
     }
 }

@@ -12,61 +12,42 @@ namespace Nigel.Core.Redis
 {
     public abstract partial class StackExchangeRedis : IHashRedisCommand
     {
-        public void HashSet<T>(string hasId, string key, T value, string connectionName = null)
+        public bool HashSet<T>(string hasId, string key, T value, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
-            {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    if (value == null) return;
-                    if (value.GetType() == typeof(string))
-                        db.HashSet(hasId, key, value.SafeString());
-                    else
-                        db.HashSet(hasId, key, value.ToJson());
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
+            return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
+             {
+                 if (value == null) return false;
+                 if (value.GetType() == typeof(string))
+                     return db.HashSet(hasId, key, value.SafeString());
+                 else
+                     return db.HashSet(hasId, key, value.ToJson());
+             });
         }
 
         public bool HashSet<T>(string hashId, string Key, T value, OverWrittenTypeDenum isAlways = OverWrittenTypeDenum.Always, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                try
+                When when = When.Always;
+                switch (isAlways)
                 {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    When when = When.Always;
-                    switch (isAlways)
-                    {
-                        case OverWrittenTypeDenum.Always:
-                            when = When.Always;
-                            break;
-                        case OverWrittenTypeDenum.Exists:
-                            when = When.Exists;
-                            break;
-                        case OverWrittenTypeDenum.NotExists:
-                            when = When.NotExists;
-                            break;
-                    }
+                    case OverWrittenTypeDenum.Always:
+                        when = When.Always;
+                        break;
+                    case OverWrittenTypeDenum.Exists:
+                        when = When.Exists;
+                        break;
+                    case OverWrittenTypeDenum.NotExists:
+                        when = When.NotExists;
+                        break;
+                }
 
-                    if (value == null) return false;
-                    if (value.GetType() == typeof(string))
-                        db.HashSet(hashId, Key, value.SafeString(), when);
-                    else
-                        db.HashSet(hashId, Key, value.ToJson(), when);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return false;
+                if (value == null) return false;
+                if (value.GetType() == typeof(string))
+                    return db.HashSet(hashId, Key, value.SafeString(), when);
+                else
+                    return db.HashSet(hashId, Key, value.ToJson(), when);
+            });
         }
 
         public TResult HashGetOrInsert<TResult>(string hashId, string key, string connectionRead, string connectionWrite, Func<TResult> fetcher)
@@ -136,71 +117,40 @@ namespace Nigel.Core.Redis
 
         public TResult HashGet<TResult>(string hashId, string key, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
-                try
-                {
-                    var db = readConn.Multiplexer.GetDatabase();
-                    string obj = db.HashGet(hashId, key);
-                    if (obj == null) return default;
-                    return obj.SafeString().ToObject<TResult>();
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
-            return default;
+                string obj = db.HashGet(hashId, key);
+                if (obj == null) return default;
+                return obj.SafeString().ToObject<TResult>();
+            });
         }
 
         public IList<TResult> HashGet<TResult>(string hashId, string[] keys, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
-                try
+                List<RedisValue> listvalues = new List<RedisValue>();
+                foreach (var key in keys)
                 {
-                    var db = readConn.Multiplexer.GetDatabase();
-                    List<RedisValue> listvalues = new List<RedisValue>();
-                    foreach (var key in keys)
-                    {
-                        listvalues.Add(key);
-                    }
-                    var value = db.HashGet(hashId, listvalues.ToArray());
-
-                    if (value == null) return default;
-
-                    var json = value.ToStringArray().ToJsonNotNullOrEmpty();
-
-                    return json.ToObject<IList<TResult>>();
+                    listvalues.Add(key);
                 }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
+                var value = db.HashGet(hashId, listvalues.ToArray());
 
-            return default;
+                if (value == null) return default;
+
+                var json = value.ToStringArray().ToJsonNotNullOrEmpty();
+
+                return json.ToObject<IList<TResult>>();
+            });
         }
 
         public Dictionary<string, string> HashGetAll(string hashId, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
-                try
-                {
-                    var db = readConn.Multiplexer.GetDatabase();
-                    var value = db.HashGetAll(hashId);
-                    return value.ToStringDictionary();
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
-            return null;
+                var value = db.HashGetAll(hashId);
+                return value.ToStringDictionary();
+            });
         }
 
         public TResult HashGetAll<TResult>(string hashId, string connectionRead, Func<Dictionary<string, string>, TResult> fetcher)
@@ -213,42 +163,20 @@ namespace Nigel.Core.Redis
 
         public IList<string> HashKeys(string hashId, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
-                try
-                {
-                    var db = readConn.Multiplexer.GetDatabase();
-                    //value = db.HashGetAll(hashId).ToStringDictionary();
-                    var value = db.HashKeys(hashId);
-                    return value.ToStringArray().ToList();
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
-            return null;
+                var value = db.HashKeys(hashId);
+                return value.ToStringArray().ToList();
+            });
         }
 
         public IList<string> HashValues(string hashId, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
-                try
-                {
-                    var db = readConn.Multiplexer.GetDatabase();
-                    //value = db.HashGetAll(hashId).ToStringDictionary();
-                    var value = db.HashValues(hashId);
-                    return value.ToStringArray().ToList();
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
-            return null;
+                var value = db.HashValues(hashId);
+                return value.ToStringArray().ToList();
+            });
         }
 
         public IList<TResult> HashValues<TResult>(string hashId, string connectionName = null)
@@ -259,83 +187,39 @@ namespace Nigel.Core.Redis
 
         public bool HashDelete(string hashId, string Key, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    return db.HashDelete(hashId, Key);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return false;
+                return db.HashDelete(hashId, Key);
+            });
         }
 
         public long HashDelete(string hashId, string[] Key, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                try
+                RedisValue[] redisKeys = new RedisValue[Key.Length];
+                for (int i = 0; i < Key.Length; i++)
                 {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    if (Key != null)
-                    {
-                        RedisValue[] redisKeys = new RedisValue[Key.Length];
-                        for (int i = 0; i < Key.Length; i++)
-                        {
-                            redisKeys[i] = Key[i];
-                        }
-                        return db.HashDelete(hashId, redisKeys);
-                    }
+                    redisKeys[i] = Key[i];
                 }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return 0;
+                return db.HashDelete(hashId, redisKeys);
+            });
         }
 
         public bool HashExists(string hashId, string Key, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
-                try
-                {
-                    var db = readConn.Multiplexer.GetDatabase();
-                    return db.HashExists(hashId, Key);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
-            return false;
-
+                return db.HashExists(hashId, Key);
+            });
         }
 
         public long HashLength(string hashId, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
-                try
-                {
-                    var db = readConn.Multiplexer.GetDatabase();
-                    return db.HashLength(hashId);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
-            return 0;
+                return db.HashLength(hashId);
+            });
         }
     }
 }

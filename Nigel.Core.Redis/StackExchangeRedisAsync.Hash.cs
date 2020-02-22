@@ -11,61 +11,42 @@ namespace Nigel.Core.Redis
 {
     public abstract partial class StackExchangeRedis : IHashRedisCommandAsync
     {
-        public async Task HashSetAsync<T>(string hasId, string key, T value, string connectionName = null)
+        public async Task<bool> HashSetAsync<T>(string hasId, string key, T value, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
-            {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    if (value == null) return;
-                    if (value.GetType() == typeof(string))
-                        await db.HashSetAsync(hasId, key, value.SafeString());
-                    else
-                        await db.HashSetAsync(hasId, key, value.ToJson());
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
+            return await ExecuteCommand(ConnectTypeEnum.Write, connectionName, async (db) =>
+               {
+                   if (value == null) return false;
+                   if (value.GetType() == typeof(string))
+                       return await db.HashSetAsync(hasId, key, value.SafeString());
+                   else
+                       return await db.HashSetAsync(hasId, key, value.ToJson());
+               });
         }
 
         public async Task<bool> HashSetAsync<T>(string hashId, string Key, T value, OverWrittenTypeDenum isAlways = OverWrittenTypeDenum.Always, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
-            {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    When when = When.Always;
-                    switch (isAlways)
-                    {
-                        case OverWrittenTypeDenum.Always:
-                            when = When.Always;
-                            break;
-                        case OverWrittenTypeDenum.Exists:
-                            when = When.Exists;
-                            break;
-                        case OverWrittenTypeDenum.NotExists:
-                            when = When.NotExists;
-                            break;
-                    }
+            return await ExecuteCommand(ConnectTypeEnum.Write, connectionName, async (db) =>
+             {
+                 When when = When.Always;
+                 switch (isAlways)
+                 {
+                     case OverWrittenTypeDenum.Always:
+                         when = When.Always;
+                         break;
+                     case OverWrittenTypeDenum.Exists:
+                         when = When.Exists;
+                         break;
+                     case OverWrittenTypeDenum.NotExists:
+                         when = When.NotExists;
+                         break;
+                 }
 
-                    if (value == null) return false;
-                    if (value.GetType() == typeof(string))
-                        await db.HashSetAsync(hashId, Key, value.SafeString(), when);
-                    else
-                        await db.HashSetAsync(hashId, Key, value.ToJson(), when);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return false;
+                 if (value == null) return false;
+                 if (value.GetType() == typeof(string))
+                     return await db.HashSetAsync(hashId, Key, value.SafeString(), when);
+                 else
+                     return await db.HashSetAsync(hashId, Key, value.ToJson(), when);
+             });
         }
 
         public async Task<TResult> HashGetOrInsertAsync<TResult>(string hashId, string key, string connectionRead, string connectionWrite, Func<TResult> fetcher)
@@ -135,71 +116,40 @@ namespace Nigel.Core.Redis
 
         public async Task<TResult> HashGetAsync<TResult>(string hashId, string key, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
-                try
-                {
-                    var db = readConn.Multiplexer.GetDatabase();
-                    string obj = await db.HashGetAsync(hashId, key);
-                    if (obj == null) return default;
-                    return obj.SafeString().ToObject<TResult>();
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
-            return default;
+                string obj = await db.HashGetAsync(hashId, key);
+                if (obj == null) return default;
+                return obj.SafeString().ToObject<TResult>();
+            });
         }
 
         public async Task<IList<TResult>> HashGetAsync<TResult>(string hashId, string[] keys, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
-                try
+                List<RedisValue> listvalues = new List<RedisValue>();
+                foreach (var key in keys)
                 {
-                    var db = readConn.Multiplexer.GetDatabase();
-                    List<RedisValue> listvalues = new List<RedisValue>();
-                    foreach (var key in keys)
-                    {
-                        listvalues.Add(key);
-                    }
-                    var value = await db.HashGetAsync(hashId, listvalues.ToArray());
-
-                    if (value == null) return default;
-
-                    var json = value.ToStringArray().ToJsonNotNullOrEmpty();
-
-                    return json.ToObject<IList<TResult>>();
+                    listvalues.Add(key);
                 }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
+                var value = await db.HashGetAsync(hashId, listvalues.ToArray());
 
-            return default;
+                if (value == null) return default;
+
+                var json = value.ToStringArray().ToJsonNotNullOrEmpty();
+
+                return json.ToObject<IList<TResult>>();
+            });
         }
 
         public async Task<Dictionary<string, string>> HashGetAllAsync(string hashId, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
-                try
-                {
-                    var db = readConn.Multiplexer.GetDatabase();
-                    var value = await db.HashGetAllAsync(hashId);
-                    return value.ToStringDictionary();
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
-            return null;
+                var value = await db.HashGetAllAsync(hashId);
+                return value.ToStringDictionary();
+            });
         }
 
         public async Task<TResult> HashGetAllAsync<TResult>(string hashId, string connectionRead, Func<Dictionary<string, string>, TResult> fetcher)
@@ -212,42 +162,20 @@ namespace Nigel.Core.Redis
 
         public async Task<IList<string>> HashKeysAsync(string hashId, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
-                try
-                {
-                    var db = readConn.Multiplexer.GetDatabase();
-                    //value = db.HashGetAll(hashId).ToStringDictionary();
-                    var value = await db.HashKeysAsync(hashId);
-                    return value.ToStringArray().ToList();
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
-            return null;
+                var value = await db.HashKeysAsync(hashId);
+                return value.ToStringArray().ToList();
+            });
         }
 
         public async Task<IList<string>> HashValuesAsync(string hashId, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
-                try
-                {
-                    var db = readConn.Multiplexer.GetDatabase();
-                    //value = db.HashGetAll(hashId).ToStringDictionary();
-                    var value = await db.HashValuesAsync(hashId);
-                    return value.ToStringArray().ToList();
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
-            return null;
+                var value = await db.HashValuesAsync(hashId);
+                return value.ToStringArray().ToList();
+            });
         }
 
         public async Task<IList<TResult>> HashValuesAsync<TResult>(string hashId, string connectionName = null)
@@ -258,83 +186,39 @@ namespace Nigel.Core.Redis
 
         public async Task<bool> HashDeleteAsync(string hashId, string Key, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return await ExecuteCommand(ConnectTypeEnum.Write, connectionName, async (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    return await db.HashDeleteAsync(hashId, Key);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return false;
+                return await db.HashDeleteAsync(hashId, Key);
+            });
         }
 
         public async Task<long> HashDeleteAsync(string hashId, string[] Key, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return await ExecuteCommand(ConnectTypeEnum.Write, connectionName, async (db) =>
             {
-                try
+                RedisValue[] redisKeys = new RedisValue[Key.Length];
+                for (int i = 0; i < Key.Length; i++)
                 {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    if (Key != null)
-                    {
-                        RedisValue[] redisKeys = new RedisValue[Key.Length];
-                        for (int i = 0; i < Key.Length; i++)
-                        {
-                            redisKeys[i] = Key[i];
-                        }
-                        return await db.HashDeleteAsync(hashId, redisKeys);
-                    }
+                    redisKeys[i] = Key[i];
                 }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return 0;
+                return await db.HashDeleteAsync(hashId, redisKeys);
+            });
         }
 
         public async Task<bool> HashExistsAsync(string hashId, string Key, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
-                try
-                {
-                    var db = readConn.Multiplexer.GetDatabase();
-                    return await db.HashExistsAsync(hashId, Key);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
-            return false;
-
+                return await db.HashExistsAsync(hashId, Key);
+            });
         }
 
         public async Task<long> HashLengthAsync(string hashId, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
-                try
-                {
-                    var db = readConn.Multiplexer.GetDatabase();
-                    return await db.HashLengthAsync(hashId);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
-            return 0;
+                return await db.HashLengthAsync(hashId);
+            });
         }
     }
 }

@@ -130,7 +130,7 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <param name="value"></param>
         /// <param name="insertvalue"></param>
         /// <param name="connectionName"></param>
-        void ListInsertBefore<T>(string key, T value, string insertvalue, string connectionName = null);
+        long ListInsertBefore<T>(string key, T value, string insertvalue, string connectionName = null);
         /// <summary>
         /// 在消息列表指定值之后插入值
         /// </summary>
@@ -139,7 +139,7 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <param name="value"></param>
         /// <param name="insertvalue"></param>
         /// <param name="connectionName"></param>
-        void ListInsertAfter<T>(string key, T value, string insertvalue, string connectionName = null);
+        long ListInsertAfter<T>(string key, T value, string insertvalue, string connectionName = null);
         /// <summary>
         /// 移除消息列表
         /// </summary>

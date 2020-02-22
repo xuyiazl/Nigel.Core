@@ -30,7 +30,7 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <param name="key"></param>
         /// <param name="seconds">失效时间为秒（s）</param>
         /// <param name="connectionName">连接名称</param>
-        Task SetKeyExpireAsync(string key, int seconds, string connectionName = null);
+        Task<bool> SetKeyExpireAsync(string key, int seconds, string connectionName = null);
         /// <summary>
         /// 删除Key
         /// </summary>

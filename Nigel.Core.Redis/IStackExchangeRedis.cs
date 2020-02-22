@@ -17,31 +17,31 @@ namespace Nigel.Core.Redis
         /// <summary>
         /// 查询返回IDataBase
         /// </summary>
-        /// <param name="connect"></param>
-        /// <param name="ConnectionName"></param>
+        /// <param name="connectTypeEnum"></param>
+        /// <param name="connectionName"></param>
         /// <returns></returns>
-        IDatabase QueryDataBase(ConnectTypeEnum connect, string ConnectionName = null);
+        IDatabase QueryDataBase(ConnectTypeEnum connectTypeEnum, string connectionName = null);
         /// <summary>
         /// 查询返回ISubscriber
         /// 消息中间件使用
         /// </summary>
-        /// <param name="connect"></param>
-        /// <param name="ConnectionName"></param>
+        /// <param name="connectTypeEnum"></param>
+        /// <param name="connectionName"></param>
         /// <returns></returns>
-        ISubscriber QuerySubscriber(ConnectTypeEnum connect, string ConnectionName = null);
+        ISubscriber QuerySubscriber(ConnectTypeEnum connectTypeEnum, string connectionName = null);
         /// <summary>
         /// 查询返回ServerCounters
         /// </summary>
-        /// <param name="connect"></param>
-        /// <param name="ConnectionName"></param>
+        /// <param name="connectTypeEnum"></param>
+        /// <param name="connectionName"></param>
         /// <returns></returns>
-        ServerCounters QueryServerCounters(ConnectTypeEnum connect, string ConnectionName = null);
+        ServerCounters QueryServerCounters(ConnectTypeEnum connectTypeEnum, string connectionName = null);
         /// <summary>
         /// 获得连接器
         /// </summary>
-        /// <param name="connect"></param>
-        /// <param name="ConnectionName"></param>
+        /// <param name="connectTypeEnum"></param>
+        /// <param name="connectionName"></param>
         /// <returns></returns>
-        ConnectionMultiplexer QueryMultiplexer(ConnectTypeEnum connect, string ConnectionName = null);
+        ConnectionMultiplexer QueryMultiplexer(ConnectTypeEnum connectTypeEnum, string connectionName = null);
     }
 }

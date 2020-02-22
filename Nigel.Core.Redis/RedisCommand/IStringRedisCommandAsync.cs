@@ -18,7 +18,7 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <param name="value">值</param>
         /// <param name="seconds">失效时间，默认不失效（当业务场景中需要做失效时间时使用）</param>
         /// <param name="connectionName">连接名称</param>
-        Task StringSetAsync<T>(string key, T value, int seconds = 0, string connectionName = null);
+        Task<bool> StringSetAsync<T>(string key, T value, int seconds = 0, string connectionName = null);
         /// <summary>
         /// 获取string的value值，如果不存在则写入
         /// </summary>

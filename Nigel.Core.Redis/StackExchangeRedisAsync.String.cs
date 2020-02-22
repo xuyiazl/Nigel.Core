@@ -43,104 +43,59 @@ namespace Nigel.Core.Redis
             }
         }
 
-        public async Task StringSetAsync<T>(string key, T value, int seconds = 0, string connectionName = null)
+        public async Task<bool> StringSetAsync<T>(string key, T value, int seconds = 0, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return await ExecuteCommand(ConnectTypeEnum.Write, connectionName, async (db) =>
             {
-                try
+                if (value == null) return false;
+                if (value.GetType() == typeof(string))
                 {
-                    var db = writeConn.Multiplexer.GetDatabase();
-
-                    if (value == null) return;
-                    if (value.GetType() == typeof(string))
-                    {
-                        if (seconds > 0)
-                            await db.StringSetAsync(key, value.SafeString(), TimeSpan.FromSeconds(seconds));
-                        else
-                            await db.StringSetAsync(key, value.SafeString());
-                    }
+                    if (seconds > 0)
+                        return await db.StringSetAsync(key, value.SafeString(), TimeSpan.FromSeconds(seconds));
                     else
-                    {
-                        if (seconds > 0)
-                            await db.StringSetAsync(key, value.ToJson(), TimeSpan.FromSeconds(seconds));
-                        else
-                            await db.StringSetAsync(key, value.ToJson());
-                    }
+                        return await db.StringSetAsync(key, value.SafeString());
                 }
-                catch (Exception ex)
+                else
                 {
-                    ThrowExceptions(writeConn, ex);
+                    if (seconds > 0)
+                        return await db.StringSetAsync(key, value.ToJson(), TimeSpan.FromSeconds(seconds));
+                    else
+                        return await db.StringSetAsync(key, value.ToJson());
                 }
-            }
+            });
         }
 
         public async Task<long> StringIncrementAsync(string key, long value = 1, string connectionName = null)
         {
-            var writeConn = GetWriteConfig(connectionName);
-            if (writeConn != null)
+            return await ExecuteCommand(ConnectTypeEnum.Write, connectionName, async (db) =>
             {
-                try
-                {
-                    var db = writeConn.Multiplexer.GetDatabase();
-                    return await db.StringIncrementAsync(key, value);
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(writeConn, ex);
-                }
-            }
-            return -1;
+                return await db.StringIncrementAsync(key, value);
+            });
         }
 
         public async Task<TResult> StringGetAsync<TResult>(string key, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
-                try
-                {
-                    var db = readConn.Multiplexer.GetDatabase();
-                    string value = await db.StringGetAsync(key);
-                    if (value == null) return default;
-                    return value.ToObject<TResult>();
-                }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
-            return default;
+                string value = await db.StringGetAsync(key);
+                return value.ToObject<TResult>();
+            });
         }
 
         public async Task<List<TResult>> StringGetAsync<TResult>(string[] keys, string connectionName = null)
         {
-            var readConn = GetReadConfig(connectionName);
-            if (readConn != null)
+            return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
-                try
+                RedisKey[] redisKey = new RedisKey[keys.Length];
+                for (int i = 0; i < redisKey.Length; i++)
                 {
-                    var db = readConn.Multiplexer.GetDatabase();
-                    if (keys != null && keys.Length != 0)
-                    {
-                        RedisKey[] redisKey = new RedisKey[keys.Length];
-                        for (int i = 0; i < redisKey.Length; i++)
-                        {
-                            redisKey[i] = keys[i];
-                        }
-
-                        var redisValue = await db.StringGetAsync(redisKey);
-                        var json = redisValue.ToStringArray().ToJsonNotNullOrEmpty();
-                        return json.ToObject<List<TResult>>();
-                    }
-
+                    redisKey[i] = keys[i];
                 }
-                catch (Exception ex)
-                {
-                    ThrowExceptions(readConn, ex);
-                }
-            }
-            return default;
+
+                var redisValue = await db.StringGetAsync(redisKey);
+                var json = redisValue.ToStringArray().ToJsonNotNullOrEmpty();
+                return json.ToObject<List<TResult>>();
+            });
         }
     }
 }
