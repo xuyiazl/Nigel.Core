@@ -15,6 +15,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Nigel.Core.Redis;
 
 namespace Nigel.WebTests.Controllers
 {
@@ -23,16 +24,18 @@ namespace Nigel.WebTests.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IHttpService _httpService;
 
+        private readonly IRedisService _redisService;
         /// <summary>
         /// 文件上传服务
         /// </summary>
         private IFileUploadService _fileUploadService;
 
-        public HomeController(ILogger<HomeController> logger, IHttpService httpService, IFileUploadService fileUploadService)
+        public HomeController(ILogger<HomeController> logger, IHttpService httpService, IFileUploadService fileUploadService, IRedisService redisService)
         {
             _logger = logger;
             _httpService = httpService;
             _fileUploadService = fileUploadService;
+            _redisService = redisService;
         }
 
         [NoCache]
@@ -40,6 +43,8 @@ namespace Nigel.WebTests.Controllers
         [RazorHtmlStatic(Template = "/static/{controller}/{action}-{id}.html")]
         public async Task<IActionResult> Index(int id, CancellationToken cancellationToken)
         {
+            var rm = await _redisService.HashGetOrInsertAsync("asd", "test1", "test-read", "test-write", () => new ReturnModel("sssss", "sdfsdf"));
+
             var url = UrlArguments.Create("test", $"/api/CommentsLive/GetPaged")
                  .Add("aid", 1539)
                  .Add("commentId", 0)

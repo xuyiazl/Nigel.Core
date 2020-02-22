@@ -9,6 +9,7 @@ using Newtonsoft.Json.Serialization;
 using Nigel.Core.Extensions;
 using Nigel.Core.HttpFactory;
 using Nigel.Core.Logging.Log4Net;
+using Nigel.Core.Redis;
 using System;
 
 namespace Nigel.WebTests
@@ -26,6 +27,8 @@ namespace Nigel.WebTests
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpService<HttpService>(TimeSpan.FromSeconds(6));
+
+            services.AddRedisService();
 
             //×¢²árazor¾²Ì¬HTMLÉú³ÉÆ÷
             services.AddRazorHtml();

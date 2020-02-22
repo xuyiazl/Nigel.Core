@@ -341,3 +341,4 @@ healthchecksdb
 /.vscode/solution-explorer
 /Nigel.Core.WebTest/Entities
 /Nigel.WebTests/logs
+/Nigel.ApiTests/logs
