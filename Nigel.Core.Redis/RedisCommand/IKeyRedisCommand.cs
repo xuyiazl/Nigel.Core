@@ -15,21 +15,21 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <param name="key">键</param>
         /// <param name="connectionName">连接名称</param>
         /// <returns></returns>
-        bool IsKeyExists(string key, string connectionName = null);
+        bool KeyExists(string key, string connectionName = null);
         /// <summary>
         /// 序列化给定 key ，并返回被序列化的值，使用 RESTORE 命令可以将这个值反序列化为 Redis 键
         /// </summary>
         /// <param name="key"></param>
         /// <param name="connectionName">连接名称</param>
         /// <returns></returns>
-        byte[] GetKeyDump(string key, string connectionName = null);
+        byte[] KeyDump(string key, string connectionName = null);
         /// <summary>
         /// 设置键失效时间，当时间一到自动移除key
         /// </summary>
         /// <param name="key"></param>
         /// <param name="seconds">失效时间为秒（s）</param>
         /// <param name="connectionName">连接名称</param>
-        bool SetKeyExpire(string key, int seconds, string connectionName = null);
+        bool KeyExpire(string key, int seconds, string connectionName = null);
         /// <summary>
         /// 删除Key
         /// </summary>

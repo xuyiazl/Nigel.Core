@@ -32,7 +32,10 @@ namespace Nigel.Core.Redis
                 RedisValue[] values = new RedisValue[value.Count];
                 for (int i = 0; i < value.Count; i++)
                 {
-                    values[i] = value[i].ToJson();
+                    if (value[i].GetType() == typeof(string))
+                        values[i] = value[i].SafeString();
+                    else
+                        values[i] = value[i].ToJson();
                 }
                 return await db.ListLeftPushAsync(key, values, CommandFlags.None);
             });
@@ -81,7 +84,10 @@ namespace Nigel.Core.Redis
                 RedisValue[] values = new RedisValue[value.Count];
                 for (int i = 0; i < value.Count; i++)
                 {
-                    values[i] = value[i].ToJson();
+                    if (value[i].GetType() == typeof(string))
+                        values[i] = value[i].SafeString();
+                    else
+                        values[i] = value[i].ToJson();
                 }
                 return await db.ListRightPushAsync(key, values, CommandFlags.None);
             });

@@ -58,7 +58,7 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <param name="key"></param>
         /// <param name="connectionName"></param>
         /// <returns></returns>
-        long GetSetLength(string key, string connectionName = null);
+        long SetLength(string key, string connectionName = null);
         /// <summary>
         /// 随机返回集合中的元素 但是不删除,区别于POP操作
         /// </summary>

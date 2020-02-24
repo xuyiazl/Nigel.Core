@@ -61,12 +61,12 @@ namespace Nigel.Core.Redis
                 {
                     if (seconds > 0)
                     {
-                        bool exists = await IsKeyExistsAsync(hashId, connectionRead);
+                        bool exists = await KeyExistsAsync(hashId, connectionRead);
 
                         await HashSetAsync(hashId, key, source, connectionWrite);
                         if (!exists)
                         {
-                            await SetKeyExpireAsync(hashId, seconds, connectionWrite);
+                            await KeyExpireAsync(hashId, seconds, connectionWrite);
                         }
                     }
                     else
@@ -94,11 +94,11 @@ namespace Nigel.Core.Redis
                 {
                     if (seconds > 0)
                     {
-                        bool exists = await IsKeyExistsAsync(hashId, connectionRead);
+                        bool exists = await KeyExistsAsync(hashId, connectionRead);
                         await HashSetAsync(hashId, key, source, connectionWrite);
                         if (!exists)
                         {
-                            await SetKeyExpireAsync(hashId, seconds, connectionWrite);
+                            await KeyExpireAsync(hashId, seconds, connectionWrite);
                         }
                     }
                     else

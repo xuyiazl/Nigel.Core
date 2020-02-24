@@ -13,7 +13,7 @@ namespace Nigel.Core.Redis
 {
     public abstract partial class StackExchangeRedis : IKeyRedisCommand
     {
-        public bool IsKeyExists(string key, string connectionName = null)
+        public bool KeyExists(string key, string connectionName = null)
         {
             return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
@@ -21,7 +21,7 @@ namespace Nigel.Core.Redis
             });
         }
 
-        public byte[] GetKeyDump(string key, string connectionName = null)
+        public byte[] KeyDump(string key, string connectionName = null)
         {
             return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
@@ -29,7 +29,7 @@ namespace Nigel.Core.Redis
             });
         }
 
-        public bool SetKeyExpire(string key, int seconds, string connectionName = null)
+        public bool KeyExpire(string key, int seconds, string connectionName = null)
         {
             return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {

@@ -59,7 +59,7 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <param name="key"></param>
         /// <param name="connectionName"></param>
         /// <returns></returns>
-        Task<long> GetSetLengthAsync(string key, string connectionName = null);
+        Task<long> SetLengthAsync(string key, string connectionName = null);
         /// <summary>
         /// 随机返回集合中的元素 但是不删除,区别于POP操作
         /// </summary>

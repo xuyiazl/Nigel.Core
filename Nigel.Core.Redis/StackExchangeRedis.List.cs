@@ -33,7 +33,10 @@ namespace Nigel.Core.Redis
                 RedisValue[] values = new RedisValue[value.Count];
                 for (int i = 0; i < value.Count; i++)
                 {
-                    values[i] = value[i].ToJson();
+                    if (value[i].GetType() == typeof(string))
+                        values[i] = value[i].SafeString();
+                    else
+                        values[i] = value[i].ToJson();
                 }
                 return db.ListLeftPush(key, values, CommandFlags.None);
             });
@@ -83,7 +86,10 @@ namespace Nigel.Core.Redis
                 RedisValue[] values = new RedisValue[value.Count];
                 for (int i = 0; i < value.Count; i++)
                 {
-                    values[i] = value[i].ToJson();
+                    if (value[i].GetType() == typeof(string))
+                        values[i] = value[i].SafeString();
+                    else
+                        values[i] = value[i].ToJson();
                 }
                 return db.ListRightPush(key, values, CommandFlags.None);
             });
@@ -155,13 +161,13 @@ namespace Nigel.Core.Redis
         public long ListInsertBefore<T>(string key, T value, string insertvalue, string connectionName = null)
         {
             return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
-             {
-                 if (value == null) return 0;
-                 if (value.GetType() == typeof(string))
-                     return db.ListInsertBefore(key, value.SafeString(), insertvalue);
-                 else
-                     return db.ListInsertBefore(key, value.ToJson(), insertvalue);
-             });
+            {
+                if (value == null) return 0;
+                if (value.GetType() == typeof(string))
+                    return db.ListInsertBefore(key, value.SafeString(), insertvalue);
+                else
+                    return db.ListInsertBefore(key, value.ToJson(), insertvalue);
+            });
         }
 
         public long ListInsertAfter<T>(string key, T value, string insertvalue, string connectionName = null)

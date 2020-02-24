@@ -15,7 +15,7 @@ namespace Nigel.Core.Redis
     {
         public async Task<TResult> StringGetOrInsertAsync<TResult>(string key, int seconds, string connectionRead, string connectionWrite, Func<TResult> fetcher)
         {
-            if (!await IsKeyExistsAsync(key, connectionRead))
+            if (!await KeyExistsAsync(key, connectionRead))
             {
                 var source = fetcher.Invoke();
                 if (source != null)
@@ -30,7 +30,7 @@ namespace Nigel.Core.Redis
 
         public async Task<TResult> StringGetOrInsertAsync<T, TResult>(string key, int seconds, string connectionRead, string connectionWrite, Func<T, TResult> fetcher, T t)
         {
-            if (!await IsKeyExistsAsync(key, connectionRead))
+            if (!await KeyExistsAsync(key, connectionRead))
             {
                 var source = fetcher.Invoke(t);
                 if (source != null)

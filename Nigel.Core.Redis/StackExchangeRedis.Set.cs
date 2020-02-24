@@ -66,7 +66,7 @@ namespace Nigel.Core.Redis
             });
         }
 
-        public long GetSetLength(string key, string connectionName = null)
+        public long SetLength(string key, string connectionName = null)
         {
             return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {

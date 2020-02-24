@@ -13,7 +13,7 @@ namespace Nigel.Core.Redis
 {
     public abstract partial class StackExchangeRedis : IKeyRedisCommandAsync
     {
-        public async Task<bool> IsKeyExistsAsync(string key, string connectionName = null)
+        public async Task<bool> KeyExistsAsync(string key, string connectionName = null)
         {
             return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
@@ -21,7 +21,7 @@ namespace Nigel.Core.Redis
             });
         }
 
-        public async Task<byte[]> GetKeyDumpAsync(string key, string connectionName = null)
+        public async Task<byte[]> KeyDumpAsync(string key, string connectionName = null)
         {
             return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
@@ -29,7 +29,7 @@ namespace Nigel.Core.Redis
             });
         }
 
-        public async Task<bool> SetKeyExpireAsync(string key, int seconds, string connectionName = null)
+        public async Task<bool> KeyExpireAsync(string key, int seconds, string connectionName = null)
         {
             return await ExecuteCommand(ConnectTypeEnum.Write, connectionName, async (db) =>
             {

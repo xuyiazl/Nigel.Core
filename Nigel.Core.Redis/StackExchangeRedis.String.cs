@@ -14,7 +14,7 @@ namespace Nigel.Core.Redis
     {
         public TResult StringGetOrInsert<TResult>(string key, int seconds, string connectionRead, string connectionWrite, Func<TResult> fetcher)
         {
-            if (!IsKeyExists(key, connectionRead))
+            if (!KeyExists(key, connectionRead))
             {
                 var source = fetcher.Invoke();
                 if (source != null)
@@ -29,7 +29,7 @@ namespace Nigel.Core.Redis
 
         public TResult StringGetOrInsert<T, TResult>(string key, int seconds, string connectionRead, string connectionWrite, Func<T, TResult> fetcher, T t)
         {
-            if (!IsKeyExists(key, connectionRead))
+            if (!KeyExists(key, connectionRead))
             {
                 var source = fetcher.Invoke(t);
                 if (source != null)

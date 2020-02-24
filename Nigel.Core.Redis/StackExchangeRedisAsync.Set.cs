@@ -67,7 +67,7 @@ namespace Nigel.Core.Redis
             });
         }
 
-        public async Task<long> GetSetLengthAsync(string key, string connectionName = null)
+        public async Task<long> SetLengthAsync(string key, string connectionName = null)
         {
             return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {

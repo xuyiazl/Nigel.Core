@@ -62,12 +62,12 @@ namespace Nigel.Core.Redis
                 {
                     if (seconds > 0)
                     {
-                        bool exists = IsKeyExists(hashId, connectionRead);
+                        bool exists = KeyExists(hashId, connectionRead);
 
                         HashSet(hashId, key, source, connectionWrite);
                         if (!exists)
                         {
-                            SetKeyExpire(hashId, seconds, connectionWrite);
+                            KeyExpire(hashId, seconds, connectionWrite);
                         }
                     }
                     else
@@ -95,11 +95,11 @@ namespace Nigel.Core.Redis
                 {
                     if (seconds > 0)
                     {
-                        bool exists = IsKeyExists(hashId, connectionRead);
+                        bool exists = KeyExists(hashId, connectionRead);
                         HashSet(hashId, key, source, connectionWrite);
                         if (!exists)
                         {
-                            SetKeyExpire(hashId, seconds, connectionWrite);
+                            KeyExpire(hashId, seconds, connectionWrite);
                         }
                     }
                     else
