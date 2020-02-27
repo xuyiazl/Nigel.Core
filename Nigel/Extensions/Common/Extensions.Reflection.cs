@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 // ReSharper disable once CheckNamespace
@@ -47,6 +48,76 @@ namespace Nigel.Extensions
                 catch { }
             }
             return (T)retval;
+        }
+
+        /// <summary>
+        /// 反射复制相同属性值
+        /// </summary>
+        /// <typeparam name="TSource">源类型</typeparam>
+        /// <typeparam name="Target">目标类型</typeparam>
+        /// <param name="sources">源数据</param>
+        /// <returns></returns>
+        public static IList<Target> CopyByReflect<TSource, Target>(this IList<TSource> sources)
+        {
+            IList<Target> targetList = new List<Target>();
+
+            if (sources == null || sources.Count == 0)
+                return targetList;
+
+            PropertyInfo[] _targetProperties = typeof(Target).GetProperties();
+            PropertyInfo[] _sourceProperties = typeof(TSource).GetProperties();
+
+            foreach (var source in sources)
+            {
+                Target model = Activator.CreateInstance<Target>();
+
+                foreach (var _target in _targetProperties)
+                {
+                    foreach (var _source in _sourceProperties)
+                    {
+                        if (_target.Name == _source.Name && _target.PropertyType == _source.PropertyType)
+                        {
+                            _target.SetValue(model, _source.GetValue(source, null), null);
+                            break;
+                        }
+                    }
+                }
+
+                targetList.Add(model);
+            }
+
+            return targetList;
+        }
+
+        /// <summary>
+        /// 反射复制相同属性值
+        /// </summary>
+        /// <typeparam name="TSource">源类型</typeparam>
+        /// <typeparam name="Target">目标类型</typeparam>
+        /// <param name="source">源数据</param>
+        /// <returns></returns>
+        public static Target CopyByReflect<TSource, Target>(this TSource source)
+        {
+            Target model = default(Target);
+            if (source == null) return model;
+
+            PropertyInfo[] _targetProperties = typeof(Target).GetProperties();
+            PropertyInfo[] _sourceProperties = typeof(TSource).GetProperties();
+
+            model = Activator.CreateInstance<Target>();
+
+            foreach (var _target in _targetProperties)
+            {
+                foreach (var _source in _sourceProperties)
+                {
+                    if (_target.Name == _source.Name && _target.PropertyType == _source.PropertyType)
+                    {
+                        _target.SetValue(model, _source.GetValue(source, null), null);
+                        break;
+                    }
+                }
+            }
+            return model;
         }
     }
 }
