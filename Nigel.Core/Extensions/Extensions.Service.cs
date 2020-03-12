@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
 using Nigel.Core.HttpFactory;
 using Nigel.Core.Razors;
 using Nigel.Core.Uploads;
@@ -17,6 +19,34 @@ namespace Nigel.Core.Extensions
     /// </summary>
     public static partial class Extensions
     {
+        /// <summary>
+        /// 绑定获取配置
+        /// </summary>
+        /// <param name="services">服务集合</param>
+        /// <param name="configuration"></param>
+        /// <param name="section"></param>
+        public static TOptions BindConfigurationSection<TOptions>(this IServiceCollection services, IConfiguration configuration, string section) where TOptions : class, new()
+        {
+            if (configuration != null && !string.IsNullOrEmpty(section))
+            {
+                try
+                {
+                    TOptions t = new TOptions();
+
+                    //需要引用Microsoft.Extensions.Configuration.Binder 组件
+                    configuration.GetSection(section).Bind(t);
+
+                    services.AddSingleton(resolver => resolver.GetRequiredService<IOptions<TOptions>>().Value);
+                    return t;
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+            return null;
+        }
+
         /// <summary>
         /// 注册上传服务
         /// </summary>
