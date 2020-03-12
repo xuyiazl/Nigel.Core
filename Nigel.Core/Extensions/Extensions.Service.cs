@@ -31,13 +31,12 @@ namespace Nigel.Core.Extensions
             {
                 try
                 {
-                    TOptions t = new TOptions();
-
                     //需要引用Microsoft.Extensions.Configuration.Binder 组件
-                    configuration.GetSection(section).Bind(t);
-
+                    var appSection = configuration.GetSection(section);
+                    services.Configure<TOptions>(option => appSection.Bind(option));
                     services.AddSingleton(resolver => resolver.GetRequiredService<IOptions<TOptions>>().Value);
-                    return t;
+
+                    return appSection.Get<TOptions>();
                 }
                 catch
                 {
