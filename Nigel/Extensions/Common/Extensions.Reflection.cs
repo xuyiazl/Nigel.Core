@@ -36,18 +36,79 @@ namespace Nigel.Extensions
         /// <typeparam name="T"></typeparam>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static T DeepCopyByReflect<T>(this T obj)
+        public static T DeepCopyByReflect<T>(this T obj) where T : class
         {
-            //如果是字符串或值类型则直接返回
-            if (obj is string || obj.GetType().IsValueType) return obj;
-            object retval = Activator.CreateInstance(obj.GetType());
-            FieldInfo[] fields = obj.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
-            foreach (FieldInfo field in fields)
+            //System.String类型似乎比较特殊，复制它的所有字段，并不能复制它本身 
+            //不过由于System.String的不可变性，即使指向同一对象，也无所谓 
+            //而且.NET里本来就用字符串池来维持 
+            if (obj == null || obj.GetType() == typeof(string))
+                return obj;
+            object newObj = null;
+            try
             {
-                try { field.SetValue(retval, DeepCopyByReflect(field.GetValue(obj))); }
-                catch { }
+                //尝试调用默认构造函数 
+                newObj = Activator.CreateInstance(obj.GetType());
             }
-            return (T)retval;
+            catch
+            {
+                //失败的话，只好枚举构造函数了 
+                foreach (ConstructorInfo ci in obj.GetType().GetConstructors(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static))
+                {
+                    try
+                    {
+                        ParameterInfo[] pis = ci.GetParameters();
+                        object[] objs = new object[pis.Length];
+                        for (int i = 0; i < pis.Length; i++)
+                        {
+                            if (pis[i].ParameterType.IsValueType)
+                                objs[i] = Activator.CreateInstance(pis[i].ParameterType);
+                            else
+                                //参数类型可能是抽象类或接口，难以实例化 
+                                //我能想到的就是枚举应用程序域里的程序集，找到实现了该抽象类或接口的类 
+                                //但显然过于复杂了 
+                                objs[i] = null;
+                        }
+                        newObj = ci.Invoke(objs);
+                        //无论调用哪个构造函数，只要成功就行了 
+                        break;
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+            foreach (FieldInfo fi in obj.GetType().GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static))
+            {
+                if (fi.FieldType.IsValueType || fi.FieldType == typeof(string))
+                    fi.SetValue(newObj, fi.GetValue(obj));
+                else
+                    fi.SetValue(newObj, DeepCopyByReflect(fi.GetValue(obj)));
+            }
+            //基类的私有实例字段在子类里检索不到，但它仍占据子类对象的内存空间 
+            Deep(newObj, obj);
+            return (T)newObj;
+        }
+
+        private static void Deep(object newObj, object obj)
+        {
+            for (Type father = newObj.GetType().BaseType; father != typeof(object); father = father.BaseType)
+            {
+                foreach (FieldInfo fi in father.GetFields(BindingFlags.NonPublic | BindingFlags.Instance))
+                {
+                    //只需要处理私有字段，因为非私有成员已经在子类处理过了 
+                    if (fi.IsPrivate)
+                    {
+                        if (fi.FieldType.IsValueType || fi.FieldType == typeof(string))
+                        {
+                            fi.SetValue(newObj, fi.GetValue(obj));
+                        }
+                        else
+                        {
+                            fi.SetValue(newObj, DeepCopyByReflect(fi.GetValue(obj)));
+                        }
+                    }
+                }
+            }
         }
 
         /// <summary>
