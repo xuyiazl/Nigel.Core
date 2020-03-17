@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<Description>
+			资源访问控制 主要自用，三方如果使用请注意风险。
+		</Description>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<Authors>Nigel</Authors>
+		<Company>Nigel</Company>
+		<Description>.NET Core AccessControl</Description>
+		<Copyright>Copyright © Nigel 2020</Copyright>
+		<Version>1.0.1</Version>
+		<PackageId>Nigel.Core.AccessControl</PackageId>
+		<Product>Nigel.Core.AccessControl</Product>
+		<PackageIconUrl>http://www.3624091.com/favicon.ico</PackageIconUrl>
+		<PackageProjectUrl>https://github.com/xuyiazl/Nigel.Core</PackageProjectUrl>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DocumentationFile>obj\Release\netstandard2.1\Nigel.Core.AccessControl.xml</DocumentationFile>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DocumentationFile>obj\Release\netstandard2.1\Nigel.Core.AccessControl.xml</DocumentationFile>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Authorization" Version="3.1.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Razor" Version="2.2.0" />
+	</ItemGroup>
+
+</Project>

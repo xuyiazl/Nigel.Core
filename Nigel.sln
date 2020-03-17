@@ -31,6 +31,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nigel.RazorTests", "Nigel.R
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nigel.Core.Redis", "Nigel.Core.Redis\Nigel.Core.Redis.csproj", "{58C11D26-6042-4816-A1FD-66B58D64A52E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nigel.Core.AccessControl", "Nigel.Core.AccessControl\Nigel.Core.AccessControl.csproj", "{AB631FF0-A9F4-435D-BF94-E2672E3C3001}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nigel.Core.AccessControlTests", "Nigel.Core.AccessControlTests\Nigel.Core.AccessControlTests.csproj", "{7DD76D74-DFF3-4C89-9E14-1353FCBCD7B8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +81,14 @@ Global
 		{58C11D26-6042-4816-A1FD-66B58D64A52E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58C11D26-6042-4816-A1FD-66B58D64A52E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58C11D26-6042-4816-A1FD-66B58D64A52E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB631FF0-A9F4-435D-BF94-E2672E3C3001}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB631FF0-A9F4-435D-BF94-E2672E3C3001}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB631FF0-A9F4-435D-BF94-E2672E3C3001}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB631FF0-A9F4-435D-BF94-E2672E3C3001}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DD76D74-DFF3-4C89-9E14-1353FCBCD7B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DD76D74-DFF3-4C89-9E14-1353FCBCD7B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DD76D74-DFF3-4C89-9E14-1353FCBCD7B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DD76D74-DFF3-4C89-9E14-1353FCBCD7B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,6 +105,8 @@ Global
 		{9F6A07C9-DD92-4644-8DF9-7701D26E2F5A} = {F0B53AF5-65A3-4BD2-8E2A-2E2A44735894}
 		{CDB2EE14-5A6D-42F3-861F-DB40A3C60F02} = {66EF3E61-EA97-4FBD-8115-BAC31EAB4C6F}
 		{58C11D26-6042-4816-A1FD-66B58D64A52E} = {F0B53AF5-65A3-4BD2-8E2A-2E2A44735894}
+		{AB631FF0-A9F4-435D-BF94-E2672E3C3001} = {F0B53AF5-65A3-4BD2-8E2A-2E2A44735894}
+		{7DD76D74-DFF3-4C89-9E14-1353FCBCD7B8} = {66EF3E61-EA97-4FBD-8115-BAC31EAB4C6F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8608D4F2-FCE9-4E97-A888-360DDE22FF96}
