@@ -30,7 +30,7 @@ namespace Nigel.Core.AccessControlTests
 
             // services.AddAccessControlHelper<Services.ResourceAccessStrategy, Services.ControlAccessStrategy>();
 
-            services.AddAccessControlHelper(options =>
+            services.AddAccessControl(options =>
             {
                 options.UseAsDefaultPolicy = true;
                 options.AccessKeyResolver = context => context.RequestServices

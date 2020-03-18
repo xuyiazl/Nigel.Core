@@ -10,7 +10,7 @@ namespace Microsoft.AspNetCore.Builder
 {
     public static class ApplicationBuilderExtensions
     {
-        public static IApplicationBuilder UseAccessControlHelper(this IApplicationBuilder app)
+        public static IApplicationBuilder UseAccessControl(this IApplicationBuilder app)
         {
             if (app == null)
             {
@@ -25,7 +25,7 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        public static IAccessControlBuilder AddAccessControlHelper<TResourceAccessStrategy, TControlStrategy>(this IServiceCollection services)
+        public static IAccessControlBuilder AddAccessControl<TResourceAccessStrategy, TControlStrategy>(this IServiceCollection services)
             where TResourceAccessStrategy : class, IResourceAccessStrategy
             where TControlStrategy : class, IControlAccessStrategy
         {
@@ -37,10 +37,10 @@ namespace Microsoft.Extensions.DependencyInjection
             services.TryAddSingleton<IResourceAccessStrategy, TResourceAccessStrategy>();
             services.TryAddSingleton<IControlAccessStrategy, TControlStrategy>();
 
-            return services.AddAccessControlHelper();
+            return services.AddAccessControl();
         }
 
-        public static IAccessControlBuilder AddAccessControlHelper<TResourceAccessStrategy, TControlStrategy>(this IServiceCollection services, ServiceLifetime resourceAccessStrategyLifetime, ServiceLifetime controlAccessStrategyLifetime)
+        public static IAccessControlBuilder AddAccessControl<TResourceAccessStrategy, TControlStrategy>(this IServiceCollection services, ServiceLifetime resourceAccessStrategyLifetime, ServiceLifetime controlAccessStrategyLifetime)
             where TResourceAccessStrategy : class, IResourceAccessStrategy
             where TControlStrategy : class, IControlAccessStrategy
         {
@@ -52,10 +52,10 @@ namespace Microsoft.Extensions.DependencyInjection
             services.TryAdd(new ServiceDescriptor(typeof(IResourceAccessStrategy), typeof(TResourceAccessStrategy), resourceAccessStrategyLifetime));
             services.TryAdd(new ServiceDescriptor(typeof(IControlAccessStrategy), typeof(TControlStrategy), controlAccessStrategyLifetime));
 
-            return services.AddAccessControlHelper();
+            return services.AddAccessControl();
         }
 
-        public static IAccessControlBuilder AddAccessControlHelper<TResourceAccessStrategy, TControlStrategy>(this IServiceCollection services, Action<AccessControlOptions> configAction)
+        public static IAccessControlBuilder AddAccessControl<TResourceAccessStrategy, TControlStrategy>(this IServiceCollection services, Action<AccessControlOptions> configAction)
             where TResourceAccessStrategy : class, IResourceAccessStrategy
             where TControlStrategy : class, IControlAccessStrategy
         {
@@ -67,10 +67,10 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 services.Configure(configAction);
             }
-            return services.AddAccessControlHelper<TResourceAccessStrategy, TControlStrategy>();
+            return services.AddAccessControl<TResourceAccessStrategy, TControlStrategy>();
         }
 
-        public static IAccessControlBuilder AddAccessControlHelper<TResourceAccessStrategy, TControlStrategy>(this IServiceCollection services, Action<AccessControlOptions> configAction, ServiceLifetime resourceAccessStrategyLifetime, ServiceLifetime controlAccessStrategyLifetime)
+        public static IAccessControlBuilder AddAccessControl<TResourceAccessStrategy, TControlStrategy>(this IServiceCollection services, Action<AccessControlOptions> configAction, ServiceLifetime resourceAccessStrategyLifetime, ServiceLifetime controlAccessStrategyLifetime)
             where TResourceAccessStrategy : class, IResourceAccessStrategy
             where TControlStrategy : class, IControlAccessStrategy
         {
@@ -82,10 +82,10 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 services.Configure(configAction);
             }
-            return services.AddAccessControlHelper<TResourceAccessStrategy, TControlStrategy>(resourceAccessStrategyLifetime, controlAccessStrategyLifetime);
+            return services.AddAccessControl<TResourceAccessStrategy, TControlStrategy>(resourceAccessStrategyLifetime, controlAccessStrategyLifetime);
         }
 
-        public static IAccessControlBuilder AddAccessControlHelper(this IServiceCollection services, bool useAsDefaultPolicy)
+        public static IAccessControlBuilder AddAccessControl(this IServiceCollection services, bool useAsDefaultPolicy)
         {
             if (services == null)
             {
@@ -121,12 +121,12 @@ namespace Microsoft.Extensions.DependencyInjection
             return new AccessControlBuilder(services);
         }
 
-        public static IAccessControlBuilder AddAccessControlHelper(this IServiceCollection services)
+        public static IAccessControlBuilder AddAccessControl(this IServiceCollection services)
         {
-            return AddAccessControlHelper(services, false);
+            return AddAccessControl(services, false);
         }
 
-        public static IAccessControlBuilder AddAccessControlHelper(this IServiceCollection services, Action<AccessControlOptions> configAction)
+        public static IAccessControlBuilder AddAccessControl(this IServiceCollection services, Action<AccessControlOptions> configAction)
         {
             if (services == null)
             {
@@ -142,7 +142,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
                 services.Configure(configAction);
             }
-            return services.AddAccessControlHelper(useAsDefaultPolicy);
+            return services.AddAccessControl(useAsDefaultPolicy);
         }
 
         public static IAccessControlBuilder AddResourceAccessStrategy<TResourceAccessStrategy>(this IAccessControlBuilder builder) where TResourceAccessStrategy : IResourceAccessStrategy
