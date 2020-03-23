@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Nigel.Data.Collection.Paged
+namespace Nigel.Paging
 {
     [Serializable]
     public class PagedModel<T>

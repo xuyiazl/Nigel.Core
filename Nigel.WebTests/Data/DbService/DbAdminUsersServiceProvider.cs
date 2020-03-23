@@ -1,5 +1,6 @@
 ﻿using Nigel.Data.Collection.Paged;
 using Nigel.Data.DbService;
+using Nigel.Paging;
 using Nigel.WebTests.Data.Entity;
 using Nigel.WebTests.Data.Repository.ReadRepository;
 using Nigel.WebTests.Data.Repository.WriteRepository;
@@ -24,23 +25,19 @@ namespace Nigel.WebTests.Data.DbService
             return await readRepository.GetCountAsync(selector);
         }
 
-        public Task<List<AdminUsers>> GetListAsync(Expression<Func<AdminUsers, bool>> expression, string orderby, int limit)
+        public Task<List<AdminUsers>> GetListAsync(Expression<Func<AdminUsers, bool>> selector, string orderby, int limit)
         {
-            return readRepository.GetListAsync(expression, orderby, 0, limit);
+            return readRepository.GetListAsync(selector, orderby, 0, limit);
         }
 
-        public new async Task<List<AdminUsers>> GetListAsync(Expression<Func<AdminUsers, bool>> expression, string orderby, int pageIndex = 1, int pageSize = 20)
+        public new async Task<PagedSkipModel<AdminUsers>> GetPagedSkipListAsync(Expression<Func<AdminUsers, bool>> selector, string orderby, int skip = 0, int limit = 20)
         {
-            return await readRepository.GetListAsync(expression, orderby, (pageIndex - 1) * pageSize, pageSize);
+            return await readRepository.GetPagedSkipListAsync(selector, orderby, skip, limit);
         }
 
-        public async Task<PagedModel<AdminUsers>> GetPagedListAsync(Expression<Func<AdminUsers, bool>> expression, string orderby, int pageIndex = 1, int pageSize = 20)
+        public new async Task<PagedModel<AdminUsers>> GetPagedListAsync(Expression<Func<AdminUsers, bool>> selector, string orderby, int pageIndex = 1, int pageSize = 20)
         {
-            var totalRecords = await readRepository.GetCountAsync(expression);
-
-            var list = await readRepository.GetListAsync(expression, orderby, (pageIndex - 1) * pageSize, pageSize);
-
-            return new PagedModel<AdminUsers>(list, totalRecords, pageIndex, pageSize);
+            return await readRepository.GetPagedListAsync(selector, orderby, pageIndex, pageSize);
         }
 
         public async Task<AdminUsers> GetByIdAsync(long id)
@@ -48,17 +45,17 @@ namespace Nigel.WebTests.Data.DbService
             return await readRepository.GetByIdAsync(id);
         }
 
-        public override async Task<int> InsertAsync(AdminUsers entity)
+        public new async Task<int> InsertAsync(AdminUsers entity)
         {
             return await writeRepository.InsertAsync(entity);
         }
 
-        public override int Update(AdminUsers entity)
+        public new int Update(AdminUsers entity)
         {
             return writeRepository.Update(entity);
         }
 
-        public override int Delete(AdminUsers entity)
+        public new int Delete(AdminUsers entity)
         {
             return writeRepository.Delete(entity);
         }

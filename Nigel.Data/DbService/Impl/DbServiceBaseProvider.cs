@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Nigel.Data.Collection.Paged;
+using Nigel.Paging;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
@@ -150,6 +152,26 @@ namespace Nigel.Data.DbService
             }
 
             return new List<TEntity>();
+        }
+
+        public virtual async Task<PagedSkipModel<TEntity>> GetPagedSkipListAsync(Expression<Func<TEntity, bool>> selector, string orderby, int skip = 0, int limit = 20)
+        {
+            if (readRepository != null)
+            {
+                return await readRepository.GetPagedSkipListAsync(selector, orderby, skip, limit);
+            }
+
+            return new PagedSkipModel<TEntity>(new List<TEntity>(), 0, skip, limit);
+        }
+
+        public virtual async Task<PagedModel<TEntity>> GetPagedListAsync(Expression<Func<TEntity, bool>> selector, string orderby, int pageNumber = 1, int pageSize = 20)
+        {
+            if (readRepository != null)
+            {
+                return await readRepository.GetPagedListAsync(selector, orderby, pageNumber, pageSize);
+            }
+
+            return new PagedModel<TEntity>(new List<TEntity>(), 0, pageNumber, pageSize);
         }
 
         public virtual async Task<int> GetCountAsync(Expression<Func<TEntity, bool>> selector)

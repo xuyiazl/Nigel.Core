@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Nigel.Data.Collection.Paged;
+using Nigel.Paging;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
@@ -67,6 +69,24 @@ namespace Nigel.Data.DbService
         /// <param name="limit"></param>
         /// <returns></returns>
         Task<List<T>> GetListAsync(Expression<Func<T, bool>> selector, string orderby, int skip = 0, int limit = 20);
+        /// <summary>
+        /// 通过表达式条件返回指定集合对象，基于分页操作
+        /// </summary>
+        /// <param name="selector"></param>
+        /// <param name="orderby">exp:"name asc,createtime desc"</param>
+        /// <param name="skip"></param>
+        /// <param name="limit"></param>
+        /// <returns></returns>
+        Task<PagedSkipModel<T>> GetPagedSkipListAsync(Expression<Func<T, bool>> selector, string orderby, int skip = 0, int limit = 20);
+        /// <summary>
+        /// 通过表达式条件返回指定集合对象，基于分页操作
+        /// </summary>
+        /// <param name="selector"></param>
+        /// <param name="orderby">exp:"name asc,createtime desc"</param>
+        /// <param name="pageNumber"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        Task<PagedModel<T>> GetPagedListAsync(Expression<Func<T, bool>> selector, string orderby, int pageNumber = 1, int pageSize = 20);
         /// <summary>
         /// 获取记录数
         /// </summary>

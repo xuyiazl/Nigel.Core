@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Nigel.Data.Collection.Paged;
 using Nigel.Extensions;
+using Nigel.Paging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -183,6 +185,24 @@ namespace Nigel.Data.DbService
         public virtual Task<List<T>> GetListAsync(Expression<Func<T, bool>> selector, string orderby, int skip = 0, int limit = 20)
         {
             return Entities.Where(selector).OrderByBatch(orderby).Skip(skip).Take(limit).AsNoTracking().ToListAsync();
+        }
+
+        public virtual async Task<PagedSkipModel<T>> GetPagedSkipListAsync(Expression<Func<T, bool>> selector, string orderby, int skip = 0, int limit = 20)
+        {
+            var totalRecords = await GetCountAsync(selector);
+
+            var list = await GetListAsync(selector, orderby, skip, limit);
+
+            return new PagedSkipModel<T>(list, totalRecords, skip, limit);
+        }
+
+        public virtual async Task<PagedModel<T>> GetPagedListAsync(Expression<Func<T, bool>> selector, string orderby, int pageNumber = 1, int pageSize = 20)
+        {
+            var totalRecords = await GetCountAsync(selector);
+
+            var list = await GetListAsync(selector, orderby, (pageNumber - 1) * pageSize, pageSize);
+
+            return new PagedModel<T>(list, totalRecords, pageNumber, pageSize);
         }
 
         public virtual Task<int> GetCountAsync(Expression<Func<T, bool>> selector)

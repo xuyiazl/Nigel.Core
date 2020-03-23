@@ -1,4 +1,5 @@
 ﻿using Nigel.Extensions;
+using Nigel.Paging;
 using System;
 
 namespace Nigel.Data.Collection.Paged
