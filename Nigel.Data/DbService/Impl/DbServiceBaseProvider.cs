@@ -27,11 +27,17 @@ namespace Nigel.Data.DbService
 
         #region 抽象对象来实现IDbServiceBase中的方法，提供重写操作
 
-        /// <summary>
-        /// 新增操作
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
+
+        public virtual int Insert(TEntity entity)
+        {
+            if (writeRepository != null)
+            {
+                return writeRepository.Insert(entity);
+            }
+
+            return -1;
+        }
+
         public virtual async Task<int> InsertAsync(TEntity entity)
         {
             if (writeRepository != null)
@@ -41,12 +47,18 @@ namespace Nigel.Data.DbService
 
             return -1;
         }
-        /// <summary>
-        /// 批量新增操作
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        public virtual async Task<int> InsertBatch(TEntity[] entity)
+
+        public virtual int BatchInsert(TEntity[] entity)
+        {
+            if (writeRepository != null)
+            {
+                return writeRepository.BatchInsert(entity);
+            }
+
+            return -1;
+        }
+
+        public virtual async Task<int> BatchInsertAsync(TEntity[] entity)
         {
             if (writeRepository != null)
             {
@@ -55,11 +67,7 @@ namespace Nigel.Data.DbService
 
             return -1;
         }
-        /// <summary>
-        /// 修改操作
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
+
         public virtual int Update(TEntity entity)
         {
             if (writeRepository != null)
@@ -69,16 +77,32 @@ namespace Nigel.Data.DbService
 
             return -1;
         }
-        /// <summary>
-        /// 移除操作
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
+
+        public virtual int BatchUpdate(TEntity entity)
+        {
+            if (writeRepository != null)
+            {
+                return writeRepository.BatchUpdate(entity);
+            }
+
+            return -1;
+        }
+
         public virtual int Delete(TEntity entity)
         {
             if (writeRepository != null)
             {
                 return writeRepository.Delete(entity);
+            }
+
+            return -1;
+        }
+
+        public virtual int BatchDelete(TEntity entity)
+        {
+            if (writeRepository != null)
+            {
+                return writeRepository.BatchDelete(entity);
             }
 
             return -1;
@@ -103,7 +127,6 @@ namespace Nigel.Data.DbService
 
             return new List<TEntity>();
         }
-
 
         public virtual async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> selector, string orderby)
         {

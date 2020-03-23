@@ -45,9 +45,9 @@ namespace Nigel.WebTests.Data.DbService
             return await readRepository.GetByIdAsync(id);
         }
 
-        public new async Task<int> InsertAsync(AdminUsers entity)
+        public new int Insert(AdminUsers entity)
         {
-            return await writeRepository.InsertAsync(entity);
+            return writeRepository.Insert(entity);
         }
 
         public new int Update(AdminUsers entity)

@@ -27,6 +27,25 @@ namespace Nigel.Data.DbService
             _context = context;
         }
 
+        public virtual int Insert(T entity)
+        {
+            try
+            {
+                if (entity == null)
+                {
+                    throw new ArgumentException($"{typeof(T)} is Null");
+                }
+
+                Entities.Add(entity);
+                //执行存储
+                return _context.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                return -1;
+            }
+        }
+
         public virtual async Task<int> InsertAsync(T entity)
         {
             try
@@ -38,6 +57,36 @@ namespace Nigel.Data.DbService
 
                 await Entities.AddAsync(entity);
                 //执行存储
+                return _context.SaveChanges();
+            }
+            catch (DbUpdateException)
+            {
+                return -1;
+            }
+        }
+
+        public virtual int BatchInsert(params T[] entities)
+        {
+            try
+            {
+                if (entities == null)
+                {
+                    throw new ArgumentException($"{typeof(T)} is Null");
+                }
+
+                //自增ID操作会出现问题，暂时无法解决自增操作的方式，只能使用笨办法，通过多次连接数据库的方式执行
+                //var changeRecord = 0;
+                //foreach (var item in entities)
+                //{
+                //    var entry = Entities.Add(item);
+                //    entry.State = EntityState.Added;
+                //    changeRecord += _context.SaveChanges();
+                //}
+
+                Entities.AddRange(entities);
+
+                //Entities.AddRange(entities);
+                //执行存储操作
                 return _context.SaveChanges();
             }
             catch (DbUpdateException)

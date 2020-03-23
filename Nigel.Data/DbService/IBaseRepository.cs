@@ -15,7 +15,11 @@ namespace Nigel.Data.DbService
     /// <typeparam name="T"></typeparam>
     public interface IBaseRepository<T> where T : class, new()
     {
+        int Insert(T entity);
+
         Task<int> InsertAsync(T entity);
+
+        int BatchInsert(params T[] entities);
 
         Task<int> BatchInsertAsync(params T[] entities);
 
@@ -26,6 +30,7 @@ namespace Nigel.Data.DbService
         int Delete(T entity);
 
         int BatchDelete(params T[] entities);
+
         Task<T> GetByIdAsync(object id);
 
         /// <summary>
