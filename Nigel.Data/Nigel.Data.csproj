@@ -10,7 +10,7 @@
     <Company>Nigel</Company>
     <Description>.NET Core Common</Description>
     <Copyright>Copyright © Nigel 2020</Copyright>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <PackageId>Nigel.Data</PackageId>
     <Product>Nigel.Data</Product>
     <PackageIconUrl>http://www.3624091.com/favicon.ico</PackageIconUrl>
@@ -30,6 +30,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.1" />
   </ItemGroup>
 
   <ItemGroup>

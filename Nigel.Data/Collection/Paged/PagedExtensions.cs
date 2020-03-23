@@ -15,7 +15,7 @@ namespace Nigel.Data.Collection.Paged
         /// <returns></returns>
         public static PagedModel<TResult> ToMap<T, TResult>(this PagedList<T> pagedList, Func<T, TResult> converter)
         {
-            return new PagedModel<TResult>(pagedList.ForEach(converter), pagedList.TotalRecords, pagedList.TotalPages, pagedList.PageNumber, pagedList.PageSize);
+            return new PagedModel<TResult>(pagedList.ForEach(converter), pagedList.TotalRecords, pagedList.PageNumber, pagedList.PageSize);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Nigel.Data.Collection.Paged
         /// <returns></returns>
         public static PagedModel<TResult> ToMap<T, TResult>(this PagedList<T> pagedList, Func<T, int, TResult> converter)
         {
-            return new PagedModel<TResult>(pagedList.ForEach(converter), pagedList.TotalRecords, pagedList.TotalPages, pagedList.PageNumber, pagedList.PageSize);
+            return new PagedModel<TResult>(pagedList.ForEach(converter), pagedList.TotalRecords, pagedList.PageNumber, pagedList.PageSize);
         }
 
         /// <summary>

@@ -8,11 +8,13 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.0" />
+    <PackageReference Include="Scrutor" Version="3.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Nigel.Core.Redis\Nigel.Core.Redis.csproj" />
     <ProjectReference Include="..\Nigel.Core\Nigel.Core.csproj" />
+    <ProjectReference Include="..\Nigel.Data\Nigel.Data.csproj" />
     <ProjectReference Include="..\Nigel.Drawing\Nigel.Drawing.csproj" />
     <ProjectReference Include="..\Nigel\Nigel.csproj" />
   </ItemGroup>

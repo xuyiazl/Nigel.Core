@@ -16,6 +16,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Nigel.Core.Redis;
+using Nigel.WebTests.Data.DbService;
 
 namespace Nigel.WebTests.Controllers
 {
@@ -25,17 +26,19 @@ namespace Nigel.WebTests.Controllers
         private readonly IHttpService _httpService;
 
         private readonly IRedisService _redisService;
+        private readonly IDbAdminUsersServiceProvider _dbAdminUsersServiceProvider;
         /// <summary>
         /// 文件上传服务
         /// </summary>
         private IFileUploadService _fileUploadService;
 
-        public HomeController(ILogger<HomeController> logger, IHttpService httpService, IFileUploadService fileUploadService, IRedisService redisService)
+        public HomeController(ILogger<HomeController> logger, IDbAdminUsersServiceProvider dbAdminUsersServiceProvider, IHttpService httpService, IFileUploadService fileUploadService, IRedisService redisService)
         {
             _logger = logger;
             _httpService = httpService;
             _fileUploadService = fileUploadService;
             _redisService = redisService;
+            _dbAdminUsersServiceProvider = dbAdminUsersServiceProvider;
         }
 
         [NoCache]

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -10,6 +11,9 @@ using Nigel.Core.Extensions;
 using Nigel.Core.HttpFactory;
 using Nigel.Core.Logging.Log4Net;
 using Nigel.Core.Redis;
+using Nigel.WebTests.Data.DbService;
+using Nigel.WebTests.Data.Repository.ReadRepository;
+using Nigel.WebTests.Data.Repository.WriteRepository;
 using System;
 
 namespace Nigel.WebTests
@@ -26,6 +30,50 @@ namespace Nigel.WebTests
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            //DBContext的注入
+            #region 注入只写操作 Write_FrontService
+
+            services.AddDbContext<WriteEntityContext>(options =>
+            {
+                //使用mysql的连接,使用指定连接字符串
+                options.UseMySql(Configuration.GetConnectionString("Nigel_WriteConnection"), opts =>
+                {
+
+                }).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            });
+            //持久层仓库的注入
+            services.AddScoped(typeof(IWriteRepository<>), typeof(WriteRepository<>));
+            services.AddScoped(typeof(IWriteEntityContext), typeof(WriteEntityContext));
+
+            #endregion
+
+            #region  注入只读操作 Read_FrontService
+
+            services.AddDbContext<ReadEntityContext>(options =>
+            {
+                //使用mysql的连接,使用指定连接字符串
+                options.UseMySql(Configuration.GetConnectionString("Nigel_ReadConnection"), opts =>
+                {
+
+                }).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+
+            });
+            //持久层仓库的注入
+            services.AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>));
+            services.AddScoped(typeof(IReadEntityContext), typeof(ReadEntityContext));
+
+            #endregion
+
+            //DI 注入db持久层业务逻辑
+            services.Scan(scan =>
+               scan.FromAssemblyOf<IDbDependencyService>()
+               .AddClasses(impl => impl.AssignableTo(typeof(IDbDependencyService)))
+               .AsImplementedInterfaces()
+               .WithScopedLifetime()
+           );
+
+
             services.AddHttpService<HttpService>(TimeSpan.FromSeconds(6));
 
             services.AddRedisService();
