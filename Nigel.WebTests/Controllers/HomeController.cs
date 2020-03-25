@@ -17,6 +17,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Nigel.Core.Redis;
 using Nigel.WebTests.Data.DbService;
+using Nigel.Paging;
+using Nigel.Json;
 
 namespace Nigel.WebTests.Controllers
 {
@@ -39,6 +41,7 @@ namespace Nigel.WebTests.Controllers
             _fileUploadService = fileUploadService;
             _redisService = redisService;
             _dbAdminUsersServiceProvider = dbAdminUsersServiceProvider;
+
         }
 
         [NoCache]

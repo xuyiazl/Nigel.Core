@@ -1,5 +1,4 @@
-﻿using Nigel.Data.Collection.Paged;
-using Nigel.Paging;
+﻿using Nigel.Paging;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;

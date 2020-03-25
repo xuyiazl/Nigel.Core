@@ -1,4 +1,4 @@
-﻿namespace Nigel.Data.Collection.Paged
+﻿namespace Nigel.Paging
 {
     /********************************************************************
     *           Copyright:       2009-2011
@@ -9,7 +9,6 @@
     *
     ********************************************************************/
 
-    using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -89,48 +88,5 @@
             }
         }
 
-        /// <summary>
-        /// 创建分页对象
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="pageNumber"></param>
-        /// <param name="pageSize"></param>
-        /// <returns></returns>
-        public static PagedList<T> Create(IQueryable<T> source, int pageNumber, int pageSize)
-        {
-            var count = source.Count();
-            var items = source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
-            return new PagedList<T>(items, count, pageNumber, pageSize);
-        }
-
-        /// <summary>
-        /// 异步创建分页对象
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="pageNumber"></param>
-        /// <param name="pageSize"></param>
-        /// <returns></returns>
-        public static async Task<PagedList<T>> CreateAsync(IQueryable<T> source, int pageNumber, int pageSize)
-        {
-            var count = await source.CountAsync();
-            var items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
-            return new PagedList<T>(items, count, pageNumber, pageSize);
-        }
-
-        /// <summary>
-        /// 异步创建分页对象
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="pageNumber"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        public static async Task<PagedList<T>> CreateAsync(IQueryable<T> source, int pageNumber, int pageSize,
-            CancellationToken cancellationToken = default)
-        {
-            var count = await source.CountAsync(cancellationToken);
-            var items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync(cancellationToken);
-            return new PagedList<T>(items, count, pageNumber, pageSize);
-        }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Nigel.Data.Collection.Paged;
 using Nigel.Extensions;
 using Nigel.Paging;
 using System;

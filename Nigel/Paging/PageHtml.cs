@@ -11,6 +11,65 @@ namespace Nigel.Paging
         /// <summary>
         /// web 分页HTML
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="model"></param>
+        /// <param name="urlBuilder">url规则</param>
+        /// <returns></returns>
+        public static string BuildPageHtml<T>(this PagedModel<T> model, Func<int, string> urlBuilder)
+        {
+            if (model == null) return string.Empty;
+
+            return Build(model.PageNumber, model.TotalPages, urlBuilder);
+        }
+        /// <summary>
+        /// web 分页HTML
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="model"></param>
+        /// <param name="showFirstAndLastPage">是否显示第一页和最后一页</param>
+        /// <param name="urlBuilder">url规则</param>
+        /// <returns></returns>
+        public static string BuildPageHtml<T>(this PagedModel<T> model, bool showFirstAndLastPage, Func<int, string> urlBuilder)
+        {
+            if (model == null) return string.Empty;
+
+            return Build(model.PageNumber, model.TotalPages, showFirstAndLastPage, urlBuilder);
+        }
+        /// <summary>
+        /// web 分页HTML
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="model"></param>
+        /// <param name="numberPagesToDisplay">显示几页</param>
+        /// <param name="showFirstAndLastPage">是否显示第一页和最后一页</param>
+        /// <param name="urlBuilder">url规则</param>
+        /// <returns></returns>
+        public static string BuildPageHtml<T>(this PagedModel<T> model, int numberPagesToDisplay, bool showFirstAndLastPage, Func<int, string> urlBuilder)
+        {
+            if (model == null) return string.Empty;
+
+            return Build(model.PageNumber, model.TotalPages, numberPagesToDisplay, showFirstAndLastPage, PagerLanguage.Default, urlBuilder);
+        }
+        /// <summary>
+        /// web 分页HTML
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="model"></param>
+        /// <param name="numberPagesToDisplay"></param>
+        /// <param name="showFirstAndLastPage">是否显示第一页和最后一页</param>
+        /// <param name="language"></param>
+        /// <param name="urlBuilder">url规则</param>
+        /// <returns></returns>
+        public static string BuildPageHtml<T>(this PagedModel<T> model, int numberPagesToDisplay, bool showFirstAndLastPage, PagerLanguage language, Func<int, string> urlBuilder)
+        {
+            if (model == null) return string.Empty;
+
+            return Build(model.PageNumber, model.TotalPages, numberPagesToDisplay, showFirstAndLastPage, language, urlBuilder);
+        }
+
+        /// <summary>
+        /// web 分页HTML
+        /// </summary>
         /// <param name="pageNumber">当前页码</param>
         /// <param name="totalPages">总页数</param>
         /// <param name="urlBuilder">url规则</param>
@@ -69,6 +128,68 @@ namespace Nigel.Paging
                     cssClassForPage, showFirstAndLastPage, language));
             return pager.ToHtml(urlBuilder);
         }
+
+
+
+        /// <summary>
+        /// web 分页HTML
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="model"></param>
+        /// <param name="urlBuilder">url规则</param>
+        /// <returns></returns>
+        public static string BuildPageHtml<T>(this PagedModel<T> model, Func<int, UrlArguments> urlBuilder)
+        {
+            if (model == null) return string.Empty;
+
+            return Build(model.PageNumber, model.TotalPages, urlBuilder);
+        }
+        /// <summary>
+        /// web 分页HTML
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="model"></param>
+        /// <param name="showFirstAndLastPage">是否显示第一页和最后一页</param>
+        /// <param name="urlBuilder">url规则</param>
+        /// <returns></returns>
+        public static string BuildPageHtml<T>(this PagedModel<T> model, bool showFirstAndLastPage, Func<int, UrlArguments> urlBuilder)
+        {
+            if (model == null) return string.Empty;
+
+            return Build(model.PageNumber, model.TotalPages, showFirstAndLastPage, urlBuilder);
+        }
+        /// <summary>
+        /// web 分页HTML
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="model"></param>
+        /// <param name="numberPagesToDisplay">显示几页</param>
+        /// <param name="showFirstAndLastPage">是否显示第一页和最后一页</param>
+        /// <param name="urlBuilder">url规则</param>
+        /// <returns></returns>
+        public static string BuildPageHtml<T>(this PagedModel<T> model, int numberPagesToDisplay, bool showFirstAndLastPage, Func<int, UrlArguments> urlBuilder)
+        {
+            if (model == null) return string.Empty;
+
+            return Build(model.PageNumber, model.TotalPages, numberPagesToDisplay, showFirstAndLastPage, PagerLanguage.Default, urlBuilder);
+        }
+        /// <summary>
+        /// web 分页HTML
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="model"></param>
+        /// <param name="numberPagesToDisplay"></param>
+        /// <param name="showFirstAndLastPage">是否显示第一页和最后一页</param>
+        /// <param name="language"></param>
+        /// <param name="urlBuilder">url规则</param>
+        /// <returns></returns>
+        public static string BuildPageHtml<T>(this PagedModel<T> model, int numberPagesToDisplay, bool showFirstAndLastPage, PagerLanguage language, Func<int, UrlArguments> urlBuilder)
+        {
+            if (model == null) return string.Empty;
+
+            return Build(model.PageNumber, model.TotalPages, numberPagesToDisplay, showFirstAndLastPage, language, urlBuilder);
+        }
+
 
         /// <summary>
         /// web 分页HTML

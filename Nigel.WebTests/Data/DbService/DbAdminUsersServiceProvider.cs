@@ -1,5 +1,4 @@
-﻿using Nigel.Data.Collection.Paged;
-using Nigel.Data.DbService;
+﻿using Nigel.Data.DbService;
 using Nigel.Paging;
 using Nigel.WebTests.Data.Entity;
 using Nigel.WebTests.Data.Repository.ReadRepository;

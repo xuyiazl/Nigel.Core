@@ -12,7 +12,7 @@
     <Company>Nigel</Company>
     <Description>.NET Core Common</Description>
     <Copyright>Copyright © Nigel 2020</Copyright>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
     <PackageId>Nigel</PackageId>
     <Product>Nigel</Product>
     <PackageIconUrl>http://www.3624091.com/favicon.ico</PackageIconUrl>
