@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Options;
+using Nigel.Cache;
 using Nigel.Core.HttpFactory;
 using Nigel.Core.Razors;
 using Nigel.Core.Uploads;
@@ -19,6 +21,25 @@ namespace Nigel.Core.Extensions
     /// </summary>
     public static partial class Extensions
     {
+        /// <summary>
+        /// 绑定本地缓存管理
+        /// </summary>
+        /// <remarks>引入 ICacheManager 使用</remarks>
+        /// <param name="services">服务集合</param>
+        /// <param name="memoryCacheOptions"></param>
+        public static void AddCacheManager(this IServiceCollection services, MemoryCacheOptions memoryCacheOptions = null)
+        {
+            //services.AddSingleton<IMemoryCache, MemoryCache>();
+
+            if (memoryCacheOptions == null)
+                memoryCacheOptions = new MemoryCacheOptions() { };
+
+            services.AddSingleton<ICacheManager>(o =>
+            {
+                return new CacheManager(memoryCacheOptions);
+            });
+        }
+
         /// <summary>
         /// 绑定获取配置
         /// </summary>
