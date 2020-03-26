@@ -7,6 +7,7 @@ using StackExchange.Redis;
 using Nigel.Extensions;
 using Nigel.Json;
 using Nigel.Core.Redis.RedisCommand;
+using Nigel.Helpers;
 
 namespace Nigel.Core.Redis
 {
@@ -77,6 +78,10 @@ namespace Nigel.Core.Redis
             return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
                 string value = db.StringGet(key);
+
+                if (typeof(TResult) == typeof(string))
+                    return Conv.To<TResult>(value);
+
                 return value.ToObject<TResult>();
             });
         }
