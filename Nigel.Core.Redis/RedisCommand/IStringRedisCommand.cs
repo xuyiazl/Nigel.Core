@@ -53,10 +53,18 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <summary>
         /// 批量获得string类型的值
         /// </summary>
-        /// <param name="keys">key数组</param>
-        /// <param name="connectionName">连接名称</param>
+        /// <param name="keys"></param>
+        /// <param name="connectionName"></param>
         /// <returns></returns>
-        List<TResult> StringGet<TResult>(string[] keys, string connectionName = null);
+        List<string> StringGet(string[] keys, string connectionName = null);
+        /// <summary>
+        /// 批量获得string类型的值
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="keys"></param>
+        /// <param name="connectionName"></param>
+        /// <returns></returns>
+        List<TResult> StringGetNotNullOrEmpty<TResult>(string[] keys, string connectionName = null);
         /// <summary>
         /// 原子性自增列
         /// </summary>

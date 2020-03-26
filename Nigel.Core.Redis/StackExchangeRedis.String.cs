@@ -83,7 +83,22 @@ namespace Nigel.Core.Redis
             });
         }
 
-        public List<TResult> StringGet<TResult>(string[] keys, string connectionName = null)
+        public List<string> StringGet(string[] keys, string connectionName = null)
+        {
+            return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
+            {
+                RedisKey[] redisKey = new RedisKey[keys.Length];
+                for (int i = 0; i < redisKey.Length; i++)
+                {
+                    redisKey[i] = keys[i];
+                }
+
+                var redisValue = db.StringGet(redisKey);
+                return redisValue.ToStringArray().ToList();
+            });
+        }
+
+        public List<TResult> StringGetNotNullOrEmpty<TResult>(string[] keys, string connectionName = null)
         {
             return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
