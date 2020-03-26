@@ -79,9 +79,6 @@ namespace Nigel.Core.Redis
             {
                 string value = db.StringGet(key);
 
-                if (typeof(TResult) == typeof(string))
-                    return Conv.To<TResult>(value);
-
                 return value.ToObject<TResult>();
             });
         }
