@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 
 namespace Nigel.Json
@@ -39,6 +40,15 @@ namespace Nigel.Json
         /// 将对象转换为Json字符串
         /// </summary>
         /// <param name="target">目标对象</param>
+        /// <returns></returns>
+        public static string ToJson(this object target)
+        {
+            return JsonHelper.ToJson(target);
+        }
+        /// <summary>
+        /// 将对象转换为Json字符串
+        /// </summary>
+        /// <param name="target">目标对象</param>
         /// <param name="isConvertToSingleQuotes">是否将双引号转换成单引号</param>
         /// <param name="camelCase">是否驼峰式命名</param>
         /// <param name="indented">是否缩进</param>
@@ -49,6 +59,16 @@ namespace Nigel.Json
             return JsonHelper.ToJson(target, isConvertToSingleQuotes, camelCase, indented);
         }
 
+        /// <summary>
+        /// 将对象转换为Json字符串
+        /// </summary>
+        /// <param name="target">目标对象</param>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static string ToJson(this object target, JsonSerializerSettings options)
+        {
+            return JsonHelper.ToJson(target, options);
+        }
         #endregion ToJson(将对象转换为Json字符串)
 
         #region ToJObject(将Json字符串转换为Linq对象)

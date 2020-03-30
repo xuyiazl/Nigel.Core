@@ -88,6 +88,23 @@ namespace Nigel.Json
         /// 将对象转换为Json字符串
         /// </summary>
         /// <param name="target">目标对象</param>
+        /// <returns></returns>
+        public static string ToJson(object target)
+        {
+            if (target == null)
+            {
+                return string.Empty;
+            }
+
+            var result = JsonConvert.SerializeObject(target);
+
+            return result;
+        }
+
+        /// <summary>
+        /// 将对象转换为Json字符串
+        /// </summary>
+        /// <param name="target">目标对象</param>
         /// <param name="isConvertToSingleQuotes">是否将双引号转换成单引号</param>
         /// <param name="camelCase">是否驼峰式命名</param>
         /// <param name="indented">是否缩进</param>
@@ -95,11 +112,6 @@ namespace Nigel.Json
         public static string ToJson(object target, bool isConvertToSingleQuotes = false, bool camelCase = false,
             bool indented = false)
         {
-            if (target == null)
-            {
-                return string.Empty;
-            }
-
             var options = new JsonSerializerSettings();
             if (camelCase)
             {
@@ -111,11 +123,29 @@ namespace Nigel.Json
                 options.Formatting = Formatting.Indented;
             }
 
-            var result = JsonConvert.SerializeObject(target, options);
+            var result = ToJson(target, options);
+
             if (isConvertToSingleQuotes)
             {
                 result = result.Replace("\"", "'");
             }
+
+            return result;
+        }
+        /// <summary>
+        /// 将对象转换为Json字符串
+        /// </summary>
+        /// <param name="target">目标对象</param>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static string ToJson(object target, JsonSerializerSettings options)
+        {
+            if (target == null)
+            {
+                return string.Empty;
+            }
+
+            var result = JsonConvert.SerializeObject(target, options);
 
             return result;
         }
