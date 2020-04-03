@@ -12,7 +12,8 @@ namespace Nigel.Core.Redis
     /// </summary>
     public interface IStackExchangeRedis :
         IKeyRedisCommand, IStringRedisCommand, IHashRedisCommand, ISetRedisCommand, ISortSetRedisCommand, IListRedisCommand,
-        IKeyRedisCommandAsync, IStringRedisCommandAsync, IHashRedisCommandAsync, ISetRedisCommandAsync, ISortSetRedisCommandAsync, IListRedisCommandAsync
+        IKeyRedisCommandAsync, IStringRedisCommandAsync, IHashRedisCommandAsync, ISetRedisCommandAsync, ISortSetRedisCommandAsync, IListRedisCommandAsync,
+        ILockRedisCommand, ILockRedisCommandAsync
     {
         /// <summary>
         /// 查询返回IDataBase
