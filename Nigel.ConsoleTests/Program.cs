@@ -11,6 +11,12 @@ using System.Collections.Generic;
 using System.Threading;
 using Nigel.Helpers;
 using Nigel.Threading.Asyncs;
+using Nigel.Extensions;
+using RedLockNet.SERedis;
+using RedLockNet.SERedis.Configuration;
+using System.Net;
+using RedLockNet;
+using System.Linq;
 
 namespace Nigel.ConsoleTests
 {
@@ -32,22 +38,79 @@ namespace Nigel.ConsoleTests
             string token = Environment.MachineName;
 
             AsyncLock _asyncLock = new AsyncLock();
+            int stockCount = 10;
+
+            var stackConnects = new List<StackExchangeConnectionSettings>();
+            configuration.GetSection("StackExchangeConnectionSettings").Bind(stackConnects);
+            var endPoints = new List<RedLockEndPoint>();
+            stackConnects.Where(c => c.ConnectType == ConnectTypeEnum.Read).ForEach(item =>
+            {
+                endPoints.Add(new RedLockEndPoint()
+                {
+                    EndPoint = new DnsEndPoint(item.EndPoint, item.Port.ToInt()),
+                    RedisDatabase = item.DefaultDb,
+                    Password = item.Password
+                });
+            });
+
+            IDistributedLockFactory _distributedLockFactory = RedLockFactory.Create(endPoints);
 
             Parallel.For(0, 100, async ndx =>
-            {
-
-                using (await _asyncLock.LockAsync())
                 {
-                    var s = await redisService.StringIncrementAsync("test");
-                    Console.WriteLine($"{s}");
-                }
+                    // resource 锁定的对象
+                    // expiryTime 锁定过期时间，锁区域内的逻辑执行如果超过过期时间，锁将被释放
+                    // waitTime 等待时间,相同的 resource 如果当前的锁被其他线程占用,最多等待时间
+                    // retryTime 等待时间内，多久尝试获取一次
+                    using (var redLock = await _distributedLockFactory.CreateLockAsync(
+                        resource: key,
+                        expiryTime: TimeSpan.FromSeconds(5),
+                        waitTime: TimeSpan.FromSeconds(1),
+                        retryTime: TimeSpan.FromMilliseconds(20)))
+                    {
+                        if (redLock.IsAcquired)
+                        {
+                            // 模拟执行的逻辑代码花费的时间
+                            await Task.Delay(new Random().Next(200, 500));
+                            if (stockCount > 0)
+                                stockCount--;
+                            Console.WriteLine($"{stockCount}：{DateTime.Now}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"获取锁失败：{DateTime.Now}");
+                        }
+                    }
 
-                //await RedisLock(redisService, key,async () =>
-                //{
-                //    var s = await redisService.StringIncrementAsync("test");
-                //    Console.WriteLine($"{s}");
-                //});
-            });
+                    //using (await _asyncLock.LockAsync())
+                    //{
+                    //    var s = await redisService.StringIncrementAsync("test");
+                    //    Console.WriteLine($"{s}");
+                    //}
+
+                    //if (!await redisService.LockTakeAsync(key, token, 10))
+                    //{
+                    //    return;
+                    //}
+
+                    //try
+                    //{
+                    //    // 模拟执行的逻辑代码花费的时间
+                    //    await Task.Delay(new Random().Next(100, 500));
+                    //    if (stockCount > 0)
+                    //    {
+                    //        stockCount--;
+                    //    }
+                    //    //var s = await redisService.StringIncrementAsync("test");
+                    //    Console.WriteLine($"{stockCount}");
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //}
+                    //finally
+                    //{
+                    //    await redisService.LockReleaseAsync(key, token);
+                    //}
+                });
 
             Console.ReadKey();
         }
