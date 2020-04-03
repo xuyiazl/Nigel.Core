@@ -40,32 +40,6 @@ namespace Nigel.Core.Extensions
             });
         }
 
-        /// <summary>
-        /// 绑定获取配置
-        /// </summary>
-        /// <param name="services">服务集合</param>
-        /// <param name="configuration"></param>
-        /// <param name="section"></param>
-        public static TOptions BindConfigurationSection<TOptions>(this IServiceCollection services, IConfiguration configuration, string section) where TOptions : class, new()
-        {
-            if (configuration != null && !string.IsNullOrEmpty(section))
-            {
-                try
-                {
-                    //需要引用Microsoft.Extensions.Configuration.Binder 组件
-                    var appSection = configuration.GetSection(section);
-                    services.Configure<TOptions>(option => appSection.Bind(option));
-                    services.AddSingleton(resolver => resolver.GetRequiredService<IOptions<TOptions>>().Value);
-
-                    return appSection.Get<TOptions>();
-                }
-                catch
-                {
-                    return null;
-                }
-            }
-            return null;
-        }
 
         /// <summary>
         /// 注册上传服务

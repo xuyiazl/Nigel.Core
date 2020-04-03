@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Options;
 using System.IO;
 
 namespace Nigel.Configs
@@ -28,6 +30,59 @@ namespace Nigel.Configs
                 .Build();
 
             return configuration;
+        }
+
+
+        /// <summary>
+        /// 获取配置
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <param name="section"></param>
+        public static TOptions GetSection<TOptions>(this IConfiguration configuration, string section) where TOptions : class, new()
+        {
+            if (configuration != null && !string.IsNullOrEmpty(section))
+            {
+                try
+                {
+                    TOptions options = new TOptions();
+                    //需要引用Microsoft.Extensions.Configuration.Binder 组件
+                    configuration.GetSection(section).Bind(options);
+                    return options;
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+            return null;
+        }
+
+
+        /// <summary>
+        /// 绑定获取配置
+        /// </summary>
+        /// <param name="services">服务集合</param>
+        /// <param name="configuration"></param>
+        /// <param name="section"></param>
+        public static TOptions BindSection<TOptions>(this IServiceCollection services, IConfiguration configuration, string section) where TOptions : class, new()
+        {
+            if (configuration != null && !string.IsNullOrEmpty(section))
+            {
+                try
+                {
+                    //需要引用Microsoft.Extensions.Configuration.Binder 组件
+                    var appSection = configuration.GetSection(section);
+                    services.Configure<TOptions>(option => appSection.Bind(option));
+                    services.AddSingleton(resolver => resolver.GetRequiredService<IOptions<TOptions>>().Value);
+
+                    return appSection.Get<TOptions>();
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+            return null;
         }
 
         #endregion GetJsonConfig(获取Json配置文件)

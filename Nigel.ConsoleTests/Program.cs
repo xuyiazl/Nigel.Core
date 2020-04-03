@@ -8,10 +8,10 @@ using Nigel.Core.Redis;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using System.Threading;
 using Nigel.Helpers;
 using Nigel.Threading.Asyncs;
 using Nigel.Extensions;
+using Nigel.Configs;
 using RedLockNet.SERedis;
 using RedLockNet.SERedis.Configuration;
 using System.Net;
@@ -38,19 +38,16 @@ namespace Nigel.ConsoleTests
             string token = Environment.MachineName;
 
             AsyncLock _asyncLock = new AsyncLock();
-            int stockCount = 10;
 
-            var stackConnects = new List<StackExchangeConnectionSettings>();
-            configuration.GetSection("StackExchangeConnectionSettings").Bind(stackConnects);
-            var endPoints = new List<RedLockEndPoint>();
-            stackConnects.Where(c => c.ConnectType == ConnectTypeEnum.Read).ForEach(item =>
+            redisService.StringSet<long>("test", 10);
+
+            var stackConnects = configuration.GetSection<List<StackExchangeConnectionSettings>>("StackExchangeConnectionSettings");
+
+            var endPoints = stackConnects.Where(c => c.ConnectType == ConnectTypeEnum.Read).ForEach(item => new RedLockEndPoint()
             {
-                endPoints.Add(new RedLockEndPoint()
-                {
-                    EndPoint = new DnsEndPoint(item.EndPoint, item.Port.ToInt()),
-                    RedisDatabase = item.DefaultDb,
-                    Password = item.Password
-                });
+                EndPoint = new DnsEndPoint(item.EndPoint, item.Port.ToInt()),
+                RedisDatabase = item.DefaultDb,
+                Password = item.Password
             });
 
             IDistributedLockFactory _distributedLockFactory = RedLockFactory.Create(endPoints);
@@ -69,15 +66,16 @@ namespace Nigel.ConsoleTests
                     {
                         if (redLock.IsAcquired)
                         {
-                            // 模拟执行的逻辑代码花费的时间 
-                            await Task.Delay(new Random().Next(200, 500));
-                            if (stockCount > 0)
-                                stockCount--;
-                            Console.WriteLine($"{stockCount}：{DateTime.Now}");
+                            var count = redisService.StringGet<long>("test");
+
+                            if (count > 0)
+                                await redisService.StringIncrementAsync("test", -1);
+
+                            Console.WriteLine($"{count}：{DateTime.Now} {Thread.ThreadId}");
                         }
                         else
                         {
-                            Console.WriteLine($"获取锁失败：{DateTime.Now}");
+                            Console.WriteLine($"获取锁失败：{DateTime.Now} {Thread.ThreadId}");
                         }
                     }
 
