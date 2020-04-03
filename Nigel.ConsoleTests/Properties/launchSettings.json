@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Nigel.ConsoleTests": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Test"
+      }
+    }
+  }
+}

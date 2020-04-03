@@ -4,7 +4,7 @@
 **新增节点**
 
 ```javascript
-  "RedisConnection": [
+  "StackExchangeConnectionSettings": [
     {
       "ConnectionName": "db-read",
       "ConnectType": "Read",

@@ -36,23 +36,23 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <typeparam name="TResult"></typeparam>
         /// <param name="hashKey"></param>
         /// <param name="key"></param>
+        /// <param name="fetcher"></param>
         /// <param name="connectionRead"></param>
         /// <param name="connectionWrite"></param>
-        /// <param name="fetcher"></param>
         /// <returns></returns>
-        Task<TResult> HashGetOrInsertAsync<TResult>(string hashKey, string key, string connectionRead, string connectionWrite, Func<TResult> fetcher);
+        Task<TResult> HashGetOrInsertAsync<TResult>(string hashKey, string key, Func<TResult> fetcher, string connectionRead, string connectionWrite);
         /// <summary>
         /// 获得Hash键值对值（可以理解为获得某一行中的某一列数据），当数据为空 则重新写入redis数据
         /// </summary>
         /// <typeparam name="TResult"></typeparam>
         /// <param name="hashKey"></param>
         /// <param name="key"></param>
+        /// <param name="fetcher"></param>
         /// <param name="seconds"></param>
         /// <param name="connectionRead"></param>
         /// <param name="connectionWrite"></param>
-        /// <param name="fetcher"></param>
         /// <returns></returns>
-        Task<TResult> HashGetOrInsertAsync<TResult>(string hashKey, string key, int seconds, string connectionRead, string connectionWrite, Func<TResult> fetcher);
+        Task<TResult> HashGetOrInsertAsync<TResult>(string hashKey, string key, Func<TResult> fetcher, int seconds, string connectionRead, string connectionWrite);
         /// <summary>
         /// 获得Hash键值对值（可以理解为获得某一行中的某一列数据），当数据为空 则重新写入redis数据
         /// </summary>
@@ -60,12 +60,12 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <typeparam name="TResult"></typeparam>
         /// <param name="hashKey"></param>
         /// <param name="key"></param>
-        /// <param name="connectionRead"></param>
-        /// <param name="connectionWrite"></param>
         /// <param name="fetcher"></param>
         /// <param name="t"></param>
+        /// <param name="connectionRead"></param>
+        /// <param name="connectionWrite"></param>
         /// <returns></returns>
-        Task<TResult> HashGetOrInsertAsync<T, TResult>(string hashKey, string key, string connectionRead, string connectionWrite, Func<T, TResult> fetcher, T t);
+        Task<TResult> HashGetOrInsertAsync<T, TResult>(string hashKey, string key, Func<T, TResult> fetcher, T t, string connectionRead = null, string connectionWrite = null);
         /// <summary>
         /// 获得Hash键值对值（可以理解为获得某一行中的某一列数据），当数据为空 则重新写入redis数据
         /// </summary>
@@ -79,7 +79,7 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <param name="fetcher"></param>
         /// <param name="t"></param>
         /// <returns></returns>
-        Task<TResult> HashGetOrInsertAsync<T, TResult>(string hashKey, string key, int seconds, string connectionRead, string connectionWrite, Func<T, TResult> fetcher, T t);
+        Task<TResult> HashGetOrInsertAsync<T, TResult>(string hashKey, string key, Func<T, TResult> fetcher, T t, int seconds = 0, string connectionRead = null, string connectionWrite = null);
         /// <summary>
         /// 获得Hash键值对值（可以理解为获得某一行中的某一列数据）
         /// </summary>
@@ -118,7 +118,7 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <param name="connectionRead"></param>
         /// <param name="fetcher"></param>
         /// <returns></returns>
-        Task<TResult> HashGetAllAsync<TResult>(string hashId, string connectionRead, Func<Dictionary<string, string>, TResult> fetcher);
+        Task<TResult> HashGetAllAsync<TResult>(string hashId, Func<Dictionary<string, string>, TResult> fetcher, string connectionRead = null);
         /// <summary>
         /// 获得指定Hash所有的KEYS
         /// </summary>

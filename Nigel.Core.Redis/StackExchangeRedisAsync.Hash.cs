@@ -49,10 +49,10 @@ namespace Nigel.Core.Redis
              });
         }
 
-        public async Task<TResult> HashGetOrInsertAsync<TResult>(string hashId, string key, string connectionRead, string connectionWrite, Func<TResult> fetcher)
-            => await HashGetOrInsertAsync<TResult>(hashId, key, 0, connectionRead, connectionWrite, fetcher);
+        public async Task<TResult> HashGetOrInsertAsync<TResult>(string hashId, string key, Func<TResult> fetcher, string connectionRead = null, string connectionWrite = null)
+            => await HashGetOrInsertAsync<TResult>(hashId, key, fetcher, 0, connectionRead, connectionWrite);
 
-        public async Task<TResult> HashGetOrInsertAsync<TResult>(string hashId, string key, int seconds, string connectionRead, string connectionWrite, Func<TResult> fetcher)
+        public async Task<TResult> HashGetOrInsertAsync<TResult>(string hashId, string key, Func<TResult> fetcher, int seconds = 0, string connectionRead = null, string connectionWrite = null)
         {
             if (!await HashExistsAsync(hashId, key, connectionRead))
             {
@@ -82,10 +82,10 @@ namespace Nigel.Core.Redis
             }
         }
 
-        public async Task<TResult> HashGetOrInsertAsync<T, TResult>(string hashId, string key, string connectionRead, string connectionWrite, Func<T, TResult> fetcher, T t)
-            => await HashGetOrInsertAsync<T, TResult>(hashId, key, 0, connectionRead, connectionWrite, fetcher, t);
+        public async Task<TResult> HashGetOrInsertAsync<T, TResult>(string hashId, string key, Func<T, TResult> fetcher, T t, string connectionRead = null, string connectionWrite = null)
+            => await HashGetOrInsertAsync<T, TResult>(hashId, key, fetcher, t, 0, connectionRead, connectionWrite);
 
-        public async Task<TResult> HashGetOrInsertAsync<T, TResult>(string hashId, string key, int seconds, string connectionRead, string connectionWrite, Func<T, TResult> fetcher, T t)
+        public async Task<TResult> HashGetOrInsertAsync<T, TResult>(string hashId, string key, Func<T, TResult> fetcher, T t, int seconds = 0, string connectionRead = null, string connectionWrite = null)
         {
             if (!await HashExistsAsync(hashId, key, connectionRead))
             {
@@ -152,7 +152,7 @@ namespace Nigel.Core.Redis
             });
         }
 
-        public async Task<TResult> HashGetAllAsync<TResult>(string hashId, string connectionRead, Func<Dictionary<string, string>, TResult> fetcher)
+        public async Task<TResult> HashGetAllAsync<TResult>(string hashId, Func<Dictionary<string, string>, TResult> fetcher, string connectionRead)
         {
             var obj = await HashGetAllAsync(hashId, connectionRead);
             if (obj == null) return default(TResult);

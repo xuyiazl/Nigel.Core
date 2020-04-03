@@ -13,14 +13,12 @@ namespace Nigel.Core.Redis
         public StackExchangeRedisProvider(IConfiguration configuration) : base(configuration)
         {
             // 读取配置文件中的Redis字符串信息
-            if (lazyconnMultiplexer == null || !lazyconnMultiplexer.IsValueCreated)
+            if (connMultiplexer == null)
             {
-                lazyconnMultiplexer = new Lazy<List<StackExchangeConnectionSettings>>(() =>
-                {
-                    var config = new List<StackExchangeConnectionSettings>();
-                    configuration.GetSection("RedisConnection").Bind(config);
-                    return config;
-                });
+                var config = new List<StackExchangeConnectionSettings>();
+                configuration.GetSection("StackExchangeConnectionSettings").Bind(config);
+
+                connMultiplexer = config;
             }
         }
     }

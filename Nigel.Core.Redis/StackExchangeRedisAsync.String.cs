@@ -13,7 +13,7 @@ namespace Nigel.Core.Redis
 {
     public abstract partial class StackExchangeRedis : IStringRedisCommandAsync
     {
-        public async Task<TResult> StringGetOrInsertAsync<TResult>(string key, int seconds, string connectionRead, string connectionWrite, Func<TResult> fetcher)
+        public async Task<TResult> StringGetOrInsertAsync<TResult>(string key, Func<TResult> fetcher, int seconds = 0, string connectionRead = null, string connectionWrite = null)
         {
             if (!await KeyExistsAsync(key, connectionRead))
             {
@@ -28,7 +28,7 @@ namespace Nigel.Core.Redis
             }
         }
 
-        public async Task<TResult> StringGetOrInsertAsync<T, TResult>(string key, int seconds, string connectionRead, string connectionWrite, Func<T, TResult> fetcher, T t)
+        public async Task<TResult> StringGetOrInsertAsync<T, TResult>(string key, Func<T, TResult> fetcher, T t, int seconds = 0, string connectionRead = null, string connectionWrite = null)
         {
             if (!await KeyExistsAsync(key, connectionRead))
             {

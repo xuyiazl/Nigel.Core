@@ -24,25 +24,25 @@ namespace Nigel.Core.Redis.RedisCommand
         /// </summary>
         /// <typeparam name="TResult"></typeparam>
         /// <param name="key"></param>
+        /// <param name="fetcher"></param>
         /// <param name="seconds"></param>
         /// <param name="connectionRead"></param>
         /// <param name="connectionWrite"></param>
-        /// <param name="fetcher"></param>
         /// <returns></returns>
-        Task<TResult> StringGetOrInsertAsync<TResult>(string key, int seconds, string connectionRead, string connectionWrite, Func<TResult> fetcher);
+        Task<TResult> StringGetOrInsertAsync<TResult>(string key, Func<TResult> fetcher, int seconds = 0, string connectionRead = null, string connectionWrite = null);
         /// <summary>
         /// 获取string的value值，如果不存在则写入
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="TResult"></typeparam>
         /// <param name="key"></param>
+        /// <param name="fetcher"></param>
+        /// <param name="t"></param>
         /// <param name="seconds"></param>
         /// <param name="connectionRead"></param>
         /// <param name="connectionWrite"></param>
-        /// <param name="fetcher"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
-        Task<TResult> StringGetOrInsertAsync<T, TResult>(string key, int seconds, string connectionRead, string connectionWrite, Func<T, TResult> fetcher, T t);
+        Task<TResult> StringGetOrInsertAsync<T, TResult>(string key, Func<T, TResult> fetcher, T t, int seconds = 0, string connectionRead = null, string connectionWrite = null);
         /// <summary>
         /// 获得string的value值
         /// </summary>
