@@ -69,7 +69,7 @@ namespace Nigel.ConsoleTests
                     {
                         if (redLock.IsAcquired)
                         {
-                            // 模拟执行的逻辑代码花费的时间
+                            // 模拟执行的逻辑代码花费的时间 
                             await Task.Delay(new Random().Next(200, 500));
                             if (stockCount > 0)
                                 stockCount--;
