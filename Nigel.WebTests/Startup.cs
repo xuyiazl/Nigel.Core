@@ -74,7 +74,7 @@ namespace Nigel.WebTests
            );
 
 
-            services.AddHttpService<HttpService>(TimeSpan.FromSeconds(6));
+            services.AddHttpService<HttpService>();
 
             services.AddRedisService();
 

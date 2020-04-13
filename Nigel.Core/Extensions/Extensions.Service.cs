@@ -76,18 +76,6 @@ namespace Nigel.Core.Extensions
 
         #region 注册HttpFactory
 
-        private static HttpClientHandler CreateClientHandler()
-        {
-            var handler = new HttpClientHandler();
-            handler.AllowAutoRedirect = false;
-            handler.UseDefaultCredentials = false;
-            if (handler.SupportsAutomaticDecompression)
-            {
-                handler.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
-            }
-            return handler;
-        }
-
         /// <summary>
         /// 注册 HttpFactory Service
         /// </summary>
@@ -95,72 +83,26 @@ namespace Nigel.Core.Extensions
         /// <param name="services"></param>
         /// <param name="clientName"></param>
         /// <param name="baseAddress"></param>
+        /// <param name="messageHandler"></param>
+        /// <param name="httpClientLeftTime"></param>
+        /// <param name="serviceLifetime"></param>
         /// <returns></returns>
         public static IServiceCollection AddHttpService<TImplementation>(this IServiceCollection services,
             string clientName,
-            string baseAddress)
+            string baseAddress,
+            Func<HttpMessageHandler> messageHandler = null,
+            TimeSpan? httpClientLeftTime = null,
+            ServiceLifetime serviceLifetime = ServiceLifetime.Singleton)
             where TImplementation : class, IHttpService
         {
-            services.AddHttpService<TImplementation>(clientName, c =>
+            Action<HttpClient> client = c =>
             {
                 c.BaseAddress = new Uri(baseAddress);
                 c.DefaultRequestHeaders.Add("Accept-Encoding", "gzip,deflate");
                 c.DefaultRequestHeaders.Add("Accept", "application/json");
-            }, TimeSpan.FromSeconds(6), ServiceLifetime.Singleton);
+            };
 
-            return services;
-        }
-
-        /// <summary>
-        /// 注册 HttpFactory Service
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="clientName"></param>
-        /// <param name="configureClient"></param>
-        /// <param name="httpClientLeftTime"></param>
-        /// <param name="serviceLifetime"></param>
-        public static IServiceCollection AddHttpService<TImplementation>(this IServiceCollection services,
-            string clientName,
-            Action<HttpClient> configureClient,
-            TimeSpan httpClientLeftTime,
-            ServiceLifetime serviceLifetime = ServiceLifetime.Singleton)
-            where TImplementation : class, IHttpService
-        {
-            services.AddHttpService<TImplementation>(
-                new List<KeyValuePair<string, Action<HttpClient>>>() {
-                    new KeyValuePair<string, Action<HttpClient>>(clientName,configureClient)
-                }, CreateClientHandler, httpClientLeftTime, serviceLifetime);
-
-            return services;
-        }
-
-        /// <summary>
-        /// 注册 HttpFactory Service
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="keyValuePair"></param>
-        /// <param name="func"></param>
-        /// <param name="httpClientLeftTime"></param>
-        /// <param name="serviceLifetime"></param>
-        public static IServiceCollection AddHttpService<TImplementation>(this IServiceCollection services,
-            IEnumerable<KeyValuePair<string, Action<HttpClient>>> keyValuePair,
-            Func<HttpMessageHandler> func,
-            TimeSpan httpClientLeftTime,
-            ServiceLifetime serviceLifetime)
-            where TImplementation : class, IHttpService
-        {
-            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-            services.AddPolicyRegistry();
-
-            keyValuePair.ForEach(item =>
-            {
-                services.AddHttpClient(item.Key, item.Value)
-                    .ConfigurePrimaryHttpMessageHandler(func)
-                    .SetHandlerLifetime(httpClientLeftTime);
-            });
-
-            services.AddHttpService<TImplementation>(serviceLifetime);
+            services.AddHttpService<TImplementation>(clientName, client, messageHandler, httpClientLeftTime, serviceLifetime);
 
             return services;
         }
@@ -169,46 +111,50 @@ namespace Nigel.Core.Extensions
         /// 注册 HTTPFactory Srevice
         /// </summary>
         /// <param name="services"></param>
-        /// <param name="httpClientLeftTime"></param>
         /// <param name="clientName"></param>
+        /// <param name="client"></param>
+        /// <param name="messageHandler"></param>
+        /// <param name="httpClientLeftTime"></param>
         /// <param name="serviceLifetime"></param>
         public static IServiceCollection AddHttpService<TImplementation>(this IServiceCollection services,
-            TimeSpan httpClientLeftTime,
             string clientName = "apiClient",
+            Action<HttpClient> client = null,
+            Func<HttpMessageHandler> messageHandler = null,
+            TimeSpan? httpClientLeftTime = null,
             ServiceLifetime serviceLifetime = ServiceLifetime.Singleton)
-            where TImplementation : class, IHttpService
-        {
-            services.AddHttpService<TImplementation>(clientName, CreateClientHandler, httpClientLeftTime, serviceLifetime);
-
-            return services;
-        }
-
-        /// <summary>
-        /// 注册 HTTPFactory Srevice
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="clientName"></param>
-        /// <param name="func"></param>
-        /// <param name="httpClientLeftTime"></param>
-        /// <param name="serviceLifetime"></param>
-        public static IServiceCollection AddHttpService<TImplementation>(this IServiceCollection services,
-            string clientName,
-            Func<HttpMessageHandler> func,
-            TimeSpan httpClientLeftTime,
-            ServiceLifetime serviceLifetime)
             where TImplementation : class, IHttpService
         {
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddPolicyRegistry();
 
-            services.AddHttpClient(clientName, client =>
+            if (client == null)
+                client = c =>
                 {
-                    client.DefaultRequestHeaders.Add("Accept-Encoding", "gzip,deflate");
-                    client.DefaultRequestHeaders.Add("Accept", "application/json");
-                })
-                .ConfigurePrimaryHttpMessageHandler(func)
-                .SetHandlerLifetime(httpClientLeftTime);
+                    //c.BaseAddress = new Uri(baseAddress);
+                    c.DefaultRequestHeaders.Add("Accept-Encoding", "gzip,deflate");
+                    c.DefaultRequestHeaders.Add("Accept", "application/json");
+                };
+
+            var httpClientBuilder = services.AddHttpClient(clientName, client);
+
+            if (messageHandler != null)
+                httpClientBuilder.ConfigurePrimaryHttpMessageHandler(messageHandler);
+            else
+                httpClientBuilder.ConfigurePrimaryHttpMessageHandler(() =>
+                {
+                    var handler = new HttpClientHandler();
+                    handler.AllowAutoRedirect = false;
+                    handler.UseDefaultCredentials = false;
+                    if (handler.SupportsAutomaticDecompression)
+                    {
+                        handler.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
+                    }
+                    return handler;
+                });
+
+            if (httpClientLeftTime != null)
+                httpClientBuilder.SetHandlerLifetime(httpClientLeftTime.Value);
 
             services.AddHttpService<TImplementation>(serviceLifetime);
 
