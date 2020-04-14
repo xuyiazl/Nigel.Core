@@ -27,7 +27,7 @@
         public static string FormatMoney(decimal money, bool isEncrypt = false) => isEncrypt ? "***" : $"{money:N2}";
 
         /// <summary>
-        /// 隐藏手机号码信息
+        /// 加密手机号码信息
         /// </summary>
         /// <param name="value"></param>
         /// <param name="specialChar"></param>
@@ -42,7 +42,7 @@
             return EncryptSensitiveInfo(value, specialChar);
         }
         /// <summary>
-        /// 隐藏邮箱信息
+        /// 加密邮箱信息
         /// </summary>
         /// <param name="value"></param>
         /// <param name="specialChar"></param>
@@ -60,7 +60,7 @@
             return EncryptSensitiveInfo(value, specialChar);
         }
         /// <summary>
-        /// 隐藏敏感信息
+        /// 加密敏感信息
         /// </summary>
         /// <param name="value"></param>
         /// <param name="specialChar"></param>
