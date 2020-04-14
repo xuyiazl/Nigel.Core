@@ -6,31 +6,18 @@
     public static class Format
     {
         /// <summary>
-        /// 加密手机号码
-        /// </summary>
-        /// <param name="phone">手机号码</param>
-        public static string EncryptPhoneOfChina(string phone) =>
-            string.IsNullOrWhiteSpace(phone)
-                ? string.Empty
-                : $"{phone.Substring(0, 3)}******{phone.Substring(phone.Length - 2, 2)}";
-
-        /// <summary>
         /// 加密车牌号
         /// </summary>
         /// <param name="plateNumber">车牌号</param>
-        public static string EncryptPlateNumberOfChina(string plateNumber) =>
-            string.IsNullOrWhiteSpace(plateNumber)
-                ? string.Empty
-                : $"{plateNumber.Substring(0, 2)}***{plateNumber.Substring(plateNumber.Length - 2, 2)}";
+        /// <param name="specialChar"></param>
+        public static string EncryptPlateNumberOfChina(string plateNumber, char specialChar = '*') => ReplaceWithSpecialChar(plateNumber, 2, 2, specialChar);
 
         /// <summary>
         /// 加密汽车VIN
         /// </summary>
         /// <param name="vinCode">汽车VIN</param>
-        public static string EncryptVinCode(string vinCode) =>
-            string.IsNullOrWhiteSpace(vinCode)
-                ? string.Empty
-                : $"{vinCode.Substring(0, 3)}***********{vinCode.Substring(vinCode.Length - 3, 3)}";
+        /// <param name="specialChar"></param>
+        public static string EncryptVinCode(string vinCode, char specialChar = '*') => ReplaceWithSpecialChar(vinCode, 3, 3, specialChar);
 
         /// <summary>
         /// 格式化金额
@@ -38,5 +25,88 @@
         /// <param name="money">金额</param>
         /// <param name="isEncrypt">是否加密。默认：false</param>
         public static string FormatMoney(decimal money, bool isEncrypt = false) => isEncrypt ? "***" : $"{money:N2}";
+
+        /// <summary>
+        /// 隐藏手机号码信息
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="specialChar"></param>
+        /// <returns></returns>
+        public static string EncryptPhone(string value, char specialChar = '*')
+        {
+            if (string.IsNullOrEmpty(value)) return value;
+
+            if (Regexs.IsMatch(value, RegexPatterns.MobilePhone))
+                return ReplaceWithSpecialChar(value, 3, 4, specialChar);
+
+            return EncryptSensitiveInfo(value, specialChar);
+        }
+        /// <summary>
+        /// 隐藏邮箱信息
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="specialChar"></param>
+        /// <returns></returns>
+        public static string EncryptEmail(string value, char specialChar = '*')
+        {
+            if (string.IsNullOrEmpty(value)) return value;
+
+            if (Regexs.IsMatch(value, RegexPatterns.Email))
+            {
+                int suffixLen = value.LastIndexOf('@');
+                return $"{EncryptSensitiveInfo(value.Substring(0, suffixLen), specialChar)}{value.Substring(suffixLen)}";
+            }
+
+            return EncryptSensitiveInfo(value, specialChar);
+        }
+        /// <summary>
+        /// 隐藏敏感信息
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="specialChar"></param>
+        /// <returns></returns>
+        public static string EncryptSensitiveInfo(string value, char specialChar = '*')
+        {
+            if (string.IsNullOrEmpty(value)) return value;
+
+            var len = value.Length;
+
+            if (len == 1)
+                return value;
+            else if (len > 1 && len <= 4)
+                return ReplaceWithSpecialChar(value, 1, 0, specialChar);
+            else if (len > 4 && len <= 5)
+                return ReplaceWithSpecialChar(value, 1, 1, specialChar);
+            else if (len > 5 && len <= 8)
+                return ReplaceWithSpecialChar(value, 2, 2, specialChar);
+            else if (len > 8 && len <= 10)
+                return ReplaceWithSpecialChar(value, 3, 3, specialChar);
+            else
+                return ReplaceWithSpecialChar(value, 4, 4, specialChar);
+        }
+
+        /// <summary>
+        /// 将传入的字符串中间部分字符替换成特殊字符
+        /// </summary>
+        /// <param name="value">需要替换的字符串</param>
+        /// <param name="startLen">前保留长度</param>
+        /// <param name="endLen">尾保留长度</param>
+        /// <param name="specialChar">特殊字符</param>
+        /// <returns>被特殊字符替换的字符串</returns>
+        public static string ReplaceWithSpecialChar(string value, int startLen = 4, int endLen = 4, char specialChar = '*')
+        {
+            if (string.IsNullOrEmpty(value)) return value;
+
+            int len = value.Length - startLen - endLen;
+
+            if (len > 0)
+            {
+                string left = value.Substring(0, startLen);
+                string right = value.Substring(value.Length - endLen);
+
+                return $"{left}{"".PadLeft(len, specialChar)}{right}";
+            }
+            return value;
+        }
     }
 }

@@ -24,6 +24,44 @@ namespace Nigel.ConsoleTests
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("010-45356555".EncryptPhone());
+            Console.WriteLine("13564705939".EncryptPhone());
+            Console.WriteLine("1".EncryptSensitiveInfo());
+            Console.WriteLine("12".EncryptSensitiveInfo());
+            Console.WriteLine("123".EncryptSensitiveInfo());
+            Console.WriteLine("1234".EncryptSensitiveInfo());
+            Console.WriteLine("12345".EncryptSensitiveInfo());
+            Console.WriteLine("123456".EncryptSensitiveInfo());
+            Console.WriteLine("1234567".EncryptSensitiveInfo());
+            Console.WriteLine("12345678".EncryptSensitiveInfo());
+            Console.WriteLine("123456789".EncryptSensitiveInfo());
+            Console.WriteLine("1234567890".EncryptSensitiveInfo());
+            Console.WriteLine("1234567890A".EncryptSensitiveInfo());
+            Console.WriteLine("1234567890AB".EncryptSensitiveInfo());
+            Console.WriteLine("1234567890ABC".EncryptSensitiveInfo());
+            Console.WriteLine("1234567890ABCD".EncryptSensitiveInfo());
+            Console.WriteLine("1234567890ABCDE".EncryptSensitiveInfo());
+            Console.WriteLine("1234567890ABCDEF".EncryptSensitiveInfo());
+            Console.WriteLine("1234567890ABCDEFG".EncryptSensitiveInfo());
+            Console.WriteLine("1234567890ABCDEFGH".EncryptSensitiveInfo());
+            Console.WriteLine("1234567890ABCDEFGHJ".EncryptSensitiveInfo());
+            Console.WriteLine("1234567890ABCDEFGHJK".EncryptSensitiveInfo());
+            Console.WriteLine("1234567890ABCDEFGHJKL".EncryptSensitiveInfo());
+            Console.WriteLine("3624091@qq.com".EncryptEmail());
+            Console.WriteLine("1234@qq.com".EncryptEmail());
+            Console.WriteLine("12345@qq.com".EncryptEmail());
+            Console.WriteLine("123456@qq.com".EncryptEmail());
+            Console.WriteLine("1234567@qq.com".EncryptEmail());
+            Console.WriteLine("12345678@qq.com".EncryptEmail());
+            Console.WriteLine("123456789@qq.com".EncryptEmail());
+            Console.WriteLine("1234567890@qq.com".EncryptEmail());
+            Console.WriteLine("徐".EncryptEmail());
+            Console.WriteLine("徐毅".EncryptEmail());
+            Console.WriteLine("张三三".EncryptEmail());
+            Console.WriteLine("欧阳大大".EncryptEmail());
+
+            Console.Read();
+
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
             var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.Test.json").Build();
@@ -93,7 +131,7 @@ namespace Nigel.ConsoleTests
                     //try
                     //{
                     //    // 模拟执行的逻辑代码花费的时间
-                    //    await Task.Delay(new Random().Next(100, 500));
+                    //    await Task.Delay(new Random().Next(100, 500);
                     //    if (stockCount > 0)
                     //    {
                     //        stockCount--;
