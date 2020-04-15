@@ -62,7 +62,7 @@ namespace Nigel.Timing
             }
         }
 
-        #endregion Yesterday(昨天时间范围)
+        #endregion
 
         #region Today(今天时间范围)
 
@@ -78,7 +78,7 @@ namespace Nigel.Timing
             }
         }
 
-        #endregion Today(今天时间范围)
+        #endregion
 
         #region Tomorrow(明天时间范围)
 
@@ -94,7 +94,7 @@ namespace Nigel.Timing
             }
         }
 
-        #endregion Tomorrow(明天时间范围)
+        #endregion
 
         #region LastWeek(上周范围)
 
@@ -111,7 +111,7 @@ namespace Nigel.Timing
             }
         }
 
-        #endregion LastWeek(上周范围)
+        #endregion
 
         #region ThisWeek(本周时间范围)
 
@@ -128,7 +128,7 @@ namespace Nigel.Timing
             }
         }
 
-        #endregion ThisWeek(本周时间范围)
+        #endregion
 
         #region NextWeek(下周时间范围)
 
@@ -145,7 +145,7 @@ namespace Nigel.Timing
             }
         }
 
-        #endregion NextWeek(下周时间范围)
+        #endregion
 
         #region LastMonth(上月时间范围)
 
@@ -163,7 +163,7 @@ namespace Nigel.Timing
             }
         }
 
-        #endregion LastMonth(上月时间范围)
+        #endregion
 
         #region ThisMonth(本月时间范围)
 
@@ -181,7 +181,7 @@ namespace Nigel.Timing
             }
         }
 
-        #endregion ThisMonth(本月时间范围)
+        #endregion
 
         #region NextMonth(下月时间范围)
 
@@ -199,7 +199,7 @@ namespace Nigel.Timing
             }
         }
 
-        #endregion NextMonth(下月时间范围)
+        #endregion
 
         #region LastYear(去年时间范围)
 
@@ -215,7 +215,7 @@ namespace Nigel.Timing
             }
         }
 
-        #endregion LastYear(去年时间范围)
+        #endregion
 
         #region ThisYear(今年时间范围)
 
@@ -231,7 +231,7 @@ namespace Nigel.Timing
             }
         }
 
-        #endregion ThisYear(今年时间范围)
+        #endregion
 
         #region NextYear(明年时间范围)
 
@@ -247,7 +247,7 @@ namespace Nigel.Timing
             }
         }
 
-        #endregion NextYear(明年时间范围)
+        #endregion
 
         #region Last7Days(过去7天时间范围)
 
@@ -263,7 +263,7 @@ namespace Nigel.Timing
             }
         }
 
-        #endregion Last7Days(过去7天时间范围)
+        #endregion
 
         #region Last30Days(过去30天时间范围)
 
@@ -279,7 +279,7 @@ namespace Nigel.Timing
             }
         }
 
-        #endregion Last30Days(过去30天时间范围)
+        #endregion
 
         #region Last7DaysExceptToday(截止昨天最近7天时间范围)
 
@@ -295,7 +295,7 @@ namespace Nigel.Timing
             }
         }
 
-        #endregion Last7DaysExceptToday(截止昨天最近7天时间范围)
+        #endregion
 
         #region Last30DaysExceptToday(截止昨天最近30天时间范围)
 
@@ -311,7 +311,7 @@ namespace Nigel.Timing
             }
         }
 
-        #endregion Last30DaysExceptToday(截止昨天最近30天时间范围)
+        #endregion
 
         #region 构造函数
 
@@ -341,7 +341,7 @@ namespace Nigel.Timing
         {
         }
 
-        #endregion 构造函数
+        #endregion
 
         #region ToString(输出字符串)
 
@@ -350,7 +350,7 @@ namespace Nigel.Timing
         /// </summary>
         public override string ToString() => $"[{StartTime} - {EndTime}]";
 
-        #endregion ToString(输出字符串)
+        #endregion
 
         #region GetDays(获取相差天数)
 
@@ -359,7 +359,7 @@ namespace Nigel.Timing
         /// </summary>
         public int GetDays() => Convert.ToInt32(EndTime.Subtract(StartTime).TotalDays);
 
-        #endregion GetDays(获取相差天数)
+        #endregion
 
         #region GetHours(获取相差小时数)
 
@@ -368,7 +368,7 @@ namespace Nigel.Timing
         /// </summary>
         public int GetHours() => Convert.ToInt32(EndTime.Subtract(StartTime).TotalHours);
 
-        #endregion GetHours(获取相差小时数)
+        #endregion
 
         #region GetMinutes(获取相差分钟数)
 
@@ -377,7 +377,7 @@ namespace Nigel.Timing
         /// </summary>
         public int GetMinutes() => Convert.ToInt32(EndTime.Subtract(StartTime).TotalMinutes);
 
-        #endregion GetMinutes(获取相差分钟数)
+        #endregion
 
         #region GetSeconds(获取相差秒数)
 
@@ -386,7 +386,7 @@ namespace Nigel.Timing
         /// </summary>
         public int GetSeconds() => Convert.ToInt32(EndTime.Subtract(StartTime).TotalSeconds);
 
-        #endregion GetSeconds(获取相差秒数)
+        #endregion
 
         #region GetMilliseconds(获取相差毫秒数)
 
@@ -395,6 +395,6 @@ namespace Nigel.Timing
         /// </summary>
         public int GetMilliseconds() => Convert.ToInt32(EndTime.Subtract(StartTime).TotalMilliseconds);
 
-        #endregion GetMilliseconds(获取相差毫秒数)
+        #endregion
     }
 }

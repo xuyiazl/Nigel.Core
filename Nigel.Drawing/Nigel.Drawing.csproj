@@ -12,7 +12,7 @@
     <Company>Nigel</Company>
     <Description>.NET Core Common</Description>
     <Copyright>Copyright © Nigel 2020</Copyright>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <PackageId>Nigel.Drawing</PackageId>
     <Product>Nigel.Drawing</Product>
     <PackageIconUrl>http://www.3624091.com/favicon.ico</PackageIconUrl>
@@ -34,14 +34,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="ImageUtil.*.cs">
-      <DependentUpon>ImageUtil.cs</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="ImageHelper.*.cs">
-      <DependentUpon>ImageHelper.cs</DependentUpon>
+    <Compile Update="Utils/Drawing/ImageHelper.*.cs">
+      <DependentUpon>Utils/Drawing/ImageHelper.cs</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

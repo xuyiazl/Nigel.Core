@@ -1,5 +1,4 @@
-﻿using Nigel.Timing;
-using System;
+﻿using System;
 
 // ReSharper disable once CheckNamespace
 namespace Nigel.Extensions
@@ -269,7 +268,7 @@ namespace Nigel.Extensions
         public static DateTime ToDateTime(this long unixTimeStamp)
         {
             long value = (unixTimeStamp + 8 * 60 * 60) * 10000000;
-            return DateTimeExtensions.Date1970.AddTicks(value);
+            return Nigel.Timing.DateTimeExtensions.Date1970.AddTicks(value);
         }
 
         #endregion ToDateTime(将给定Unix时间戳转换为DateTime时间)

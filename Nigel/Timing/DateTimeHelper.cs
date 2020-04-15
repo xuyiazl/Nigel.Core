@@ -42,7 +42,7 @@ namespace Nigel.Timing
         /// <param name="toDate">结束时间</param>
         public static int GetDays(DateTime fromDate, DateTime toDate) => Convert.ToInt32(toDate.Subtract(fromDate).TotalDays);
 
-        #endregion GetDays(获取总天数)
+        #endregion
 
         #region CalculateAge(计算年龄)
 
@@ -66,18 +66,56 @@ namespace Nigel.Timing
             return years;
         }
 
-        #endregion CalculateAge(计算年龄)
+        #endregion
 
-        #region DateStringFromNow(业务时间格式化)
+        #region BusinessDateFormat(业务时间格式化)
+
+        /// <summary>
+        /// 业务时间格式化，返回:大于60天-"yyyy-MM-dd",31~60天-1个月前，15~30天-2周前,8~14天-1周前,1~7天-x天前 ,大于1小时-x小时前,x秒前
+        /// </summary>
+        /// <param name="dateTime">时间</param>
+        public static string BusinessDateFormat(DateTime dateTime)
+        {
+            var span = (DateTime.Now - dateTime).Duration();
+            if (span.TotalDays > 60)
+            {
+                return dateTime.ToString("yyyy-MM-dd");
+            }
+            if (span.TotalDays > 30)
+            {
+                return "1个月前";
+            }
+            if (span.TotalDays > 14)
+            {
+                return "2周前";
+            }
+            if (span.TotalDays > 7)
+            {
+                return "1周前";
+            }
+            if (span.TotalDays > 1)
+            {
+                return $"{(int)Math.Floor(span.TotalDays)}天前";
+            }
+            if (span.TotalHours > 1)
+            {
+                return $"{(int)Math.Floor(span.TotalHours)}小时前";
+            }
+            if (span.TotalMinutes > 1)
+            {
+                return $"{(int)Math.Floor(span.TotalMinutes)}秒前";
+            }
+            return "1秒前";
+        }
 
         /// <summary>
         /// 获取时间字符串(小于5分-刚刚、5~60分-x分钟前、1~24小时-x小时前、1~60天-x天前、yyyy-MM-dd HH:mm:ss)
         /// </summary>
-        /// <param name="pastTime"></param>
+        /// <param name="dt"></param>
         /// <param name="defaultFormat"></param>
-        public static string DateStringFromNow(DateTime pastTime, string defaultFormat = "yyyy-MM-dd HH:mm:ss")
+        public static string BusinessDateFormat(DateTime dt, string defaultFormat = "yyyy-MM-dd HH:mm:ss")
         {
-            var timeSpan = DateTime.Now - pastTime;
+            var timeSpan = DateTime.Now - dt;
             string result = string.Empty;
 
             if (timeSpan.TotalMinutes < 5)
@@ -89,7 +127,7 @@ namespace Nigel.Timing
             else if (timeSpan.TotalMinutes <= 60 * 24 * 7)
                 result = string.Format("{0}天前", (int)timeSpan.TotalDays);
             else
-                result = pastTime.ToString(defaultFormat);
+                result = dt.ToString(defaultFormat);
 
             return result;
         }
@@ -125,7 +163,8 @@ namespace Nigel.Timing
                 return "刚刚";
         }
 
-        #endregion DateStringFromNow(业务时间格式化)
+
+        #endregion
 
         #region GetWeekDay(计算当前为星期几)
 
@@ -225,7 +264,7 @@ namespace Nigel.Timing
             return retVal;
         }
 
-        #endregion GetWeekDay(计算当前为星期几)
+        #endregion
 
         #region GetMaxWeekOfYear(计算当前年的最大周数)
 
@@ -271,7 +310,7 @@ namespace Nigel.Timing
             }
         }
 
-        #endregion GetMaxWeekOfYear(计算当前年的最大周数)
+        #endregion
 
         #region GetWeekIndex(计算当前是第几周)
 
@@ -340,7 +379,7 @@ namespace Nigel.Timing
             }
         }
 
-        #endregion GetWeekIndex(计算当前是第几周)
+        #endregion
 
         #region GetWeekRange(计算周范围)
 
@@ -456,7 +495,7 @@ namespace Nigel.Timing
             }
         }
 
-        #endregion GetWeekRange(计算周范围)
+        #endregion
 
         #region GetDateRange(计算当前时间范围)
 
@@ -537,6 +576,6 @@ namespace Nigel.Timing
             }
         }
 
-        #endregion GetDateRange(计算当前时间范围)
+        #endregion
     }
 }

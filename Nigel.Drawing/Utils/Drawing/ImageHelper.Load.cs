@@ -18,7 +18,7 @@ namespace Nigel.Drawing
         /// <param name="filePath">文件的绝对路径</param>
         public static Image FromFile(string filePath) => Image.FromFile(filePath);
 
-        #endregion FromFile(从指定文件创建图片)
+        #endregion
 
         #region FromStream(从指定流创建图片)
 
@@ -28,7 +28,7 @@ namespace Nigel.Drawing
         /// <param name="stream">流</param>
         public static Image FromStream(Stream stream) => Image.FromStream(stream);
 
-        #endregion FromStream(从指定流创建图片)
+        #endregion
 
         #region FromBytes(从指定字节数组创建图片)
 
@@ -44,7 +44,7 @@ namespace Nigel.Drawing
             }
         }
 
-        #endregion FromBytes(从指定字节数组创建图片)
+        #endregion
 
         #region FromBase64String(从指定Base64字符串创建图片)
 
@@ -54,22 +54,11 @@ namespace Nigel.Drawing
         /// <param name="base64String">Base64字符串</param>
         public static Image FromBase64String(string base64String)
         {
-            byte[] bytes = ToBytesFromBase64String(base64String);
+            byte[] bytes = Convert.FromBase64String(GetBase64String(base64String));
             using (var ms = new MemoryStream(bytes))
             {
                 return Image.FromStream(ms);
             }
-        }
-
-        /// <summary>
-        /// 从base64字符串中转换为字节流
-        /// </summary>
-        /// <param name="base64String"></param>
-        /// <returns></returns>
-        public static byte[] ToBytesFromBase64String(string base64String)
-        {
-            byte[] bytes = Convert.FromBase64String(GetBase64String(base64String));
-            return bytes;
         }
 
         /// <summary>
@@ -84,6 +73,6 @@ namespace Nigel.Drawing
             return base64String.Replace(match.Groups[1].ToString(), "");
         }
 
-        #endregion FromBase64String(从指定Base64字符串创建图片)
+        #endregion
     }
 }

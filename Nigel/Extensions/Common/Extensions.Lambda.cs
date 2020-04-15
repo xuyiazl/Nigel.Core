@@ -11,7 +11,7 @@ namespace Nigel.Extensions
     /// <summary>
     /// 系统扩展 - Lambda表达式扩展
     /// </summary>
-    public static partial class Extensions
+    public static partial class BingExtensions
     {
         #region Property(属性表达式)
 
@@ -20,13 +20,10 @@ namespace Nigel.Extensions
         /// </summary>
         /// <param name="expression">表达式</param>
         /// <param name="propertyName">属性名，支持多级属性名，与句点分隔，范例：Customer.Name</param>
-        /// <returns></returns>
         public static Expression Property(this Expression expression, string propertyName)
         {
             if (propertyName.All(t => t != '.'))
-            {
                 return Expression.Property(expression, propertyName);
-            }
             var propertyNameList = propertyName.Split('.');
             Expression result = null;
             for (int i = 0; i < propertyName.Length; i++)
@@ -46,13 +43,9 @@ namespace Nigel.Extensions
         /// </summary>
         /// <param name="expression">表达式</param>
         /// <param name="member">属性</param>
-        /// <returns></returns>
-        public static Expression Property(this Expression expression, MemberInfo member)
-        {
-            return Expression.MakeMemberAccess(expression, member);
-        }
+        public static Expression Property(this Expression expression, MemberInfo member) => Expression.MakeMemberAccess(expression, member);
 
-        #endregion Property(属性表达式)
+        #endregion
 
         #region And(与表达式)
 
@@ -61,17 +54,12 @@ namespace Nigel.Extensions
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="right">右操作数</param>
-        /// <returns></returns>
         public static Expression And(this Expression left, Expression right)
         {
             if (left == null)
-            {
                 return right;
-            }
             if (right == null)
-            {
                 return left;
-            }
             return Expression.AndAlso(left, right);
         }
 
@@ -81,22 +69,17 @@ namespace Nigel.Extensions
         /// <typeparam name="T">对象类型</typeparam>
         /// <param name="left">左操作数</param>
         /// <param name="right">右操作数</param>
-        /// <returns></returns>
         public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> left,
             Expression<Func<T, bool>> right)
         {
             if (left == null)
-            {
                 return right;
-            }
             if (right == null)
-            {
                 return left;
-            }
             return left.Compose(right, Expression.AndAlso);
         }
 
-        #endregion And(与表达式)
+        #endregion
 
         #region Or(或表达式)
 
@@ -105,17 +88,12 @@ namespace Nigel.Extensions
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="right">右操作数</param>
-        /// <returns></returns>
         public static Expression Or(this Expression left, Expression right)
         {
             if (left == null)
-            {
                 return right;
-            }
             if (right == null)
-            {
                 return left;
-            }
             return Expression.OrElse(left, right);
         }
 
@@ -125,22 +103,17 @@ namespace Nigel.Extensions
         /// <typeparam name="T">对象类型</typeparam>
         /// <param name="left">左操作数</param>
         /// <param name="right">右操作数</param>
-        /// <returns></returns>
         public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> left,
             Expression<Func<T, bool>> right)
         {
             if (left == null)
-            {
                 return right;
-            }
             if (right == null)
-            {
                 return left;
-            }
             return left.Compose(right, Expression.OrElse);
         }
 
-        #endregion Or(或表达式)
+        #endregion
 
         #region Value(获取Lambda表达式的值)
 
@@ -149,13 +122,9 @@ namespace Nigel.Extensions
         /// </summary>
         /// <typeparam name="T">对象类型</typeparam>
         /// <param name="expression">表达式</param>
-        /// <returns></returns>
-        public static object Value<T>(this Expression<Func<T, bool>> expression)
-        {
-            return Lambda.GetValue(expression);
-        }
+        public static object Value<T>(this Expression<Func<T, bool>> expression) => Lambda.GetValue(expression);
 
-        #endregion Value(获取Lambda表达式的值)
+        #endregion
 
         #region Equal(等于表达式)
 
@@ -164,24 +133,16 @@ namespace Nigel.Extensions
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="right">右操作数</param>
-        /// <returns></returns>
-        public static Expression Equal(this Expression left, Expression right)
-        {
-            return Expression.Equal(left, right);
-        }
+        public static Expression Equal(this Expression left, Expression right) => Expression.Equal(left, right);
 
         /// <summary>
         /// 创建等于运算表达式
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="value">值</param>
-        /// <returns></returns>
-        public static Expression Equal(this Expression left, object value)
-        {
-            return left.Equal(Lambda.Constant(value, left));
-        }
+        public static Expression Equal(this Expression left, object value) => left.Equal(Lambda.Constant(value, left));
 
-        #endregion Equal(等于表达式)
+        #endregion
 
         #region NotEqual(不等于表达式)
 
@@ -190,24 +151,16 @@ namespace Nigel.Extensions
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="right">右操作数</param>
-        /// <returns></returns>
-        public static Expression NotEqual(this Expression left, Expression right)
-        {
-            return Expression.NotEqual(left, right);
-        }
+        public static Expression NotEqual(this Expression left, Expression right) => Expression.NotEqual(left, right);
 
         /// <summary>
         /// 创建不等于运算表达式
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="value">值</param>
-        /// <returns></returns>
-        public static Expression NotEqual(this Expression left, object value)
-        {
-            return left.NotEqual(Lambda.Constant(value, left));
-        }
+        public static Expression NotEqual(this Expression left, object value) => left.NotEqual(Lambda.Constant(value, left));
 
-        #endregion NotEqual(不等于表达式)
+        #endregion
 
         #region Greater(大于表达式)
 
@@ -216,24 +169,16 @@ namespace Nigel.Extensions
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="right">右操作数</param>
-        /// <returns></returns>
-        public static Expression Greater(this Expression left, Expression right)
-        {
-            return Expression.GreaterThan(left, right);
-        }
+        public static Expression Greater(this Expression left, Expression right) => Expression.GreaterThan(left, right);
 
         /// <summary>
         /// 创建大于运算表达式
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="value">值</param>
-        /// <returns></returns>
-        public static Expression Greater(this Expression left, object value)
-        {
-            return left.Greater(Lambda.Constant(value, left));
-        }
+        public static Expression Greater(this Expression left, object value) => left.Greater(Lambda.Constant(value, left));
 
-        #endregion Greater(大于表达式)
+        #endregion
 
         #region GreaterEqual(大于等于表达式)
 
@@ -242,24 +187,16 @@ namespace Nigel.Extensions
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="right">右操作数</param>
-        /// <returns></returns>
-        public static Expression GreaterEqual(this Expression left, Expression right)
-        {
-            return Expression.GreaterThanOrEqual(left, right);
-        }
+        public static Expression GreaterEqual(this Expression left, Expression right) => Expression.GreaterThanOrEqual(left, right);
 
         /// <summary>
         /// 创建大于等于运算表达式
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="value">值</param>
-        /// <returns></returns>
-        public static Expression GreaterEqual(this Expression left, object value)
-        {
-            return left.GreaterEqual(Lambda.Constant(value, left));
-        }
+        public static Expression GreaterEqual(this Expression left, object value) => left.GreaterEqual(Lambda.Constant(value, left));
 
-        #endregion GreaterEqual(大于等于表达式)
+        #endregion
 
         #region Less(小于表达式)
 
@@ -268,24 +205,16 @@ namespace Nigel.Extensions
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="right">右操作数</param>
-        /// <returns></returns>
-        public static Expression Less(this Expression left, Expression right)
-        {
-            return Expression.LessThan(left, right);
-        }
+        public static Expression Less(this Expression left, Expression right) => Expression.LessThan(left, right);
 
         /// <summary>
         /// 创建小于运算表达式
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="value">值</param>
-        /// <returns></returns>
-        public static Expression Less(this Expression left, object value)
-        {
-            return left.Less(Lambda.Constant(value, left));
-        }
+        public static Expression Less(this Expression left, object value) => left.Less(Lambda.Constant(value, left));
 
-        #endregion Less(小于表达式)
+        #endregion
 
         #region LessEqual(小于等于表达式)
 
@@ -294,24 +223,16 @@ namespace Nigel.Extensions
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="right">右操作数</param>
-        /// <returns></returns>
-        public static Expression LessEqual(this Expression left, Expression right)
-        {
-            return Expression.LessThanOrEqual(left, right);
-        }
+        public static Expression LessEqual(this Expression left, Expression right) => Expression.LessThanOrEqual(left, right);
 
         /// <summary>
         /// 创建小于等于运算表达式
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="value">值</param>
-        /// <returns></returns>
-        public static Expression LessEqual(this Expression left, object value)
-        {
-            return left.LessEqual(Lambda.Constant(value, left));
-        }
+        public static Expression LessEqual(this Expression left, object value) => left.LessEqual(Lambda.Constant(value, left));
 
-        #endregion LessEqual(小于等于表达式)
+        #endregion
 
         #region StartsWith(头匹配)
 
@@ -320,13 +241,9 @@ namespace Nigel.Extensions
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="value">值</param>
-        /// <returns></returns>
-        public static Expression StartsWith(this Expression left, object value)
-        {
-            return left.Call("StartsWith", new[] { typeof(string) }, value);
-        }
+        public static Expression StartsWith(this Expression left, object value) => left.Call("StartsWith", new[] { typeof(string) }, value);
 
-        #endregion StartsWith(头匹配)
+        #endregion
 
         #region EndsWith(尾匹配)
 
@@ -335,13 +252,9 @@ namespace Nigel.Extensions
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="value">值</param>
-        /// <returns></returns>
-        public static Expression EndsWith(this Expression left, object value)
-        {
-            return left.Call("EndsWith", new[] { typeof(string) }, value);
-        }
+        public static Expression EndsWith(this Expression left, object value) => left.Call("EndsWith", new[] { typeof(string) }, value);
 
-        #endregion EndsWith(尾匹配)
+        #endregion
 
         #region Contains(模糊匹配)
 
@@ -350,13 +263,9 @@ namespace Nigel.Extensions
         /// </summary>
         /// <param name="left">左操作数</param>
         /// <param name="value">值</param>
-        /// <returns></returns>
-        public static Expression Contains(this Expression left, object value)
-        {
-            return left.Call("Contains", new[] { typeof(string) }, value);
-        }
+        public static Expression Contains(this Expression left, object value) => left.Call("Contains", new[] { typeof(string) }, value);
 
-        #endregion Contains(模糊匹配)
+        #endregion
 
         #region Operation(操作)
 
@@ -366,7 +275,6 @@ namespace Nigel.Extensions
         /// <param name="left">左操作数</param>
         /// <param name="operator">运算符</param>
         /// <param name="value">值</param>
-        /// <returns></returns>
         public static Expression Operation(this Expression left, Operator @operator, object value)
         {
             switch (@operator)
@@ -407,7 +315,6 @@ namespace Nigel.Extensions
         /// <param name="left">左操作数</param>
         /// <param name="operator">运算符</param>
         /// <param name="value">值</param>
-        /// <returns></returns>
         public static Expression Operation(this Expression left, Operator @operator, Expression value)
         {
             switch (@operator)
@@ -433,7 +340,7 @@ namespace Nigel.Extensions
             throw new NotImplementedException();
         }
 
-        #endregion Operation(操作)
+        #endregion
 
         #region Call(调用方法表达式)
 
@@ -443,10 +350,18 @@ namespace Nigel.Extensions
         /// <param name="instance">调用的实例</param>
         /// <param name="methodName">方法名</param>
         /// <param name="values">参数值列表</param>
-        /// <returns></returns>
         public static Expression Call(this Expression instance, string methodName, params Expression[] values)
         {
-            return Expression.Call(instance, instance.Type.GetTypeInfo().GetMethod(methodName), values);
+            if (instance == null)
+                throw new ArgumentNullException(nameof(instance));
+            // TODO: 存在问题，netcore2.2环境下，string 会有多个值
+            var types = values?.Select(x => x.Type).ToArray();
+            var methodInfo = types == null
+                ? instance.Type.GetMethod(methodName)
+                : instance.Type.GetMethod(methodName, types);
+            if (methodInfo == null)
+                return null;
+            return Expression.Call(instance, methodInfo, values);
         }
 
         /// <summary>
@@ -455,15 +370,16 @@ namespace Nigel.Extensions
         /// <param name="instance">调用的实例</param>
         /// <param name="methodName">方法名</param>
         /// <param name="values">参数值列表</param>
-        /// <returns></returns>
         public static Expression Call(this Expression instance, string methodName, params object[] values)
         {
+            if (instance == null)
+                throw new ArgumentNullException(nameof(instance));
+            var methodInfo = instance.Type.GetMethod(methodName);
+            if (methodInfo == null)
+                return null;
             if (values == null || values.Length == 0)
-            {
-                return Expression.Call(instance, instance.Type.GetTypeInfo().GetMethod(methodName));
-            }
-            return Expression.Call(instance, instance.Type.GetTypeInfo().GetMethod(methodName),
-                values.Select(Expression.Constant));
+                return Expression.Call(instance, methodInfo);
+            return Expression.Call(instance, methodInfo, values.Select(Expression.Constant));
         }
 
         /// <summary>
@@ -473,19 +389,20 @@ namespace Nigel.Extensions
         /// <param name="methodName">方法名</param>
         /// <param name="paramTypes">参数类型列表</param>
         /// <param name="values">参数值列表</param>
-        /// <returns></returns>
         public static Expression Call(this Expression instance, string methodName, Type[] paramTypes,
             params object[] values)
         {
+            if (instance == null)
+                throw new ArgumentNullException(nameof(instance));
+            var methodInfo = instance.Type.GetMethod(methodName, paramTypes);
+            if (methodInfo == null)
+                return null;
             if (values == null || values.Length == 0)
-            {
-                return Expression.Call(instance, instance.Type.GetTypeInfo().GetMethod(methodName, paramTypes));
-            }
-            return Expression.Call(instance, instance.Type.GetTypeInfo().GetMethod(methodName, paramTypes),
-                values.Select(Expression.Constant));
+                return Expression.Call(instance, methodInfo);
+            return Expression.Call(instance, methodInfo, values.Select(Expression.Constant));
         }
 
-        #endregion Call(调用方法表达式)
+        #endregion
 
         #region Compose(组合表达式)
 
@@ -496,7 +413,6 @@ namespace Nigel.Extensions
         /// <param name="first">左操作数</param>
         /// <param name="second">右操作数</param>
         /// <param name="merge">合并操作</param>
-        /// <returns></returns>
         internal static Expression<T> Compose<T>(this Expression<T> first, Expression<T> second,
             Func<Expression, Expression, Expression> merge)
         {
@@ -506,7 +422,7 @@ namespace Nigel.Extensions
             return Expression.Lambda<T>(merge(first.Body, secondBody), first.Parameters);
         }
 
-        #endregion Compose(组合表达式)
+        #endregion
 
         #region ToLambda(创建Lambda表达式)
 
@@ -516,18 +432,15 @@ namespace Nigel.Extensions
         /// <typeparam name="TDelegate">委托类型</typeparam>
         /// <param name="body">表达式</param>
         /// <param name="parameters">参数列表</param>
-        /// <returns></returns>
         public static Expression<TDelegate> ToLambda<TDelegate>(this Expression body,
             params ParameterExpression[] parameters)
         {
             if (body == null)
-            {
                 return null;
-            }
             return Expression.Lambda<TDelegate>(body, parameters);
         }
 
-        #endregion ToLambda(创建Lambda表达式)
+        #endregion
 
         #region ToPredicate(创建谓词表达式)
 
@@ -537,13 +450,10 @@ namespace Nigel.Extensions
         /// <typeparam name="T">委托类型</typeparam>
         /// <param name="body">表达式</param>
         /// <param name="parameters">参数列表</param>
-        /// <returns></returns>
         public static Expression<Func<T, bool>> ToPredicate<T>(this Expression body,
-            params ParameterExpression[] parameters)
-        {
-            return ToLambda<Func<T, bool>>(body, parameters);
-        }
+            params ParameterExpression[] parameters) =>
+            ToLambda<Func<T, bool>>(body, parameters);
 
-        #endregion ToPredicate(创建谓词表达式)
+        #endregion
     }
 }
