@@ -26,7 +26,6 @@ namespace Nigel.Data.DbService
 
         #region 抽象对象来实现IDbServiceBase中的方法，提供重写操作
 
-
         public virtual int Insert(TEntity entity)
         {
             if (writeRepository != null)
@@ -166,6 +165,7 @@ namespace Nigel.Data.DbService
 
             return new List<TEntity>();
         }
+
         public virtual async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> selector, string orderby, int skip = 0, int limit = 20)
         {
             if (readRepository != null)

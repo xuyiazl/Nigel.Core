@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Nigel.WebTests.Data.Repository.WriteRepository
+namespace Nigel.Data.DbService
 {
     public interface IWriteEntityContext : IDbContext
     {

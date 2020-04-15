@@ -11,11 +11,6 @@ namespace Nigel.WebTests.Data.Repository.WriteRepository
         public WriteRepository(IWriteEntityContext context) : base(context)
         {
 
-            //if (!string.IsNullOrEmpty(Connstr))
-            //{
-            //    base._connectionStrings = context.tra;
-            //}
-
         }
     }
 }

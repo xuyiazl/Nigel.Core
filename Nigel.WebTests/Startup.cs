@@ -11,6 +11,7 @@ using Nigel.Core.Extensions;
 using Nigel.Core.HttpFactory;
 using Nigel.Core.Logging.Log4Net;
 using Nigel.Core.Redis;
+using Nigel.Data.DbService;
 using Nigel.WebTests.Data.DbService;
 using Nigel.WebTests.Data.Repository.ReadRepository;
 using Nigel.WebTests.Data.Repository.WriteRepository;
@@ -30,36 +31,23 @@ namespace Nigel.WebTests
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            //DBContext的注入
-            #region 注入只写操作 Write_FrontService
+            #region 注入只写操作 Write
 
             services.AddDbContext<WriteEntityContext>(options =>
             {
-                //使用mysql的连接,使用指定连接字符串
-                options.UseMySql(Configuration.GetConnectionString("Nigel_WriteConnection"), opts =>
-                {
-
-                }).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+                options.UseMySql(Configuration.GetConnectionString("Nigel_WriteConnection")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             });
-            //持久层仓库的注入
             services.AddScoped(typeof(IWriteRepository<>), typeof(WriteRepository<>));
             services.AddScoped(typeof(IWriteEntityContext), typeof(WriteEntityContext));
 
             #endregion
 
-            #region  注入只读操作 Read_FrontService
+            #region  注入只读操作 Read
 
             services.AddDbContext<ReadEntityContext>(options =>
             {
-                //使用mysql的连接,使用指定连接字符串
-                options.UseMySql(Configuration.GetConnectionString("Nigel_ReadConnection"), opts =>
-                {
-
-                }).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-
+                options.UseMySql(Configuration.GetConnectionString("Nigel_ReadConnection")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             });
-            //持久层仓库的注入
             services.AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>));
             services.AddScoped(typeof(IReadEntityContext), typeof(ReadEntityContext));
 
