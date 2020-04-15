@@ -55,7 +55,7 @@ namespace Nigel.Extensions
         /// <param name="endLen">尾保留长度</param>
         /// <param name="specialChar">特殊字符</param>
         /// <returns>被特殊字符替换的字符串</returns>
-        public static string ReplaceWithSpecialChar(this string value, int startLen = 4, int endLen = 4, char specialChar = '*')
-            => Format.ReplaceWithSpecialChar(value, startLen, endLen, specialChar);
+        public static string EncryptString(this string value, int startLen = 4, int endLen = 4, char specialChar = '*')
+            => Format.EncryptString(value, startLen, endLen, specialChar);
     }
 }

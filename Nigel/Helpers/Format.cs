@@ -10,14 +10,14 @@
         /// </summary>
         /// <param name="plateNumber">车牌号</param>
         /// <param name="specialChar"></param>
-        public static string EncryptPlateNumberOfChina(string plateNumber, char specialChar = '*') => ReplaceWithSpecialChar(plateNumber, 2, 2, specialChar);
+        public static string EncryptPlateNumberOfChina(string plateNumber, char specialChar = '*') => EncryptString(plateNumber, 2, 2, specialChar);
 
         /// <summary>
         /// 加密汽车VIN
         /// </summary>
         /// <param name="vinCode">汽车VIN</param>
         /// <param name="specialChar"></param>
-        public static string EncryptVinCode(string vinCode, char specialChar = '*') => ReplaceWithSpecialChar(vinCode, 3, 3, specialChar);
+        public static string EncryptVinCode(string vinCode, char specialChar = '*') => EncryptString(vinCode, 3, 3, specialChar);
 
         /// <summary>
         /// 格式化金额
@@ -37,7 +37,7 @@
             if (string.IsNullOrEmpty(value)) return value;
 
             if (Regexs.IsMatch(value, RegexPatterns.MobilePhone))
-                return ReplaceWithSpecialChar(value, 3, 4, specialChar);
+                return EncryptString(value, 3, 4, specialChar);
 
             return EncryptSensitiveInfo(value, specialChar);
         }
@@ -74,15 +74,15 @@
             if (len == 1)
                 return value;
             else if (len > 1 && len <= 4)
-                return ReplaceWithSpecialChar(value, 1, 0, specialChar);
+                return EncryptString(value, 1, 0, specialChar);
             else if (len > 4 && len <= 5)
-                return ReplaceWithSpecialChar(value, 1, 1, specialChar);
+                return EncryptString(value, 1, 1, specialChar);
             else if (len > 5 && len <= 8)
-                return ReplaceWithSpecialChar(value, 2, 2, specialChar);
+                return EncryptString(value, 2, 2, specialChar);
             else if (len > 8 && len <= 10)
-                return ReplaceWithSpecialChar(value, 3, 3, specialChar);
+                return EncryptString(value, 3, 3, specialChar);
             else
-                return ReplaceWithSpecialChar(value, 4, 4, specialChar);
+                return EncryptString(value, 4, 4, specialChar);
         }
 
         /// <summary>
@@ -93,20 +93,19 @@
         /// <param name="endLen">尾保留长度</param>
         /// <param name="specialChar">特殊字符</param>
         /// <returns>被特殊字符替换的字符串</returns>
-        public static string ReplaceWithSpecialChar(string value, int startLen = 4, int endLen = 4, char specialChar = '*')
+        public static string EncryptString(string value, int startLen = 4, int endLen = 4, char specialChar = '*')
         {
             if (string.IsNullOrEmpty(value)) return value;
 
             int len = value.Length - startLen - endLen;
 
-            if (len > 0)
-            {
-                string left = value.Substring(0, startLen);
-                string right = value.Substring(value.Length - endLen);
+            if (len <= 0) return value;
 
-                return $"{left}{"".PadLeft(len, specialChar)}{right}";
-            }
-            return value;
+            string left = value.Substring(0, startLen);
+            string right = value.Substring(value.Length - endLen);
+
+            return $"{left}{"".PadLeft(len, specialChar)}{right}";
+
         }
     }
 }
