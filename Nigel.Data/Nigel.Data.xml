@@ -1,0 +1,463 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Nigel.Data</name>
+    </assembly>
+    <members>
+        <member name="M:Nigel.Data.PagedExtensions.ToMap``2(Nigel.Paging.PagedList{``0},System.Func{``0,``1})">
+            <summary>
+            模型转换
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <param name="pagedList"></param>
+            <param name="converter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.PagedExtensions.ToMap``2(Nigel.Paging.PagedList{``0},System.Func{``0,System.Int32,``1})">
+            <summary>
+            模型转换
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <param name="pagedList"></param>
+            <param name="converter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.PagedExtensions.ToMap``2(Nigel.Paging.PagedSkipList{``0},System.Func{``0,``1})">
+            <summary>
+            模型转换
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <param name="pagedList"></param>
+            <param name="converter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.PagedExtensions.ToMap``2(Nigel.Paging.PagedSkipList{``0},System.Func{``0,System.Int32,``1})">
+            <summary>
+            模型转换
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TResult"></typeparam>
+            <param name="pagedList"></param>
+            <param name="converter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.PagedExtensions.CreatePagedList``1(System.Linq.IQueryable{``0},System.Int32,System.Int32)">
+            <summary>
+            创建分页对象
+            </summary>
+            <param name="source"></param>
+            <param name="pageNumber"></param>
+            <param name="pageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.PagedExtensions.CreatePagedListAsync``1(System.Linq.IQueryable{``0},System.Int32,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            异步创建分页对象
+            </summary>
+            <param name="source"></param>
+            <param name="pageNumber"></param>
+            <param name="pageSize"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.PagedExtensions.CreatePagedSkipList``1(System.Linq.IQueryable{``0},System.Int32,System.Int32)">
+            <summary>
+            创建分页对象
+            </summary>
+            <param name="source"></param>
+            <param name="limit"></param>
+            <param name="offset"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.PagedExtensions.CreatePagedSkipListAsync``1(System.Linq.IQueryable{``0},System.Int32,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            异步创建分页对象
+            </summary>
+            <param name="source"></param>
+            <param name="limit"></param>
+            <param name="offset"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.DbService.IBaseContext.BatchInsert``1(System.Collections.Generic.IList{``0})">
+            <summary>
+            批量插入操作，拓展使用EFCore.BulkExtensions 组件
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="entities"></param>
+        </member>
+        <member name="T:Nigel.Data.DbService.IBaseRepository`1">
+            <summary>
+            通用仓储库的方法定义
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Nigel.Data.DbService.IBaseRepository`1.GetListAsync">
+            <summary>
+            异步返回集合对象
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.DbService.IBaseRepository`1.GetListAsync(System.String)">
+            <summary>
+            异步返回集合对象
+            </summary>
+            <param name="orderby">exp:"name asc,createtime desc"</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.DbService.IBaseRepository`1.GetListAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            通过表达式条件返回指定集合对象
+            </summary>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.DbService.IBaseRepository`1.GetListAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.String)">
+            <summary>
+            通过表达式条件返回指定集合对象
+            </summary>
+            <param name="selector"></param>
+            <param name="orderby">exp:"name asc,createtime desc"</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.DbService.IBaseRepository`1.GetListAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Int32,System.Int32)">
+            <summary>
+            通过表达式条件返回指定集合对象，基于分页操作
+            </summary>
+            <param name="selector"></param>
+            <param name="skip"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.DbService.IBaseRepository`1.GetListAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.String,System.Int32,System.Int32)">
+            <summary>
+            通过表达式条件返回指定集合对象，基于分页操作
+            </summary>
+            <param name="selector"></param>
+            <param name="orderby">exp:"name asc,createtime desc"</param>
+            <param name="skip"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.DbService.IBaseRepository`1.GetPagedSkipListAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.String,System.Int32,System.Int32)">
+            <summary>
+            通过表达式条件返回指定集合对象，基于分页操作
+            </summary>
+            <param name="selector"></param>
+            <param name="orderby">exp:"name asc,createtime desc"</param>
+            <param name="skip"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.DbService.IBaseRepository`1.GetPagedListAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.String,System.Int32,System.Int32)">
+            <summary>
+            通过表达式条件返回指定集合对象，基于分页操作
+            </summary>
+            <param name="selector"></param>
+            <param name="orderby">exp:"name asc,createtime desc"</param>
+            <param name="pageNumber"></param>
+            <param name="pageSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.DbService.IBaseRepository`1.GetCountAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            获取记录数
+            </summary>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nigel.Data.DbService.IDbContext">
+            <summary>
+            多数据库操作继承该接口
+            </summary>
+        </member>
+        <member name="T:Nigel.Data.DbService.IDbServiceBase`1">
+            <summary>
+            数据领域层接口
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+        </member>
+        <member name="M:Nigel.Data.DbService.IDbServiceBase`1.Insert(`0)">
+            <summary>
+            执行添加操作
+            </summary>
+            <param name="entity"></param>
+        </member>
+        <member name="M:Nigel.Data.DbService.IDbServiceBase`1.InsertBatch(`0[])">
+            <summary>
+            批量添加操作
+            </summary>
+            <param name="entities"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.DbService.IDbServiceBase`1.Update(`0)">
+            <summary>
+            执行修改操作
+            </summary>
+            <param name="entity"></param>
+        </member>
+        <member name="M:Nigel.Data.DbService.IDbServiceBase`1.Delete(`0)">
+            <summary>
+            移除数据操作
+            </summary>
+            <param name="entity"></param>
+        </member>
+        <member name="M:Nigel.Data.DbService.IDbServiceBase`1.GetListAsync">
+            <summary>
+            异步返回集合对象
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.DbService.IDbServiceBase`1.GetListAsync(System.String)">
+            <summary>
+            异步返回集合对象
+            </summary>
+            <param name="orderby">exp:"name asc,createtime desc"</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.DbService.IDbServiceBase`1.GetListAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            通过表达式条件返回指定集合对象
+            </summary>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.DbService.IDbServiceBase`1.GetListAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.String)">
+            <summary>
+            通过表达式条件返回指定集合对象
+            </summary>
+            <param name="selector"></param>
+            <param name="orderby">exp:"name asc,createtime desc"</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.DbService.IDbServiceBase`1.GetListAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Int32,System.Int32)">
+            <summary>
+            通过表达式条件返回指定集合对象，基于分页操作
+            </summary>
+            <param name="selector"></param>
+            <param name="skip"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.DbService.IDbServiceBase`1.GetListAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.String,System.Int32,System.Int32)">
+            <summary>
+            通过表达式条件返回指定集合对象，基于分页操作
+            </summary>
+            <param name="selector"></param>
+            <param name="orderby">exp:"name asc,createtime desc"</param>
+            <param name="skip"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.DbService.IDbServiceBase`1.GetCountAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
+            <summary>
+            获取记录数
+            </summary>
+            <param name="selector"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nigel.Data.DbService.AbstractEntityTypeConfiguration`1">
+            <summary>
+            net core 跟 netFramework下面的EF统一配置字段不一致
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:Nigel.Data.DbService.AbstractEntityTypeConfiguration`1.tableName">
+            <summary>
+            表名
+            </summary>
+        </member>
+        <member name="P:Nigel.Data.DbService.AbstractEntityTypeConfiguration`1.primaryKey">
+            <summary>
+            设置主键
+            </summary>
+        </member>
+        <member name="P:Nigel.Data.DbService.AbstractEntityTypeConfiguration`1.Identity">
+            <summary>
+            设置自增
+            </summary>
+        </member>
+        <member name="P:Nigel.Data.DbService.AbstractEntityTypeConfiguration`1.NoIdentity">
+            <summary>
+            ef设置不自增
+            </summary>
+        </member>
+        <member name="P:Nigel.Data.DbService.AbstractEntityTypeConfiguration`1.ignores">
+            <summary>
+            需要排除的字段
+            </summary>
+        </member>
+        <member name="P:Nigel.Data.DbService.AbstractEntityTypeConfiguration`1.insertDefault">
+            <summary>
+            仅在添加时设置指定字段默认值
+            </summary>
+        </member>
+        <member name="P:Nigel.Data.DbService.AbstractEntityTypeConfiguration`1.insertOrUpdates">
+            <summary>
+            仅在添加或者修改时设置默认值
+            </summary>
+        </member>
+        <member name="M:Nigel.Data.DbService.AbstractEntityTypeConfiguration`1.SetIndentity(System.Linq.Expressions.Expression{System.Func{`0,System.Object}})">
+            <summary>
+            设置自增属性
+            </summary>
+            <typeparam name="TValue"></typeparam>
+            <param name="Identity"></param>
+        </member>
+        <member name="M:Nigel.Data.DbService.AbstractEntityTypeConfiguration`1.SetIgnore(System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">
+             <summary>
+            在ef映射过程中排除的字段,允许多个字段排除
+             </summary>
+        </member>
+        <member name="M:Nigel.Data.DbService.AbstractEntityTypeConfiguration`1.SetValueDefaultAdd(System.Linq.Expressions.Expression{System.Func{`0,System.Object}}[])">
+            <summary>
+            在ef添加记录的时候默认值添加，即不赋值
+            </summary>
+            <param name="insertDefault"></param>
+        </member>
+        <member name="T:Nigel.Data.DbService.DbBaseRepository`1">
+            <summary>
+            数据库的基础仓储库
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Nigel.Data.DbService.DBContextFactory">
+            <summary>
+            基于db上下文拓展工厂，用于拓展EFCore.BulkExtensions的GitHub开源项目
+            </summary>
+        </member>
+        <member name="P:Nigel.Data.DbService.DBContextFactory.mappingPath">
+            <summary>
+            映射的路径
+            </summary>
+        </member>
+        <member name="T:Nigel.Data.DbService.DbServiceBaseProvider`1">
+            <summary>
+            数据库领域操作的基础对象
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+        </member>
+        <member name="T:Nigel.Data.DbService.MsSqlRepository`1">
+            <summary>
+            sql server的仓库
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Nigel.Data.DbService.IMsSqlRepository`1">
+            <summary>
+            定义SqlServer仓库
+            </summary>
+        </member>
+        <member name="M:Nigel.Data.DbService.IMsSqlRepository`1.ExecuteSql(System.String,Microsoft.Data.SqlClient.SqlParameter[])">
+            <summary>
+            通过EF执行原生SQL 返回影响行数
+            </summary>
+            <param name="sql"></param>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.DbService.IMsSqlRepository`1.Select``1(System.String,System.Data.CommandType,Microsoft.Data.SqlClient.SqlParameter[])">
+            <summary>
+            通过ADO.NET执行SQL 返回查询结果
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="type"></param>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.DbService.IMsSqlRepository`1.SelectList``1(System.String,System.Data.CommandType,Microsoft.Data.SqlClient.SqlParameter[])">
+            <summary>
+            通过ADO.NET执行SQL 返回查询结果集合
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="sql"></param>
+            <param name="type"></param>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.DbService.IMsSqlRepository`1.SelectList(System.String,System.Data.CommandType,Microsoft.Data.SqlClient.SqlParameter[])">
+            <summary>
+            通过ADO.NET执行SQL 返回查询结果集合(DataTable)
+            </summary>
+            <param name="sql"></param>
+            <param name="type"></param>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.DbService.IMsSqlRepository`1.SelectDataSet(System.String,System.Data.CommandType,Microsoft.Data.SqlClient.SqlParameter[])">
+            <summary>
+            通过ADO.NET执行SQL返回数据集(DataSet);
+            </summary>
+            <param name="sql"></param>
+            <param name="type"></param>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.DbService.IMsSqlRepository`1.ExecuteAdoNet(System.String,System.Data.CommandType,Microsoft.Data.SqlClient.SqlParameter[])">
+            <summary>
+            通过原生执行ADONET查询操作
+            </summary>
+            <param name="sql"></param>
+            <param name="type"></param>
+            <param name="parameters"></param>
+        </member>
+        <member name="M:Nigel.Data.DbService.IMySqlRepository`1.ExecuteSql(System.String,MySql.Data.MySqlClient.MySqlParameter[])">
+            <summary>
+            通过EF执行原生SQL 返回影响行数
+            </summary>
+            <param name="sql"></param>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.DbService.IMySqlRepository`1.Select``1(System.String,System.Data.CommandType,MySql.Data.MySqlClient.MySqlParameter[])">
+            <summary>
+            通过ADO.NET执行SQL 返回查询结果
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="sql"></param>
+            <param name="type"></param>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.DbService.IMySqlRepository`1.SelectList``1(System.String,System.Data.CommandType,MySql.Data.MySqlClient.MySqlParameter[])">
+            <summary>
+            通过ADO.NET执行SQL 返回查询结果集合
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <param name="sql"></param>
+            <param name="type"></param>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.DbService.IMySqlRepository`1.SelectList(System.String,System.Data.CommandType,MySql.Data.MySqlClient.MySqlParameter[])">
+            <summary>
+            通过ADO.NET执行SQL 返回查询结果集合(DataTable)
+            </summary>
+            <param name="sql"></param>
+            <param name="type"></param>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.DbService.IMySqlRepository`1.SelectDataSet(System.String,System.Data.CommandType,MySql.Data.MySqlClient.MySqlParameter[])">
+            <summary>
+            通过ADO.NET执行SQL返回数据集(DataSet);
+            </summary>
+            <param name="sql"></param>
+            <param name="type"></param>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.DbService.IMySqlRepository`1.ExecuteAdoNet(System.String,System.Data.CommandType,MySql.Data.MySqlClient.MySqlParameter[])">
+            <summary>
+            通过原生执行ADONET查询操作
+            </summary>
+            <param name="sql"></param>
+            <param name="type"></param>
+            <param name="parameters"></param>
+        </member>
+    </members>
+</doc>

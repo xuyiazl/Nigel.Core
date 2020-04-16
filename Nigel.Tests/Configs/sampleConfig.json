@@ -2,6 +2,6 @@
   "Sample": {
     "StringValue": "TestSample",
     "DecimalValue": 20.0,
-    "IntValue": 1
-  }
+    "IntValue": 1 
+  } 
 }

@@ -1,5 +1,6 @@
-﻿using Nigel.Drawing;
-using System.Text;
+﻿using System.Text;
+using Nigel.Tests;
+using Nigel.Drawing;
 using Xunit;
 using Xunit.Abstractions;
 

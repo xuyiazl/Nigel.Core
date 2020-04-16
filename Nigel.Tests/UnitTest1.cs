@@ -1,19 +1,20 @@
-﻿using Nigel.Extensions;
-using Nigel.Helpers;
-using Nigel.IdGenerators.Core;
-using Nigel.IO;
-using Nigel.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Nigel.Extensions;
+using Nigel.Helpers;
+using Nigel.Tests;
+using Nigel.IdGenerators.Core;
+using Nigel.IO;
+using Nigel.Json;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace Nigel.Tests
 {
-    public class UnitTest1 : TestBase
+    public class UnitTest1: TestBase
     {
         public UnitTest1(ITestOutputHelper output) : base(output)
         {
@@ -22,21 +23,21 @@ namespace Nigel.Tests
         [Fact]
         public void Test1()
         {
-            DateTimeOffset offset = DateTimeOffset.Now;
+            DateTimeOffset offset=DateTimeOffset.Now;
             Output.WriteLine(offset.ToString("yyyy-MM-dd HH:mm:ss"));
         }
 
         [Fact]
         public void Test_GetArrayLowerBound()
         {
-            var strs = new string[] { "1", "2", "3", "4", "5" };
+            var strs = new string[] {"1", "2", "3", "4", "5"};
             var lowerBound = strs.GetLowerBound(0);
             Output.WriteLine(lowerBound.ToString());
         }
 
         [Fact]
         public void Test_GetArrayLowerBound_2()
-        {
+        {            
             string[,] strs = new string[,] {
                 {
                     "1","2","3","4","7"
@@ -62,17 +63,17 @@ namespace Nigel.Tests
         [Fact]
         public void Test_Except()
         {
-            var list = new string[] { "1", "2", "3", "4", "5" };
-            var newList = new string[] { "1", "2" };
-            var result = list.Except(newList);
+            var list=new string[]{"1","2","3","4","5"};
+            var newList = new string[] {"1", "2"};
+            var result=list.Except(newList);
             Output.WriteLine(result.ToJson());
         }
 
         [Fact]
         public void Test_Except_Int()
         {
-            var list = new int[] { 1, 3, 5, 7, 9, 11 };
-            var newList = new int[] { 1, 4, 7, 8, 9, 11 };
+            var list = new int[] {1, 3, 5, 7, 9, 11};
+            var newList = new int[] {1, 4, 7,8, 9, 11};
             var result = newList.Except(list);
             Output.WriteLine(result.ToJson());
         }
@@ -87,7 +88,7 @@ namespace Nigel.Tests
             var fiveGuid = Guid.NewGuid();
             var sixGuid = Guid.NewGuid();
             var sevenGuid = Guid.NewGuid();
-            var list = new Guid[] { oneGuid, twoGuid, threeGuid, fourGuid, fiveGuid, sixGuid, sevenGuid };
+            var list = new Guid[] {oneGuid, twoGuid, threeGuid, fourGuid, fiveGuid, sixGuid, sevenGuid};
             var newList = new Guid[] { fourGuid, fiveGuid, sixGuid, sevenGuid };
             var result = list.Except(newList);
             Output.WriteLine(list.ToJson());
@@ -116,7 +117,7 @@ namespace Nigel.Tests
             {
                 throw new ArgumentNullException(nameof(url));
             }
-            Regex regex = new Regex(@"(http|https)://(?<domain>[^(:|/]*)", RegexOptions.IgnoreCase);
+            Regex regex=new Regex(@"(http|https)://(?<domain>[^(:|/]*)", RegexOptions.IgnoreCase);
             return regex.Match(url, 0).Value;
         }
 
@@ -135,15 +136,15 @@ namespace Nigel.Tests
         {
             string jsonp = @"jsonp({""a"":""1234"",""b"":9999})";
             var json = "{\"a\":\"1234\",\"b\":9999}";
-            var result = Regexs.GetValue(jsonp, @"^\w+\((\{[^()]+\})\)$", "$1");
+            var result = Regexs.GetValue(jsonp, @"^\w+\((\{[^()]+\})\)$","$1");
             Output.WriteLine(result);
-            Assert.Equal(json, result);
+            Assert.Equal(json,result);
         }
 
         [Fact]
         public void Test_SpaceOnUpper()
         {
-            var words = new[] { "StringExtensions", "AA", "AbC", "Cad" };
+            var words = new[] {"StringExtensions", "AA", "AbC", "Cad"};
             foreach (var word in words)
             {
                 Output.WriteLine(word.SpaceOnUpper());
@@ -167,7 +168,7 @@ namespace Nigel.Tests
         {
             var dirPath = "D:\\TestData";
             DirectoryHelper.CreateIfNotExists(dirPath);
-            FileHelper.Split("D:\\iTestRunner_R1.txt", dirPath);
+            FileHelper.Split("D:\\iTestRunner_R1.txt",dirPath);
         }
 
         /// <summary>
@@ -216,7 +217,7 @@ namespace Nigel.Tests
                 "005.5.desc.json",
                 "006.6.desc.json",
                 "007.7.desc.json",
-            };
+            };            
 
             foreach (var item in list)
             {
@@ -233,9 +234,9 @@ namespace Nigel.Tests
 
         public enum TestEnum
         {
-            A = 0,
-            B = 1,
-            C = 2
+            A=0,
+            B=1,
+            C=2
         }
 
         [Fact]
@@ -273,7 +274,7 @@ namespace Nigel.Tests
         /// <param name="kbLength">单个子文件最大长度。单位：KB</param>
         /// <param name="delete">标识文件分割完成后是否删除原文件</param>
         /// <param name="change">加密密钥</param>
-        private void FileSplit(string filePath, string outPutPath, int kbLength, bool delete, int change)
+        private void FileSplit(string filePath,string outPutPath, int kbLength, bool delete, int change)
         {
             if (filePath == null || !File.Exists(filePath))
             {
@@ -300,7 +301,7 @@ namespace Nigel.Tests
                 FileStream writeStream = null;
                 // 读取数据
                 while (readLen > 0 || (readLen = readStream.Read(data, 0, data.Length)) > 0)
-                {
+                {                    
                     // 创建分割后的子文件，已有则覆盖
                     if (len == 0 || writeStream == null)
                     {
@@ -352,20 +353,20 @@ namespace Nigel.Tests
         /// <param name="outFileName"></param>
         /// <param name="delete"></param>
         /// <param name="change"></param>
-        private void FileCombine(IList<string> filePaths, string outFileName, bool delete, int change)
+        private void FileCombine(IList<string> filePaths,string outFileName, bool delete, int change)
         {
             if (filePaths == null || filePaths.Count == 0)
             {
                 return;
             }
 
-            //short sign = 1;
-            //int num = 0, tmp;
-            //if (change < 0)
-            //{
-            //    sign = -1;
-            //    change = -change;
-            //}
+            short sign = 1;
+            int num = 0, tmp;
+            if (change < 0)
+            {
+                sign = -1;
+                change = -change;
+            }
 
             var keys = Path.GetFileName(filePaths[0]).Split('.');
             var total = keys[2].ToInt();
@@ -373,7 +374,7 @@ namespace Nigel.Tests
             using (FileStream writeStream = new FileStream(outFileName, FileMode.Create))
             {
                 filePaths.Sort();
-
+                
                 foreach (var filePath in filePaths)
                 {
                     if (filePath == null || !File.Exists(filePath))
@@ -382,11 +383,11 @@ namespace Nigel.Tests
                     }
 
                     FileStream readStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-                    byte[] data = new byte[1024];// 流读取，缓存空间
+                    byte[] data=new byte[1024];// 流读取，缓存空间
                     int readLen = 0;// 每次实际读取的字节大小
 
                     // 读取数据
-                    while ((readLen = readStream.Read(data, 0, data.Length)) > 0)
+                    while ((readLen=readStream.Read(data,0,data.Length))>0)
                     {
                         //// 解密逻辑，对data的首字节进行逻辑偏移解密
                         //if (num == 0)
@@ -425,24 +426,24 @@ namespace Nigel.Tests
         public void Test_Split()
         {
             var source =
-                @"1. Trace: SqlQueryLog >> 跟踪号: 0HLMQ0R8CFGAN:00000001-2    操作时间: 2019-05-17 09:34:47.728    已执行: 1毫秒
-2. IP: ::ffff:172.18.107.80   主机: lebazer01   线程号: 35
-3. 浏览器: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36
+                @"1. Trace: SqlQueryLog >> 跟踪号: 0HLMQ0R8CFGAN:00000001-2    操作时间: 2019-05-17 09:34:47.728    已执行: 1毫秒    
+2. IP: ::ffff:172.18.107.80   主机: lebazer01   线程号: 35   
+3. 浏览器: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36   
 4. Url: http://172.18.107.84:8101/api/Permission/GetPermissionMenus?t=1558056887443
-5. 操作人编号: efa31fb6-d94e-429a-b1fe-6502df67b245   操作人: 超级管理员
-6. 应用程序: 后台管理系统
-7. 类名: Bing.Datas.Dapper.SqlQuery
+5. 操作人编号: efa31fb6-d94e-429a-b1fe-6502df67b245   操作人: 超级管理员   
+6. 应用程序: 后台管理系统   
+7. 类名: Bing.Datas.Dapper.SqlQuery   
 8. 标题: SqlQuery查询调试:
 9. Sql语句:
 原始Sql:
-Select `b`.*,`b`.`ResourceId` As `Id`
-From `Systems.Permission` As `a`
-Join `Systems.Resource` As `b` On `a`.`ResourceId`=`b`.`ResourceId` And `b`.`IsDeleted`=@_p_3
+Select `b`.*,`b`.`ResourceId` As `Id` 
+From `Systems.Permission` As `a` 
+Join `Systems.Resource` As `b` On `a`.`ResourceId`=`b`.`ResourceId` And `b`.`IsDeleted`=@_p_3 
 Where `a`.`IsDeny`=@_p_0 And `b`.`ApplicationId`=@_p_1 And `a`.`IsDeleted`=@_p_2
 调试Sql:
-Select `b`.*,`b`.`ResourceId` As `Id`
-From `Systems.Permission` As `a`
-Join `Systems.Resource` As `b` On `a`.`ResourceId`=`b`.`ResourceId` And `b`.`IsDeleted`=0
+Select `b`.*,`b`.`ResourceId` As `Id` 
+From `Systems.Permission` As `a` 
+Join `Systems.Resource` As `b` On `a`.`ResourceId`=`b`.`ResourceId` And `b`.`IsDeleted`=0 
 Where `a`.`IsDeny`=1 And `b`.`ApplicationId`='79c3c002-1474-4b3f-bf83-b17aa173a2bb' And `a`.`IsDeleted`=0
 10. Sql参数:
     @_p_0 : 1 : System.Boolean,
@@ -452,7 +453,7 @@ Where `a`.`IsDeny`=1 And `b`.`ApplicationId`='79c3c002-1474-4b3f-bf83-b17aa173a2
             //var array = Regexs.Split(source, @"(\d{1,2})\.\s");
             var array = Regex.Split(source, @"\d{1,2}\.\s", RegexOptions.None).Where(x => !string.IsNullOrWhiteSpace(x))
                 .ToList();
-            Output.WriteLine(array.Count.ToString());
+           Output.WriteLine(array.Count.ToString());
             var result = Format(array);
             Output.WriteLine(result.ToJson());
         }
@@ -487,7 +488,7 @@ Where `a`.`IsDeny`=1 And `b`.`ApplicationId`='79c3c002-1474-4b3f-bf83-b17aa173a2
             }
         }
 
-        private void SetLogLevelAndLogName(string item, BingLogModel model)
+        private void SetLogLevelAndLogName(string item,BingLogModel model)
         {
             var firstSplit = Split(item);
             model.Level = firstSplit.Item1;
@@ -517,10 +518,11 @@ Where `a`.`IsDeny`=1 And `b`.`ApplicationId`='79c3c002-1474-4b3f-bf83-b17aa173a2
             Output.WriteLine(result);
         }
 
+
         [Fact]
         public void Test_ToObject()
         {
-            var json = "[{\"Text\":\"寸\",\"Value\":\"00000002\",\"SortId\":1,\"Group\":\"尺寸\"}]";
+            var json= "[{\"Text\":\"寸\",\"Value\":\"00000002\",\"SortId\":1,\"Group\":\"尺寸\"}]";
             var items = JsonHelper.ToObject<List<Item>>(json);
             foreach (var item in items)
             {
@@ -538,6 +540,7 @@ Where `a`.`IsDeny`=1 And `b`.`ApplicationId`='79c3c002-1474-4b3f-bf83-b17aa173a2
             var item = list.FirstOrDefault(x => x.Item1 == 3);
             Assert.Equal(default, item);
         }
+
     }
 
     public class BingLogModel
@@ -683,3 +686,4 @@ Where `a`.`IsDeny`=1 And `b`.`ApplicationId`='79c3c002-1474-4b3f-bf83-b17aa173a2
         public int Order { get; set; }
     }
 }
+

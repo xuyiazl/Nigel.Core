@@ -1,8 +1,9 @@
-﻿using Nigel.Extensions;
+﻿using Xunit;
+using Nigel.Extensions;
 using System.Collections.Generic;
-using Xunit;
 
-namespace Nigel.Tests.Extensions.Base
+// ReSharper disable once CheckNamespace
+namespace Nigel.Tests.Extensions
 {
     public class ObjectExtensionsTest
     {
@@ -140,5 +141,5 @@ namespace Nigel.Tests.Extensions.Base
         public string Description { get; set; }
     }
 
-    #endregion 辅助类
+    #endregion
 }

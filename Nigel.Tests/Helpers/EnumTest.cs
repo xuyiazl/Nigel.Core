@@ -1,9 +1,11 @@
-﻿using Nigel.Tests.Samples;
-using Nigel.Tests.XUnitHelpers;
-using System;
+﻿using System;
 using System.Linq;
+using Nigel.Tests;
+using Nigel.Tests.Samples;
+using Nigel.Tests.XUnitHelpers;
 using Xunit;
 using Xunit.Abstractions;
+using Enum = Nigel.Helpers.Enum;
 
 namespace Nigel.Tests.Helpers
 {
@@ -27,7 +29,7 @@ namespace Nigel.Tests.Helpers
         [InlineData("3", EnumSample.C)]
         public void Test_Parse(string member, EnumSample sample)
         {
-            Assert.Equal(sample, Nigel.Helpers.Enum.Parse<EnumSample>(member));
+            Assert.Equal(sample, Enum.Parse<EnumSample>(member));
         }
 
         /// <summary>
@@ -40,7 +42,7 @@ namespace Nigel.Tests.Helpers
         {
             AssertHelper.Throws<ArgumentNullException>(() =>
             {
-                Nigel.Helpers.Enum.Parse<EnumSample>(member);
+                Enum.Parse<EnumSample>(member);
             }, "member");
         }
 
@@ -55,20 +57,20 @@ namespace Nigel.Tests.Helpers
         [InlineData("3", EnumSample.C)]
         public void Test_Parse_Nullable(string member, EnumSample? sample)
         {
-            Assert.Equal(sample, Nigel.Helpers.Enum.Parse<EnumSample?>(member));
+            Assert.Equal(sample, Enum.Parse<EnumSample?>(member));
         }
 
         /// <summary>
         /// 测试通过描述获取实例
         /// </summary>
         [Theory]
-        [InlineData("B2", EnumSample.B)]
+        [InlineData("B2",EnumSample.B)]
         [InlineData("C3", EnumSample.C)]
         [InlineData("D4", EnumSample.D)]
         [InlineData("E5", EnumSample.E)]
         public void Test_ParseByDescription(string desc, EnumSample sample)
         {
-            Assert.Equal(sample, Nigel.Helpers.Enum.ParseByDescription<EnumSample>(desc));
+            Assert.Equal(sample, Enum.ParseByDescription<EnumSample>(desc));
         }
 
         /// <summary>
@@ -81,7 +83,7 @@ namespace Nigel.Tests.Helpers
         {
             AssertHelper.Throws<ArgumentNullException>(() =>
             {
-                Nigel.Helpers.Enum.ParseByDescription<EnumSample>(desc);
+                Enum.ParseByDescription<EnumSample>(desc);
             }, "desc");
         }
 
@@ -95,7 +97,7 @@ namespace Nigel.Tests.Helpers
         [InlineData("C3", EnumSample.C)]
         public void Test_ParseByDescription_Nullable(string member, EnumSample? sample)
         {
-            Assert.Equal(sample, Nigel.Helpers.Enum.ParseByDescription<EnumSample?>(member));
+            Assert.Equal(sample, Enum.ParseByDescription<EnumSample?>(member));
         }
 
         /// <summary>
@@ -110,7 +112,7 @@ namespace Nigel.Tests.Helpers
         [InlineData(EnumSample.C, "C")]
         public void Test_GetName(object member, string name)
         {
-            Assert.Equal(name, Nigel.Helpers.Enum.GetName<EnumSample>(member));
+            Assert.Equal(name, Enum.GetName<EnumSample>(member));
         }
 
         /// <summary>
@@ -119,7 +121,7 @@ namespace Nigel.Tests.Helpers
         [Fact]
         public void Test_GetName_Validate()
         {
-            Assert.Equal(string.Empty, Nigel.Helpers.Enum.GetName(typeof(Sample), 3));
+            Assert.Equal(string.Empty, Enum.GetName(typeof(Sample), 3));
         }
 
         /// <summary>
@@ -134,7 +136,7 @@ namespace Nigel.Tests.Helpers
         [InlineData(EnumSample.C, "C")]
         public void Test_GetName_Nullable(object member, string name)
         {
-            Assert.Equal(name, Nigel.Helpers.Enum.GetName<EnumSample?>(member));
+            Assert.Equal(name, Enum.GetName<EnumSample?>(member));
         }
 
         /// <summary>
@@ -143,9 +145,9 @@ namespace Nigel.Tests.Helpers
         [Fact]
         public void Test_GetValue_Validate()
         {
-            AssertHelper.Throws<ArgumentNullException>(() => Nigel.Helpers.Enum.GetValue<EnumSample>(null), "member");
-            AssertHelper.Throws<ArgumentNullException>(() => Nigel.Helpers.Enum.GetValue<EnumSample>(string.Empty), "member");
-            AssertHelper.Throws<ArgumentNullException>(() => Nigel.Helpers.Enum.GetValue<Sample>(string.Empty), "member");
+            AssertHelper.Throws<ArgumentNullException>(() => Enum.GetValue<EnumSample>(null), "member");
+            AssertHelper.Throws<ArgumentNullException>(() => Enum.GetValue<EnumSample>(string.Empty), "member");
+            AssertHelper.Throws<ArgumentNullException>(() => Enum.GetValue<Sample>(string.Empty), "member");
         }
 
         /// <summary>
@@ -157,7 +159,7 @@ namespace Nigel.Tests.Helpers
         [InlineData(EnumSample.C, 3)]
         public void Test_GetValue(object member, int value)
         {
-            Assert.Equal(value, Nigel.Helpers.Enum.GetValue<EnumSample>(member));
+            Assert.Equal(value, Enum.GetValue<EnumSample>(member));
         }
 
         /// <summary>
@@ -169,7 +171,7 @@ namespace Nigel.Tests.Helpers
         [InlineData(EnumSample.C, 3)]
         public void Test_GetValue_Nullable(object member, int value)
         {
-            Assert.Equal(value, Nigel.Helpers.Enum.GetValue<EnumSample?>(member));
+            Assert.Equal(value, Enum.GetValue<EnumSample?>(member));
         }
 
         /// <summary>
@@ -184,7 +186,7 @@ namespace Nigel.Tests.Helpers
         [InlineData(EnumSample.B, "B2")]
         public void Test_GetDescription(object member, string description)
         {
-            Assert.Equal(description, Nigel.Helpers.Enum.GetDescription<EnumSample>(member));
+            Assert.Equal(description, Enum.GetDescription<EnumSample>(member));
         }
 
         /// <summary>
@@ -199,7 +201,7 @@ namespace Nigel.Tests.Helpers
         [InlineData(EnumSample.B, "B2")]
         public void Test_GetDescription_Nullable(object member, string description)
         {
-            Assert.Equal(description, Nigel.Helpers.Enum.GetDescription<EnumSample?>(member));
+            Assert.Equal(description, Enum.GetDescription<EnumSample?>(member));
         }
 
         /// <summary>
@@ -208,7 +210,7 @@ namespace Nigel.Tests.Helpers
         [Fact]
         public void Test_GetItems()
         {
-            var items = Nigel.Helpers.Enum.GetItems<EnumSample>();
+            var items = Enum.GetItems<EnumSample>();
             Assert.Equal(5, items.Count);
             Assert.Equal("A", items[0].Text);
             Assert.Equal(1, items[0].Value);
@@ -224,7 +226,7 @@ namespace Nigel.Tests.Helpers
         [Fact]
         public void Test_GetItems_Type()
         {
-            var items = Nigel.Helpers.Enum.GetItems(typeof(EnumSample));
+            var items = Enum.GetItems(typeof(EnumSample));
             Assert.Equal(5, items.Count);
             Assert.Equal("A", items[0].Text);
             Assert.Equal(1, items[0].Value);
@@ -240,7 +242,7 @@ namespace Nigel.Tests.Helpers
         [Fact]
         public void Test_GetItems_Nullable()
         {
-            var items = Nigel.Helpers.Enum.GetItems<EnumSample?>();
+            var items = Enum.GetItems<EnumSample?>();
             Assert.Equal(5, items.Count);
             Assert.Equal("A", items[0].Text);
             Assert.Equal(1, items[0].Value);
@@ -256,7 +258,7 @@ namespace Nigel.Tests.Helpers
         [Fact]
         public void Test_GetItems_Nullable_Type()
         {
-            var items = Nigel.Helpers.Enum.GetItems(typeof(EnumSample?));
+            var items = Enum.GetItems(typeof(EnumSample?));
             Assert.Equal(5, items.Count);
             Assert.Equal("A", items[0].Text);
             Assert.Equal(1, items[0].Value);
@@ -272,10 +274,9 @@ namespace Nigel.Tests.Helpers
         [Fact]
         public void Test_GetItems_Validate()
         {
-            AssertHelper.Throws<InvalidOperationException>(() =>
-            {
-                Nigel.Helpers.Enum.GetItems<Sample>();
-            }, "类型 Nigel.Tests.Samples.Sample 不是枚举");
+            AssertHelper.Throws<InvalidOperationException>(() => {
+                Enum.GetItems<Sample>();
+            }, "类型 Bing.Tests.Samples.Sample 不是枚举");
         }
 
         /// <summary>
@@ -284,7 +285,7 @@ namespace Nigel.Tests.Helpers
         [Fact]
         public void Test_GetNames()
         {
-            var names = Nigel.Helpers.Enum.GetNames<EnumSample>().OrderBy(t => t).ToList();
+            var names = Enum.GetNames<EnumSample>().OrderBy(t => t).ToList();
             Assert.Equal(5, names.Count);
             Assert.Equal("A", names[0]);
             Assert.Equal("D", names[3]);

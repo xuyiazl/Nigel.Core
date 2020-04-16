@@ -1,8 +1,10 @@
-﻿using ComponentAce.Compression.Libs.zlib;
-using Nigel.IO;
-using System;
+﻿using System;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Text;
+using System.Threading;
+using ComponentAce.Compression.Libs.zlib;
+using Nigel.IO;
 using Xunit;
 
 namespace Nigel.Tests
@@ -51,13 +53,13 @@ namespace Nigel.Tests
             }
         }
 
+
         /// <summary>
         /// 压缩帮助类
         /// </summary>
         public class ZlibHelper
         {
             #region CompressBytes 对原始字节数组进行zlib压缩，得到处理结果字节数组
-
             /// <summary>
             /// 对原始字节数组进行zlib压缩，得到处理结果字节数组
             /// </summary>
@@ -89,11 +91,9 @@ namespace Nigel.Tests
                     }
                 }
             }
-
-            #endregion CompressBytes 对原始字节数组进行zlib压缩，得到处理结果字节数组
+            #endregion
 
             #region DeCompressBytes 对经过zlib压缩的数据，进行解密和zlib解压缩，得到原始字节数组
-
             /// <summary>
             /// 对经过zlib压缩的数据，进行解密和zlib解压缩，得到原始字节数组
             /// </summary>
@@ -129,8 +129,7 @@ namespace Nigel.Tests
                     }
                 }
             }
-
-            #endregion DeCompressBytes 对经过zlib压缩的数据，进行解密和zlib解压缩，得到原始字节数组
+            #endregion
 
             #region CompressString 压缩字符串
 
@@ -153,11 +152,9 @@ namespace Nigel.Tests
                     return null;
                 }
             }
-
-            #endregion CompressString 压缩字符串
+            #endregion
 
             #region DecompressString 解压字符串
-
             /// <summary>
             /// 解压字符串
             /// </summary>
@@ -169,6 +166,7 @@ namespace Nigel.Tests
                 byte[] byteDecompress = DeCompressBytes(byteSource);
                 if (byteDecompress != null)
                 {
+
                     return System.Text.Encoding.UTF8.GetString(byteDecompress);
                 }
                 else
@@ -176,11 +174,9 @@ namespace Nigel.Tests
                     return null;
                 }
             }
-
-            #endregion DecompressString 解压字符串
+            #endregion
 
             #region CopyStream 拷贝流
-
             /// <summary>
             /// 拷贝流
             /// </summary>
@@ -196,11 +192,9 @@ namespace Nigel.Tests
                 }
                 output.Flush();
             }
-
-            #endregion CopyStream 拷贝流
+            #endregion
 
             #region GetStringByGZIPData 将解压缩过的二进制数据转换回字符串
-
             /// <summary>
             /// 将解压缩过的二进制数据转换回字符串
             /// </summary>
@@ -210,8 +204,7 @@ namespace Nigel.Tests
             {
                 return (string)(System.Text.Encoding.UTF8.GetString(zipData));
             }
-
-            #endregion GetStringByGZIPData 将解压缩过的二进制数据转换回字符串
+            #endregion
         }
     }
 }

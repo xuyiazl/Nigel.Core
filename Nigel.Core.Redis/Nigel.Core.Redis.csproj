@@ -11,7 +11,7 @@
     <Company>Nigel</Company>
     <Description>.NET Core Redis</Description>
     <Copyright>Copyright © Nigel 2020</Copyright>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <PackageId>Nigel.Core.Redis</PackageId>
     <Product>Nigel.Core.Redis</Product>
     <PackageIconUrl>http://www.3624091.com/favicon.ico</PackageIconUrl>
@@ -19,12 +19,12 @@
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>obj\Release\netstandard2.1\Nigel.Core.Redis.xml</DocumentationFile>
+    <DocumentationFile>Nigel.Core.Redis.xml</DocumentationFile>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>obj\Release\netstandard2.1\Nigel.Core.Redis.xml</DocumentationFile>
+    <DocumentationFile>Nigel.Core.Redis.xml</DocumentationFile>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   

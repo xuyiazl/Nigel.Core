@@ -1,4 +1,5 @@
 ﻿using Nigel.Extensions;
+using Nigel.Tests;
 using Xunit;
 
 // ReSharper disable once CheckNamespace

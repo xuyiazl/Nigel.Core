@@ -1,0 +1,2475 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Nigel.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Nigel.Core.Builders.BingBuilder">
+            <summary>
+            Bing 构建器
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Builders.BingBuilder.#ctor">
+            <summary>
+            初始化一个<see cref="T:Nigel.Core.Builders.BingBuilder"/>类型的实例
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Builders.BingBuilder.AddModules">
+            <summary>
+            加载的模块集合
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Builders.BingBuilder.ExceptModules">
+            <summary>
+            排除的模块集合
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Builders.BingBuilder.OptionsAction">
+            <summary>
+            Bing 选项配置委托
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Builders.BingBuilder.AddModule``1">
+            <summary>
+            添加指定模块。执行此功能后将仅加载指定的模块
+            </summary>
+            <typeparam name="TModule">要添加的模块类型</typeparam>
+        </member>
+        <member name="M:Nigel.Core.Builders.BingBuilder.ExceptModule``1">
+            <summary>
+            排除指定模块。执行此功能后将从自动加载的模块中排除指定模块
+            </summary>
+            <typeparam name="TModule">要排除的模块类型</typeparam>
+        </member>
+        <member name="M:Nigel.Core.Builders.BingBuilder.AddOptions(System.Action{Nigel.Core.Options.BingOptions})">
+            <summary>
+            添加Bing选项配置
+            </summary>
+            <param name="optionsAction">选项操作</param>
+        </member>
+        <member name="T:Nigel.Core.Builders.BingBuilderExtensions">
+            <summary>
+            Bing构建器(<see cref="T:Nigel.Core.Builders.IBingBuilder"/>) 扩展
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Builders.BingBuilderExtensions.AddCoreModule(Nigel.Core.Builders.IBingBuilder)">
+            <summary>
+            添加核心模块
+            </summary>
+            <param name="builder">Bing构建器</param>
+        </member>
+        <member name="T:Nigel.Core.Builders.IBingBuilder">
+            <summary>
+            Bing 构建器
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Builders.IBingBuilder.AddModules">
+            <summary>
+            加载的模块集合
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Builders.IBingBuilder.ExceptModules">
+            <summary>
+            排除的模块集合
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Builders.IBingBuilder.OptionsAction">
+            <summary>
+            Bing 选项配置委托
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Builders.IBingBuilder.AddModule``1">
+            <summary>
+            添加指定模块
+            </summary>
+            <typeparam name="TModule">要添加的模块类型</typeparam>
+        </member>
+        <member name="M:Nigel.Core.Builders.IBingBuilder.ExceptModule``1">
+            <summary>
+            排除指定模块
+            </summary>
+            <typeparam name="TModule">要排除的模块类型</typeparam>
+        </member>
+        <member name="M:Nigel.Core.Builders.IBingBuilder.AddOptions(System.Action{Nigel.Core.Options.BingOptions})">
+            <summary>
+            添加Bing选项配置
+            </summary>
+            <param name="optionsAction">选项操作</param>
+        </member>
+        <member name="T:Nigel.Core.Dependency.DefaultServiceScopeFactory">
+            <summary>
+            默认<see cref="T:Microsoft.Extensions.DependencyInjection.IServiceScope"/>工厂，行为和<see cref="T:Microsoft.Extensions.DependencyInjection.IServiceScopeFactory"/>一样
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Dependency.DefaultServiceScopeFactory.ServiceScopeFactory">
+            <summary>
+            服务作用域工厂
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Dependency.DefaultServiceScopeFactory.#ctor(Microsoft.Extensions.DependencyInjection.IServiceScopeFactory)">
+            <summary>
+            初始化一个<see cref="T:Nigel.Core.Dependency.DefaultServiceScopeFactory"/>类型的实例
+            </summary>
+            <param name="serviceScopeFactory">服务作用域工厂</param>
+        </member>
+        <member name="M:Nigel.Core.Dependency.DefaultServiceScopeFactory.CreateScope">
+            <summary>
+            创建作用域
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Dependency.DependencyAttribute">
+            <summary>
+            依赖注入行为特性
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Dependency.DependencyAttribute.Lifetime">
+            <summary>
+            声明周期类型，代替
+            <see cref="T:Nigel.Core.Dependency.ISingletonDependency"/>,<see cref="T:Nigel.Core.Dependency.IScopedDependency"/>,<see cref="T:Nigel.Core.Dependency.ITransientDependency"/>三个接口的作用
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Dependency.DependencyAttribute.TryAdd">
+            <summary>
+            是否为TryAdd方式注册，通常用于默认服务，当服务可被替换时，应设置为true
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Dependency.DependencyAttribute.ReplaceExisting">
+            <summary>
+            是否替换已存在的服务实现，通常用于主要服务，当服务存在时即优先使用时，应设置为true
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Dependency.DependencyAttribute.AddSelf">
+            <summary>
+            是否注册自身类型，默认没有接口的类型会注册自身，当此属性为true时，也会注册自身
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Dependency.DependencyAttribute.#ctor(Microsoft.Extensions.DependencyInjection.ServiceLifetime)">
+            <summary>
+            初始化一个<see cref="T:Nigel.Core.Dependency.DependencyAttribute"/>类型的实例
+            </summary>
+            <param name="lifetime">生命周期类型</param>
+        </member>
+        <member name="T:Nigel.Core.Dependency.DependencyTypeFinder">
+            <summary>
+            依赖注入类型查找器
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.Dependency.DependencyTypeFinder._allAssemblyFinder">
+            <summary>
+            所有程序集查找器
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Dependency.DependencyTypeFinder.#ctor(Nigel.Core.Reflections.IAllAssemblyFinder)">
+            <summary>
+            初始化一个<see cref="T:Nigel.Core.Dependency.DependencyTypeFinder"/>类型的实例
+            </summary>
+            <param name="allAssemblyFinder">所有程序集查找器</param>
+        </member>
+        <member name="M:Nigel.Core.Dependency.DependencyTypeFinder.FindAllItems">
+            <summary>
+            重写已实现所有项的查找
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Dependency.DependencyTypeFinder.Find``1(System.Collections.Generic.List{System.Reflection.Assembly})">
+            <summary>
+            查找类型列表
+            </summary>
+            <typeparam name="T">查找类型</typeparam>
+            <param name="assemblies">在指定的程序集列表中查找</param>
+        </member>
+        <member name="M:Nigel.Core.Dependency.DependencyTypeFinder.Find(System.Type,System.Collections.Generic.List{System.Reflection.Assembly})">
+            <summary>
+            查找类型列表
+            </summary>
+            <param name="findType">查找类型</param>
+            <param name="assemblies">在指定的程序集列表中查找</param>
+        </member>
+        <member name="T:Nigel.Core.Dependency.IDependencyTypeFinder">
+            <summary>
+            依赖注入类型查找器。查找标注了<see cref="T:Nigel.Core.Dependency.DependencyAttribute"/>特性，或者<see cref="T:Nigel.Core.Dependency.ISingletonDependency"/>, <see cref="T:Nigel.Core.Dependency.IScopedDependency"/>, <see cref="T:Nigel.Core.Dependency.ITransientDependency"/>三个接口的服务实现类型
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Dependency.IgnoreDependencyAttribute">
+            <summary>
+            标注了此特性的类，将忽略依赖注入自动映射
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Dependency.IHybridServiceScopeFactory">
+            <summary>
+            混合服务作用域工厂
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Dependency.IScopedDependency">
+            <summary>
+            实现此接口的类型将注册为<see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/>模式
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Dependency.IScopedServiceResolver">
+            <summary>
+            <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/>服务解析器
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Dependency.IScopedServiceResolver.ResolveEnabled">
+            <summary>
+            是否可解析
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Dependency.IScopedServiceResolver.ScopedProvider">
+            <summary>
+            <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/>生命周期的服务提供程序
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Dependency.IScopedServiceResolver.GetService``1">
+            <summary>
+            获取指定服务类型的实例
+            </summary>
+            <typeparam name="T">服务类型</typeparam>
+        </member>
+        <member name="M:Nigel.Core.Dependency.IScopedServiceResolver.GetService(System.Type)">
+            <summary>
+            获取指定服务类型的实例
+            </summary>
+            <param name="serviceType">服务类型</param>
+        </member>
+        <member name="M:Nigel.Core.Dependency.IScopedServiceResolver.GetServices``1">
+            <summary>
+            获取指定服务类型的所有实例
+            </summary>
+            <typeparam name="T">服务类型</typeparam>
+        </member>
+        <member name="M:Nigel.Core.Dependency.IScopedServiceResolver.GetServices(System.Type)">
+            <summary>
+            获取指定服务类型的所有实例
+            </summary>
+            <param name="serviceType">服务类型</param>
+        </member>
+        <member name="T:Nigel.Core.Dependency.ISingletonDependency">
+            <summary>
+            实现此接口的类型将注册为<see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/>模式
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Dependency.ITransientDependency">
+            <summary>
+            实现此接口的类型将自动注册为<see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/>模式
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Dependency.Lazier`1">
+            <summary>
+            Lazy延迟加载解析器
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+        </member>
+        <member name="M:Nigel.Core.Dependency.Lazier`1.#ctor(System.IServiceProvider)">
+            <summary>
+            初始化一个<see cref="T:Nigel.Core.Dependency.Lazier`1"/>类型的实例
+            </summary>
+            <param name="serviceProvider">服务提供程序</param>
+        </member>
+        <member name="T:Nigel.Core.Dependency.MultipleDependencyAttribute">
+            <summary>
+            标记允许多重注入，即一个接口可以注入多个实例
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Dependency.ScopedDictionary">
+            <summary>
+            基于<see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/>生命周期的数据字典。可用于在Scoped环境中传递数据
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Dependency.ScopedDictionary.DataAuthValidRoleNames">
+            <summary>
+            对于当前功能有效的角色集合，用于数据权限判断
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Dependency.ScopedDictionary.Identity">
+            <summary>
+            当前用户
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Dependency.ScopedDictionary.Dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Dependency.ScopedDictionaryExtensions">
+            <summary>
+            作用域字典(<see cref="T:Nigel.Core.Dependency.ScopedDictionary"/>) 扩展
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Dependency.ScopedDictionaryExtensions.GetValue``1(Nigel.Core.Dependency.ScopedDictionary,System.String)">
+            <summary>
+            从Scoped字典获取指定类型的值
+            </summary>
+            <typeparam name="T">类型</typeparam>
+            <param name="dictionary">字典</param>
+            <param name="key">键名</param>
+        </member>
+        <member name="T:Nigel.Core.Dependency.ServiceLocator">
+            <summary>
+            应用程序服务定位器。可随时正常解析<see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton"/>与<see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Transient"/>生命周期类型的服务
+            如果当前处于HttpContext有效的范围内，可正常解析<see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/>的服务
+            注：服务定位器尚不能正常解析 RootServiceProvider.CreateScope() 生命周期内的 Scoped 的服务
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.Dependency.ServiceLocator.InstanceLazy">
+            <summary>
+            懒加载实例
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.Dependency.ServiceLocator._provider">
+            <summary>
+            服务提供程序
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.Dependency.ServiceLocator._services">
+            <summary>
+            服务集合
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Dependency.ServiceLocator.Instance">
+            <summary>
+            服务定位器实例
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Dependency.ServiceLocator.IsProviderEnabled">
+            <summary>
+            ServiceProvider是否可用
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Dependency.ServiceLocator.ScopedProvider">
+            <summary>
+            <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/>生命周期的服务提供者
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Dependency.ServiceLocator.#ctor">
+            <summary>
+            初始化一个<see cref="T:Nigel.Core.Dependency.ServiceLocator"/>类型的实例
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Dependency.ServiceLocator.InScoped">
+            <summary>
+            当前是否处于<see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/>生命周期中
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Dependency.ServiceLocator.SetServiceCollection(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            设置应用程序服务集合
+            </summary>
+            <param name="services">服务集合</param>
+        </member>
+        <member name="M:Nigel.Core.Dependency.ServiceLocator.SetApplicationServiceProvider(System.IServiceProvider)">
+            <summary>
+            设置应用程序服务提供程序
+            </summary>
+            <param name="provider">服务提供程序</param>
+        </member>
+        <member name="M:Nigel.Core.Dependency.ServiceLocator.GetServiceDescriptors">
+            <summary>
+            获取所有已注册的<see cref="T:Microsoft.Extensions.DependencyInjection.ServiceDescriptor"/>对象
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Dependency.ServiceLocator.GetService``1">
+            <summary>
+            解析指定类型的服务实例
+            </summary>
+            <typeparam name="T">服务类型</typeparam>
+        </member>
+        <member name="M:Nigel.Core.Dependency.ServiceLocator.GetService(System.Type)">
+            <summary>
+            解析指定类型的服务实例
+            </summary>
+            <param name="serviceType">服务类型</param>
+        </member>
+        <member name="M:Nigel.Core.Dependency.ServiceLocator.GetServices``1">
+            <summary>
+            解析指定类型的所有服务实例
+            </summary>
+            <typeparam name="T">服务类型</typeparam>
+        </member>
+        <member name="M:Nigel.Core.Dependency.ServiceLocator.GetServices(System.Type)">
+            <summary>
+            解析指定类型的所有服务实例
+            </summary>
+            <param name="serviceType">服务类型</param>
+        </member>
+        <member name="M:Nigel.Core.Dependency.ServiceLocator.Dispose">
+            <summary>
+            释放资源
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Dependency.DependencyModule">
+            <summary>
+            依赖注入模块
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Dependency.DependencyModule.Level">
+            <summary>
+            模块级别。级别越小越先启动
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Dependency.DependencyModule.Order">
+            <summary>
+            模块启动顺序。模块启动的顺序先按级别启动，同一级别内部再按此顺序启动，
+            级别默认为0，表示无依赖，需要在同级别有依赖顺序的时候，再重写为>0的顺序值
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Dependency.DependencyModule.AddServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            添加服务。将模块服务添加到依赖注入服务容器中
+            </summary>
+            <param name="services">服务集合</param>
+        </member>
+        <member name="M:Nigel.Core.Dependency.DependencyModule.UseModule(System.IServiceProvider)">
+            <summary>
+            应用模块服务
+            </summary>
+            <param name="provider">服务提供程序</param>
+        </member>
+        <member name="M:Nigel.Core.Dependency.DependencyModule.AddToServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type)">
+            <summary>
+            将服务实现类型注册到服务集合中
+            </summary>
+            <param name="services">服务集合</param>
+            <param name="implementationType">要注册的服务实现类型</param>
+        </member>
+        <member name="M:Nigel.Core.Dependency.DependencyModule.GetLifetimeOrNull(System.Type)">
+            <summary>
+            重写以实现 从类型获取要注册的<see cref="T:Microsoft.Extensions.DependencyInjection.ServiceLifetime"/>生命周期类型
+            </summary>
+            <param name="type">依赖注入实现类型</param>
+        </member>
+        <member name="M:Nigel.Core.Dependency.DependencyModule.GetImplementedInterfaces(System.Type)">
+            <summary>
+            重写以实现 获取实现类型的所有可注册服务接口
+            </summary>
+            <param name="type">依赖注入实现类型</param>
+        </member>
+        <member name="M:Nigel.Core.Dependency.DependencyModule.AddSingleService(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.DependencyInjection.ServiceDescriptor,Nigel.Core.Dependency.DependencyAttribute)">
+            <summary>
+            添加单一服务
+            </summary>
+            <param name="services">服务集合</param>
+            <param name="descriptor">描述</param>
+            <param name="dependencyAttribute">依赖注入行为特性</param>
+        </member>
+        <member name="T:Nigel.Core.Dependency.IDependencyRegistrar">
+            <summary>
+            依赖注册器
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Dependency.IDependencyRegistrar.Register(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            注册依赖
+            </summary>
+            <param name="services">服务集合</param>
+        </member>
+        <member name="T:Nigel.Core.Enums.EnvironmentType">
+            <summary>
+            环境类型
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.Enums.EnvironmentType.Development">
+            <summary>
+            开发环境
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.Enums.EnvironmentType.Test">
+            <summary>
+            测试环境
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.Enums.EnvironmentType.Preview">
+            <summary>
+            预览环境
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.Enums.EnvironmentType.Prod">
+            <summary>
+            生产环境
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Finders.FinderBase`1">
+            <summary>
+            查找器基类
+            </summary>
+            <typeparam name="TItem">要查找的项类型</typeparam>
+        </member>
+        <member name="F:Nigel.Core.Finders.FinderBase`1._lockObj">
+            <summary>
+            对象锁
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.Finders.FinderBase`1.ItemsCache">
+            <summary>
+            项缓存
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.Finders.FinderBase`1.Found">
+            <summary>
+            是否已查找过
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Finders.FinderBase`1.Find(System.Func{`0,System.Boolean},System.Boolean)">
+            <summary>
+            查找指定条件的项
+            </summary>
+            <param name="predicate">筛选条件</param>
+            <param name="fromCache">是否来自缓存</param>
+        </member>
+        <member name="M:Nigel.Core.Finders.FinderBase`1.FindAll(System.Boolean)">
+            <summary>
+            查找所有项
+            </summary>
+            <param name="fromCache">是否来自缓存</param>
+        </member>
+        <member name="M:Nigel.Core.Finders.FinderBase`1.FindAllItems">
+            <summary>
+            重写已实现所有项的查找
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Finders.IFinder`1">
+            <summary>
+            定义查找器
+            </summary>
+            <typeparam name="TItem">要查找的项类型</typeparam>
+        </member>
+        <member name="M:Nigel.Core.Finders.IFinder`1.Find(System.Func{`0,System.Boolean},System.Boolean)">
+            <summary>
+            查找指定条件的项
+            </summary>
+            <param name="predicate">筛选条件</param>
+            <param name="fromCache">是否来自缓存</param>
+        </member>
+        <member name="M:Nigel.Core.Finders.IFinder`1.FindAll(System.Boolean)">
+            <summary>
+            查找所有项
+            </summary>
+            <param name="fromCache">是否来自缓存</param>
+        </member>
+        <member name="T:Nigel.Core.Modularity.BingCoreModule">
+            <summary>
+            Bing 核心模块
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Modularity.BingCoreModule.Level">
+            <summary>
+            模块级别
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Modularity.BingCoreModule.AddServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            添加服务。将模块服务添加到依赖注入服务容器中
+            </summary>
+            <param name="services">服务集合</param>
+        </member>
+        <member name="T:Nigel.Core.Modularity.BingModule">
+            <summary>
+            Bing 模块基类
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Modularity.BingModule.Level">
+            <summary>
+            模块级别。级别越小越先启动
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Modularity.BingModule.Order">
+            <summary>
+            模块启动顺序。模块启动的顺序先按级别启动，同一级别内部再按此顺序启动，
+            级别默认为0，表示无依赖，需要在同级别有依赖顺序的时候，再重写为>0的顺序值
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Modularity.BingModule.Enabled">
+            <summary>
+            是否已启用
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Modularity.BingModule.AddServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            添加服务。将模块服务添加到依赖注入服务容器中
+            </summary>
+            <param name="services">服务集合</param>
+        </member>
+        <member name="M:Nigel.Core.Modularity.BingModule.UseModule(System.IServiceProvider)">
+            <summary>
+            应用模块服务
+            </summary>
+            <param name="provider">服务提供程序</param>
+        </member>
+        <member name="M:Nigel.Core.Modularity.BingModule.GetDependModuleTypes(System.Type)">
+            <summary>
+            获取当前模块的依赖模块类型
+            </summary>
+            <param name="moduleType">模块类型</param>
+        </member>
+        <member name="T:Nigel.Core.Modularity.BingModuleManager">
+            <summary>
+            Bing 模块管理器
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.Modularity.BingModuleManager._sourceModules">
+            <summary>
+            所有模块信息集合
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Modularity.BingModuleManager.SourceModules">
+            <summary>
+            自动检索到的所有模块信息
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Modularity.BingModuleManager.LoadedModules">
+            <summary>
+            最终加载的模块信息集合
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Modularity.BingModuleManager.#ctor">
+            <summary>
+            初始化一个<see cref="T:Nigel.Core.Modularity.BingModuleManager"/>类型的实例
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Modularity.BingModuleManager.LoadModules(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            加载模块服务
+            </summary>
+            <param name="services">服务集合</param>
+        </member>
+        <member name="M:Nigel.Core.Modularity.BingModuleManager.UseModule(System.IServiceProvider)">
+            <summary>
+            应用模块服务
+            </summary>
+            <param name="provider">服务提供程序</param>
+        </member>
+        <member name="T:Nigel.Core.Modularity.BingModuleTypeFinder">
+            <summary>
+            Bing 模块类型查找器
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Modularity.BingModuleTypeFinder.#ctor(Nigel.Core.Reflections.IAllAssemblyFinder)">
+            <summary>
+            初始化一个<see cref="T:Nigel.Core.Modularity.BingModuleTypeFinder"/>类型的实例
+            </summary>
+            <param name="allAssemblyFinder">所有程序集查找器</param>
+        </member>
+        <member name="M:Nigel.Core.Modularity.BingModuleTypeFinder.FindAllItems">
+            <summary>
+            重写已实现所有项的查找
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Modularity.DependsOnModuleAttribute">
+            <summary>
+            Bing 模块依赖
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Modularity.DependsOnModuleAttribute.DependedModuleTypes">
+            <summary>
+            当前模块的依赖模块类型集合
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Modularity.DependsOnModuleAttribute.#ctor(System.Type[])">
+            <summary>
+            初始化一个<see cref="T:Nigel.Core.Modularity.DependsOnModuleAttribute"/>类型的实例
+            </summary>
+            <param name="dependedModuleTypes">依赖模块类型集合</param>
+        </member>
+        <member name="T:Nigel.Core.Modularity.IBingModule">
+            <summary>
+            Bing 模块
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Modularity.IBingModule.Level">
+            <summary>
+            模块级别。级别越小越先启动
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Modularity.IBingModule.Order">
+            <summary>
+            模块启动顺序。模块启动的顺序先按级别启动，同一级别内部再按此顺序启动，
+            级别默认为0，表示无依赖，需要在同级别有依赖顺序的时候，再重写为>0的顺序值
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Modularity.IBingModule.Enabled">
+            <summary>
+            是否已启用
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Modularity.IBingModule.AddServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            添加服务。将模块服务添加到依赖注入服务容器中
+            </summary>
+            <param name="services">服务集合</param>
+        </member>
+        <member name="M:Nigel.Core.Modularity.IBingModule.UseModule(System.IServiceProvider)">
+            <summary>
+            应用模块服务
+            </summary>
+            <param name="provider">服务提供程序</param>
+        </member>
+        <member name="T:Nigel.Core.Modularity.IBingModuleManager">
+            <summary>
+            Bing 模块管理器
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Modularity.IBingModuleManager.SourceModules">
+            <summary>
+            自动检索到的所有模块信息
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Modularity.IBingModuleManager.LoadedModules">
+            <summary>
+            最终加载的模块信息集合
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Modularity.IBingModuleManager.LoadModules(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            加载模块服务
+            </summary>
+            <param name="services">服务集合</param>
+        </member>
+        <member name="M:Nigel.Core.Modularity.IBingModuleManager.UseModule(System.IServiceProvider)">
+            <summary>
+            应用模块服务
+            </summary>
+            <param name="provider">服务提供程序</param>
+        </member>
+        <member name="T:Nigel.Core.Modularity.IBingModuleTypeFinder">
+            <summary>
+            Bing 模块类型查找器
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Modularity.ModuleLevel">
+            <summary>
+            模块级别。级别越核心，优先启动
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.Modularity.ModuleLevel.Core">
+            <summary>
+            核心级别。表示系统的核心模块，
+            这些模块不涉及第三方组件，在系统运行中是不可替换的，核心模块将始终加载
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.Modularity.ModuleLevel.Framework">
+            <summary>
+            框架级别。表示涉及第三方组件得基础模块
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.Modularity.ModuleLevel.Application">
+            <summary>
+            应用级别。表示涉及应用数据的基础模块
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.Modularity.ModuleLevel.Business">
+            <summary>
+            业务级别。表示涉及真实业务处理的模块
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Options.BingOptions">
+            <summary>
+            Bing框架配置选项信息
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Options.BingOptions.Environment">
+            <summary>
+            环境类型
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Reflections.AppDomainAllAssemblyFinder">
+            <summary>
+            应用程序目录程序集查找器
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.Reflections.AppDomainAllAssemblyFinder.SkipAssemblies">
+            <summary>
+            跳过的程序集
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Reflections.AppDomainAllAssemblyFinder.FindAllItems">
+            <summary>
+            重写已实现所有项的查找
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Reflections.AppDomainAllAssemblyFinder.LoadAssemblies(System.String)">
+            <summary>
+            加载程序集到当前应用程序域
+            </summary>
+            <param name="path">目录绝对路径</param>
+        </member>
+        <member name="M:Nigel.Core.Reflections.AppDomainAllAssemblyFinder.Match(System.String)">
+            <summary>
+            程序集是否匹配
+            </summary>
+            <param name="assemblyName">程序集名称</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.Reflections.AppDomainAllAssemblyFinder.LoadAssemblyToAppDomain(System.String)">
+            <summary>
+            将程序集添加到当前应用程序域
+            </summary>
+            <param name="file">程序集文件</param>
+        </member>
+        <member name="M:Nigel.Core.Reflections.AppDomainAllAssemblyFinder.GetAssembliesFromCurrentAppDomain">
+            <summary>
+            从当前应用程序域获取程序集列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.Reflections.AppDomainAllAssemblyFinder.Match(System.Reflection.Assembly)">
+            <summary>
+            程序集是否匹配
+            </summary>
+            <param name="assembly">程序集</param>
+            <returns></returns>
+        </member>
+        <member name="T:Nigel.Core.Reflections.AssemblyHelper">
+            <summary>
+            程序集操作辅助类
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Reflections.AssemblyHelper.LoadAssemblies(System.String,System.IO.SearchOption)">
+            <summary>
+            加载程序集列表
+            </summary>
+            <param name="folderPath">目录路径</param>
+            <param name="searchOption">查询选项</param>
+        </member>
+        <member name="M:Nigel.Core.Reflections.AssemblyHelper.GetAssemblyFiles(System.String,System.IO.SearchOption)">
+            <summary>
+            获取程序集文件列表
+            </summary>
+            <param name="folderPath">目录路径</param>
+            <param name="searchOption">查询选项</param>
+        </member>
+        <member name="M:Nigel.Core.Reflections.AssemblyHelper.GetAllTypes(System.Reflection.Assembly)">
+            <summary>
+            获取程序集中所有类型
+            </summary>
+            <param name="assembly">程序集</param>
+        </member>
+        <member name="T:Nigel.Core.Reflections.BaseTypeFinderBase`1">
+            <summary>
+            指定基类的实现类型查找器基类
+            </summary>
+            <typeparam name="TBaseType">要查找类型的基类</typeparam>
+        </member>
+        <member name="F:Nigel.Core.Reflections.BaseTypeFinderBase`1._allAssemblyFinder">
+            <summary>
+            所有程序集查找器
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Reflections.BaseTypeFinderBase`1.#ctor(Nigel.Core.Reflections.IAllAssemblyFinder)">
+            <summary>
+            初始化一个<see cref="T:Nigel.Core.Reflections.BaseTypeFinderBase`1"/>类型的实例
+            </summary>
+            <param name="allAssemblyFinder">所有程序集查找器</param>
+        </member>
+        <member name="M:Nigel.Core.Reflections.BaseTypeFinderBase`1.FindAllItems">
+            <summary>
+            重写已实现所有项的查找
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Reflections.BaseTypeFinderBase`1.Find``1(System.Collections.Generic.List{System.Reflection.Assembly})">
+            <summary>
+            查找类型列表
+            </summary>
+            <typeparam name="T">查找类型</typeparam>
+            <param name="assemblies">在指定的程序集列表中查找</param>
+        </member>
+        <member name="M:Nigel.Core.Reflections.BaseTypeFinderBase`1.Find(System.Type,System.Collections.Generic.List{System.Reflection.Assembly})">
+            <summary>
+            查找类型列表
+            </summary>
+            <param name="findType">查找类型</param>
+            <param name="assemblies">在指定的程序集列表中查找</param>
+        </member>
+        <member name="T:Nigel.Core.Reflections.IAllAssemblyFinder">
+            <summary>
+            定义所有程序集查找器
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Reflections.IAssemblyFinder">
+            <summary>
+            定义程序集查找器
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Reflections.IMethodInfoFinder">
+            <summary>
+            方法信息查找器
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Reflections.IMethodInfoFinder.Find(System.Type,System.Func{System.Reflection.MethodInfo,System.Boolean})">
+            <summary>
+            查找指定条件的项
+            </summary>
+            <param name="type">要查找的类型</param>
+            <param name="predicate">筛选条件</param>
+        </member>
+        <member name="M:Nigel.Core.Reflections.IMethodInfoFinder.FindAll(System.Type)">
+            <summary>
+            查找所有项
+            </summary>
+            <param name="type">要查找的类型</param>
+        </member>
+        <member name="T:Nigel.Core.Reflections.ITypeFinder">
+            <summary>
+            定义类型查找器
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Reflections.ITypeFinder.Find``1(System.Collections.Generic.List{System.Reflection.Assembly})">
+            <summary>
+            查找类型列表
+            </summary>
+            <typeparam name="T">查找类型</typeparam>
+            <param name="assemblies">在指定的程序集列表中查找</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.Reflections.ITypeFinder.Find(System.Type,System.Collections.Generic.List{System.Reflection.Assembly})">
+            <summary>
+            查找类型列表
+            </summary>
+            <param name="findType">查找类型</param>
+            <param name="assemblies">在指定的程序集列表中查找</param>
+            <returns></returns>
+        </member>
+        <member name="T:Nigel.Core.Reflections.TypeFinder">
+            <summary>
+            类型查找器
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.Reflections.TypeFinder._allAssemblyFinder">
+            <summary>
+            所有程序集查找器
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Reflections.TypeFinder.#ctor(Nigel.Core.Reflections.IAllAssemblyFinder)">
+            <summary>
+            初始化一个<see cref="T:Nigel.Core.Reflections.TypeFinder"/>类型的实例
+            </summary>
+            <param name="allAssemblyFinder">所有程序集查找器</param>
+        </member>
+        <member name="M:Nigel.Core.Reflections.TypeFinder.FindAllItems">
+            <summary>
+            重写已实现所有项的查找
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Reflections.TypeFinder.Find``1(System.Collections.Generic.List{System.Reflection.Assembly})">
+            <summary>
+            查找类型列表
+            </summary>
+            <typeparam name="T">查找类型</typeparam>
+            <param name="assemblies">在指定的程序集列表中查找</param>
+        </member>
+        <member name="M:Nigel.Core.Reflections.TypeFinder.Find(System.Type,System.Collections.Generic.List{System.Reflection.Assembly})">
+            <summary>
+            查找类型列表
+            </summary>
+            <param name="findType">查找类型</param>
+            <param name="assemblies">在指定的程序集列表中查找</param>
+        </member>
+        <member name="T:Nigel.Core.ServiceExtensions">
+            <summary>
+            服务扩展
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.ServiceExtensions.AddBing``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Nigel.Core.Builders.IBingBuilder})">
+            <summary>
+            将Bing服务，各个<see cref="T:Nigel.Core.Modularity.BingModule"/>模块的服务添加到服务容器中
+            </summary>
+            <typeparam name="TBingModuleManager">Bing模块管理器类型</typeparam>
+            <param name="services">服务集合</param>
+            <param name="builderAction">Bing构建器操作</param>
+        </member>
+        <member name="M:Nigel.Core.ServiceExtensions.GetBingOptions(System.IServiceProvider)">
+            <summary>
+            获取Bing框架配置选项信息
+            </summary>
+            <param name="provider">服务提供程序</param>
+        </member>
+        <member name="M:Nigel.Core.ServiceExtensions.GetLogger``1(System.IServiceProvider)">
+            <summary>
+            获取指定类型的日志对象
+            </summary>
+            <typeparam name="T">非静态强类型</typeparam>
+            <param name="provider">服务提供程序</param>
+        </member>
+        <member name="M:Nigel.Core.ServiceExtensions.GetLogger(System.IServiceProvider,System.Type)">
+            <summary>
+            获取指定类型的日志对象
+            </summary>
+            <param name="provider">服务提供程序</param>
+            <param name="type">指定类型</param>
+        </member>
+        <member name="M:Nigel.Core.ServiceExtensions.GetLogger(System.IServiceProvider,System.String)">
+            <summary>
+            获取指定名称的日志对象
+            </summary>
+            <param name="provider">服务提供程序</param>
+            <param name="name">名称</param>
+        </member>
+        <member name="M:Nigel.Core.ServiceExtensions.UseBing(System.IServiceProvider)">
+            <summary>
+            Bing框架初始化，适用于非AspNetCore环境
+            </summary>
+            <param name="provider">服务提供程序</param>
+        </member>
+        <member name="T:Nigel.Core.Controllers.ApiControllerBase">
+            <summary>
+            WebApi控制器基类
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.Controllers.ApiControllerBase._logger">
+            <summary>
+            日志
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Controllers.ApiControllerBase.Success(System.String,System.String,System.Object)">
+            <summary>
+            返回成功消息
+            </summary>
+            <param name="subCode">业务状态码</param>
+            <param name="data">数据</param>
+            <param name="message">消息</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.Controllers.ApiControllerBase.Fail(System.String,System.String)">
+            <summary>
+            返回失败消息
+            </summary>
+            <param name="subCode">业务状态码</param>
+            <param name="message">消息</param>
+            <returns></returns>
+        </member>
+        <member name="T:Nigel.Core.Controllers.AreaApiControllerBase">
+            <summary>
+            WebApi的区域控制器基类
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Extensions.ActionContextExtensions">
+            <summary>
+            操作上下文(<see cref="T:Microsoft.AspNetCore.Mvc.ActionContext"/>) 扩展
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Extensions.ActionContextExtensions.GetAreaName(Microsoft.AspNetCore.Mvc.ActionContext)">
+            <summary>
+            获取Area名称
+            </summary>
+            <param name="context">操作上下文</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.Extensions.ActionContextExtensions.GetControllerName(Microsoft.AspNetCore.Mvc.ActionContext)">
+            <summary>
+            获取Controller名称
+            </summary>
+            <param name="context">操作上下文</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.Extensions.ActionContextExtensions.GetActionName(Microsoft.AspNetCore.Mvc.ActionContext)">
+            <summary>
+            获取Action名称
+            </summary>
+            <param name="context">操作上下文</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.Extensions.ActionContextExtensions.GetRouteValues(Microsoft.AspNetCore.Mvc.ActionContext)">
+            <summary>
+            获取所有路由信息
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.Extensions.ActionContextExtensions.RouteReplace(Microsoft.AspNetCore.Mvc.ActionContext,System.String)">
+            <summary>
+            根据路由参数进行模板替换
+            </summary>
+            <param name="context"></param>
+            <param name="template">比如：static/{area}/{controller}/{action}/{id}.html</param>
+            <returns></returns>
+        </member>
+        <member name="T:Nigel.Core.Extensions.Extensions">
+            <summary>
+            中间件扩展
+            </summary>
+            <summary>
+            服务扩展
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Extensions.Extensions.UseErrorLog(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            注册错误日志中间件
+            </summary>
+            <param name="builder">应用程序生成器</param>
+        </member>
+        <member name="M:Nigel.Core.Extensions.Extensions.UseRequestLog(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            注册请求日志中间件
+            </summary>
+            <param name="builder">应用程序生成器</param>
+        </member>
+        <member name="M:Nigel.Core.Extensions.Extensions.UseStaticHttpContext(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            启用静态请求上下文
+            </summary>
+            <param name="builder">应用程序生成器</param>
+        </member>
+        <member name="M:Nigel.Core.Extensions.Extensions.UseRealIp(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            注册真实IP中间件
+            </summary>
+            <param name="builder">应用程序生成器</param>
+        </member>
+        <member name="M:Nigel.Core.Extensions.Extensions.UseRealIp(Microsoft.AspNetCore.Hosting.IWebHostBuilder,System.String)">
+            <summary>
+            注册真实IP
+            </summary>
+            <param name="hostBuilder">Web主机生成器</param>
+            <param name="headerKey">请求头键名</param>
+        </member>
+        <member name="M:Nigel.Core.Extensions.Extensions.AddCacheManager(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Caching.Memory.MemoryCacheOptions)">
+            <summary>
+            绑定本地缓存管理
+            </summary>
+            <remarks>引入 ICacheManager 使用</remarks>
+            <param name="services">服务集合</param>
+            <param name="memoryCacheOptions"></param>
+        </member>
+        <member name="M:Nigel.Core.Extensions.Extensions.AddUploadService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            注册上传服务
+            </summary>
+            <param name="services">服务集合</param>
+        </member>
+        <member name="M:Nigel.Core.Extensions.Extensions.AddUploadService``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            注册上传服务
+            </summary>
+            <typeparam name="TFileUploadService">文件上传服务类型</typeparam>
+            <param name="services">服务集合</param>
+        </member>
+        <member name="M:Nigel.Core.Extensions.Extensions.AddRazorHtml(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            注册Razor静态Html生成器
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.Extensions.Extensions.AddHttpService``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.String,System.Func{System.Net.Http.HttpMessageHandler},System.Nullable{System.TimeSpan},Microsoft.Extensions.DependencyInjection.ServiceLifetime)">
+            <summary>
+            注册 HttpFactory Service
+            </summary>
+            <typeparam name="TImplementation"></typeparam>
+            <param name="services"></param>
+            <param name="clientName"></param>
+            <param name="baseAddress"></param>
+            <param name="messageHandler"></param>
+            <param name="httpClientLeftTime"></param>
+            <param name="serviceLifetime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.Extensions.Extensions.AddHttpService``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.Action{System.Net.Http.HttpClient},System.Func{System.Net.Http.HttpMessageHandler},System.Nullable{System.TimeSpan},Microsoft.Extensions.DependencyInjection.ServiceLifetime)">
+            <summary>
+            注册 HTTPFactory Srevice
+            </summary>
+            <param name="services"></param>
+            <param name="clientName"></param>
+            <param name="client"></param>
+            <param name="messageHandler"></param>
+            <param name="httpClientLeftTime"></param>
+            <param name="serviceLifetime"></param>
+        </member>
+        <member name="M:Nigel.Core.Extensions.Extensions.AddHttpService``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.DependencyInjection.ServiceLifetime)">
+            <summary>
+            注册 HTTPFactory Srevice
+            </summary>
+            <typeparam name="TImplementation"></typeparam>
+            <param name="services"></param>
+            <param name="serviceLifetime"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nigel.Core.Extensions.ViewResultExtensions">
+            <summary>
+            视图结果 扩展
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Extensions.ViewResultExtensions.ToHtml(Microsoft.AspNetCore.Mvc.ViewResult,Microsoft.AspNetCore.Http.HttpContext,System.Boolean)">
+            <summary>
+            转换成Html
+            </summary>
+            <param name="result">视图结果</param>
+            <param name="httpContext">Http上下文</param>
+            <param name="IsPartialView">是否部分视图，默认：false</param>
+            <returns></returns>
+        </member>
+        <member name="T:Nigel.Core.Filters.ApiElapsedTimeAttribute">
+            <summary>
+            API查询时间
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Filters.ApiErrorAttribute">
+            <summary>
+            API错误日志过滤器
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Filters.ApiErrorAttribute.OnException(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            异常处理
+            </summary>
+            <param name="context">异常上下文</param>
+        </member>
+        <member name="T:Nigel.Core.Filters.ApiTraceAttribute">
+            <summary>
+            API跟踪日志过滤器
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Filters.ApiTraceAttribute.Ignore">
+            <summary>
+            是否忽略，为true不记录日志
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Filters.ApiTraceAttribute._logger">
+            <summary>
+            获取日志操作
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.Filters.ApiTraceAttribute.OnActionExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate)">
+            <summary>
+            执行
+            </summary>
+            <param name="context">操作执行上下文</param>
+            <param name="next">委托</param>
+        </member>
+        <member name="M:Nigel.Core.Filters.ApiTraceAttribute.OnActionExecutingAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext,Nigel.Helpers.Str)">
+            <summary>
+            执行前
+            </summary>
+            <param name="context">操作执行上下文</param>
+            <param name="log">日志</param>
+        </member>
+        <member name="M:Nigel.Core.Filters.ApiTraceAttribute.WriteLogAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext,Nigel.Helpers.Str)">
+            <summary>
+            执行前日志
+            </summary>
+            <param name="context">操作执行上下文</param>
+            <param name="log">日志</param>
+        </member>
+        <member name="M:Nigel.Core.Filters.ApiTraceAttribute.AddRequestInfoAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext,Nigel.Helpers.Str)">
+            <summary>
+            添加请求信息参数
+            </summary>
+            <param name="context">操作执行上下文</param>
+            <param name="log">日志</param>
+        </member>
+        <member name="M:Nigel.Core.Filters.ApiTraceAttribute.AddHeaders(Microsoft.AspNetCore.Http.HttpRequest,Nigel.Helpers.Str)">
+            <summary>
+            添加请求头
+            </summary>
+            <param name="request">Http请求</param>
+            <param name="log">日志</param>
+        </member>
+        <member name="M:Nigel.Core.Filters.ApiTraceAttribute.AddFormParamsAsync(Microsoft.AspNetCore.Http.HttpRequest,Nigel.Helpers.Str)">
+            <summary>
+            添加表单参数
+            </summary>
+            <param name="request">Http请求</param>
+            <param name="log">日志</param>
+        </member>
+        <member name="M:Nigel.Core.Filters.ApiTraceAttribute.IsMultipart(System.String)">
+            <summary>
+            是否multipart内容类型
+            </summary>
+            <param name="contentType">内容类型</param>
+        </member>
+        <member name="M:Nigel.Core.Filters.ApiTraceAttribute.AddCookie(Microsoft.AspNetCore.Http.HttpRequest,Nigel.Helpers.Str)">
+            <summary>
+            添加Cookie
+            </summary>
+            <param name="request">Http请求</param>
+            <param name="log">日志</param>
+        </member>
+        <member name="M:Nigel.Core.Filters.ApiTraceAttribute.OnActionExecuted(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext,Nigel.Helpers.Str)">
+            <summary>
+            执行后
+            </summary>
+            <param name="context">操作执行上下文</param>
+            <param name="log">日志</param>
+        </member>
+        <member name="M:Nigel.Core.Filters.ApiTraceAttribute.WriteLog(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext,Nigel.Helpers.Str)">
+            <summary>
+            执行后的日志
+            </summary>
+            <param name="context">操作执行上下文</param>
+            <param name="log">日志</param>
+        </member>
+        <member name="M:Nigel.Core.Filters.ApiTraceAttribute.AddResponseInfo(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext,Nigel.Helpers.Str)">
+            <summary>
+            添加响应信息参数
+            </summary>
+            <param name="context">操作执行上下文</param>
+            <param name="log">日志</param>
+        </member>
+        <member name="M:Nigel.Core.Filters.ApiTraceAttribute.AddResult(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext,Nigel.Helpers.Str)">
+            <summary>
+            记录响应结果
+            </summary>
+            <param name="context">操作执行上下文</param>
+            <param name="log">日志</param>
+        </member>
+        <member name="T:Nigel.Core.Filters.ExceptionHandlerAttribute">
+            <summary>
+            异常处理过滤器
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Filters.ExceptionHandlerAttribute.OnException(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            异常处理
+            </summary>
+            <param name="context">异常上下文</param>
+        </member>
+        <member name="T:Nigel.Core.Filters.NoCacheAttribute">
+            <summary>
+            无缓存过滤器
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Filters.NoCacheAttribute.OnResultExecuting(Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContext)">
+            <summary>
+            重写OnResultExecuting()方法，取消页面缓存
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Helpers.Ioc">
+            <summary>
+            容器操作
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Helpers.Ioc.CreateList``1">
+            <summary>
+            创建集合
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+        </member>
+        <member name="M:Nigel.Core.Helpers.Ioc.Create``1">
+            <summary>
+            创建实例
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+        </member>
+        <member name="M:Nigel.Core.Helpers.Ioc.Create(System.Type)">
+            <summary>
+            创建实例
+            </summary>
+            <param name="type">对象类型</param>
+        </member>
+        <member name="T:Nigel.Core.HttpFactory.HttpFormData">
+            <summary>
+            http formdata 线程安全集合
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.HttpFactory.HttpService">
+            <summary>
+            HttpRequestMessage服务类
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.HttpService.RequestHeaders(System.Net.Http.Headers.HttpRequestHeaders)">
+            <summary>
+            添加Headers消息头
+            </summary>
+            <param name="headers">header</param>
+        </member>
+        <member name="T:Nigel.Core.HttpFactory.IHttpService">
+            <summary>
+            HttpRequestMessage服务类
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.DeleteAsync``1(Nigel.Webs.UrlArguments)">
+            <summary>
+            异步DELETE
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="urlArguments"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.DeleteAsync``2(Nigel.Webs.UrlArguments,``1)">
+            <summary>
+            异步DELETE
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="urlArguments"></param>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.DeleteAsync``1(Nigel.Webs.UrlArguments,System.Threading.CancellationToken)">
+            <summary>
+            异步DELETE
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="urlArguments"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.DeleteAsync``2(Nigel.Webs.UrlArguments,``1,System.Threading.CancellationToken)">
+            <summary>
+            异步DELETE
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="urlArguments"></param>
+            <param name="data"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.GetAsync``1(Nigel.Webs.UrlArguments)">
+            <summary>
+            异步GET
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="urlArguments"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.GetAsync``1(Nigel.Webs.UrlArguments,System.Threading.CancellationToken)">
+            <summary>
+            异步GET
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="urlArguments"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.PostAsync``2(Nigel.Webs.UrlArguments,``1)">
+            <summary>
+            异步POST
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TModel"></typeparam>
+            <param name="urlArguments"></param>
+            <param name="postData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.PostAsync``2(Nigel.Webs.UrlArguments,``1,System.Threading.CancellationToken)">
+            <summary>
+            异步POST
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TModel"></typeparam>
+            <param name="urlArguments"></param>
+            <param name="postData"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.PostAsync``1(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpFormData)">
+            <summary>
+            异步POST
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="urlArguments"></param>
+            <param name="urlParamter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.PostAsync``1(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpFormData,System.Threading.CancellationToken)">
+            <summary>
+            异步POST
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="urlArguments"></param>
+            <param name="urlParamter"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.PutAsync``2(Nigel.Webs.UrlArguments,``1)">
+            <summary>
+            异步PUT
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TModel"></typeparam>
+            <param name="urlArguments"></param>
+            <param name="postData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.PutAsync``2(Nigel.Webs.UrlArguments,``1,System.Threading.CancellationToken)">
+            <summary>
+            异步PUT
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TModel"></typeparam>
+            <param name="urlArguments"></param>
+            <param name="postData"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.PutAsync``1(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpFormData)">
+            <summary>
+            异步PUT
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="urlArguments"></param>
+            <param name="urlParamter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.PutAsync``1(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpFormData,System.Threading.CancellationToken)">
+            <summary>
+            异步PUT
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="urlArguments"></param>
+            <param name="urlParamter"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.PatchAsync``2(Nigel.Webs.UrlArguments,``1)">
+            <summary>
+            异步PATCH
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TModel"></typeparam>
+            <param name="urlArguments"></param>
+            <param name="postData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.PatchAsync``2(Nigel.Webs.UrlArguments,``1,System.Threading.CancellationToken)">
+            <summary>
+            异步PATCH
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TModel"></typeparam>
+            <param name="urlArguments"></param>
+            <param name="postData"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.PatchAsync``1(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpFormData)">
+            <summary>
+            异步PATCH
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="urlArguments"></param>
+            <param name="urlParamter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.PatchAsync``1(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpFormData,System.Threading.CancellationToken)">
+            <summary>
+            异步PATCH
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="urlArguments"></param>
+            <param name="urlParamter"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Nigel.Core.Middlewares.AdminSafeListMiddleware">
+            <summary>
+            安全管理列表中间件
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.Middlewares.AdminSafeListMiddleware._next">
+            <summary>
+            方法
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.Middlewares.AdminSafeListMiddleware._whitelist">
+            <summary>
+            IP白名单
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Middlewares.AdminSafeListMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Logging.ILogger{Nigel.Core.Middlewares.AdminSafeListMiddleware},System.String)">
+            <summary>
+            初始化一个<see cref="T:Nigel.Core.Middlewares.AdminSafeListMiddleware"/>类型的实例
+            </summary>
+            <param name="next">方法</param>
+            <param name="whitelist">IP白名单</param>
+        </member>
+        <member name="M:Nigel.Core.Middlewares.AdminSafeListMiddleware.Invoke(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            执行中间件拦截逻辑
+            </summary>
+            <param name="context">Http上下文</param>
+            <returns></returns>
+        </member>
+        <member name="T:Nigel.Core.Middlewares.AllowCorsRequestMiddleware">
+            <summary>
+            允许CORS请求中间件
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.Middlewares.AllowCorsRequestMiddleware._next">
+            <summary>
+            方法
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Middlewares.AllowCorsRequestMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate)">
+            <summary>
+            初始化一个<see cref="T:Nigel.Core.Middlewares.AllowCorsRequestMiddleware"/>类型的实例
+            </summary>
+            <param name="next">方法</param>
+        </member>
+        <member name="M:Nigel.Core.Middlewares.AllowCorsRequestMiddleware.Invoke(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            执行中间件拦截逻辑
+            </summary>
+            <param name="context">Http上下文</param>
+        </member>
+        <member name="T:Nigel.Core.Middlewares.ErrorLogMiddleware">
+            <summary>
+            错误日志中间件
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.Middlewares.ErrorLogMiddleware._next">
+            <summary>
+            方法
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Middlewares.ErrorLogMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Logging.ILogger{Nigel.Core.Middlewares.ErrorLogMiddleware})">
+            <summary>
+            初始化一个<see cref="T:Nigel.Core.Middlewares.ErrorLogMiddleware"/>类型的实例
+            </summary>
+            <param name="next">方法</param>
+        </member>
+        <member name="M:Nigel.Core.Middlewares.ErrorLogMiddleware.Invoke(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            执行方法
+            </summary>
+            <param name="context">Http上下文</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.Middlewares.ErrorLogMiddleware.WriteLog(Microsoft.AspNetCore.Http.HttpContext,System.Exception)">
+            <summary>
+            记录错误日志
+            </summary>
+            <param name="context">Http上下文</param>
+            <param name="ex">异常</param>
+        </member>
+        <member name="T:Nigel.Core.Middlewares.IMiddleware">
+            <summary>
+            定义AspNetCore中间件
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Middlewares.IMiddleware.Invoke(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            执行中间件拦截逻辑
+            </summary>
+            <param name="context">Http上下文</param>
+            <returns></returns>
+        </member>
+        <member name="T:Nigel.Core.Middlewares.RealIpMiddleware">
+            <summary>
+            真实IP中间件
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.Middlewares.RealIpMiddleware._next">
+            <summary>
+            方法
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.Middlewares.RealIpMiddleware._options">
+            <summary>
+            真实IP选项
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Middlewares.RealIpMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Options.IOptions{Nigel.Core.Middlewares.RealIpOptions})">
+            <summary>
+            初始化一个<see cref="T:Nigel.Core.Middlewares.RealIpMiddleware"/>类型的实例
+            </summary>
+            <param name="next">方法</param>
+            <param name="options">真实IP选项</param>
+        </member>
+        <member name="M:Nigel.Core.Middlewares.RealIpMiddleware.Invoke(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            执行方法
+            </summary>
+            <param name="context">Http上下文</param>
+            <returns></returns>
+        </member>
+        <member name="T:Nigel.Core.Middlewares.RealIpOptions">
+            <summary>
+            真实IP选项
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Middlewares.RealIpOptions.HeaderKey">
+            <summary>
+            请求头键名
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Middlewares.RealIpFilter">
+            <summary>
+            真实IP过滤器
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Middlewares.RealIpFilter.Configure(System.Action{Microsoft.AspNetCore.Builder.IApplicationBuilder})">
+            <summary>
+            配置
+            </summary>
+            <param name="next">方法</param>
+        </member>
+        <member name="T:Nigel.Core.Middlewares.RequestLogMiddleware">
+            <summary>
+            请求日志中间件
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.Middlewares.RequestLogMiddleware._next">
+            <summary>
+            方法
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Middlewares.RequestLogMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Logging.ILogger{Nigel.Core.Middlewares.RequestLogMiddleware})">
+            <summary>
+            初始化一个<see cref="T:Nigel.Core.Middlewares.RequestLogMiddleware"/>类型的实例
+            </summary>
+            <param name="next">方法</param>
+        </member>
+        <member name="M:Nigel.Core.Middlewares.RequestLogMiddleware.Invoke(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            执行方法
+            </summary>
+            <param name="context">Http上下文</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.Middlewares.RequestLogMiddleware.ExecuteInterception(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            是否执行拦截
+            </summary>
+            <param name="context">Http上下文</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.Middlewares.RequestLogMiddleware.WriteLogAsync(Microsoft.AspNetCore.Http.HttpContext,System.Diagnostics.Stopwatch)">
+            <summary>
+            记录请求日志
+            </summary>
+            <param name="context">Http上下文</param>
+            <param name="stopwatch">计时器</param>
+        </member>
+        <member name="M:Nigel.Core.Middlewares.RequestLogMiddleware.FormatRequestAsync(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            格式化请求内容
+            </summary>
+            <param name="request">Http请求</param>
+        </member>
+        <member name="M:Nigel.Core.Middlewares.RequestLogMiddleware.FormatResponseAsync(Microsoft.AspNetCore.Http.HttpResponse)">
+            <summary>
+            格式化响应内容
+            </summary>
+            <param name="response">Http响应</param>
+        </member>
+        <member name="M:Nigel.Core.Middlewares.RequestLogMiddleware.IgnoreOctetStream(Microsoft.AspNetCore.Http.HttpResponse)">
+            <summary>
+            忽略二进制流
+            </summary>
+            <param name="response">Http响应</param>
+            <returns></returns>
+        </member>
+        <member name="T:Nigel.Core.Properties.LibraryResource">
+            <summary>
+              一个强类型的资源类，用于查找本地化的字符串等。
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Properties.LibraryResource.ResourceManager">
+            <summary>
+              返回此类使用的缓存的 ResourceManager 实例。
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Properties.LibraryResource.Culture">
+            <summary>
+              重写当前线程的 CurrentUICulture 属性
+              重写当前线程的 CurrentUICulture 属性。
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Properties.LibraryResource.ConcurrencyExceptionMessage">
+            <summary>
+              查找类似 当前操作的数据已被其他人修改，请刷新后重试 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Properties.LibraryResource.InvalidIdCard">
+            <summary>
+              查找类似 身份证不正确 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Properties.LibraryResource.InvalidMobilePhone">
+            <summary>
+              查找类似 手机号不正确 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Properties.LibraryResource.NotSupportMoveToChildren">
+            <summary>
+              查找类似 不允许将节点移动到自己或子节点下 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Properties.LibraryResource.OnlyOnePredicate">
+            <summary>
+              查找类似 仅允许添加一个条件,条件：{0} 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Properties.LibraryResource.OrderIsEmptyForPage">
+            <summary>
+              查找类似 分页必须设置排序字段 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Properties.LibraryResource.TableIsEmpty">
+            <summary>
+              查找类似 必须设置表名 的本地化字符串。
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Properties.R">
+            <summary>
+              一个强类型的资源类，用于查找本地化的字符串等。
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Properties.R.ResourceManager">
+            <summary>
+              返回此类使用的缓存的 ResourceManager 实例。
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Properties.R.Culture">
+            <summary>
+              重写当前线程的 CurrentUICulture 属性
+              重写当前线程的 CurrentUICulture 属性。
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Properties.R.CanceledMessage">
+            <summary>
+              查找类似 您已取消该操作 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Properties.R.DeleteSuccess">
+            <summary>
+              查找类似 删除成功 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Properties.R.GlobalDuplicateRequest">
+            <summary>
+              查找类似 其他用户正在执行该操作,请稍后再试 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Properties.R.IdIsEmpty">
+            <summary>
+              查找类似 Id不能为空 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Properties.R.Map_MapperIsNull">
+            <summary>
+              查找类似 MapperExtensions.Mapper不能为空，请先设置值 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Properties.R.Success">
+            <summary>
+              查找类似 操作成功 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Properties.R.SystemError">
+            <summary>
+              查找类似 系统忙，请稍后再试 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Properties.R.UnauthorizedAccessError">
+            <summary>
+              查找类似 授权失败，请重新获取Token 的本地化字符串。
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Properties.R.UserDuplicateRequest">
+            <summary>
+              查找类似 请不要重复提交 的本地化字符串。
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Razors.DefaultRazorHtmlGenerator">
+            <summary>
+            Razor静态Html生成器
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Razors.DefaultRazorHtmlGenerator.#ctor(Microsoft.Extensions.Logging.ILogger{Nigel.Core.Razors.DefaultRazorHtmlGenerator},Nigel.Core.Razors.IRouteAnalyzer)">
+            <summary>
+            初始化一个<see cref="T:Nigel.Core.Razors.DefaultRazorHtmlGenerator"/>类型的实例
+            </summary>
+            <param name="routeAnalyzer">路由分析器</param>
+        </member>
+        <member name="M:Nigel.Core.Razors.DefaultRazorHtmlGenerator.Generate">
+            <summary>
+            生成Html文件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.Razors.DefaultRazorHtmlGenerator.RenderToStringAsync(Nigel.Core.Razors.RouteInformation)">
+            <summary>
+            渲染视图为字符串
+            </summary>
+            <param name="info">路由信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.Razors.DefaultRazorHtmlGenerator.WriteViewToFileAsync(Nigel.Core.Razors.RouteInformation)">
+            <summary>
+            将视图写入文件
+            </summary>
+            <param name="info">路由信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.Razors.DefaultRazorHtmlGenerator.GetPath(Nigel.Core.Razors.RouteInformation)">
+            <summary>
+            获取路径
+            </summary>
+            <param name="info">路由信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.Razors.DefaultRazorHtmlGenerator.GetView(Microsoft.AspNetCore.Mvc.Razor.IRazorViewEngine,Microsoft.AspNetCore.Mvc.ActionContext,Nigel.Core.Razors.RouteInformation)">
+            <summary>
+            获取Razor视图
+            </summary>
+            <param name="razorViewEngine">Razor视图引擎</param>
+            <param name="actionContext">操作上下文</param>
+            <param name="info">路由信息</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.Razors.DefaultRazorHtmlGenerator.GetRouteData(Nigel.Core.Razors.RouteInformation)">
+            <summary>
+            获取路由数据
+            </summary>
+            <param name="info">路由信息</param>
+            <returns></returns>
+        </member>
+        <member name="T:Nigel.Core.Razors.IRazorHtmlGenerator">
+            <summary>
+            Razor Html生成器
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Razors.IRazorHtmlGenerator.Generate">
+            <summary>
+            生成Html文件
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Nigel.Core.Razors.IRouteAnalyzer">
+            <summary>
+            路由分析器
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Razors.IRouteAnalyzer.GetAllRouteInformations">
+            <summary>
+            获取所有路由信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Nigel.Core.Razors.RazorHtmlAttribute">
+            <summary>
+            Razor生成Html静态文件
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Razors.RazorHtmlAttribute.Path">
+            <summary>
+            生成路径，相对根路径，范例：/Typings/app/app.component.html
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Razors.RazorHtmlAttribute.Template">
+            <summary>
+            路径模板，范例：Typings/app/{area}/{controller}/{controller}-{action}.component.html
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Razors.RazorHtmlAttribute.ViewName">
+            <summary>
+            视图名称，范例：/Home/Index
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Razors.RazorHtmlAttribute.IsPartialView">
+            <summary>
+            是否部分视图，默认：false
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Razors.RazorHtmlStaticAttribute">
+            <summary>
+            Razor生成Html静态文件（保存目录为wwwroot）
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Razors.RazorHtmlStaticAttribute.Template">
+            <summary>
+            路径模板，范例：static/{area}/{controller}/{action}.component.html
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Razors.RazorHtmlStaticAttribute.MinInterval">
+            <summary>
+            生成的最小间隔，单位（秒），比如设置5分钟，那么5分钟之内不会再生成
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Razors.RazorHtmlStaticAttribute.IsPartialView">
+            <summary>
+            是否部分视图，默认：false
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Razors.RazorHtmlStaticAttribute.OnResultExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ResultExecutionDelegate)">
+            <summary>
+            结果执行之前 before
+            </summary>
+            <param name="context"></param>
+            <param name="next"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.Razors.RazorHtmlStaticAttribute.OnResultExecuted(Microsoft.AspNetCore.Mvc.Filters.ResultExecutedContext)">
+            <summary>
+            结果执行之后 after
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Nigel.Core.Razors.RazorHtmlStaticAttribute.IsBuildHtml(Microsoft.AspNetCore.Mvc.Filters.ResultExecutedContext)">
+            <summary>
+            根据条件判断是否允许生成HTML
+            </summary>
+            <param name="routes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.Razors.RazorHtmlStaticAttribute.WriteHtml(Microsoft.AspNetCore.Mvc.Filters.ResultExecutedContext,Microsoft.AspNetCore.Mvc.ViewResult)">
+            <summary>
+            写HTML
+            </summary>
+            <param name="context"></param>
+            <param name="viewResult"></param>
+        </member>
+        <member name="T:Nigel.Core.Razors.RouteAnalyzer">
+            <summary>
+            路由分析器
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.Razors.RouteAnalyzer._actionDescriptorCollectionProvider">
+            <summary>
+            操作描述集合提供程序
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Razors.RouteAnalyzer.#ctor(Microsoft.AspNetCore.Mvc.Infrastructure.IActionDescriptorCollectionProvider)">
+            <summary>
+            初始化一个<see cref="T:Nigel.Core.Razors.RouteAnalyzer"/>类型的实例
+            </summary>
+            <param name="actionDescriptorCollectionProvider">操作描述集合提供程序</param>
+        </member>
+        <member name="M:Nigel.Core.Razors.RouteAnalyzer.GetAllRouteInformations">
+            <summary>
+            获取所有路由信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.Razors.RouteAnalyzer.SetHtmlInfo(Nigel.Core.Razors.RouteInformation,Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor)">
+            <summary>
+            设置Html信息
+            </summary>
+            <param name="routeInformation">路由信息</param>
+            <param name="controllerActionDescriptor">控制器</param>
+        </member>
+        <member name="T:Nigel.Core.Razors.RouteInformation">
+            <summary>
+            路由信息
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Razors.RouteInformation.AreaName">
+            <summary>
+            区域名称
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Razors.RouteInformation.ControllerName">
+            <summary>
+            控制器名称
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Razors.RouteInformation.ActionName">
+            <summary>
+            操作名称
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Razors.RouteInformation.Path">
+            <summary>
+            Razor页面路径
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Razors.RouteInformation.Invocation">
+            <summary>
+            调用方法
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Razors.RouteInformation.FilePath">
+            <summary>
+            文件路径
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Razors.RouteInformation.TemplatePath">
+            <summary>
+            模板路径
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Razors.RouteInformation.ViewName">
+            <summary>
+            视图名称
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Razors.RouteInformation.IsPartialView">
+            <summary>
+            是否部分视图
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Result">
+            <summary>
+            返回结果
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Result.code">
+            <summary>
+            状态码
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Result.subCode">
+            <summary>
+            业务状态码
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Result.message">
+            <summary>
+            消息
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Result.data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Result.operationTime">
+            <summary>
+            操作时间
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Result.elapsedTime">
+            <summary>
+            请求耗时
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Result.#ctor(System.Int32,System.String,System.String,System.Object)">
+            <summary>
+            初始化一个<see cref="T:Nigel.Core.Result"/>类型的实例
+            </summary>
+            <param name="code">状态码</param>
+            <param name="subCode">业务状态码</param>
+            <param name="message">消息</param>
+            <param name="data">数据</param>
+        </member>
+        <member name="M:Nigel.Core.Result.#ctor(Nigel.Core.StateCode,System.String,System.String,System.Object)">
+            <summary>
+            初始化返回结果
+            </summary>
+            <param name="code">状态码</param>
+            <param name="subCode">业务状态码</param>
+            <param name="message">消息</param>
+            <param name="data">数据</param>
+        </member>
+        <member name="M:Nigel.Core.Result.ExecuteResultAsync(Microsoft.AspNetCore.Mvc.ActionContext)">
+            <summary>
+            执行结果
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.StateCode">
+            <summary>
+            状态码
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.StateCode.Ok">
+            <summary>
+            成功
+            </summary>
+        </member>
+        <member name="F:Nigel.Core.StateCode.Fail">
+            <summary>
+            失败
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Uploads.DefaultFileUploadService">
+            <summary>
+            默认文件上传服务
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Uploads.DefaultFileUploadService.UploadAsync(Nigel.Core.Uploads.Params.SingleFileUploadParam,System.Threading.CancellationToken)">
+            <summary>
+            上传文件。单文件
+            </summary>
+            <param name="param">参数</param>
+            <param name="cancellationToken">取消令牌</param>
+        </member>
+        <member name="M:Nigel.Core.Uploads.DefaultFileUploadService.SaveAsync(Microsoft.AspNetCore.Http.IFormFile,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            保存文件
+            </summary>
+            <param name="formFile">表单文件</param>
+            <param name="relativePath">相对路径</param>
+            <param name="rootPath">根路径</param>
+            <param name="cancellationToken">取消令牌</param>
+        </member>
+        <member name="M:Nigel.Core.Uploads.DefaultFileUploadService.UploadAsync(Nigel.Core.Uploads.Params.MultipleFileUploadParam,System.Threading.CancellationToken)">
+            <summary>
+            上传文件。多文件
+            </summary>
+            <param name="param">参数</param>
+            <param name="cancellationToken">取消令牌</param>
+        </member>
+        <member name="M:Nigel.Core.Uploads.DefaultFileUploadService.UploadImageAsync(Nigel.Core.Uploads.Params.SingleImageUploadParam,System.Threading.CancellationToken)">
+            <summary>
+            上传图片。单张图片
+            </summary>
+            <param name="param">参数</param>
+            <param name="cancellationToken">取消令牌</param>
+        </member>
+        <member name="M:Nigel.Core.Uploads.DefaultFileUploadService.SaveImageAsync(Microsoft.AspNetCore.Http.IFormFile,System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            保存文件
+            </summary>
+            <param name="formFile">表单文件</param>
+            <param name="relativePath">相对路径</param>
+            <param name="rootPath">根路径</param>
+            <param name="cancellationToken">取消令牌</param>
+        </member>
+        <member name="M:Nigel.Core.Uploads.DefaultFileUploadService.SaveAsync(Microsoft.AspNetCore.Http.IFormFile,System.String,System.Threading.CancellationToken)">
+            <summary>
+            保存文件
+            </summary>
+            <param name="formFile">表单文件</param>
+            <param name="savePath">保存路径</param>
+            <param name="cancellationToken">取消令牌</param>
+        </member>
+        <member name="M:Nigel.Core.Uploads.DefaultFileUploadService.SaveWithMd5Async(Microsoft.AspNetCore.Http.IFormFile,System.String,System.Threading.CancellationToken)">
+            <summary>
+            保存文件并返回文件MD5值
+            </summary>
+            <param name="formFile">表单文件</param>
+            <param name="savePath">保存路径</param>
+            <param name="cancellationToken">取消令牌</param>
+        </member>
+        <member name="M:Nigel.Core.Uploads.DefaultFileUploadService.Md5(System.IO.Stream)">
+            <summary>
+            MD5哈希
+            </summary>
+            <param name="stream">流</param>
+        </member>
+        <member name="T:Nigel.Core.Uploads.IFileUploadService">
+            <summary>
+            文件上传服务
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Uploads.IFileUploadService.UploadAsync(Nigel.Core.Uploads.Params.SingleFileUploadParam,System.Threading.CancellationToken)">
+            <summary>
+            上传文件。单文件
+            </summary>
+            <param name="param">参数</param>
+            <param name="cancellationToken">取消令牌</param>
+        </member>
+        <member name="M:Nigel.Core.Uploads.IFileUploadService.UploadImageAsync(Nigel.Core.Uploads.Params.SingleImageUploadParam,System.Threading.CancellationToken)">
+            <summary>
+            上传图片。单张图片
+            </summary>
+            <param name="param"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.Uploads.IFileUploadService.UploadAsync(Nigel.Core.Uploads.Params.MultipleFileUploadParam,System.Threading.CancellationToken)">
+            <summary>
+            上传文件。多文件
+            </summary>
+            <param name="param">参数</param>
+            <param name="cancellationToken">取消令牌</param>
+        </member>
+        <member name="M:Nigel.Core.Uploads.IFileUploadService.SaveAsync(Microsoft.AspNetCore.Http.IFormFile,System.String,System.Threading.CancellationToken)">
+            <summary>
+            保存文件
+            </summary>
+            <param name="formFile">表单文件</param>
+            <param name="savePath">保存路径</param>
+            <param name="cancellationToken">取消令牌</param>
+        </member>
+        <member name="M:Nigel.Core.Uploads.IFileUploadService.SaveWithMd5Async(Microsoft.AspNetCore.Http.IFormFile,System.String,System.Threading.CancellationToken)">
+            <summary>
+            保存文件并返回文件MD5值
+            </summary>
+            <param name="formFile">表单文件</param>
+            <param name="savePath">保存路径</param>
+            <param name="cancellationToken">取消令牌</param>
+        </member>
+        <member name="T:Nigel.Core.Uploads.Params.MultipleFileUploadParam">
+            <summary>
+            多文件上传参数
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Uploads.Params.MultipleFileUploadParam.Request">
+            <summary>
+            当前请求
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Uploads.Params.MultipleFileUploadParam.FormFiles">
+            <summary>
+            上传的文件对象
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Uploads.Params.MultipleFileUploadParam.RootPath">
+            <summary>
+            存储根路径
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Uploads.Params.MultipleFileUploadParam.Module">
+            <summary>
+            模块名称
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Uploads.Params.MultipleFileUploadParam.Group">
+            <summary>
+            分组
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Uploads.Params.MultipleFileUploadParam.FullPath">
+            <summary>
+            完整目录
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Uploads.Params.MultipleFileUploadParam.RelativePath">
+            <summary>
+            相对目录
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Uploads.Params.SingleFileUploadParam">
+            <summary>
+            单文件上传参数
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Uploads.Params.SingleFileUploadParam.Request">
+            <summary>
+            当前请求
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Uploads.Params.SingleFileUploadParam.FormFile">
+            <summary>
+            上传的文件对象
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Uploads.Params.SingleFileUploadParam.RootPath">
+            <summary>
+            存储根路径
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Uploads.Params.SingleFileUploadParam.Module">
+            <summary>
+            模块名称
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Uploads.Params.SingleFileUploadParam.Group">
+            <summary>
+            分组
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Uploads.Params.SingleFileUploadParam.FullPath">
+            <summary>
+            完整目录
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Uploads.Params.SingleFileUploadParam.RelativePath">
+            <summary>
+            相对目录
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Uploads.Params.SingleImageUploadParam.Extensions">
+            <summary>
+            允许上传的文件扩展名
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Uploads.Params.SingleImageUploadParam.Size">
+            <summary>
+            允许上传的图片文件大小，默认2M
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Uploads.Params.SingleImageUploadParam.IsCutOriginal">
+            <summary>
+            是否裁剪原图
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Uploads.Params.SingleImageUploadParam.OriginalWidth">
+            <summary>
+            裁剪原图的宽度
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Uploads.Params.SingleImageUploadParam.OriginalHeight">
+            <summary>
+            裁剪原图的高度
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Uploads.Params.SingleImageUploadParam.ThumbCutMode">
+            <summary>
+            缩略图裁剪方式（原图不动，若设置了裁剪尺寸，则启用该选项）
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Uploads.Params.SingleImageUploadParam.Thumbs">
+            <summary>
+            裁剪缩略图尺寸 item = 300x400
+            </summary>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.ServiceCollectionConfigurationExtensions">
+            <summary>
+            服务集合 - 配置 扩展
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionConfigurationExtensions.ReplaceConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            替换配置
+            </summary>
+            <param name="services">服务集合</param>
+            <param name="configuration">配置</param>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionConfigurationExtensions.GetConfiguration(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            获取配置
+            </summary>
+            <param name="services">服务集合</param>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions">
+            <summary>
+            服务集合(<see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>) 扩展
+            </summary>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.ServiceCollectionCommonExtensions">
+            <summary>
+            服务集合 - 通用 扩展
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionCommonExtensions.IsAdded``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            是否已注册指定类型
+            </summary>
+            <typeparam name="T">类型</typeparam>
+            <param name="services">服务集合</param>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionCommonExtensions.IsAdded(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type)">
+            <summary>
+            是否已注册指定类型
+            </summary>
+            <param name="services">服务集合</param>
+            <param name="type">类型</param>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionCommonExtensions.GetSingletonInstanceOrNull``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            获取单例注册服务对象
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="services">服务集合</param>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionCommonExtensions.GetSingletonInstance``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            获取单例注册服务对象
+            </summary>
+            <typeparam name="T">对象类型</typeparam>
+            <param name="services">服务集合</param>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionCommonExtensions.GetOrAdd(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.DependencyInjection.ServiceDescriptor)">
+            <summary>
+            如果指定服务不存在，则添加指定服务
+            </summary>
+            <param name="services">服务集合</param>
+            <param name="toAddDescriptor">服务描述</param>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionCommonExtensions.GetOrAddTypeFinder``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{Nigel.Core.Reflections.IAllAssemblyFinder,``0})">
+            <summary>
+            获取或添加指定类型查找器
+            </summary>
+            <typeparam name="TTypeFinder">类型查找器类型</typeparam>
+            <param name="services">服务集合</param>
+            <param name="factory">实例工厂</param>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionCommonExtensions.GetOrAddSingletonInstance``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Func{``0})">
+            <summary>
+            如果指定服务不存在，创建实例并添加
+            </summary>
+            <typeparam name="TServiceType">服务类型</typeparam>
+            <param name="services">服务集合</param>
+            <param name="factory">实例工厂</param>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.ServiceCollectionCommonExtensions.BatchRegisterService(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Type[],Microsoft.Extensions.DependencyInjection.ServiceLifetime)">
+            <summary>
+            批量注册服务
+            </summary>
+            <param name="services">服务集合</param>
+            <param name="types">类型集合</param>
+            <param name="serviceLifetime">服务生命周期</param>
+        </member>
+    </members>
+</doc>

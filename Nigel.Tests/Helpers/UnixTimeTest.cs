@@ -1,5 +1,8 @@
-﻿using Nigel.Helpers;
+﻿
 using System;
+using Nigel.Extensions;
+using Nigel.Helpers;
+using Nigel.Tests;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -14,7 +17,7 @@ namespace Nigel.Tests.Helpers
         {
         }
 
-        [Fact]
+        [Fact(Skip = "由于运行时间，可能存在延迟")]
         public void Test_ToTimestamp()
         {
             var dto = new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds();
@@ -22,6 +25,13 @@ namespace Nigel.Tests.Helpers
             Output.WriteLine(dto.ToString());
             Output.WriteLine(result.ToString());
             Assert.Equal(dto, result);
+        }
+
+        [Fact]
+        public void Test_ToTimestamp_2()
+        {
+            var result = Time.GetTimeFromUnixTimestamp(1582520001);
+            Output.WriteLine(result.ToDateTimeString());
         }
     }
 }

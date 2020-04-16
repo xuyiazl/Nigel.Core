@@ -1,6 +1,6 @@
 ﻿using Nigel.Extensions;
+using Nigel.Tests;
 using Xunit;
-using Xunit.Abstractions;
 
 // ReSharper disable once CheckNamespace
 namespace Nigel.Tests.Extensions
@@ -10,12 +10,8 @@ namespace Nigel.Tests.Extensions
     /// </summary>
     public partial class ExtensionsTest : TestBase
     {
-        public ExtensionsTest(ITestOutputHelper output) : base(output)
-        {
-        }
-
         /// <summary>
-        /// 测试获取布尔值描述
+        /// 测试 - 获取布尔值描述
         /// </summary>
         [Fact]
         public void Test_Description_Bool()

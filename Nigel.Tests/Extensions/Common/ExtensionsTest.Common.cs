@@ -1,8 +1,9 @@
-﻿using Nigel.Extensions;
-using Nigel.Tests.Samples;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Nigel.Extensions;
+using Nigel.Tests;
+using Nigel.Tests.Samples;
 using Xunit;
 
 // ReSharper disable once CheckNamespace

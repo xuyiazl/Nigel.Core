@@ -1,6 +1,6 @@
-﻿using Nigel.Extensions;
+﻿using System.Collections.Generic;
+using Nigel.Extensions;
 using Shouldly;
-using System.Collections.Generic;
 using Xunit;
 
 namespace Nigel.Tests.Extensions
@@ -38,7 +38,7 @@ namespace Nigel.Tests.Extensions
         public void Test_AddIfNotContains_With_Collection()
         {
             var collection = new List<int> { 4, 5, 6 };
-            var one = new List<int> { 4, 5, 6 };
+            var one= new List<int> { 4, 5, 6 };
             var two = new List<int> { 6, 7, 8 };
             var three = new List<int> { 9, 10, 11 };
 
@@ -58,7 +58,7 @@ namespace Nigel.Tests.Extensions
         [Fact]
         public void Test_AddIfNotContains_With_Predicate()
         {
-            var collection = new List<int> { 4, 5, 6 };
+            var collection = new List<int>{ 4,5,6 };
 
             collection.AddIfNotContains(x => x == 5, () => 5);
             collection.Count.ShouldBe(3);

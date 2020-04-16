@@ -1,13 +1,15 @@
-﻿using Nigel.Helpers;
+﻿using Nigel.Tests;
+using Nigel.Helpers;
 using Xunit;
 using Xunit.Abstractions;
+using Str = Nigel.Helpers.Str;
 
 namespace Nigel.Tests.Helpers
 {
     /// <summary>
     /// 字符串操作测试
     /// </summary>
-    public class StrTest : TestBase
+    public class StrTest:TestBase
     {
         public StrTest(ITestOutputHelper output) : base(output)
         {

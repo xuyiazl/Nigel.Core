@@ -1,4 +1,5 @@
 ﻿using Nigel.Helpers;
+using Nigel.Tests;
 using Xunit;
 using Xunit.Abstractions;
 

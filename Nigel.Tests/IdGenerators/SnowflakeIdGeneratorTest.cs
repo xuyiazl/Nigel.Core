@@ -1,65 +1,55 @@
-﻿using Nigel.Develops;
-using Nigel.IdGenerators.Core;
+﻿using System;
 using System.Collections.Generic;
+using System.Text;
+using Nigel.Tests;
+using Nigel.Develops;
+using Nigel.IdGenerators.Core;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace Nigel.Tests.IdGenerators
 {
-    public class SnowflakeIdGeneratorTest : TestBase
+    public class SnowflakeIdGeneratorTest:TestBase
     {
         public SnowflakeIdGeneratorTest(ITestOutputHelper output) : base(output)
         {
-            CodeTimer.Initialize();
         }
 
         [Fact]
         public void Test_Create()
         {
-            CodeTimer.CodeExecuteTime(() =>
-            {
-                var result = SnowflakeIdGenerator.Current.Create();
-                Output.WriteLine(result.ToString());
-            });
+            var result = SnowflakeIdGenerator.Current.Create();
+            Output.WriteLine(result.ToString());
         }
 
         [Fact]
         public void Test_Create_100()
         {
-            CodeTimer.CodeExecuteTime(() =>
+            for (int i = 0; i < 100; i++)
             {
-                for (int i = 0; i < 100; i++)
-                {
-                    var result = SnowflakeIdGenerator.Current.Create();
-                    Output.WriteLine(result.ToString());
-                }
-            });
+                var result = SnowflakeIdGenerator.Current.Create();
+                Output.WriteLine(result.ToString());
+            }
         }
 
         [Fact]
         public void Test_Create_1000()
         {
-            CodeTimer.CodeExecuteTime(() =>
+            for (int i = 0; i < 1000; i++)
             {
-                for (int i = 0; i < 1000; i++)
-                {
-                    var result = SnowflakeIdGenerator.Current.Create();
-                    Output.WriteLine(result.ToString());
-                }
-            });
+                var result = SnowflakeIdGenerator.Current.Create();
+                Output.WriteLine(result.ToString());
+            }
         }
 
         [Fact]
         public void Test_Create_10000()
         {
-            CodeTimer.CodeExecuteTime(() =>
+            for (int i = 0; i < 10000; i++)
             {
-                for (int i = 0; i < 10000; i++)
-                {
-                    var result = SnowflakeIdGenerator.Current.Create();
-                    Output.WriteLine(result.ToString());
-                }
-            });
+                var result = SnowflakeIdGenerator.Current.Create();
+                Output.WriteLine(result.ToString());
+            }
         }
 
         [Fact]
@@ -74,34 +64,31 @@ namespace Nigel.Tests.IdGenerators
             UnitTester.TestConcurrency(() =>
             {
                 Create(1000000);
-            }, 10);
-            Output.WriteLine("数量：" + _set.Count);
+            },10);
+            Output.WriteLine("数量："+_set.Count);
         }
 
-        private static object _lock = new object();
+        private static object _lock=new object();
 
-        private static HashSet<long> _set = new HashSet<long>();
+        private static HashSet<long> _set= new HashSet<long>();
 
         private void Create(long length)
         {
-            CodeTimer.CodeExecuteTime(() =>
+            for (int i = 0; i < length; i++)
             {
-                for (int i = 0; i < length; i++)
+                var result = SnowflakeIdGenerator.Current.Create();
+                lock (_lock)
                 {
-                    var result = SnowflakeIdGenerator.Current.Create();
-                    lock (_lock)
+                    if (_set.Contains(result))
                     {
-                        if (_set.Contains(result))
-                        {
-                            Output.WriteLine("发现重复项：{0}", result);
-                        }
-                        else
-                        {
-                            _set.Add(result);
-                        }
+                        Output.WriteLine("发现重复项：{0}", result);
+                    }
+                    else
+                    {
+                        _set.Add(result);
                     }
                 }
-            });
+            }
         }
     }
 }

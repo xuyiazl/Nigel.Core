@@ -10,7 +10,7 @@
     <Company>Nigel</Company>
     <Description>.NET Core Common</Description>
     <Copyright>Copyright © Nigel 2020</Copyright>
-    <Version>1.0.5</Version>
+    <Version>1.0.6</Version>
     <PackageId>Nigel.Data</PackageId>
     <Product>Nigel.Data</Product>
     <PackageIconUrl>http://www.3624091.com/favicon.ico</PackageIconUrl>
@@ -18,12 +18,12 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>obj\Release\netstandard2.1\Nigel.Data.xml</DocumentationFile>
+    <DocumentationFile>Nigel.Data.xml</DocumentationFile>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>obj\Release\netstandard2.1\Nigel.Data.xml</DocumentationFile>
+    <DocumentationFile>Nigel.Data.xml</DocumentationFile>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 

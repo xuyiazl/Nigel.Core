@@ -1,11 +1,13 @@
-﻿using Nigel.Extensions;
-using Nigel.Helpers;
-using Nigel.Tests.Samples;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Nigel.Extensions;
+using Nigel.Helpers;
+using Nigel.Tests;
+using Nigel.Tests.Samples;
 using Xunit;
 using Xunit.Abstractions;
+using Enum = Nigel.Helpers.Enum;
 
 namespace Nigel.Tests.Helpers
 {
@@ -239,7 +241,7 @@ namespace Nigel.Tests.Helpers
             var test1 = new Sample { NullableEnumValue = EnumSample.C };
 
             Expression<Func<Sample, bool>> expression = test => test.EnumValue == EnumSample.D;
-            Assert.Equal(EnumSample.D.Value(), Nigel.Helpers.Enum.GetValue<EnumSample>(Lambda.GetValue(expression)));
+            Assert.Equal(EnumSample.D.Value(), Enum.GetValue<EnumSample>(Lambda.GetValue(expression)));
 
             expression = test => test.EnumValue == test1.NullableEnumValue;
             Assert.Equal(EnumSample.C, Lambda.GetValue(expression));
@@ -288,6 +290,6 @@ namespace Nigel.Tests.Helpers
             Assert.Equal("TestStaticSample", Lambda.GetValue(expression));
         }
 
-        #endregion GetValue(获取成员值)
+        #endregion
     }
 }

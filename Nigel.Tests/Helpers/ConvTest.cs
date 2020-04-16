@@ -1,4 +1,6 @@
 ﻿using Nigel.Helpers;
+using Nigel.Tests;
+using Nigel.Helpers;
 using Xunit;
 using Xunit.Abstractions;
 

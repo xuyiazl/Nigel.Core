@@ -1,6 +1,6 @@
-﻿using Nigel.Extensions;
+﻿using System;
+using Nigel.Extensions;
 using Nigel.Helpers;
-using System;
 using Xunit;
 
 // ReSharper disable once CheckNamespace
@@ -12,44 +12,44 @@ namespace Nigel.Tests.Extensions
     public partial class ExtensionsTest
     {
         /// <summary>
-        /// 测试获取格式化日期时间字符串
+        /// 测试 - 获取格式化日期时间字符串
         /// </summary>
         [Fact]
         public void Test_ToDateTimeString()
         {
             string date = "2018-03-12 15:00:00";
-            Assert.Equal(date, Conv.ToDate(date).ToDateTimeString());
-            Assert.Equal("2018-03-12 15:00", Conv.ToDate(date).ToDateTimeString(true));
-            Assert.Equal("", Conv.ToDateOrNull("").ToDateTimeString());
+            Assert.Equal(date,Conv.ToDate(date).ToDateTimeString());
+            Assert.Equal("2018-03-12 15:00",Conv.ToDate(date).ToDateTimeString(true));
+            Assert.Equal("",Conv.ToDateOrNull("").ToDateTimeString());
             Assert.Equal(date, Conv.ToDateOrNull(date).ToDateTimeString());
         }
 
         /// <summary>
-        /// 测试获取格式化日期字符串
+        /// 测试 - 获取格式化日期字符串
         /// </summary>
         [Fact]
         public void Test_ToDateString()
         {
             string date = "2018-03-12";
-            Assert.Equal(date, Conv.ToDate(date).ToDateString());
-            Assert.Equal("", Conv.ToDateOrNull("").ToDateString());
-            Assert.Equal(date, Conv.ToDateOrNull(date).ToDateString());
+            Assert.Equal(date,Conv.ToDate(date).ToDateString());
+            Assert.Equal("",Conv.ToDateOrNull("").ToDateString());
+            Assert.Equal(date,Conv.ToDateOrNull(date).ToDateString());
         }
 
         /// <summary>
-        /// 测试获取格式化时间字符串
+        /// 测试 - 获取格式化时间字符串
         /// </summary>
         [Fact]
         public void Test_ToTimeString()
         {
             string date = "2018-03-12 11:11:11";
-            Assert.Equal("11:11:11", Conv.ToDate(date).ToTimeString());
-            Assert.Equal("", Conv.ToDateOrNull("").ToTimeString());
-            Assert.Equal("11:11:11", Conv.ToDateOrNull(date).ToTimeString());
+            Assert.Equal("11:11:11",Conv.ToDate(date).ToTimeString());
+            Assert.Equal("",Conv.ToDateOrNull("").ToTimeString());
+            Assert.Equal("11:11:11",Conv.ToDateOrNull(date).ToTimeString());
         }
 
         /// <summary>
-        /// 测试获取格式化毫秒字符串
+        /// 测试 - 获取格式化毫秒字符串
         /// </summary>
         [Fact]
         public void Test_ToMillisecondString()
@@ -61,7 +61,7 @@ namespace Nigel.Tests.Extensions
         }
 
         /// <summary>
-        /// 测试获取格式化中文日期字符串
+        /// 测试 - 获取格式化中文日期字符串
         /// </summary>
         [Fact]
         public void Test_ToChineseDateString()
@@ -74,7 +74,7 @@ namespace Nigel.Tests.Extensions
         }
 
         /// <summary>
-        /// 测试获取格式化中文日期时间字符串
+        /// 测试 - 获取格式化中文日期时间字符串
         /// </summary>
         [Fact]
         public void Test_ToChineseDateTimeString()
@@ -89,10 +89,10 @@ namespace Nigel.Tests.Extensions
         }
 
         /// <summary>
-        /// 测试获取时间间隔描述
+        /// 测试 - 获取时间间隔描述
         /// </summary>
         [Fact]
-        public void Test_Description_Sapn()
+        public void Test_Description_Span()
         {
             TimeSpan span = new DateTime(2000, 1, 1, 1, 0, 1) - new DateTime(2000, 1, 1, 1, 0, 0);
             Assert.Equal("1秒", span.Description());

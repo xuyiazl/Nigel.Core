@@ -1,8 +1,14 @@
-﻿using Nigel.Extensions;
-using Nigel.Helpers;
+﻿using System;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Nigel.Helpers;
+using Nigel.Tests;
+using Nigel.Develops;
+using Nigel.Extensions;
+using Nigel.Helpers;
+using Nigel.IO;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -11,7 +17,7 @@ namespace Nigel.Tests.Helpers
     /// <summary>
     /// Web操作测试
     /// </summary>
-    public class WebTest : TestBase
+    public class WebTest:TestBase
     {
         public WebTest(ITestOutputHelper output) : base(output)
         {
@@ -20,7 +26,7 @@ namespace Nigel.Tests.Helpers
         /// <summary>
         /// 测试客户端上传文件
         /// </summary>
-        [Fact]
+        [Fact(Skip = "未设置上传地址")]
         public async Task Test_Client_UploadFile()
         {
             var result = await Web.Client()
@@ -49,6 +55,7 @@ namespace Nigel.Tests.Helpers
         private async Task WriteFile(string url)
         {
             var path = @"D:\Test\File\";
+            DirectoryHelper.CreateIfNotExists(path);
             var result = await Web.Client()
                 .Get(url)
                 .ResultAsync();

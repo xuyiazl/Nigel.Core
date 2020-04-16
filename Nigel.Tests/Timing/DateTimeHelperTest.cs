@@ -1,5 +1,6 @@
-﻿using Nigel.Timing;
-using System;
+﻿using System;
+using System.Text;
+using Nigel.Timing;
 using Xunit;
 
 namespace Nigel.Tests.Timing

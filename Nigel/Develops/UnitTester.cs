@@ -50,6 +50,6 @@ namespace Nigel.Develops
             WriteLine(string.Format("执行完成,即将退出，耗时：{0}秒", stopwatch.Elapsed.TotalSeconds));
         }
 
-        #endregion TestConcurrency(并发测试)
+        #endregion
     }
 }

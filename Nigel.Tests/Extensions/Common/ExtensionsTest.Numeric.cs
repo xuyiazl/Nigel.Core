@@ -1,7 +1,8 @@
-﻿using Nigel.Extensions.Common;
+﻿using Nigel.Extensions;
 using Xunit;
 
-namespace Nigel.Tests.Extensions.Common
+// ReSharper disable once CheckNamespace
+namespace Nigel.Tests.Extensions
 {
     /// <summary>
     /// 系统扩展测试 - 数字
