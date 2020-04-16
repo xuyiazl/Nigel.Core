@@ -12,7 +12,7 @@
 		<Company>Nigel</Company>
 		<Description>.NET Core Common</Description>
 		<Copyright>Copyright © Nigel 2020</Copyright>
-		<Version>1.0.8</Version>
+		<Version>1.0.9</Version>
 		<PackageId>Nigel</PackageId>
 		<Product>Nigel</Product>
 		<PackageIconUrl>http://www.3624091.com/favicon.ico</PackageIconUrl>
@@ -30,6 +30,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="MessagePack" Version="2.1.115" />
 		<PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
 		<PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.2.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />

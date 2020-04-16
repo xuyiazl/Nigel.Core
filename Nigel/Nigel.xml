@@ -14908,6 +14908,101 @@
             <param name="list"></param>
             <returns></returns>
         </member>
+        <member name="T:Nigel.Json.MessagePackExtensions">
+            <summary>
+            MessagePack辅助扩展操作
+            </summary>
+        </member>
+        <member name="M:Nigel.Json.MessagePackExtensions.ToMsgPackJson(System.Object,MessagePack.MessagePackSerializerOptions,System.Threading.CancellationToken)">
+            <summary>
+            将对象转换为MessagePack Json字符串
+            </summary>
+            <param name="target">目标对象</param>
+            <param name="options"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Json.MessagePackExtensions.ToMsgPackBytesFromJson(System.String,MessagePack.MessagePackSerializerOptions,System.Threading.CancellationToken)">
+            <summary>
+            将对象转换为MessagePack Bytes
+            </summary>
+            <param name="json">MessagePack Json字符串</param>
+            <param name="options"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Json.MessagePackExtensions.ToMsgPackJsonFromBytes(System.Byte[],MessagePack.MessagePackSerializerOptions,System.Threading.CancellationToken)">
+            <summary>
+            将对象转换为MessagePack Bytes
+            </summary>
+            <param name="bytes"></param>
+            <param name="options"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Json.MessagePackExtensions.ToMsgPackBytes(System.Object,MessagePack.MessagePackSerializerOptions,System.Threading.CancellationToken)">
+            <summary>
+            将对象转换为MessagePack Bytes
+            </summary>
+            <param name="target">目标对象</param>
+            <param name="options"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Json.MessagePackExtensions.ToMsgPackObject``1(System.Byte[],MessagePack.MessagePackSerializerOptions,System.Threading.CancellationToken)">
+            <summary>
+            将MessagePack Bytes转换为对象
+            </summary>
+            <param name="bytes"></param>
+            <param name="options"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Json.MessagePackHelper.ToJson(System.Object,MessagePack.MessagePackSerializerOptions,System.Threading.CancellationToken)">
+            <summary>
+            将对象转换为MessagePack Json字符串
+            </summary>
+            <param name="target">目标对象</param>
+            <param name="options"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Json.MessagePackHelper.ToBytesFromJson(System.String,MessagePack.MessagePackSerializerOptions,System.Threading.CancellationToken)">
+            <summary>
+            将对象转换为MessagePack Bytes
+            </summary>
+            <param name="json">MessagePack Json字符串</param>
+            <param name="options"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Json.MessagePackHelper.ToJsonFromBytes(System.Byte[],MessagePack.MessagePackSerializerOptions,System.Threading.CancellationToken)">
+            <summary>
+            将对象转换为MessagePack Bytes
+            </summary>
+            <param name="bytes"></param>
+            <param name="options"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Json.MessagePackHelper.ToBytes(System.Object,MessagePack.MessagePackSerializerOptions,System.Threading.CancellationToken)">
+            <summary>
+            将对象转换为MessagePack Bytes
+            </summary>
+            <param name="target">目标对象</param>
+            <param name="options"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Json.MessagePackHelper.ToObject``1(System.Byte[],MessagePack.MessagePackSerializerOptions,System.Threading.CancellationToken)">
+            <summary>
+            将MessagePack Bytes转换为对象
+            </summary>
+            <param name="bytes"></param>
+            <param name="options"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
         <member name="T:Nigel.NullDisposable">
             <summary>
             空释放
