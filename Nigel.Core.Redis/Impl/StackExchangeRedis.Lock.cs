@@ -11,14 +11,14 @@ using Nigel.Helpers;
 
 namespace Nigel.Core.Redis
 {
-    public abstract partial class StackExchangeRedis : IStringRedisCommand
+    public abstract partial class StackExchangeRedis : ILockRedisCommand
     {
 
-        public bool LockExtend(string key, string value, int seconds, string connectionName = null)
+        public bool LockExtend<T>(string key, T value, int seconds, string connectionName = null)
         {
             return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                return db.LockExtend(key, value, TimeSpan.FromSeconds(seconds));
+                return db.LockExtend(key, redisSerializer.Serializer(value), TimeSpan.FromSeconds(seconds));
             });
         }
 
@@ -30,19 +30,19 @@ namespace Nigel.Core.Redis
             });
         }
 
-        public bool LockRelease(string key, string value, string connectionName = null)
+        public bool LockRelease<T>(string key, T value, string connectionName = null)
         {
             return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
           {
-              return db.LockRelease(key, value);
+              return db.LockRelease(key, redisSerializer.Serializer(value));
           });
         }
 
-        public bool LockTake(string key, string value, int seconds, string connectionName = null)
+        public bool LockTake<T>(string key, T value, int seconds, string connectionName = null)
         {
             return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
           {
-              return db.LockTake(key, value, TimeSpan.FromSeconds(seconds));
+              return db.LockTake(key, redisSerializer.Serializer(value), TimeSpan.FromSeconds(seconds));
           });
         }
     }

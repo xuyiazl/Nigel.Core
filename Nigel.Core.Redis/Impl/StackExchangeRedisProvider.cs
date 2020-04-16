@@ -10,7 +10,7 @@ namespace Nigel.Core.Redis
     /// </summary>
     public class StackExchangeRedisProvider : StackExchangeRedis, IStackExchangeRedis
     {
-        public StackExchangeRedisProvider(IConfiguration configuration) : base(configuration)
+        public StackExchangeRedisProvider(IConfiguration configuration, IRedisSerializer redisSerializer) : base(configuration, redisSerializer)
         {
             // 读取配置文件中的Redis字符串信息
             if (connMultiplexer == null)

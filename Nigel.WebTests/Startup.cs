@@ -54,7 +54,7 @@ namespace Nigel.WebTests
             #endregion
 
             //DI ×¢Èëdb³Ö¾Ã²ãÒµÎñÂß¼­
-            services.Scan(scan =>            
+            services.Scan(scan =>
                scan.FromAssemblyOf<IDbDependencyService>()
                .AddClasses(impl => impl.AssignableTo(typeof(IDbDependencyService)))
                .AsImplementedInterfaces()
@@ -64,7 +64,7 @@ namespace Nigel.WebTests
 
             services.AddHttpService<HttpService>();
 
-            services.AddRedisService();
+            services.AddRedisService().AddJsonRedisSerializer();
 
             //×¢²árazor¾²Ì¬HTMLÉú³ÉÆ÷
             services.AddRazorHtml();

@@ -13,7 +13,7 @@ namespace Nigel.Core.Redis
 {
     public abstract partial class StackExchangeRedis : IStringRedisCommand
     {
-        public TResult StringGetOrInsert<TResult>(string key, int seconds, string connectionRead, string connectionWrite, Func<TResult> fetcher)
+        public TResult StringGetOrInsert<TResult>(string key, Func<TResult> fetcher, int seconds = 0, string connectionRead = null, string connectionWrite = null)
         {
             if (!KeyExists(key, connectionRead))
             {
@@ -28,7 +28,7 @@ namespace Nigel.Core.Redis
             }
         }
 
-        public TResult StringGetOrInsert<T, TResult>(string key, int seconds, string connectionRead, string connectionWrite, Func<T, TResult> fetcher, T t)
+        public TResult StringGetOrInsert<T, TResult>(string key, Func<T, TResult> fetcher, T t, int seconds = 0, string connectionRead = null, string connectionWrite = null)
         {
             if (!KeyExists(key, connectionRead))
             {
@@ -47,21 +47,10 @@ namespace Nigel.Core.Redis
         {
             return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                if (value == null) return false;
-                if (value.GetType() == typeof(string))
-                {
-                    if (seconds > 0)
-                        return db.StringSet(key, value.SafeString(), TimeSpan.FromSeconds(seconds));
-                    else
-                        return db.StringSet(key, value.SafeString());
-                }
+                if (seconds > 0)
+                    return db.StringSet(key, redisSerializer.Serializer(value), TimeSpan.FromSeconds(seconds));
                 else
-                {
-                    if (seconds > 0)
-                        return db.StringSet(key, value.ToJson(), TimeSpan.FromSeconds(seconds));
-                    else
-                        return db.StringSet(key, value.ToJson());
-                }
+                    return db.StringSet(key, redisSerializer.Serializer(value));
             });
         }
 
@@ -77,13 +66,13 @@ namespace Nigel.Core.Redis
         {
             return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
-                string value = db.StringGet(key);
+                var value = db.StringGet(key);
 
-                return value.ToObject<TResult>();
+                return redisSerializer.Deserialize<TResult>(value);
             });
         }
 
-        public List<string> StringGet(string[] keys, string connectionName = null)
+        public IList<TResult> StringGet<TResult>(string[] keys, string connectionName = null)
         {
             return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
@@ -94,23 +83,8 @@ namespace Nigel.Core.Redis
                 }
 
                 var redisValue = db.StringGet(redisKey);
-                return redisValue.ToStringArray().ToList();
-            });
-        }
 
-        public List<TResult> StringGetNotNullOrEmpty<TResult>(string[] keys, string connectionName = null)
-        {
-            return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
-            {
-                RedisKey[] redisKey = new RedisKey[keys.Length];
-                for (int i = 0; i < redisKey.Length; i++)
-                {
-                    redisKey[i] = keys[i];
-                }
-
-                var redisValue = db.StringGet(redisKey);
-                var json = redisValue.ToStringArray().ToJsonNotNullOrEmpty();
-                return json.ToObject<List<TResult>>();
+                return redisSerializer.Deserialize<TResult>(redisValue);
             });
         }
     }

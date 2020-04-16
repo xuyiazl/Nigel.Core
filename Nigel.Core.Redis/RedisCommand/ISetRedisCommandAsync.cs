@@ -26,7 +26,7 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <param name="key">集合key</param>
         /// <param name="connectionName"></param>
         /// <returns></returns>
-        Task<string[]> SetMembersAsync(string key, string connectionName = null);
+        Task<IList<T>> SetMembersAsync<T>(string key, string connectionName = null);
         /// <summary>
         /// 查看集合里面是否有该内容
         /// </summary>

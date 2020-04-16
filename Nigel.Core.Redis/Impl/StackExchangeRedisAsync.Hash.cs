@@ -11,19 +11,15 @@ namespace Nigel.Core.Redis
 {
     public abstract partial class StackExchangeRedis : IHashRedisCommandAsync
     {
-        public async Task<bool> HashSetAsync<T>(string hasId, string key, T value, string connectionName = null)
+        public async Task<bool> HashSetAsync<T>(string hashId, string key, T value, string connectionName = null)
         {
             return await ExecuteCommand(ConnectTypeEnum.Write, connectionName, async (db) =>
-               {
-                   if (value == null) return false;
-                   if (value.GetType() == typeof(string))
-                       return await db.HashSetAsync(hasId, key, value.SafeString());
-                   else
-                       return await db.HashSetAsync(hasId, key, value.ToJson());
-               });
+            {
+                return await db.HashSetAsync(hashId, key, redisSerializer.Serializer(value));
+            });
         }
 
-        public async Task<bool> HashSetAsync<T>(string hashId, string Key, T value, OverWrittenTypeDenum isAlways = OverWrittenTypeDenum.Always, string connectionName = null)
+        public async Task<bool> HashSetAsync<T>(string hashId, string key, T value, OverWrittenTypeDenum isAlways, string connectionName = null)
         {
             return await ExecuteCommand(ConnectTypeEnum.Write, connectionName, async (db) =>
              {
@@ -41,16 +37,9 @@ namespace Nigel.Core.Redis
                          break;
                  }
 
-                 if (value == null) return false;
-                 if (value.GetType() == typeof(string))
-                     return await db.HashSetAsync(hashId, Key, value.SafeString(), when);
-                 else
-                     return await db.HashSetAsync(hashId, Key, value.ToJson(), when);
+                 return await db.HashSetAsync(hashId, key, redisSerializer.Serializer(value), when);
              });
         }
-
-        public async Task<TResult> HashGetOrInsertAsync<TResult>(string hashId, string key, Func<TResult> fetcher, string connectionRead = null, string connectionWrite = null)
-            => await HashGetOrInsertAsync<TResult>(hashId, key, fetcher, 0, connectionRead, connectionWrite);
 
         public async Task<TResult> HashGetOrInsertAsync<TResult>(string hashId, string key, Func<TResult> fetcher, int seconds = 0, string connectionRead = null, string connectionWrite = null)
         {
@@ -81,9 +70,6 @@ namespace Nigel.Core.Redis
                 return await HashGetAsync<TResult>(hashId, key, connectionRead);
             }
         }
-
-        public async Task<TResult> HashGetOrInsertAsync<T, TResult>(string hashId, string key, Func<T, TResult> fetcher, T t, string connectionRead = null, string connectionWrite = null)
-            => await HashGetOrInsertAsync<T, TResult>(hashId, key, fetcher, t, 0, connectionRead, connectionWrite);
 
         public async Task<TResult> HashGetOrInsertAsync<T, TResult>(string hashId, string key, Func<T, TResult> fetcher, T t, int seconds = 0, string connectionRead = null, string connectionWrite = null)
         {
@@ -118,9 +104,9 @@ namespace Nigel.Core.Redis
         {
             return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
-                string obj = await db.HashGetAsync(hashId, key);
-                if (obj == null) return default;
-                return obj.SafeString().ToObject<TResult>();
+                var res = await db.HashGetAsync(hashId, key);
+
+                return redisSerializer.Deserialize<TResult>(res);
             });
         }
 
@@ -129,17 +115,13 @@ namespace Nigel.Core.Redis
             return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
                 List<RedisValue> listvalues = new List<RedisValue>();
+
                 foreach (var key in keys)
-                {
                     listvalues.Add(key);
-                }
-                var value = await db.HashGetAsync(hashId, listvalues.ToArray());
 
-                if (value == null) return default;
+                var res = await db.HashGetAsync(hashId, listvalues.ToArray());
 
-                var json = value.ToStringArray().ToJsonNotNullOrEmpty();
-
-                return json.ToObject<IList<TResult>>();
+                return redisSerializer.Deserialize<TResult>(res);
             });
         }
 
@@ -147,15 +129,15 @@ namespace Nigel.Core.Redis
         {
             return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
-                var value = await db.HashGetAllAsync(hashId);
-                return value.ToStringDictionary();
+                var res = await db.HashGetAllAsync(hashId);
+
+                return res.ToStringDictionary();
             });
         }
 
-        public async Task<TResult> HashGetAllAsync<TResult>(string hashId, Func<Dictionary<string, string>, TResult> fetcher, string connectionRead)
+        public async Task<TResult> HashGetAllAsync<TResult>(string hashId, Func<Dictionary<string, string>, TResult> fetcher, string connectionName = null)
         {
-            var obj = await HashGetAllAsync(hashId, connectionRead);
-            if (obj == null) return default(TResult);
+            var obj = await HashGetAllAsync(hashId, connectionName);
 
             return fetcher(obj);
         }
@@ -164,25 +146,21 @@ namespace Nigel.Core.Redis
         {
             return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
-                var value = await db.HashKeysAsync(hashId);
-                return value.ToStringArray().ToList();
-            });
-        }
-
-        public async Task<IList<string>> HashValuesAsync(string hashId, string connectionName = null)
-        {
-            return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
-            {
-                var value = await db.HashValuesAsync(hashId);
-                return value.ToStringArray().ToList();
+                var res = await db.HashKeysAsync(hashId);
+                return res.ToStringArray().ToList();
             });
         }
 
         public async Task<IList<TResult>> HashValuesAsync<TResult>(string hashId, string connectionName = null)
         {
-            var value = await HashValuesAsync(hashId, connectionName);
-            return value.ToJsonNotNullOrEmpty().ToObject<IList<TResult>>();
+            return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
+            {
+                var value = await db.HashValuesAsync(hashId);
+
+                return redisSerializer.Deserialize<TResult>(value);
+            });
         }
+
 
         public async Task<bool> HashDeleteAsync(string hashId, string Key, string connectionName = null)
         {

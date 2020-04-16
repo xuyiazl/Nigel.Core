@@ -16,20 +16,16 @@ namespace Nigel.Core.Redis
         {
             return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                if (value == null) return false;
-                if (value.GetType() == typeof(string))
-                    return db.SetAdd(key, value.SafeString());
-                else
-                    return db.SetAdd(key, value.ToJson());
+                return db.SetAdd(key, redisSerializer.Serializer(value));
             });
         }
 
-        public string[] SetMembers(string key, string connectionName = null)
+        public IList<T> SetMembers<T>(string key, string connectionName = null)
         {
             return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
-                var Redisresult = db.SetMembers(key);
-                return Redisresult.ToStringArray();
+                var value = db.SetMembers(key);
+                return redisSerializer.Deserialize<T>(value);
             });
         }
 
@@ -37,11 +33,7 @@ namespace Nigel.Core.Redis
         {
             return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                if (value == null) return false;
-                if (value.GetType() == typeof(string))
-                    return db.SetContains(key, value.SafeString());
-                else
-                    return db.SetContains(key, value.ToJson());
+                return db.SetContains(key, redisSerializer.Serializer(value));
             });
         }
 
@@ -49,11 +41,7 @@ namespace Nigel.Core.Redis
         {
             return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                if (value == null) return false;
-                if (value.GetType() == typeof(string))
-                    return db.SetRemove(key, value.SafeString());
-                else
-                    return db.SetRemove(key, value.ToJson());
+                return db.SetRemove(key, redisSerializer.Serializer(value));
             });
         }
 
@@ -61,8 +49,8 @@ namespace Nigel.Core.Redis
         {
             return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                string value = db.SetPop(key);
-                return value.ToObject<T>();
+                var value = db.SetPop(key);
+                return redisSerializer.Deserialize<T>(value);
             });
         }
 
@@ -78,9 +66,9 @@ namespace Nigel.Core.Redis
         {
             return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
-                string value = db.SetRandomMember(key);
+                var value = db.SetRandomMember(key);
 
-                return value.ToObject<T>();
+                return redisSerializer.Deserialize<T>(value);
             });
         }
     }

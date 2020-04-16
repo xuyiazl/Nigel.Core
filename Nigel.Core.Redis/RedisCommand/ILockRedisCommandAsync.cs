@@ -10,13 +10,13 @@ namespace Nigel.Core.Redis.RedisCommand
     /// </summary>
     public interface ILockRedisCommandAsync
     {
-        Task<bool> LockExtendAsync(string key, string value, int seconds, string connectionName = null);
+        Task<bool> LockExtendAsync<T>(string key, T value, int seconds, string connectionName = null);
 
         Task<string> LockQueryAsync(string key, string connectionName = null);
 
-        Task<bool> LockReleaseAsync(string key, string value, string connectionName = null);
+        Task<bool> LockReleaseAsync<T>(string key, T value, string connectionName = null);
 
-        Task<bool> LockTakeAsync(string key, string value, int seconds, string connectionName = null);
+        Task<bool> LockTakeAsync<T>(string key, T value, int seconds, string connectionName = null);
 
     }
 }

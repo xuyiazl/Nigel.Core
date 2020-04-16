@@ -25,7 +25,7 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <param name="key">集合key</param>
         /// <param name="connectionName"></param>
         /// <returns></returns>
-        string[] SetMembers(string key, string connectionName = null);
+        IList<T> SetMembers<T>(string key, string connectionName = null);
         /// <summary>
         /// 查看集合里面是否有该内容
         /// </summary>

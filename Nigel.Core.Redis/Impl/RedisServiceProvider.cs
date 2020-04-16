@@ -10,8 +10,8 @@ namespace Nigel.Core.Redis
     /// </summary>
     public class RedisServiceProvider : StackExchangeRedisProvider, IRedisService
     {
-        public RedisServiceProvider(IConfiguration configuration)
-            : base(configuration)
+        public RedisServiceProvider(IConfiguration configuration, IRedisSerializer redisSerializer)
+            : base(configuration, redisSerializer)
         {
         }
     }

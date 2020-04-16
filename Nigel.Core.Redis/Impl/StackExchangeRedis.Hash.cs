@@ -12,19 +12,15 @@ namespace Nigel.Core.Redis
 {
     public abstract partial class StackExchangeRedis : IHashRedisCommand
     {
-        public bool HashSet<T>(string hasId, string key, T value, string connectionName = null)
+        public bool HashSet<T>(string hashId, string key, T value, string connectionName = null)
         {
             return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
              {
-                 if (value == null) return false;
-                 if (value.GetType() == typeof(string))
-                     return db.HashSet(hasId, key, value.SafeString());
-                 else
-                     return db.HashSet(hasId, key, value.ToJson());
+                 return db.HashSet(hashId, key, redisSerializer.Serializer(value));
              });
         }
 
-        public bool HashSet<T>(string hashId, string Key, T value, OverWrittenTypeDenum isAlways = OverWrittenTypeDenum.Always, string connectionName = null)
+        public bool HashSet<T>(string hashId, string key, T value, OverWrittenTypeDenum isAlways, string connectionName = null)
         {
             return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
@@ -42,18 +38,11 @@ namespace Nigel.Core.Redis
                         break;
                 }
 
-                if (value == null) return false;
-                if (value.GetType() == typeof(string))
-                    return db.HashSet(hashId, Key, value.SafeString(), when);
-                else
-                    return db.HashSet(hashId, Key, value.ToJson(), when);
+                return db.HashSet(hashId, key, redisSerializer.Serializer(value), when);
             });
         }
 
-        public TResult HashGetOrInsert<TResult>(string hashId, string key, string connectionRead, string connectionWrite, Func<TResult> fetcher)
-            => HashGetOrInsert<TResult>(hashId, key, 0, connectionRead, connectionWrite, fetcher);
-
-        public TResult HashGetOrInsert<TResult>(string hashId, string key, int seconds, string connectionRead, string connectionWrite, Func<TResult> fetcher)
+        public TResult HashGetOrInsert<TResult>(string hashId, string key, Func<TResult> fetcher, int seconds = 0, string connectionRead = null, string connectionWrite = null)
         {
             if (!HashExists(hashId, key, connectionRead))
             {
@@ -83,10 +72,7 @@ namespace Nigel.Core.Redis
             }
         }
 
-        public TResult HashGetOrInsert<T, TResult>(string hashId, string key, string connectionRead, string connectionWrite, Func<T, TResult> fetcher, T t)
-            => HashGetOrInsert<T, TResult>(hashId, key, 0, connectionRead, connectionWrite, fetcher, t);
-
-        public TResult HashGetOrInsert<T, TResult>(string hashId, string key, int seconds, string connectionRead, string connectionWrite, Func<T, TResult> fetcher, T t)
+        public TResult HashGetOrInsert<T, TResult>(string hashId, string key, Func<T, TResult> fetcher, T t, int seconds = 0, string connectionRead = null, string connectionWrite = null)
         {
             if (!HashExists(hashId, key, connectionRead))
             {
@@ -119,9 +105,9 @@ namespace Nigel.Core.Redis
         {
             return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
-                string obj = db.HashGet(hashId, key);
-                if (obj == null) return default;
-                return obj.SafeString().ToObject<TResult>();
+                var res = db.HashGet(hashId, key);
+
+                return redisSerializer.Deserialize<TResult>(res);
             });
         }
 
@@ -131,16 +117,11 @@ namespace Nigel.Core.Redis
             {
                 List<RedisValue> listvalues = new List<RedisValue>();
                 foreach (var key in keys)
-                {
                     listvalues.Add(key);
-                }
-                var value = db.HashGet(hashId, listvalues.ToArray());
 
-                if (value == null) return default;
+                var res = db.HashGet(hashId, listvalues.ToArray());
 
-                var json = value.ToStringArray().ToJsonNotNullOrEmpty();
-
-                return json.ToObject<IList<TResult>>();
+                return redisSerializer.Deserialize<TResult>(res);
             });
         }
 
@@ -148,15 +129,15 @@ namespace Nigel.Core.Redis
         {
             return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
-                var value = db.HashGetAll(hashId);
-                return value.ToStringDictionary();
+                var res = db.HashGetAll(hashId);
+
+                return res.ToStringDictionary();
             });
         }
 
-        public TResult HashGetAll<TResult>(string hashId, string connectionRead, Func<Dictionary<string, string>, TResult> fetcher)
+        public TResult HashGetAll<TResult>(string hashId, Func<Dictionary<string, string>, TResult> fetcher, string connectionName = null)
         {
-            var obj = HashGetAll(hashId, connectionRead);
-            if (obj == null) return default(TResult);
+            var obj = HashGetAll(hashId, connectionName);
 
             return fetcher(obj);
         }
@@ -165,24 +146,18 @@ namespace Nigel.Core.Redis
         {
             return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
-                var value = db.HashKeys(hashId);
-                return value.ToStringArray().ToList();
-            });
-        }
-
-        public IList<string> HashValues(string hashId, string connectionName = null)
-        {
-            return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
-            {
-                var value = db.HashValues(hashId);
-                return value.ToStringArray().ToList();
+                var res = db.HashKeys(hashId);
+                return res.ToStringArray().ToList();
             });
         }
 
         public IList<TResult> HashValues<TResult>(string hashId, string connectionName = null)
         {
-            var value = HashValues(hashId, connectionName);
-            return value.ToJsonNotNullOrEmpty().ToObject<IList<TResult>>();
+            return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
+            {
+                var value = db.HashValues(hashId);
+                return redisSerializer.Deserialize<TResult>(value);
+            });
         }
 
         public bool HashDelete(string hashId, string Key, string connectionName = null)

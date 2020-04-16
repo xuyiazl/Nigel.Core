@@ -24,25 +24,25 @@ namespace Nigel.Core.Redis.RedisCommand
         /// </summary>
         /// <typeparam name="TResult"></typeparam>
         /// <param name="key"></param>
+        /// <param name="fetcher"></param>
         /// <param name="seconds"></param>
         /// <param name="connectionRead"></param>
         /// <param name="connectionWrite"></param>
-        /// <param name="fetcher"></param>
         /// <returns></returns>
-        TResult StringGetOrInsert<TResult>(string key, int seconds, string connectionRead, string connectionWrite, Func<TResult> fetcher);
+        TResult StringGetOrInsert<TResult>(string key, Func<TResult> fetcher, int seconds = 0, string connectionRead = null, string connectionWrite = null);
         /// <summary>
         /// 获取string的value值，如果不存在则写入
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="TResult"></typeparam>
         /// <param name="key"></param>
+        /// <param name="fetcher"></param>
+        /// <param name="t"></param>
         /// <param name="seconds"></param>
         /// <param name="connectionRead"></param>
         /// <param name="connectionWrite"></param>
-        /// <param name="fetcher"></param>
-        /// <param name="t"></param>
         /// <returns></returns>
-        TResult StringGetOrInsert<T, TResult>(string key, int seconds, string connectionRead, string connectionWrite, Func<T, TResult> fetcher, T t);
+        TResult StringGetOrInsert<T, TResult>(string key, Func<T, TResult> fetcher, T t, int seconds = 0, string connectionRead = null, string connectionWrite = null);
         /// <summary>
         /// 获得string的value值
         /// </summary>
@@ -56,15 +56,7 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <param name="keys"></param>
         /// <param name="connectionName"></param>
         /// <returns></returns>
-        List<string> StringGet(string[] keys, string connectionName = null);
-        /// <summary>
-        /// 批量获得string类型的值
-        /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <param name="keys"></param>
-        /// <param name="connectionName"></param>
-        /// <returns></returns>
-        List<TResult> StringGetNotNullOrEmpty<TResult>(string[] keys, string connectionName = null);
+        IList<TResult> StringGet<TResult>(string[] keys, string connectionName = null);
         /// <summary>
         /// 原子性自增列
         /// </summary>

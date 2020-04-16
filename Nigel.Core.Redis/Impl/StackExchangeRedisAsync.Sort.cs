@@ -17,11 +17,7 @@ namespace Nigel.Core.Redis
         {
             return await ExecuteCommand(ConnectTypeEnum.Write, connectionName, async (db) =>
             {
-                if (value == null) return false;
-                if (value.GetType() == typeof(string))
-                    return await db.SortedSetAddAsync(key, value.SafeString(), score);
-                else
-                    return await db.SortedSetAddAsync(key, value.ToJson(), score);
+                return await db.SortedSetAddAsync(key, redisSerializer.Serializer(value), score);
             });
         }
 
@@ -32,7 +28,7 @@ namespace Nigel.Core.Redis
                 List<SortedSetEntry> sortedEntry = new List<SortedSetEntry>();
                 foreach (var keyvalue in values)
                 {
-                    var entry = new SortedSetEntry(keyvalue.Key.ToJson(), keyvalue.Value);
+                    var entry = new SortedSetEntry(redisSerializer.Serializer(keyvalue.Key), keyvalue.Value);
                     sortedEntry.Add(entry);
                 }
                 return await db.SortedSetAddAsync(key, sortedEntry.ToArray());
@@ -54,7 +50,7 @@ namespace Nigel.Core.Redis
                 List<RedisValue> listValues = new List<RedisValue>();
                 foreach (var val in values)
                 {
-                    listValues.Add(val.ToJson());
+                    listValues.Add(redisSerializer.Serializer(val));
                 }
 
                 return await db.SortedSetRemoveAsync(key, listValues.ToArray());
@@ -66,7 +62,7 @@ namespace Nigel.Core.Redis
             return await ExecuteCommand(ConnectTypeEnum.Write, connectionName, async (db) =>
             {
                 if (value == null) return false;
-                return await db.SortedSetRemoveAsync(key, value.ToJson());
+                return await db.SortedSetRemoveAsync(key, redisSerializer.Serializer(value));
             });
         }
 
@@ -83,9 +79,10 @@ namespace Nigel.Core.Redis
             return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
                 Order o = orderby == 1 ? Order.Descending : Order.Ascending;
+
                 var resultEntry = await db.SortedSetRangeByScoreAsync(key, start, stop, order: o, skip: skip, take: take);
 
-                return resultEntry.Select(t => t.ToString()).ToList().ToObjectNotNullOrEmpty<T>();
+                return redisSerializer.Deserialize<T>(resultEntry);
             });
         }
 
@@ -95,7 +92,7 @@ namespace Nigel.Core.Redis
             {
                 Order o = orderby == 1 ? Order.Descending : Order.Ascending;
                 var resultEntry = await db.SortedSetRangeByRankWithScoresAsync(key, start, stop, order: o);
-                return resultEntry.ToDictionary(t => t.Element.SafeString().ToObject<T>(), t => t.Score);
+                return resultEntry.ToDictionary(t => redisSerializer.Deserialize<T>(t.Element), t => t.Score);
             });
         }
 
@@ -104,11 +101,7 @@ namespace Nigel.Core.Redis
             return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
                 Order o = orderby == 1 ? Order.Descending : Order.Ascending;
-                if (value == null) return 0;
-                if (value.GetType() == typeof(string))
-                    return await db.SortedSetRankAsync(key, value.SafeString(), o);
-                else
-                    return await db.SortedSetRankAsync(key, value.ToJson(), o);
+                return await db.SortedSetRankAsync(key, redisSerializer.Serializer(value), o);
             });
         }
     }

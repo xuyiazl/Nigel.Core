@@ -18,14 +18,17 @@ namespace Nigel.Core.Redis
         /// 应用程序的配置接口
         /// </summary>
         private IConfiguration configuration { get; set; }
+        private IRedisSerializer redisSerializer;
 
         /// <summary>
         /// 构造方法
         /// </summary>
         /// <param name="configuration"></param>
-        public StackExchangeRedis(IConfiguration configuration)
+        /// <param name="redisSerializer"></param>
+        public StackExchangeRedis(IConfiguration configuration, IRedisSerializer redisSerializer)
         {
             this.configuration = configuration;
+            this.redisSerializer = redisSerializer;
         }
 
         #region  获得配置，根据需求可以再次封装

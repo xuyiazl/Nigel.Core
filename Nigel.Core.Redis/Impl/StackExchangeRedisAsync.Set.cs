@@ -17,20 +17,16 @@ namespace Nigel.Core.Redis
         {
             return await ExecuteCommand(ConnectTypeEnum.Write, connectionName, async (db) =>
             {
-                if (value == null) return false;
-                if (value.GetType() == typeof(string))
-                    return await db.SetAddAsync(key, value.SafeString());
-                else
-                    return await db.SetAddAsync(key, value.ToJson());
+                return await db.SetAddAsync(key, redisSerializer.Serializer(value));
             });
         }
 
-        public async Task<string[]> SetMembersAsync(string key, string connectionName = null)
+        public async Task<IList<T>> SetMembersAsync<T>(string key, string connectionName = null)
         {
             return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
-                var Redisresult = await db.SetMembersAsync(key);
-                return Redisresult.ToStringArray();
+                var value = await db.SetMembersAsync(key);
+                return redisSerializer.Deserialize<T>(value);
             });
         }
 
@@ -38,11 +34,7 @@ namespace Nigel.Core.Redis
         {
             return await ExecuteCommand(ConnectTypeEnum.Write, connectionName, async (db) =>
             {
-                if (value == null) return false;
-                if (value.GetType() == typeof(string))
-                    return await db.SetContainsAsync(key, value.SafeString());
-                else
-                    return await db.SetContainsAsync(key, value.ToJson());
+                return await db.SetContainsAsync(key, redisSerializer.Serializer(value));
             });
         }
 
@@ -50,11 +42,7 @@ namespace Nigel.Core.Redis
         {
             return await ExecuteCommand(ConnectTypeEnum.Write, connectionName, async (db) =>
             {
-                if (value == null) return false;
-                if (value.GetType() == typeof(string))
-                    return await db.SetRemoveAsync(key, value.SafeString());
-                else
-                    return await db.SetRemoveAsync(key, value.ToJson());
+                return await db.SetRemoveAsync(key, redisSerializer.Serializer(value));
             });
         }
 
@@ -62,8 +50,8 @@ namespace Nigel.Core.Redis
         {
             return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
-                string value = await db.SetPopAsync(key);
-                return value.ToObject<T>();
+                var value = await db.SetPopAsync(key);
+                return redisSerializer.Deserialize<T>(value);
             });
         }
 
@@ -79,9 +67,8 @@ namespace Nigel.Core.Redis
         {
             return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
-                string value = await db.SetRandomMemberAsync(key);
-
-                return value.ToObject<T>();
+                var value = await db.SetRandomMemberAsync(key);
+                return redisSerializer.Deserialize<T>(value);
             });
         }
     }

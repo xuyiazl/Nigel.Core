@@ -56,7 +56,7 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <param name="keys">key数组</param>
         /// <param name="connectionName">连接名称</param>
         /// <returns></returns>
-        Task<List<TResult>> StringGetAsync<TResult>(string[] keys, string connectionName = null);
+        Task<IList<TResult>> StringGetAsync<TResult>(string[] keys, string connectionName = null);
         /// <summary>
         /// 原子性自增列
         /// </summary>

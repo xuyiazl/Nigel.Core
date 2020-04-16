@@ -17,11 +17,7 @@ namespace Nigel.Core.Redis
         {
             return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
-                if (value == null) return false;
-                if (value.GetType() == typeof(string))
-                    return db.SortedSetAdd(key, value.SafeString(), score);
-                else
-                    return db.SortedSetAdd(key, value.ToJson(), score);
+                return db.SortedSetAdd(key, redisSerializer.Serializer(value), score);
             });
         }
 
@@ -32,7 +28,7 @@ namespace Nigel.Core.Redis
                 List<SortedSetEntry> sortedEntry = new List<SortedSetEntry>();
                 foreach (var keyvalue in values)
                 {
-                    var entry = new SortedSetEntry(keyvalue.Key.ToJson(), keyvalue.Value);
+                    var entry = new SortedSetEntry(redisSerializer.Serializer(keyvalue.Key), keyvalue.Value);
                     sortedEntry.Add(entry);
                 }
                 return db.SortedSetAdd(key, sortedEntry.ToArray());
@@ -54,7 +50,7 @@ namespace Nigel.Core.Redis
                 List<RedisValue> listValues = new List<RedisValue>();
                 foreach (var val in values)
                 {
-                    listValues.Add(val.ToJson());
+                    listValues.Add(redisSerializer.Serializer(val));
                 }
 
                 return db.SortedSetRemove(key, listValues.ToArray());
@@ -66,7 +62,7 @@ namespace Nigel.Core.Redis
             return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
                 if (value == null) return false;
-                return db.SortedSetRemove(key, value.ToJson());
+                return db.SortedSetRemove(key, redisSerializer.Serializer(value));
             });
         }
 
@@ -86,7 +82,7 @@ namespace Nigel.Core.Redis
 
                 var resultEntry = db.SortedSetRangeByScore(key, start, stop, order: o, skip: skip, take: take);
 
-                return resultEntry.Select(t => t.ToString()).ToList().ToObjectNotNullOrEmpty<T>();
+                return redisSerializer.Deserialize<T>(resultEntry);
             });
         }
 
@@ -98,7 +94,7 @@ namespace Nigel.Core.Redis
 
                 var resultEntry = db.SortedSetRangeByRankWithScores(key, start, stop, order: o);
 
-                return resultEntry.ToDictionary(t => t.Element.SafeString().ToObject<T>(), t => t.Score);
+                return resultEntry.ToDictionary(t => redisSerializer.Deserialize<T>(t.Element), t => t.Score);
             });
         }
 
@@ -108,11 +104,7 @@ namespace Nigel.Core.Redis
             {
                 Order o = orderby == 1 ? Order.Descending : Order.Ascending;
 
-                if (value == null) return 0;
-                if (value.GetType() == typeof(string))
-                    return db.SortedSetRank(key, value.SafeString(), o);
-                else
-                    return db.SortedSetRank(key, value.ToJson(), o);
+                return db.SortedSetRank(key, redisSerializer.Serializer(value), o);
             });
         }
     }

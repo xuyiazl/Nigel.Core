@@ -16,68 +16,63 @@ using RedLockNet.SERedis;
 using RedLockNet.SERedis.Configuration;
 using System.Net;
 using RedLockNet;
+using MessagePack;
 using System.Linq;
 
 namespace Nigel.ConsoleTests
 {
+    [MessagePackObject]
+    public class User
+    {
+        [Key(0)]
+        public string Id { get; set; }
+        [Key(1)]
+        public string Name { get; set; }
+    }
+
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("010-45356555".EncryptPhone());
-            Console.WriteLine("13564705939".EncryptPhone());
-            Console.WriteLine("1".EncryptSensitiveInfo());
-            Console.WriteLine("12".EncryptSensitiveInfo());
-            Console.WriteLine("123".EncryptSensitiveInfo());
-            Console.WriteLine("1234".EncryptSensitiveInfo());
-            Console.WriteLine("12345".EncryptSensitiveInfo());
-            Console.WriteLine("123456".EncryptSensitiveInfo());
-            Console.WriteLine("1234567".EncryptSensitiveInfo());
-            Console.WriteLine("12345678".EncryptSensitiveInfo());
-            Console.WriteLine("123456789".EncryptSensitiveInfo());
-            Console.WriteLine("1234567890".EncryptSensitiveInfo());
-            Console.WriteLine("1234567890A".EncryptSensitiveInfo());
-            Console.WriteLine("1234567890AB".EncryptSensitiveInfo());
-            Console.WriteLine("1234567890ABC".EncryptSensitiveInfo());
-            Console.WriteLine("1234567890ABCD".EncryptSensitiveInfo());
-            Console.WriteLine("1234567890ABCDE".EncryptSensitiveInfo());
-            Console.WriteLine("1234567890ABCDEF".EncryptSensitiveInfo());
-            Console.WriteLine("1234567890ABCDEFG".EncryptSensitiveInfo());
-            Console.WriteLine("1234567890ABCDEFGH".EncryptSensitiveInfo());
-            Console.WriteLine("1234567890ABCDEFGHJ".EncryptSensitiveInfo());
-            Console.WriteLine("1234567890ABCDEFGHJK".EncryptSensitiveInfo());
-            Console.WriteLine("1234567890ABCDEFGHJKL".EncryptSensitiveInfo());
-            Console.WriteLine("3624091@qq.com".EncryptEmail());
-            Console.WriteLine("1234@qq.com".EncryptEmail());
-            Console.WriteLine("12345@qq.com".EncryptEmail());
-            Console.WriteLine("123456@qq.com".EncryptEmail());
-            Console.WriteLine("1234567@qq.com".EncryptEmail());
-            Console.WriteLine("12345678@qq.com".EncryptEmail());
-            Console.WriteLine("123456789@qq.com".EncryptEmail());
-            Console.WriteLine("1234567890@qq.com".EncryptEmail());
-            Console.WriteLine("徐".EncryptEmail());
-            Console.WriteLine("徐毅".EncryptEmail());
-            Console.WriteLine("张三三".EncryptEmail());
-            Console.WriteLine("欧阳大大".EncryptEmail());
-
-            Console.Read();
-
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
             var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.Test.json").Build();
 
-            var services = new ServiceCollection();
+            IRedisService redisService = new RedisServiceProvider(configuration, new MessagePackRedisSerializer());
 
-            services.AddRedisService();
+            string hashId = "User";
 
-            IRedisService redisService = new RedisServiceProvider(configuration);
+            User user = new User { Id = "1", Name = "张三1111" };
 
-            string key = "key";
-            string token = Environment.MachineName;
+            //redisService.HashDelete(hashId, user.Id);
 
-            AsyncLock _asyncLock = new AsyncLock();
+            //redisService.HashSet<User>(hashId, user.Id, user);
+
+            var res = redisService.HashGet<User>(hashId, user.Id);
+
+            string hashId2 = "User2";
+
+            //redisService.HashDelete(hashId2, "2");
+
+            //redisService.HashSet(hashId2, "2", "2");
+
+            var res1 = redisService.HashGet<string>(hashId2, "2");
+
+            string hashId3 = "User3";
+
+            //redisService.HashDelete(hashId3, "3");
+
+            //redisService.HashSet(hashId3, "3", "3");
+
+            var res3 = redisService.HashGet<string>(hashId3, "3");
+
+
+            Console.Read();
+
+
 
             redisService.StringSet<long>("test", 10);
+
 
             var stackConnects = configuration.GetSection<List<StackExchangeConnectionSettings>>("StackExchangeConnectionSettings");
 
@@ -89,6 +84,9 @@ namespace Nigel.ConsoleTests
             });
 
             IDistributedLockFactory _distributedLockFactory = RedLockFactory.Create(endPoints);
+
+            string key = "key";
+            string token = Environment.MachineName;
 
             Parallel.For(0, 100, async ndx =>
                 {

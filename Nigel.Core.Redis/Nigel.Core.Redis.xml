@@ -44,6 +44,123 @@
             不存在的时候再覆盖
             </summary>
         </member>
+        <member name="T:Nigel.Core.Redis.RedisException">
+            <summary>
+            redis组件异常
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Redis.RedisException.Host">
+            <summary>
+            异常的redis主机地址
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Redis.RedisException.Port">
+            <summary>
+            异常的redis主机端口
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Redis.RedisException.SourceErrorMessage">
+            <summary>
+            缓存服务器原始错误
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Redis.RedisException.CustomErrorMessage">
+            <summary>
+            Redis缓存自定义错误
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Redis.RedisServiceProvider">
+            <summary>
+            缓存操作仓库实现
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Redis.ServiceCollectionExtensions">
+            <summary>
+            服务扩展
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Redis.ServiceCollectionExtensions.AddRedisService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Redis注入
+            </summary>
+            <param name="services">服务集合</param>
+        </member>
+        <member name="M:Nigel.Core.Redis.ServiceCollectionExtensions.AddRedisSerializer(Microsoft.Extensions.DependencyInjection.IServiceCollection,Nigel.Core.Redis.IRedisSerializer)">
+            <summary>
+            Redis注入序列化组件
+            </summary>
+            <param name="services">服务集合</param>
+            <param name="redisSerializer">序列化</param>
+        </member>
+        <member name="M:Nigel.Core.Redis.ServiceCollectionExtensions.AddJsonRedisSerializer(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Redis注入Json序列化组件
+            </summary>
+            <param name="services">服务集合</param>
+        </member>
+        <member name="M:Nigel.Core.Redis.ServiceCollectionExtensions.AddMessagePackRedisSerializer(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Redis注入MessagePack序列化组件
+            </summary>
+            <param name="services">服务集合</param>
+        </member>
+        <member name="T:Nigel.Core.Redis.StackExchangeConnectionSettings">
+            <summary>
+            Redis连接配置
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Redis.StackExchangeConnectionSettings.ConnectionName">
+            <summary>
+            连接名称
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Redis.StackExchangeConnectionSettings.ConnectType">
+            <summary>
+            连接类型
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Redis.StackExchangeConnectionSettings.EndPoint">
+            <summary>
+            IP地址
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Redis.StackExchangeConnectionSettings.Port">
+            <summary>
+            端口
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Redis.StackExchangeConnectionSettings.Password">
+            <summary>
+            连接Redis的密码
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Redis.StackExchangeConnectionSettings.Connection">
+            <summary>
+            缓存操作对象
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Redis.StackExchangeRedis.configuration">
+            <summary>
+            应用程序的配置接口
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.Redis.StackExchangeRedis.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Nigel.Core.Redis.IRedisSerializer)">
+            <summary>
+            构造方法
+            </summary>
+            <param name="configuration"></param>
+            <param name="redisSerializer"></param>
+        </member>
+        <member name="F:Nigel.Core.Redis.StackExchangeRedis.connMultiplexer">
+            <summary>
+            延迟加载配置
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.Redis.StackExchangeRedisProvider">
+            <summary>
+            Redis的组件服务提供
+            </summary>
+        </member>
         <member name="T:Nigel.Core.Redis.IRedisService">
             <summary>
             定义redis连接服务
@@ -99,7 +216,7 @@
             写入hash表操作
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="hasId">表ID(可以当成是一行数据）</param>
+            <param name="hashId">表ID(可以当成是一行数据）</param>
             <param name="key">字段名（可以当成是列名）</param>
             <param name="value">字段值（可以当成是列值）</param>
             <param name="connectionName">连接名称</param>
@@ -110,38 +227,26 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="hashId"></param>
-            <param name="Key"></param>
+            <param name="key"></param>
             <param name="value"></param>
             <param name="isAlways">0=一直,1=仅存在的时候,2=不存在的时候</param>
             <param name="connectionName"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashGetOrInsert``1(System.String,System.String,System.String,System.String,System.Func{``0})">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashGetOrInsert``1(System.String,System.String,System.Func{``0},System.Int32,System.String,System.String)">
             <summary>
             获得Hash键值对值（可以理解为获得某一行中的某一列数据），当数据为空 则重新写入redis数据
             </summary>
             <typeparam name="TResult"></typeparam>
             <param name="hashKey"></param>
             <param name="key"></param>
-            <param name="connectionRead"></param>
-            <param name="connectionWrite"></param>
             <param name="fetcher"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashGetOrInsert``1(System.String,System.String,System.Int32,System.String,System.String,System.Func{``0})">
-            <summary>
-            获得Hash键值对值（可以理解为获得某一行中的某一列数据），当数据为空 则重新写入redis数据
-            </summary>
-            <typeparam name="TResult"></typeparam>
-            <param name="hashKey"></param>
-            <param name="key"></param>
             <param name="seconds"></param>
             <param name="connectionRead"></param>
             <param name="connectionWrite"></param>
-            <param name="fetcher"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashGetOrInsert``2(System.String,System.String,System.String,System.String,System.Func{``0,``1},``0)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashGetOrInsert``2(System.String,System.String,System.Func{``0,``1},``0,System.Int32,System.String,System.String)">
             <summary>
             获得Hash键值对值（可以理解为获得某一行中的某一列数据），当数据为空 则重新写入redis数据
             </summary>
@@ -149,25 +254,11 @@
             <typeparam name="TResult"></typeparam>
             <param name="hashKey"></param>
             <param name="key"></param>
-            <param name="connectionRead"></param>
-            <param name="connectionWrite"></param>
             <param name="fetcher"></param>
             <param name="t"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashGetOrInsert``2(System.String,System.String,System.Int32,System.String,System.String,System.Func{``0,``1},``0)">
-            <summary>
-            获得Hash键值对值（可以理解为获得某一行中的某一列数据），当数据为空 则重新写入redis数据
-            </summary>
-            <typeparam name="T"></typeparam>
-            <typeparam name="TResult"></typeparam>
-            <param name="hashKey"></param>
-            <param name="key"></param>
             <param name="seconds"></param>
             <param name="connectionRead"></param>
             <param name="connectionWrite"></param>
-            <param name="fetcher"></param>
-            <param name="t"></param>
             <returns></returns>
         </member>
         <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashGet``1(System.String,System.String,System.String)">
@@ -204,27 +295,19 @@
             <param name="connectionName">连接名称</param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashGetAll``1(System.String,System.String,System.Func{System.Collections.Generic.Dictionary{System.String,System.String},``0})">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashGetAll``1(System.String,System.Func{System.Collections.Generic.Dictionary{System.String,System.String},``0},System.String)">
             <summary>
             获得Hash指定行的值
             </summary>
             <typeparam name="TResult"></typeparam>
             <param name="hashId"></param>
-            <param name="connectionRead"></param>
+            <param name="connectionName"></param>
             <param name="fetcher"></param>
             <returns></returns>
         </member>
         <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashKeys(System.String,System.String)">
             <summary>
             获得指定Hash所有的KEYS
-            </summary>
-            <param name="hashId"></param>
-            <param name="connectionName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashValues(System.String,System.String)">
-            <summary>
-            获得指定Hash所有的Values
             </summary>
             <param name="hashId"></param>
             <param name="connectionName"></param>
@@ -276,7 +359,7 @@
             写入hash表操作
             </summary>
             <typeparam name="T"></typeparam>
-            <param name="hasId">表ID(可以当成是一行数据）</param>
+            <param name="hashId">表ID(可以当成是一行数据）</param>
             <param name="key">字段名（可以当成是列名）</param>
             <param name="value">字段值（可以当成是列值）</param>
             <param name="connectionName">连接名称</param>
@@ -287,22 +370,10 @@
             </summary>
             <typeparam name="T"></typeparam>
             <param name="hashId"></param>
-            <param name="Key"></param>
+            <param name="key"></param>
             <param name="value"></param>
             <param name="isAlways">0=一直,1=仅存在的时候,2=不存在的时候</param>
             <param name="connectionName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommandAsync.HashGetOrInsertAsync``1(System.String,System.String,System.Func{``0},System.String,System.String)">
-            <summary>
-            获得Hash键值对值（可以理解为获得某一行中的某一列数据），当数据为空 则重新写入redis数据
-            </summary>
-            <typeparam name="TResult"></typeparam>
-            <param name="hashKey"></param>
-            <param name="key"></param>
-            <param name="fetcher"></param>
-            <param name="connectionRead"></param>
-            <param name="connectionWrite"></param>
             <returns></returns>
         </member>
         <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommandAsync.HashGetOrInsertAsync``1(System.String,System.String,System.Func{``0},System.Int32,System.String,System.String)">
@@ -312,22 +383,8 @@
             <typeparam name="TResult"></typeparam>
             <param name="hashKey"></param>
             <param name="key"></param>
-            <param name="fetcher"></param>
             <param name="seconds"></param>
-            <param name="connectionRead"></param>
-            <param name="connectionWrite"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommandAsync.HashGetOrInsertAsync``2(System.String,System.String,System.Func{``0,``1},``0,System.String,System.String)">
-            <summary>
-            获得Hash键值对值（可以理解为获得某一行中的某一列数据），当数据为空 则重新写入redis数据
-            </summary>
-            <typeparam name="T"></typeparam>
-            <typeparam name="TResult"></typeparam>
-            <param name="hashKey"></param>
-            <param name="key"></param>
             <param name="fetcher"></param>
-            <param name="t"></param>
             <param name="connectionRead"></param>
             <param name="connectionWrite"></param>
             <returns></returns>
@@ -394,14 +451,6 @@
         <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommandAsync.HashKeysAsync(System.String,System.String)">
             <summary>
             获得指定Hash所有的KEYS
-            </summary>
-            <param name="hashId"></param>
-            <param name="connectionName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommandAsync.HashValuesAsync(System.String,System.String)">
-            <summary>
-            获得指定Hash所有的Values
             </summary>
             <param name="hashId"></param>
             <param name="connectionName"></param>
@@ -882,7 +931,7 @@
             <param name="connectionName"></param>
             <returns></returns>T
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommand.SetMembers(System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommand.SetMembers``1(System.String,System.String)">
             <summary>
             获得集合里面的内容
             </summary>
@@ -952,7 +1001,7 @@
             <param name="connectionName"></param>
             <returns></returns>T
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommandAsync.SetMembersAsync(System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommandAsync.SetMembersAsync``1(System.String,System.String)">
             <summary>
             获得集合里面的内容
             </summary>
@@ -1224,30 +1273,30 @@
             <param name="seconds">失效时间，默认不失效（当业务场景中需要做失效时间时使用）</param>
             <param name="connectionName">连接名称</param>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommand.StringGetOrInsert``1(System.String,System.Int32,System.String,System.String,System.Func{``0})">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommand.StringGetOrInsert``1(System.String,System.Func{``0},System.Int32,System.String,System.String)">
             <summary>
             获取string的value值，如果不存在则写入
             </summary>
             <typeparam name="TResult"></typeparam>
             <param name="key"></param>
+            <param name="fetcher"></param>
             <param name="seconds"></param>
             <param name="connectionRead"></param>
             <param name="connectionWrite"></param>
-            <param name="fetcher"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommand.StringGetOrInsert``2(System.String,System.Int32,System.String,System.String,System.Func{``0,``1},``0)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommand.StringGetOrInsert``2(System.String,System.Func{``0,``1},``0,System.Int32,System.String,System.String)">
             <summary>
             获取string的value值，如果不存在则写入
             </summary>
             <typeparam name="T"></typeparam>
             <typeparam name="TResult"></typeparam>
             <param name="key"></param>
+            <param name="fetcher"></param>
+            <param name="t"></param>
             <param name="seconds"></param>
             <param name="connectionRead"></param>
             <param name="connectionWrite"></param>
-            <param name="fetcher"></param>
-            <param name="t"></param>
             <returns></returns>
         </member>
         <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommand.StringGet``1(System.String,System.String)">
@@ -1258,19 +1307,10 @@
             <param name="connectionName">连接名称</param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommand.StringGet(System.String[],System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommand.StringGet``1(System.String[],System.String)">
             <summary>
             批量获得string类型的值
             </summary>
-            <param name="keys"></param>
-            <param name="connectionName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommand.StringGetNotNullOrEmpty``1(System.String[],System.String)">
-            <summary>
-            批量获得string类型的值
-            </summary>
-            <typeparam name="TResult"></typeparam>
             <param name="keys"></param>
             <param name="connectionName"></param>
             <returns></returns>
@@ -1349,103 +1389,6 @@
             <param name="value"></param>
             <param name="connectionName"></param>
             <returns></returns>
-        </member>
-        <member name="T:Nigel.Core.Redis.RedisException">
-            <summary>
-            redis组件异常
-            </summary>
-        </member>
-        <member name="P:Nigel.Core.Redis.RedisException.Host">
-            <summary>
-            异常的redis主机地址
-            </summary>
-        </member>
-        <member name="P:Nigel.Core.Redis.RedisException.Port">
-            <summary>
-            异常的redis主机端口
-            </summary>
-        </member>
-        <member name="P:Nigel.Core.Redis.RedisException.SourceErrorMessage">
-            <summary>
-            缓存服务器原始错误
-            </summary>
-        </member>
-        <member name="P:Nigel.Core.Redis.RedisException.CustomErrorMessage">
-            <summary>
-            Redis缓存自定义错误
-            </summary>
-        </member>
-        <member name="T:Nigel.Core.Redis.RedisServiceProvider">
-            <summary>
-            缓存操作仓库实现
-            </summary>
-        </member>
-        <member name="T:Nigel.Core.Redis.ServiceCollectionExtensions">
-            <summary>
-            服务扩展
-            </summary>
-        </member>
-        <member name="M:Nigel.Core.Redis.ServiceCollectionExtensions.AddRedisService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-            <summary>
-            Redis注入
-            </summary>
-            <param name="services">服务集合</param>
-        </member>
-        <member name="T:Nigel.Core.Redis.StackExchangeConnectionSettings">
-            <summary>
-            Redis连接配置
-            </summary>
-        </member>
-        <member name="P:Nigel.Core.Redis.StackExchangeConnectionSettings.ConnectionName">
-            <summary>
-            连接名称
-            </summary>
-        </member>
-        <member name="P:Nigel.Core.Redis.StackExchangeConnectionSettings.ConnectType">
-            <summary>
-            连接类型
-            </summary>
-        </member>
-        <member name="P:Nigel.Core.Redis.StackExchangeConnectionSettings.EndPoint">
-            <summary>
-            IP地址
-            </summary>
-        </member>
-        <member name="P:Nigel.Core.Redis.StackExchangeConnectionSettings.Port">
-            <summary>
-            端口
-            </summary>
-        </member>
-        <member name="P:Nigel.Core.Redis.StackExchangeConnectionSettings.Password">
-            <summary>
-            连接Redis的密码
-            </summary>
-        </member>
-        <member name="P:Nigel.Core.Redis.StackExchangeConnectionSettings.Connection">
-            <summary>
-            缓存操作对象
-            </summary>
-        </member>
-        <member name="P:Nigel.Core.Redis.StackExchangeRedis.configuration">
-            <summary>
-            应用程序的配置接口
-            </summary>
-        </member>
-        <member name="M:Nigel.Core.Redis.StackExchangeRedis.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
-            <summary>
-            构造方法
-            </summary>
-            <param name="configuration"></param>
-        </member>
-        <member name="F:Nigel.Core.Redis.StackExchangeRedis.connMultiplexer">
-            <summary>
-            延迟加载配置
-            </summary>
-        </member>
-        <member name="T:Nigel.Core.Redis.StackExchangeRedisProvider">
-            <summary>
-            Redis的组件服务提供
-            </summary>
         </member>
     </members>
 </doc>

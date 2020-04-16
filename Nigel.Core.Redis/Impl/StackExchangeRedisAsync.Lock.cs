@@ -11,13 +11,13 @@ using Nigel.Core.Redis.RedisCommand;
 
 namespace Nigel.Core.Redis
 {
-    public abstract partial class StackExchangeRedis : IStringRedisCommandAsync
+    public abstract partial class StackExchangeRedis : ILockRedisCommandAsync
     {
-        public async Task<bool> LockExtendAsync(string key, string value, int seconds, string connectionName = null)
+        public async Task<bool> LockExtendAsync<T>(string key, T value, int seconds, string connectionName = null)
         {
             return await ExecuteCommand(ConnectTypeEnum.Write, connectionName, async (db) =>
             {
-                return await db.LockExtendAsync(key, value, TimeSpan.FromSeconds(seconds));
+                return await db.LockExtendAsync(key, redisSerializer.Serializer(value), TimeSpan.FromSeconds(seconds));
             });
         }
 
@@ -29,19 +29,19 @@ namespace Nigel.Core.Redis
             });
         }
 
-        public async Task<bool> LockReleaseAsync(string key, string value, string connectionName = null)
+        public async Task<bool> LockReleaseAsync<T>(string key, T value, string connectionName = null)
         {
             return await ExecuteCommand(ConnectTypeEnum.Write, connectionName, async (db) =>
             {
-                return await db.LockReleaseAsync(key, value);
+                return await db.LockReleaseAsync(key, redisSerializer.Serializer(value));
             });
         }
 
-        public async Task<bool> LockTakeAsync(string key, string value, int seconds, string connectionName = null)
+        public async Task<bool> LockTakeAsync<T>(string key, T value, int seconds, string connectionName = null)
         {
             return await ExecuteCommand(ConnectTypeEnum.Write, connectionName, async (db) =>
             {
-                return await db.LockTakeAsync(key, value, TimeSpan.FromSeconds(seconds));
+                return await db.LockTakeAsync(key, redisSerializer.Serializer(value), TimeSpan.FromSeconds(seconds));
             });
         }
 

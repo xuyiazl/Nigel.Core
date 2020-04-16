@@ -26,7 +26,7 @@
 
 **Conf注册服务**
 
-services.AddRedisService();
+services.AddRedisService().AddJsonRedisSerializer();
 
 **构造函数**
 

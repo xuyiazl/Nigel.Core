@@ -11,7 +11,7 @@
     <Company>Nigel</Company>
     <Description>.NET Core Redis</Description>
     <Copyright>Copyright © Nigel 2020</Copyright>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
     <PackageId>Nigel.Core.Redis</PackageId>
     <Product>Nigel.Core.Redis</Product>
     <PackageIconUrl>http://www.3624091.com/favicon.ico</PackageIconUrl>
@@ -42,12 +42,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="StackExchangeRedisAsync.*.cs">
+    <Compile Update="Impl/StackExchangeRedisAsync.*.cs">
       <DependentUpon>StackExchangeRedisAsync.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="StackExchangeRedis.*.cs">
+    <Compile Update="Impl/StackExchangeRedis.*.cs">
       <DependentUpon>StackExchangeRedis.cs</DependentUpon>
     </Compile>
   </ItemGroup>

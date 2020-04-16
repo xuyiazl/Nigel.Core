@@ -47,21 +47,10 @@ namespace Nigel.Core.Redis
         {
             return await ExecuteCommand(ConnectTypeEnum.Write, connectionName, async (db) =>
             {
-                if (value == null) return false;
-                if (value.GetType() == typeof(string))
-                {
-                    if (seconds > 0)
-                        return await db.StringSetAsync(key, value.SafeString(), TimeSpan.FromSeconds(seconds));
-                    else
-                        return await db.StringSetAsync(key, value.SafeString());
-                }
+                if (seconds > 0)
+                    return await db.StringSetAsync(key, redisSerializer.Serializer(value), TimeSpan.FromSeconds(seconds));
                 else
-                {
-                    if (seconds > 0)
-                        return await db.StringSetAsync(key, value.ToJson(), TimeSpan.FromSeconds(seconds));
-                    else
-                        return await db.StringSetAsync(key, value.ToJson());
-                }
+                    return await db.StringSetAsync(key, redisSerializer.Serializer(value));
             });
         }
 
@@ -77,12 +66,12 @@ namespace Nigel.Core.Redis
         {
             return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
-                string value = await db.StringGetAsync(key);
-                return value.ToObject<TResult>();
+                var value = await db.StringGetAsync(key);
+                return redisSerializer.Deserialize<TResult>(value);
             });
         }
 
-        public async Task<List<TResult>> StringGetAsync<TResult>(string[] keys, string connectionName = null)
+        public async Task<IList<TResult>> StringGetAsync<TResult>(string[] keys, string connectionName = null)
         {
             return await ExecuteCommand(ConnectTypeEnum.Read, connectionName, async (db) =>
             {
@@ -93,8 +82,8 @@ namespace Nigel.Core.Redis
                 }
 
                 var redisValue = await db.StringGetAsync(redisKey);
-                var json = redisValue.ToStringArray().ToJsonNotNullOrEmpty();
-                return json.ToObject<List<TResult>>();
+
+                return redisSerializer.Deserialize<TResult>(redisValue);
             });
         }
     }
