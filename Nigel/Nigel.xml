@@ -3984,64 +3984,6 @@
             </summary>
             <param name="dayOfWeek">星期</param>
         </member>
-        <member name="T:Nigel.Extensions.AutoRegisterData">
-            <summary>
-            自动注册数据
-            </summary>
-        </member>
-        <member name="P:Nigel.Extensions.AutoRegisterData.Services">
-            <summary>
-            服务集合
-            </summary>
-        </member>
-        <member name="P:Nigel.Extensions.AutoRegisterData.InjectionTypes">
-            <summary>
-            注入类型集合
-            </summary>
-        </member>
-        <member name="P:Nigel.Extensions.AutoRegisterData.TypeFilter">
-            <summary>
-            类型过滤器
-            </summary>
-        </member>
-        <member name="M:Nigel.Extensions.AutoRegisterData.#ctor(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Collections.Generic.IEnumerable{System.Type})">
-            <summary>
-            初始化一个<see cref="T:Nigel.Extensions.AutoRegisterData"/>类型的实例
-            </summary>
-            <param name="services">服务集合</param>
-            <param name="injectionTypes">注入类型集合</param>
-        </member>
-        <member name="T:Nigel.Extensions.AutoRegisterDataExtensions">
-            <summary>
-            自动注册数据(<see cref="T:Nigel.Extensions.AutoRegisterData"/>) 扩展
-            </summary>
-        </member>
-        <member name="M:Nigel.Extensions.AutoRegisterDataExtensions.Where(Nigel.Extensions.AutoRegisterData,System.Func{System.Type,System.Boolean})">
-            <summary>
-            条件查询
-            </summary>
-            <param name="autoRegisterData">自动注册数据</param>
-            <param name="predicate">查询条件</param>
-        </member>
-        <member name="M:Nigel.Extensions.AutoRegisterDataExtensions.AsPublicImplementedInterfaces(Nigel.Extensions.AutoRegisterData,Microsoft.Extensions.DependencyInjection.ServiceLifetime)">
-            <summary>
-            将类实现的任何公共接口(IDisposable除外)进行注册
-            </summary>
-            <param name="autoRegisterData">自动注册数据</param>
-            <param name="lifetime">生命周期</param>
-        </member>
-        <member name="T:Nigel.Extensions.ServiceCollectionExtensions">
-            <summary>
-            服务集合(<see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>) 扩展
-            </summary>
-        </member>
-        <member name="M:Nigel.Extensions.ServiceCollectionExtensions.RegisterAssemblyPublicNonGenericClasses(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Reflection.Assembly[])">
-            <summary>
-            注册程序集中的所有公共的、非泛型的、非嵌套的类。
-            </summary>
-            <param name="services">服务集合</param>
-            <param name="assemblies">程序集列表</param>
-        </member>
         <member name="T:Nigel.Extensions.HttpRequestExtensions">
             <summary>
             Http请求(<see cref="T:Microsoft.AspNetCore.Http.HttpRequest"/>) 扩展

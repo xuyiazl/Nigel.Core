@@ -54,7 +54,7 @@ namespace Nigel.WebTests
             #endregion
 
             //DI 注入db持久层业务逻辑
-            services.Scan(scan =>
+            services.Scan(scan =>            
                scan.FromAssemblyOf<IDbDependencyService>()
                .AddClasses(impl => impl.AssignableTo(typeof(IDbDependencyService)))
                .AsImplementedInterfaces()
