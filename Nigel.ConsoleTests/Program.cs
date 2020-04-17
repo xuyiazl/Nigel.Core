@@ -47,7 +47,7 @@ namespace Nigel.ConsoleTests
 
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-            var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.Test.json").Build();
+            var configuration = ConfigHelper.GetJsonConfig("appsettings.Test.json");
 
             IRedisService redisService = new RedisServiceProvider(configuration, null);
 
@@ -65,7 +65,7 @@ namespace Nigel.ConsoleTests
 
             //redisService.HashSet(hashId2, "2", "2");
 
-            var res1 = redisService.HashGet<string>(hashId2, "2");
+            var res1 = redisService.HashGet<string>(hashId2, "2", serializer: new MessagePackRedisSerializer());
 
             string hashId3 = "User3";
 
@@ -73,7 +73,7 @@ namespace Nigel.ConsoleTests
 
             //redisService.HashSet(hashId3, "3", "3");
 
-            var res3 = redisService.HashGet<string>(hashId3, "3");
+            var res3 = redisService.HashGet<string>(hashId3, "3", serializer: new MessagePackRedisSerializer());
 
 
             Console.Read();

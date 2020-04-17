@@ -1,6 +1,7 @@
 ﻿using MessagePack;
 using Nigel.Extensions;
 using Nigel.Json;
+using Nigel.Helpers;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
@@ -14,14 +15,14 @@ namespace Nigel.Core.Redis
         {
             if (value == null) return RedisValue.Null;
 
-            return MessagePackSerializer.Serialize(value);
+            return value.ToMsgPackBytes();
         }
 
         public virtual T Deserialize<T>(RedisValue value)
         {
             if (value == RedisValue.Null) return default;
 
-            return MessagePackSerializer.Deserialize<T>(value);
+            return Conv.To<byte[]>(value).ToMsgPackObject<T>();
         }
 
         public virtual IList<T> Deserialize<T>(RedisValue[] value)
@@ -34,7 +35,7 @@ namespace Nigel.Core.Redis
                 if (v == RedisValue.Null)
                     list.Add(default);
                 else
-                    list.Add(MessagePackSerializer.Deserialize<T>(v));
+                    list.Add(Conv.To<byte[]>(value).ToMsgPackObject<T>());
             }
 
             return list;
