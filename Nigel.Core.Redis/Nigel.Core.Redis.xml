@@ -211,7 +211,7 @@
             Hash 命令
             </summary>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashSet``1(System.String,System.String,``0,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashSet``1(System.String,System.String,``0,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             写入hash表操作
             </summary>
@@ -220,8 +220,9 @@
             <param name="key">字段名（可以当成是列名）</param>
             <param name="value">字段值（可以当成是列值）</param>
             <param name="connectionName">连接名称</param>
+            <param name="serializer">序列化</param>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashSet``1(System.String,System.String,``0,Nigel.Core.Redis.OverWrittenTypeDenum,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashSet``1(System.String,System.String,``0,Nigel.Core.Redis.OverWrittenTypeDenum,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             写入时候判断是否写入
             </summary>
@@ -231,9 +232,10 @@
             <param name="value"></param>
             <param name="isAlways">0=一直,1=仅存在的时候,2=不存在的时候</param>
             <param name="connectionName"></param>
+            <param name="serializer">序列化</param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashGetOrInsert``1(System.String,System.String,System.Func{``0},System.Int32,System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashGetOrInsert``1(System.String,System.String,System.Func{``0},System.Int32,System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获得Hash键值对值（可以理解为获得某一行中的某一列数据），当数据为空 则重新写入redis数据
             </summary>
@@ -244,9 +246,10 @@
             <param name="seconds"></param>
             <param name="connectionRead"></param>
             <param name="connectionWrite"></param>
+            <param name="serializer">序列化</param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashGetOrInsert``2(System.String,System.String,System.Func{``0,``1},``0,System.Int32,System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashGetOrInsert``2(System.String,System.String,System.Func{``0,``1},``0,System.Int32,System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获得Hash键值对值（可以理解为获得某一行中的某一列数据），当数据为空 则重新写入redis数据
             </summary>
@@ -259,24 +262,27 @@
             <param name="seconds"></param>
             <param name="connectionRead"></param>
             <param name="connectionWrite"></param>
+            <param name="serializer">序列化</param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashGet``1(System.String,System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashGet``1(System.String,System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获得Hash键值对值（可以理解为获得某一行中的某一列数据）
             </summary>
             <param name="hashId">键ID（行ID）</param>
             <param name="key">键（列名）</param>
             <param name="connectionName">连接名称</param>
+            <param name="serializer">序列化</param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashGet``1(System.String,System.String[],System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashGet``1(System.String,System.String[],System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获得Hash指定键值
             </summary>
             <param name="hashId"></param>
             <param name="keys"></param>
             <param name="connectionName"></param>
+            <param name="serializer">序列化</param>
             <returns></returns>
         </member>
         <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashLength(System.String,System.String)">
@@ -313,13 +319,14 @@
             <param name="connectionName"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashValues``1(System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashValues``1(System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获得指定Hash所有的Values
             </summary>
             <typeparam name="TResult"></typeparam>
             <param name="hashId"></param>
             <param name="connectionName"></param>
+            <param name="serializer">序列化</param>
             <returns></returns>
         </member>
         <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashDelete(System.String,System.String,System.String)">
@@ -354,7 +361,7 @@
             Hash 命令
             </summary>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommandAsync.HashSetAsync``1(System.String,System.String,``0,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommandAsync.HashSetAsync``1(System.String,System.String,``0,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             写入hash表操作
             </summary>
@@ -363,8 +370,9 @@
             <param name="key">字段名（可以当成是列名）</param>
             <param name="value">字段值（可以当成是列值）</param>
             <param name="connectionName">连接名称</param>
+            <param name="serializer"></param>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommandAsync.HashSetAsync``1(System.String,System.String,``0,Nigel.Core.Redis.OverWrittenTypeDenum,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommandAsync.HashSetAsync``1(System.String,System.String,``0,Nigel.Core.Redis.OverWrittenTypeDenum,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             写入时候判断是否写入
             </summary>
@@ -374,22 +382,24 @@
             <param name="value"></param>
             <param name="isAlways">0=一直,1=仅存在的时候,2=不存在的时候</param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommandAsync.HashGetOrInsertAsync``1(System.String,System.String,System.Func{``0},System.Int32,System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommandAsync.HashGetOrInsertAsync``1(System.String,System.String,System.Func{``0},System.Int32,System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获得Hash键值对值（可以理解为获得某一行中的某一列数据），当数据为空 则重新写入redis数据
             </summary>
             <typeparam name="TResult"></typeparam>
             <param name="hashKey"></param>
             <param name="key"></param>
-            <param name="seconds"></param>
             <param name="fetcher"></param>
+            <param name="seconds"></param>
             <param name="connectionRead"></param>
             <param name="connectionWrite"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommandAsync.HashGetOrInsertAsync``2(System.String,System.String,System.Func{``0,``1},``0,System.Int32,System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommandAsync.HashGetOrInsertAsync``2(System.String,System.String,System.Func{``0,``1},``0,System.Int32,System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获得Hash键值对值（可以理解为获得某一行中的某一列数据），当数据为空 则重新写入redis数据
             </summary>
@@ -397,29 +407,32 @@
             <typeparam name="TResult"></typeparam>
             <param name="hashKey"></param>
             <param name="key"></param>
+            <param name="fetcher"></param>
+            <param name="t"></param>
             <param name="seconds"></param>
             <param name="connectionRead"></param>
             <param name="connectionWrite"></param>
-            <param name="fetcher"></param>
-            <param name="t"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommandAsync.HashGetAsync``1(System.String,System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommandAsync.HashGetAsync``1(System.String,System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获得Hash键值对值（可以理解为获得某一行中的某一列数据）
             </summary>
             <param name="hashId">键ID（行ID）</param>
             <param name="key">键（列名）</param>
             <param name="connectionName">连接名称</param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommandAsync.HashGetAsync``1(System.String,System.String[],System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommandAsync.HashGetAsync``1(System.String,System.String[],System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获得Hash指定键值
             </summary>
             <param name="hashId"></param>
             <param name="keys"></param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
         <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommandAsync.HashLengthAsync(System.String,System.String)">
@@ -456,13 +469,14 @@
             <param name="connectionName"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommandAsync.HashValuesAsync``1(System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommandAsync.HashValuesAsync``1(System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获得指定Hash所有的Values
             </summary>
             <typeparam name="TResult"></typeparam>
             <param name="hashId"></param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
         <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommandAsync.HashDeleteAsync(System.String,System.String,System.String)">
@@ -587,7 +601,7 @@
             Redis 列表命令
             </summary>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListLeftPushWhenExists``1(System.String,``0,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListLeftPushWhenExists``1(System.String,``0,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             从列表左侧插入(只有当队列存在的时候)
             </summary>
@@ -595,9 +609,10 @@
             <param name="key"></param>
             <param name="value"></param>
             <param name="connectionName"></param>
+            <param name="serializer">序列化</param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListLeftPush``1(System.String,System.Collections.Generic.List{``0},System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListLeftPush``1(System.String,System.Collections.Generic.List{``0},System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             从列表左侧插入(插入多数据)
             </summary>
@@ -605,9 +620,10 @@
             <param name="key"></param>
             <param name="value"></param>
             <param name="connectionName"></param>
+            <param name="serializer">序列化</param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListLeftPushWhenNoExists``1(System.String,``0,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListLeftPushWhenNoExists``1(System.String,``0,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             从列表左侧插入(只有当队列不存在的时候)
             </summary>
@@ -615,9 +631,10 @@
             <param name="key"></param>
             <param name="value"></param>
             <param name="connectionName"></param>
+            <param name="serializer">序列化</param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListRightPushWhenExists``1(System.String,``0,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListRightPushWhenExists``1(System.String,``0,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             从列表右侧插入(只有当列表存在时)
             </summary>
@@ -625,9 +642,10 @@
             <param name="key"></param>
             <param name="value"></param>
             <param name="connectionName"></param>
+            <param name="serializer">序列化</param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListRightPushWhenNoExists``1(System.String,``0,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListRightPushWhenNoExists``1(System.String,``0,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             从列表右侧插入(只有当列表不存在时)
             </summary>
@@ -635,9 +653,10 @@
             <param name="key"></param>
             <param name="value"></param>
             <param name="connectionName"></param>
+            <param name="serializer">序列化</param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListRightPush``1(System.String,System.Collections.Generic.List{``0},System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListRightPush``1(System.String,System.Collections.Generic.List{``0},System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             从列表右侧插入(插入多数据)
             </summary>
@@ -645,24 +664,27 @@
             <param name="key"></param>
             <param name="value"></param>
             <param name="connectionName"></param>
+            <param name="serializer">序列化</param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListLeftPop``1(System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListLeftPop``1(System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             返回最前面的一条并且移除
             </summary>
             <typeparam name="T"></typeparam>
             <param name="key"></param>
             <param name="connectionName"></param>
+            <param name="serializer">序列化</param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListRightPop``1(System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListRightPop``1(System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             返回最后面的一条并且移除
             </summary>
             <typeparam name="T"></typeparam>
             <param name="key"></param>
             <param name="connectionName"></param>
+            <param name="serializer">序列化</param>
             <returns></returns>
         </member>
         <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListLength(System.String,System.String)">
@@ -673,7 +695,7 @@
             <param name="connectionName"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListSetByIndex``1(System.String,System.Int64,``0,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListSetByIndex``1(System.String,System.Int64,``0,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             通过下标设置消息列表值
             </summary>
@@ -682,6 +704,7 @@
             <param name="index">允许负数(如果为负数则从最后开始算起)</param>
             <param name="value"></param>
             <param name="connectionName"></param>
+            <param name="serializer">序列化</param>
         </member>
         <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListTrim(System.String,System.Int64,System.Int64,System.String)">
             <summary>
@@ -692,7 +715,7 @@
             <param name="end"></param>
             <param name="connectionName"></param>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListGetByIndex``1(System.String,System.Int64,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListGetByIndex``1(System.String,System.Int64,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             通过下标获得值
             </summary>
@@ -700,9 +723,10 @@
             <param name="key"></param>
             <param name="index"></param>
             <param name="connectionName"></param>
+            <param name="serializer">序列化</param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListRange``1(System.String,System.Int64,System.Int64,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListRange``1(System.String,System.Int64,System.Int64,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             通过下标范围取的集合
             </summary>
@@ -711,9 +735,10 @@
             <param name="start"></param>
             <param name="end"></param>
             <param name="connectionName"></param>
+            <param name="serializer">序列化</param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListInsertBefore``1(System.String,``0,System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListInsertBefore``1(System.String,``0,System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             在消息列表指定值之前插入值
             </summary>
@@ -722,8 +747,9 @@
             <param name="value"></param>
             <param name="insertvalue"></param>
             <param name="connectionName"></param>
+            <param name="serializer">序列化</param>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListInsertAfter``1(System.String,``0,System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListInsertAfter``1(System.String,``0,System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             在消息列表指定值之后插入值
             </summary>
@@ -732,8 +758,9 @@
             <param name="value"></param>
             <param name="insertvalue"></param>
             <param name="connectionName"></param>
+            <param name="serializer">序列化</param>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListRemove``1(System.String,``0,System.Int64,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommand.ListRemove``1(System.String,``0,System.Int64,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             移除消息列表
             </summary>
@@ -742,6 +769,7 @@
             <param name="value"></param>
             <param name="removecount">0:移除所有相同的,大于0从左边开始移除相同的个数,小于0从末尾开始移除的个数</param>
             <param name="connectionName"></param>
+            <param name="serializer">序列化</param>
             <returns></returns>
         </member>
         <member name="T:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync">
@@ -749,7 +777,7 @@
             Redis 列表命令
             </summary>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListLeftPushWhenExistsAsync``1(System.String,``0,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListLeftPushWhenExistsAsync``1(System.String,``0,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             从列表左侧插入(只有当队列存在的时候)
             </summary>
@@ -757,9 +785,10 @@
             <param name="key"></param>
             <param name="value"></param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListLeftPushAsync``1(System.String,System.Collections.Generic.List{``0},System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListLeftPushAsync``1(System.String,System.Collections.Generic.List{``0},System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             从列表左侧插入(插入多数据)
             </summary>
@@ -767,9 +796,10 @@
             <param name="key"></param>
             <param name="value"></param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListLeftPushWhenNoExistsAsync``1(System.String,``0,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListLeftPushWhenNoExistsAsync``1(System.String,``0,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             从列表左侧插入(只有当队列不存在的时候)
             </summary>
@@ -777,9 +807,10 @@
             <param name="key"></param>
             <param name="value"></param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListRightPushWhenExistsAsync``1(System.String,``0,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListRightPushWhenExistsAsync``1(System.String,``0,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             从列表右侧插入(只有当列表存在时)
             </summary>
@@ -787,9 +818,10 @@
             <param name="key"></param>
             <param name="value"></param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListRightPushWhenNoExistsAsync``1(System.String,``0,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListRightPushWhenNoExistsAsync``1(System.String,``0,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             从列表右侧插入(只有当列表不存在时)
             </summary>
@@ -797,9 +829,10 @@
             <param name="key"></param>
             <param name="value"></param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListRightPushAsync``1(System.String,System.Collections.Generic.List{``0},System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListRightPushAsync``1(System.String,System.Collections.Generic.List{``0},System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             从列表右侧插入(插入多数据)
             </summary>
@@ -807,24 +840,27 @@
             <param name="key"></param>
             <param name="value"></param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListLeftPopAsync``1(System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListLeftPopAsync``1(System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             返回最前面的一条并且移除
             </summary>
             <typeparam name="T"></typeparam>
             <param name="key"></param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListRightPopAsync``1(System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListRightPopAsync``1(System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             返回最后面的一条并且移除
             </summary>
             <typeparam name="T"></typeparam>
             <param name="key"></param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
         <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListLengthAsync(System.String,System.String)">
@@ -835,7 +871,7 @@
             <param name="connectionName"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListSetByIndexAsync``1(System.String,System.Int64,``0,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListSetByIndexAsync``1(System.String,System.Int64,``0,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             通过下标设置消息列表值
             </summary>
@@ -844,6 +880,7 @@
             <param name="index">允许负数(如果为负数则从最后开始算起)</param>
             <param name="value"></param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
         </member>
         <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListTrimAsync(System.String,System.Int64,System.Int64,System.String)">
             <summary>
@@ -854,7 +891,7 @@
             <param name="end"></param>
             <param name="connectionName"></param>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListGetByIndexAsync``1(System.String,System.Int64,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListGetByIndexAsync``1(System.String,System.Int64,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             通过下标获得值
             </summary>
@@ -862,9 +899,10 @@
             <param name="key"></param>
             <param name="index"></param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListRangeAsync``1(System.String,System.Int64,System.Int64,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListRangeAsync``1(System.String,System.Int64,System.Int64,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             通过下标范围取的集合
             </summary>
@@ -873,9 +911,10 @@
             <param name="start"></param>
             <param name="end"></param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListInsertBeforeAsync``1(System.String,``0,System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListInsertBeforeAsync``1(System.String,``0,System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             在消息列表指定值之前插入值
             </summary>
@@ -884,8 +923,9 @@
             <param name="value"></param>
             <param name="insertvalue"></param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListInsertAfterAsync``1(System.String,``0,System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListInsertAfterAsync``1(System.String,``0,System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             在消息列表指定值之后插入值
             </summary>
@@ -894,8 +934,9 @@
             <param name="value"></param>
             <param name="insertvalue"></param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListRemoveAsync``1(System.String,``0,System.Int64,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IListRedisCommandAsync.ListRemoveAsync``1(System.String,``0,System.Int64,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             移除消息列表
             </summary>
@@ -904,6 +945,7 @@
             <param name="value"></param>
             <param name="removecount">0:移除所有相同的,大于0从左边开始移除相同的个数,小于0从末尾开始移除的个数</param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
         <member name="T:Nigel.Core.Redis.RedisCommand.ILockRedisCommand">
@@ -921,7 +963,7 @@
             Redis Set集合
             </summary>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommand.SetAdd``1(System.String,``0,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommand.SetAdd``1(System.String,``0,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             集合添加
             </summary>
@@ -929,18 +971,20 @@
             <param name="key">集合key</param>
             <param name="value">集合值</param>
             <param name="connectionName"></param>
+            <param name="serializer">序列化</param>
             <returns></returns>T
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommand.SetMembers``1(System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommand.SetMembers``1(System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获得集合里面的内容
             </summary>
             <typeparam name="T"></typeparam>
             <param name="key">集合key</param>
             <param name="connectionName"></param>
+            <param name="serializer">序列化</param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommand.SetExists``1(System.String,``0,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommand.SetExists``1(System.String,``0,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             查看集合里面是否有该内容
             </summary>
@@ -948,9 +992,10 @@
             <param name="key">集合key</param>
             <param name="value">集合值</param>
             <param name="connectionName"></param>
+            <param name="serializer">序列化</param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommand.SetRemove``1(System.String,``0,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommand.SetRemove``1(System.String,``0,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             移除集合中指定值
             </summary>
@@ -958,15 +1003,17 @@
             <param name="key">集合key</param>
             <param name="value">集合值</param>
             <param name="connectionName"></param>
+            <param name="serializer">序列化</param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommand.SetPop``1(System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommand.SetPop``1(System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             随机移除集合中的一个元素并且返回该值
             </summary>
             <typeparam name="T"></typeparam>
             <param name="key"></param>
             <param name="connectionName"></param>
+            <param name="serializer">序列化</param>
             <returns></returns>
         </member>
         <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommand.SetLength(System.String,System.String)">
@@ -977,13 +1024,14 @@
             <param name="connectionName"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommand.SetRandom``1(System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommand.SetRandom``1(System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             随机返回集合中的元素 但是不删除,区别于POP操作
             </summary>
             <typeparam name="T"></typeparam>
             <param name="key"></param>
             <param name="connectionName"></param>
+            <param name="serializer">序列化</param>
             <returns></returns>
         </member>
         <member name="T:Nigel.Core.Redis.RedisCommand.ISetRedisCommandAsync">
@@ -991,7 +1039,7 @@
             Redis Set集合
             </summary>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommandAsync.SetAddAsync``1(System.String,``0,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommandAsync.SetAddAsync``1(System.String,``0,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             集合添加
             </summary>
@@ -999,18 +1047,20 @@
             <param name="key">集合key</param>
             <param name="value">集合值</param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>T
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommandAsync.SetMembersAsync``1(System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommandAsync.SetMembersAsync``1(System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获得集合里面的内容
             </summary>
             <typeparam name="T"></typeparam>
             <param name="key">集合key</param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommandAsync.SetExistsAsync``1(System.String,``0,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommandAsync.SetExistsAsync``1(System.String,``0,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             查看集合里面是否有该内容
             </summary>
@@ -1018,9 +1068,10 @@
             <param name="key">集合key</param>
             <param name="value">集合值</param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommandAsync.SetRemoveAsync``1(System.String,``0,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommandAsync.SetRemoveAsync``1(System.String,``0,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             移除集合中指定值
             </summary>
@@ -1028,15 +1079,17 @@
             <param name="key">集合key</param>
             <param name="value">集合值</param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommandAsync.SetPopAsync``1(System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommandAsync.SetPopAsync``1(System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             随机移除集合中的一个元素并且返回该值
             </summary>
             <typeparam name="T"></typeparam>
             <param name="key"></param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
         <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommandAsync.SetLengthAsync(System.String,System.String)">
@@ -1047,13 +1100,14 @@
             <param name="connectionName"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommandAsync.SetRandomAsync``1(System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISetRedisCommandAsync.SetRandomAsync``1(System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             随机返回集合中的元素 但是不删除,区别于POP操作
             </summary>
             <typeparam name="T"></typeparam>
             <param name="key"></param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
         <member name="T:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommand">
@@ -1061,7 +1115,7 @@
             Redis 有序集合命令
             </summary>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommand.SortedAdd``1(System.String,``0,System.Double,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommand.SortedAdd``1(System.String,``0,System.Double,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             添加有序集和对象,向有序集合添加一个或多个成员，或者更新已存在成员的分数
             </summary>
@@ -1070,8 +1124,9 @@
             <param name="value"></param>
             <param name="score"></param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommand.SortedAdd``1(System.String,System.Collections.Generic.Dictionary{``0,System.Double},System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommand.SortedAdd``1(System.String,System.Collections.Generic.Dictionary{``0,System.Double},System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             批量添加有序集合对象
             </summary>
@@ -1079,6 +1134,7 @@
             <param name="key"></param>
             <param name="values"></param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
         <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommand.SortedCount(System.String,System.Double,System.Double,System.String)">
@@ -1091,7 +1147,7 @@
             <param name="connectionName"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommand.SortedRemove``1(System.String,``0,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommand.SortedRemove``1(System.String,``0,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             删除有续集和
             </summary>
@@ -1099,9 +1155,10 @@
             <param name="key"></param>
             <param name="value"></param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommand.SortedRemove``1(System.String,System.Collections.Generic.IList{``0},System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommand.SortedRemove``1(System.String,System.Collections.Generic.IList{``0},System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             删除有序集合根据多个values集合
             </summary>
@@ -1109,6 +1166,7 @@
             <param name="key"></param>
             <param name="values"></param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
         <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommand.SortedRemove(System.String,System.Int64,System.Int64,System.String)">
@@ -1121,7 +1179,7 @@
             <param name="connectionName"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommand.SortedRangeByScore``1(System.String,System.Double,System.Double,System.Int32,System.Int32,System.Int32,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommand.SortedRangeByScore``1(System.String,System.Double,System.Double,System.Int32,System.Int32,System.Int32,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获取有续集和的值
             </summary>
@@ -1132,9 +1190,10 @@
             <param name="skip"></param>
             <param name="take"></param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommand.SortedRange``1(System.String,System.Int64,System.Int64,System.Int32,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommand.SortedRange``1(System.String,System.Int64,System.Int64,System.Int32,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获取有序集合
             </summary>
@@ -1144,9 +1203,10 @@
             <param name="stop"></param>
             <param name="orderby">0：Ascending，1：Descending</param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommand.SortedZrank``1(System.String,``0,System.Int32,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommand.SortedZrank``1(System.String,``0,System.Int32,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             返回有序集合中指定成员的索引
             </summary>
@@ -1155,6 +1215,7 @@
             <param name="value"></param>
             <param name="orderby">0：Ascending，1：Descending</param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
         <member name="T:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommandAsync">
@@ -1162,7 +1223,7 @@
             Redis 有序集合命令
             </summary>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommandAsync.SortedAddAsync``1(System.String,``0,System.Double,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommandAsync.SortedAddAsync``1(System.String,``0,System.Double,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             添加有序集和对象,向有序集合添加一个或多个成员，或者更新已存在成员的分数
             </summary>
@@ -1171,8 +1232,9 @@
             <param name="value"></param>
             <param name="score"></param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommandAsync.SortedAddAsync``1(System.String,System.Collections.Generic.Dictionary{``0,System.Double},System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommandAsync.SortedAddAsync``1(System.String,System.Collections.Generic.Dictionary{``0,System.Double},System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             批量添加有序集合对象
             </summary>
@@ -1180,6 +1242,7 @@
             <param name="key"></param>
             <param name="values"></param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
         <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommandAsync.SortedCountAsync(System.String,System.Double,System.Double,System.String)">
@@ -1192,7 +1255,7 @@
             <param name="connectionName"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommandAsync.SortedRemoveAsync``1(System.String,``0,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommandAsync.SortedRemoveAsync``1(System.String,``0,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             删除有续集和
             </summary>
@@ -1200,9 +1263,10 @@
             <param name="key"></param>
             <param name="value"></param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommandAsync.SortedRemoveAsync``1(System.String,System.Collections.Generic.IList{``0},System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommandAsync.SortedRemoveAsync``1(System.String,System.Collections.Generic.IList{``0},System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             删除有序集合根据多个values集合
             </summary>
@@ -1210,6 +1274,7 @@
             <param name="key"></param>
             <param name="values"></param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
         <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommandAsync.SortedRemoveAsync(System.String,System.Int64,System.Int64,System.String)">
@@ -1222,7 +1287,7 @@
             <param name="connectionName"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommandAsync.SortedRangeByScoreAsync``1(System.String,System.Double,System.Double,System.Int32,System.Int32,System.Int32,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommandAsync.SortedRangeByScoreAsync``1(System.String,System.Double,System.Double,System.Int32,System.Int32,System.Int32,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获取有续集和的值
             </summary>
@@ -1233,9 +1298,10 @@
             <param name="skip"></param>
             <param name="take"></param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommandAsync.SortedRangeAsync``1(System.String,System.Int64,System.Int64,System.Int32,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommandAsync.SortedRangeAsync``1(System.String,System.Int64,System.Int64,System.Int32,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获取有序集合
             </summary>
@@ -1245,9 +1311,10 @@
             <param name="stop"></param>
             <param name="orderby">0：Ascending，1：Descending</param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommandAsync.SortedZrankAsync``1(System.String,``0,System.Int32,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.ISortSetRedisCommandAsync.SortedZrankAsync``1(System.String,``0,System.Int32,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             返回有序集合中指定成员的索引
             </summary>
@@ -1256,6 +1323,7 @@
             <param name="value"></param>
             <param name="orderby">0：Ascending，1：Descending</param>
             <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
         <member name="T:Nigel.Core.Redis.RedisCommand.IStringRedisCommand">
@@ -1263,7 +1331,7 @@
             String 命令
             </summary>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommand.StringSet``1(System.String,``0,System.Int32,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommand.StringSet``1(System.String,``0,System.Int32,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             写入string命令key-value
             </summary>
@@ -1272,8 +1340,9 @@
             <param name="value">值</param>
             <param name="seconds">失效时间，默认不失效（当业务场景中需要做失效时间时使用）</param>
             <param name="connectionName">连接名称</param>
+            <param name="serializer"></param>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommand.StringGetOrInsert``1(System.String,System.Func{``0},System.Int32,System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommand.StringGetOrInsert``1(System.String,System.Func{``0},System.Int32,System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获取string的value值，如果不存在则写入
             </summary>
@@ -1283,9 +1352,10 @@
             <param name="seconds"></param>
             <param name="connectionRead"></param>
             <param name="connectionWrite"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommand.StringGetOrInsert``2(System.String,System.Func{``0,``1},``0,System.Int32,System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommand.StringGetOrInsert``2(System.String,System.Func{``0,``1},``0,System.Int32,System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获取string的value值，如果不存在则写入
             </summary>
@@ -1297,22 +1367,7 @@
             <param name="seconds"></param>
             <param name="connectionRead"></param>
             <param name="connectionWrite"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommand.StringGet``1(System.String,System.String)">
-            <summary>
-            获得string的value值
-            </summary>
-            <param name="key">键</param>
-            <param name="connectionName">连接名称</param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommand.StringGet``1(System.String[],System.String)">
-            <summary>
-            批量获得string类型的值
-            </summary>
-            <param name="keys"></param>
-            <param name="connectionName"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
         <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommand.StringIncrement(System.String,System.Int64,System.String)">
@@ -1324,12 +1379,30 @@
             <param name="connectionName"></param>
             <returns></returns>
         </member>
+        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommand.StringGet``1(System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
+            <summary>
+            获得string的value值
+            </summary>
+            <param name="key">键</param>
+            <param name="connectionName">连接名称</param>
+            <param name="serializer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommand.StringGet``1(System.String[],System.String,Nigel.Core.Redis.IRedisSerializer)">
+            <summary>
+            批量获得string类型的值
+            </summary>
+            <param name="keys"></param>
+            <param name="connectionName"></param>
+            <param name="serializer"></param>
+            <returns></returns>
+        </member>
         <member name="T:Nigel.Core.Redis.RedisCommand.IStringRedisCommandAsync">
             <summary>
             String 命令
             </summary>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommandAsync.StringSetAsync``1(System.String,``0,System.Int32,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommandAsync.StringSetAsync``1(System.String,``0,System.Int32,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             写入string命令key-value
             </summary>
@@ -1338,8 +1411,9 @@
             <param name="value">值</param>
             <param name="seconds">失效时间，默认不失效（当业务场景中需要做失效时间时使用）</param>
             <param name="connectionName">连接名称</param>
+            <param name="serializer"></param>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommandAsync.StringGetOrInsertAsync``1(System.String,System.Func{``0},System.Int32,System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommandAsync.StringGetOrInsertAsync``1(System.String,System.Func{``0},System.Int32,System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获取string的value值，如果不存在则写入
             </summary>
@@ -1349,9 +1423,10 @@
             <param name="seconds"></param>
             <param name="connectionRead"></param>
             <param name="connectionWrite"></param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommandAsync.StringGetOrInsertAsync``2(System.String,System.Func{``0,``1},``0,System.Int32,System.String,System.String)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommandAsync.StringGetOrInsertAsync``2(System.String,System.Func{``0,``1},``0,System.Int32,System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获取string的value值，如果不存在则写入
             </summary>
@@ -1363,22 +1438,7 @@
             <param name="seconds"></param>
             <param name="connectionRead"></param>
             <param name="connectionWrite"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommandAsync.StringGetAsync``1(System.String,System.String)">
-            <summary>
-            获得string的value值
-            </summary>
-            <param name="key">键</param>
-            <param name="connectionName">连接名称</param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommandAsync.StringGetAsync``1(System.String[],System.String)">
-            <summary>
-            批量获得string类型的值
-            </summary>
-            <param name="keys">key数组</param>
-            <param name="connectionName">连接名称</param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
         <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommandAsync.StringIncrementAsync(System.String,System.Int64,System.String)">
@@ -1388,6 +1448,24 @@
             <param name="key"></param>
             <param name="value"></param>
             <param name="connectionName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommandAsync.StringGetAsync``1(System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
+            <summary>
+            获得string的value值
+            </summary>
+            <param name="key">键</param>
+            <param name="connectionName">连接名称</param>
+            <param name="serializer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommandAsync.StringGetAsync``1(System.String[],System.String,Nigel.Core.Redis.IRedisSerializer)">
+            <summary>
+            批量获得string类型的值
+            </summary>
+            <param name="keys">key数组</param>
+            <param name="connectionName">连接名称</param>
+            <param name="serializer"></param>
             <returns></returns>
         </member>
     </members>

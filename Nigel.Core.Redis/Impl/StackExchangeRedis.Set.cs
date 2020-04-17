@@ -12,44 +12,64 @@ namespace Nigel.Core.Redis
 {
     public abstract partial class StackExchangeRedis : ISetRedisCommand
     {
-        public bool SetAdd<T>(string key, T value, string connectionName = null)
+        public bool SetAdd<T>(string key, T value, string connectionName = null, IRedisSerializer serializer = null)
         {
+            RedisThrow.NullSerializer(redisSerializer, serializer);
+
             return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
+                if (serializer != null)
+                    return db.SetAdd(key, serializer.Serializer(value));
                 return db.SetAdd(key, redisSerializer.Serializer(value));
             });
         }
 
-        public IList<T> SetMembers<T>(string key, string connectionName = null)
+        public IList<T> SetMembers<T>(string key, string connectionName = null, IRedisSerializer serializer = null)
         {
+            RedisThrow.NullSerializer(redisSerializer, serializer);
+
             return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
                 var value = db.SetMembers(key);
+                if (serializer != null)
+                    return serializer.Deserialize<T>(value);
                 return redisSerializer.Deserialize<T>(value);
             });
         }
 
-        public bool SetExists<T>(string key, T value, string connectionName = null)
+        public bool SetExists<T>(string key, T value, string connectionName = null, IRedisSerializer serializer = null)
         {
+            RedisThrow.NullSerializer(redisSerializer, serializer);
+
             return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
+                if (serializer != null)
+                    return db.SetContains(key, serializer.Serializer(value));
                 return db.SetContains(key, redisSerializer.Serializer(value));
             });
         }
 
-        public bool SetRemove<T>(string key, T value, string connectionName = null)
+        public bool SetRemove<T>(string key, T value, string connectionName = null, IRedisSerializer serializer = null)
         {
+            RedisThrow.NullSerializer(redisSerializer, serializer);
+
             return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
+                if (serializer != null)
+                    return db.SetRemove(key, serializer.Serializer(value));
                 return db.SetRemove(key, redisSerializer.Serializer(value));
             });
         }
 
-        public T SetPop<T>(string key, string connectionName = null)
+        public T SetPop<T>(string key, string connectionName = null, IRedisSerializer serializer = null)
         {
+            RedisThrow.NullSerializer(redisSerializer, serializer);
+
             return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
                 var value = db.SetPop(key);
+                if (serializer != null)
+                    return serializer.Deserialize<T>(value);
                 return redisSerializer.Deserialize<T>(value);
             });
         }
@@ -62,12 +82,16 @@ namespace Nigel.Core.Redis
             });
         }
 
-        public T SetRandom<T>(string key, string connectionName = null)
+        public T SetRandom<T>(string key, string connectionName = null, IRedisSerializer serializer = null)
         {
+            RedisThrow.NullSerializer(redisSerializer, serializer);
+
             return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
                 var value = db.SetRandomMember(key);
 
+                if (serializer != null)
+                    return serializer.Deserialize<T>(value);
                 return redisSerializer.Deserialize<T>(value);
             });
         }

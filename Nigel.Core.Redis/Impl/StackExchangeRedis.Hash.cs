@@ -7,21 +7,28 @@ using StackExchange.Redis;
 using Nigel.Extensions;
 using Nigel.Json;
 using Nigel.Core.Redis.RedisCommand;
+using Nigel.Helpers;
 
 namespace Nigel.Core.Redis
 {
     public abstract partial class StackExchangeRedis : IHashRedisCommand
     {
-        public bool HashSet<T>(string hashId, string key, T value, string connectionName = null)
+        public bool HashSet<T>(string hashId, string key, T value, string connectionName = null, IRedisSerializer serializer = null)
         {
+            RedisThrow.NullSerializer(redisSerializer, serializer);
+
             return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
              {
+                 if (serializer != null)
+                     return db.HashSet(hashId, key, serializer.Serializer(value));
                  return db.HashSet(hashId, key, redisSerializer.Serializer(value));
              });
         }
 
-        public bool HashSet<T>(string hashId, string key, T value, OverWrittenTypeDenum isAlways, string connectionName = null)
+        public bool HashSet<T>(string hashId, string key, T value, OverWrittenTypeDenum isAlways, string connectionName = null, IRedisSerializer serializer = null)
         {
+            RedisThrow.NullSerializer(redisSerializer, serializer);
+
             return ExecuteCommand(ConnectTypeEnum.Write, connectionName, (db) =>
             {
                 When when = When.Always;
@@ -38,12 +45,16 @@ namespace Nigel.Core.Redis
                         break;
                 }
 
+                if (serializer != null)
+                    return db.HashSet(hashId, key, serializer.Serializer(value), when);
                 return db.HashSet(hashId, key, redisSerializer.Serializer(value), when);
             });
         }
 
-        public TResult HashGetOrInsert<TResult>(string hashId, string key, Func<TResult> fetcher, int seconds = 0, string connectionRead = null, string connectionWrite = null)
+        public TResult HashGetOrInsert<TResult>(string hashId, string key, Func<TResult> fetcher, int seconds = 0, string connectionRead = null, string connectionWrite = null, IRedisSerializer serializer = null)
         {
+            RedisThrow.NullSerializer(redisSerializer, serializer);
+
             if (!HashExists(hashId, key, connectionRead))
             {
                 var source = fetcher.Invoke();
@@ -53,7 +64,7 @@ namespace Nigel.Core.Redis
                     {
                         bool exists = KeyExists(hashId, connectionRead);
 
-                        HashSet(hashId, key, source, connectionWrite);
+                        HashSet(hashId, key, source, connectionWrite, serializer);
                         if (!exists)
                         {
                             KeyExpire(hashId, seconds, connectionWrite);
@@ -61,19 +72,21 @@ namespace Nigel.Core.Redis
                     }
                     else
                     {
-                        HashSet(hashId, key, source, connectionWrite);
+                        HashSet(hashId, key, source, connectionWrite, serializer);
                     }
                 }
                 return source;
             }
             else
             {
-                return HashGet<TResult>(hashId, key, connectionRead);
+                return HashGet<TResult>(hashId, key, connectionRead, serializer);
             }
         }
 
-        public TResult HashGetOrInsert<T, TResult>(string hashId, string key, Func<T, TResult> fetcher, T t, int seconds = 0, string connectionRead = null, string connectionWrite = null)
+        public TResult HashGetOrInsert<T, TResult>(string hashId, string key, Func<T, TResult> fetcher, T t, int seconds = 0, string connectionRead = null, string connectionWrite = null, IRedisSerializer serializer = null)
         {
+            RedisThrow.NullSerializer(redisSerializer, serializer);
+
             if (!HashExists(hashId, key, connectionRead))
             {
                 var source = fetcher.Invoke(t);
@@ -82,7 +95,7 @@ namespace Nigel.Core.Redis
                     if (seconds > 0)
                     {
                         bool exists = KeyExists(hashId, connectionRead);
-                        HashSet(hashId, key, source, connectionWrite);
+                        HashSet(hashId, key, source, connectionWrite, serializer);
                         if (!exists)
                         {
                             KeyExpire(hashId, seconds, connectionWrite);
@@ -90,29 +103,34 @@ namespace Nigel.Core.Redis
                     }
                     else
                     {
-                        HashSet(hashId, key, source, connectionWrite);
+                        HashSet(hashId, key, source, connectionWrite, serializer);
                     }
                 }
                 return source;
             }
             else
             {
-                return HashGet<TResult>(hashId, key, connectionRead);
+                return HashGet<TResult>(hashId, key, connectionRead, serializer);
             }
         }
 
-        public TResult HashGet<TResult>(string hashId, string key, string connectionName = null)
+        public TResult HashGet<TResult>(string hashId, string key, string connectionName = null, IRedisSerializer serializer = null)
         {
+            RedisThrow.NullSerializer(redisSerializer, serializer);
+
             return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
                 var res = db.HashGet(hashId, key);
-
+                if (serializer != null)
+                    return serializer.Deserialize<TResult>(res);
                 return redisSerializer.Deserialize<TResult>(res);
             });
         }
 
-        public IList<TResult> HashGet<TResult>(string hashId, string[] keys, string connectionName = null)
+        public IList<TResult> HashGet<TResult>(string hashId, string[] keys, string connectionName = null, IRedisSerializer serializer = null)
         {
+            RedisThrow.NullSerializer(redisSerializer, serializer);
+
             return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
                 List<RedisValue> listvalues = new List<RedisValue>();
@@ -121,6 +139,8 @@ namespace Nigel.Core.Redis
 
                 var res = db.HashGet(hashId, listvalues.ToArray());
 
+                if (serializer != null)
+                    return serializer.Deserialize<TResult>(res);
                 return redisSerializer.Deserialize<TResult>(res);
             });
         }
@@ -151,11 +171,15 @@ namespace Nigel.Core.Redis
             });
         }
 
-        public IList<TResult> HashValues<TResult>(string hashId, string connectionName = null)
+        public IList<TResult> HashValues<TResult>(string hashId, string connectionName = null, IRedisSerializer serializer = null)
         {
+            RedisThrow.NullSerializer(redisSerializer, serializer);
+
             return ExecuteCommand(ConnectTypeEnum.Read, connectionName, (db) =>
             {
                 var value = db.HashValues(hashId);
+                if (serializer != null)
+                    return serializer.Deserialize<TResult>(value);
                 return redisSerializer.Deserialize<TResult>(value);
             });
         }

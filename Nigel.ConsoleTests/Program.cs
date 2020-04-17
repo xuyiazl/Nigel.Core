@@ -38,7 +38,7 @@ namespace Nigel.ConsoleTests
 
             var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.Test.json").Build();
 
-            IRedisService redisService = new RedisServiceProvider(configuration, new MessagePackRedisSerializer());
+            IRedisService redisService = new RedisServiceProvider(configuration, null);
 
             string hashId = "User";
 
@@ -48,7 +48,7 @@ namespace Nigel.ConsoleTests
 
             //redisService.HashSet<User>(hashId, user.Id, user);
 
-            var res = redisService.HashGet<User>(hashId, user.Id);
+            var res = redisService.HashGet<User>(hashId, user.Id, serializer: new MessagePackRedisSerializer());
 
             string hashId2 = "User2";
 

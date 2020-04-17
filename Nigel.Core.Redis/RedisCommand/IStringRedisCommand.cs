@@ -18,7 +18,8 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <param name="value">值</param>
         /// <param name="seconds">失效时间，默认不失效（当业务场景中需要做失效时间时使用）</param>
         /// <param name="connectionName">连接名称</param>
-        bool StringSet<T>(string key, T value, int seconds = 0, string connectionName = null);
+        /// <param name="serializer"></param>
+        bool StringSet<T>(string key, T value, int seconds = 0, string connectionName = null, IRedisSerializer serializer = null);
         /// <summary>
         /// 获取string的value值，如果不存在则写入
         /// </summary>
@@ -28,8 +29,9 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <param name="seconds"></param>
         /// <param name="connectionRead"></param>
         /// <param name="connectionWrite"></param>
+        /// <param name="serializer"></param>
         /// <returns></returns>
-        TResult StringGetOrInsert<TResult>(string key, Func<TResult> fetcher, int seconds = 0, string connectionRead = null, string connectionWrite = null);
+        TResult StringGetOrInsert<TResult>(string key, Func<TResult> fetcher, int seconds = 0, string connectionRead = null, string connectionWrite = null, IRedisSerializer serializer = null);
         /// <summary>
         /// 获取string的value值，如果不存在则写入
         /// </summary>
@@ -41,22 +43,9 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <param name="seconds"></param>
         /// <param name="connectionRead"></param>
         /// <param name="connectionWrite"></param>
+        /// <param name="serializer"></param>
         /// <returns></returns>
-        TResult StringGetOrInsert<T, TResult>(string key, Func<T, TResult> fetcher, T t, int seconds = 0, string connectionRead = null, string connectionWrite = null);
-        /// <summary>
-        /// 获得string的value值
-        /// </summary>
-        /// <param name="key">键</param>
-        /// <param name="connectionName">连接名称</param>
-        /// <returns></returns>
-        TResult StringGet<TResult>(string key, string connectionName = null);
-        /// <summary>
-        /// 批量获得string类型的值
-        /// </summary>
-        /// <param name="keys"></param>
-        /// <param name="connectionName"></param>
-        /// <returns></returns>
-        IList<TResult> StringGet<TResult>(string[] keys, string connectionName = null);
+        TResult StringGetOrInsert<T, TResult>(string key, Func<T, TResult> fetcher, T t, int seconds = 0, string connectionRead = null, string connectionWrite = null, IRedisSerializer serializer = null);
         /// <summary>
         /// 原子性自增列
         /// </summary>
@@ -65,6 +54,22 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <param name="connectionName"></param>
         /// <returns></returns>
         long StringIncrement(string key, long value = 1, string connectionName = null);
+        /// <summary>
+        /// 获得string的value值
+        /// </summary>
+        /// <param name="key">键</param>
+        /// <param name="connectionName">连接名称</param>
+        /// <param name="serializer"></param>
+        /// <returns></returns>
+        TResult StringGet<TResult>(string key, string connectionName = null, IRedisSerializer serializer = null);
+        /// <summary>
+        /// 批量获得string类型的值
+        /// </summary>
+        /// <param name="keys"></param>
+        /// <param name="connectionName"></param>
+        /// <param name="serializer"></param>
+        /// <returns></returns>
+        IList<TResult> StringGet<TResult>(string[] keys, string connectionName = null, IRedisSerializer serializer = null);
 
     }
 }

@@ -17,7 +17,8 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <param name="key">字段名（可以当成是列名）</param>
         /// <param name="value">字段值（可以当成是列值）</param>
         /// <param name="connectionName">连接名称</param>
-        bool HashSet<T>(string hashId, string key, T value, string connectionName = null);
+        /// <param name="serializer">序列化</param>
+        bool HashSet<T>(string hashId, string key, T value, string connectionName = null, IRedisSerializer serializer = null);
         /// <summary>
         /// 写入时候判断是否写入
         /// </summary>
@@ -27,8 +28,9 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <param name="value"></param>
         /// <param name="isAlways">0=一直,1=仅存在的时候,2=不存在的时候</param>
         /// <param name="connectionName"></param>
+        /// <param name="serializer">序列化</param>
         /// <returns></returns>
-        bool HashSet<T>(string hashId, string key, T value, OverWrittenTypeDenum isAlways, string connectionName = null);
+        bool HashSet<T>(string hashId, string key, T value, OverWrittenTypeDenum isAlways, string connectionName = null, IRedisSerializer serializer = null);
         /// <summary>
         /// 获得Hash键值对值（可以理解为获得某一行中的某一列数据），当数据为空 则重新写入redis数据
         /// </summary>
@@ -39,8 +41,9 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <param name="seconds"></param>
         /// <param name="connectionRead"></param>
         /// <param name="connectionWrite"></param>
+        /// <param name="serializer">序列化</param>
         /// <returns></returns>
-        TResult HashGetOrInsert<TResult>(string hashKey, string key, Func<TResult> fetcher, int seconds = 0, string connectionRead = null, string connectionWrite = null);
+        TResult HashGetOrInsert<TResult>(string hashKey, string key, Func<TResult> fetcher, int seconds = 0, string connectionRead = null, string connectionWrite = null, IRedisSerializer serializer = null);
         /// <summary>
         /// 获得Hash键值对值（可以理解为获得某一行中的某一列数据），当数据为空 则重新写入redis数据
         /// </summary>
@@ -53,24 +56,27 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <param name="seconds"></param>
         /// <param name="connectionRead"></param>
         /// <param name="connectionWrite"></param>
+        /// <param name="serializer">序列化</param>
         /// <returns></returns>
-        TResult HashGetOrInsert<T, TResult>(string hashKey, string key, Func<T, TResult> fetcher, T t, int seconds = 0, string connectionRead = null, string connectionWrite = null);
+        TResult HashGetOrInsert<T, TResult>(string hashKey, string key, Func<T, TResult> fetcher, T t, int seconds = 0, string connectionRead = null, string connectionWrite = null, IRedisSerializer serializer = null);
         /// <summary>
         /// 获得Hash键值对值（可以理解为获得某一行中的某一列数据）
         /// </summary>
         /// <param name="hashId">键ID（行ID）</param>
         /// <param name="key">键（列名）</param>
         /// <param name="connectionName">连接名称</param>
+        /// <param name="serializer">序列化</param>
         /// <returns></returns>
-        TResult HashGet<TResult>(string hashId, string key, string connectionName = null);
+        TResult HashGet<TResult>(string hashId, string key, string connectionName = null, IRedisSerializer serializer = null);
         /// <summary>
         /// 获得Hash指定键值
         /// </summary>
         /// <param name="hashId"></param>
         /// <param name="keys"></param>
         /// <param name="connectionName"></param>
+        /// <param name="serializer">序列化</param>
         /// <returns></returns>
-        IList<TResult> HashGet<TResult>(string hashId, string[] keys, string connectionName = null);
+        IList<TResult> HashGet<TResult>(string hashId, string[] keys, string connectionName = null, IRedisSerializer serializer = null);
         /// <summary>
         /// 获得Hash长度
         /// </summary>
@@ -107,8 +113,9 @@ namespace Nigel.Core.Redis.RedisCommand
         /// <typeparam name="TResult"></typeparam>
         /// <param name="hashId"></param>
         /// <param name="connectionName"></param>
+        /// <param name="serializer">序列化</param>
         /// <returns></returns>
-        IList<TResult> HashValues<TResult>(string hashId, string connectionName = null);
+        IList<TResult> HashValues<TResult>(string hashId, string connectionName = null, IRedisSerializer serializer = null);
         /// <summary>
         /// 删除Hash中指定的key
         /// </summary>

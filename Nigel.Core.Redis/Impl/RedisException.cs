@@ -46,4 +46,13 @@ namespace Nigel.Core.Redis
 
         }
     }
+
+    public static class RedisThrow
+    {
+        public static void NullSerializer(IRedisSerializer redisSerializer, IRedisSerializer serializer)
+        {
+            if (redisSerializer == null && serializer == null)
+                throw new ArgumentNullException(nameof(IRedisSerializer), "请注入或者传入Redis序列化组件，并实现IRedisSerializer接口");
+        }
+    }
 }

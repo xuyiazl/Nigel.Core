@@ -10,12 +10,12 @@ namespace Nigel.Core.Redis.RedisCommand
     /// </summary>
     public interface ILockRedisCommand
     {
-        bool LockExtend<T>(string key, T value, int seconds, string connectionName = null);
+        bool LockExtend<T>(string key, T value, int seconds, string connectionName = null, IRedisSerializer serializer = null);
 
-        string LockQuery(string key, string connectionName = null);
+        T LockQuery<T>(string key, string connectionName = null, IRedisSerializer serializer = null);
 
-        bool LockRelease<T>(string key, T value, string connectionName = null);
+        bool LockRelease<T>(string key, T value, string connectionName = null, IRedisSerializer serializer = null);
 
-        bool LockTake<T>(string key, T value, int seconds, string connectionName = null);
+        bool LockTake<T>(string key, T value, int seconds, string connectionName = null, IRedisSerializer serializer = null);
     }
 }
