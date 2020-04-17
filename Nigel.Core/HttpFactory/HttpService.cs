@@ -24,11 +24,7 @@ namespace Nigel.Core.HttpFactory
 
         #region [ GET ]
 
-        public async Task<T> GetAsync<T>(UrlArguments urlArguments)
-            where T : class, new()
-            => await HttpSendAsync<T>(urlArguments, HttpMethod.Get, new HttpFormData(), CancellationToken.None);
-
-        public async Task<T> GetAsync<T>(UrlArguments urlArguments, CancellationToken cancellationToken)
+        public async Task<T> GetAsync<T>(UrlArguments urlArguments, CancellationToken cancellationToken = default)
             where T : class, new()
             => await HttpSendAsync<T>(urlArguments, HttpMethod.Get, new HttpFormData(), cancellationToken);
 
@@ -36,95 +32,76 @@ namespace Nigel.Core.HttpFactory
 
         #region [ POST ]
 
-        public async Task<T> PostAsync<T, TModel>(UrlArguments urlArguments, TModel postData)
+        public async Task<T> PostAsync<T>(UrlArguments urlArguments, HttpFormData formData, CancellationToken cancellationToken = default)
             where T : class, new()
-            => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Post, postData, CancellationToken.None);
+            => await HttpSendAsync<T>(urlArguments, HttpMethod.Post, formData, cancellationToken);
 
-        public async Task<T> PostAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken)
+        public async Task<T> PostAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken = default)
             where T : class, new()
             => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Post, postData, cancellationToken);
 
-        public async Task<T> PostAsync<T>(UrlArguments urlArguments, HttpFormData formData)
+        public async Task<T> PostMsgPackAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken = default)
             where T : class, new()
-            => await HttpSendAsync<T>(urlArguments, HttpMethod.Post, formData, CancellationToken.None);
-
-        public async Task<T> PostAsync<T>(UrlArguments urlArguments, HttpFormData formData, CancellationToken cancellationToken)
-            where T : class, new()
-            => await HttpSendAsync<T>(urlArguments, HttpMethod.Post, formData, cancellationToken);
+            => await HttpSendMsgPackAsync<T, TModel>(urlArguments, HttpMethod.Post, postData, cancellationToken);
 
         #endregion [ POST ]
 
         #region [ PUT ]
 
-        public async Task<T> PutAsync<T, TModel>(UrlArguments urlArguments, TModel postData)
+        public async Task<T> PutAsync<T>(UrlArguments urlArguments, HttpFormData formData, CancellationToken cancellationToken = default)
             where T : class, new()
-            => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Put, postData, CancellationToken.None);
+            => await HttpSendAsync<T>(urlArguments, HttpMethod.Put, formData, cancellationToken);
 
-        public async Task<T> PutAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken)
+        public async Task<T> PutAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken = default)
             where T : class, new()
             => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Put, postData, cancellationToken);
 
-        public async Task<T> PutAsync<T>(UrlArguments urlArguments, HttpFormData formData)
+        public async Task<T> PutMsgPackAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken = default)
             where T : class, new()
-            => await HttpSendAsync<T>(urlArguments, HttpMethod.Put, formData, CancellationToken.None);
-
-        public async Task<T> PutAsync<T>(UrlArguments urlArguments, HttpFormData formData, CancellationToken cancellationToken)
-            where T : class, new()
-            => await HttpSendAsync<T>(urlArguments, HttpMethod.Put, formData, cancellationToken);
+            => await HttpSendMsgPackAsync<T, TModel>(urlArguments, HttpMethod.Put, postData, cancellationToken);
 
         #endregion [ PUT ]
 
         #region [ PATCH ]
 
-        public async Task<T> PatchAsync<T, TModel>(UrlArguments urlArguments, TModel postData)
-            where T : class, new()
-            => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Patch, postData, CancellationToken.None);
 
-        public async Task<T> PatchAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken)
+        public async Task<T> PatchAsync<T>(UrlArguments urlArguments, HttpFormData formData, CancellationToken cancellationToken = default)
+            where T : class, new()
+            => await HttpSendAsync<T>(urlArguments, HttpMethod.Patch, formData, cancellationToken);
+
+        public async Task<T> PatchAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken = default)
             where T : class, new()
             => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Patch, postData, cancellationToken);
 
-        public async Task<T> PatchAsync<T>(UrlArguments urlArguments, HttpFormData formData)
+        public async Task<T> PatchMsgPackAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken = default)
             where T : class, new()
-            => await HttpSendAsync<T>(urlArguments, HttpMethod.Patch, formData, CancellationToken.None);
-
-        public async Task<T> PatchAsync<T>(UrlArguments urlArguments, HttpFormData formData, CancellationToken cancellationToken)
-            where T : class, new()
-            => await HttpSendAsync<T>(urlArguments, HttpMethod.Patch, formData, cancellationToken);
+            => await HttpSendMsgPackAsync<T, TModel>(urlArguments, HttpMethod.Patch, postData, cancellationToken);
 
         #endregion [ PATCH ]
 
         #region [ DELETE ]
 
-        public async Task<T> DeleteAsync<T>(UrlArguments urlArguments)
-            where T : class, new()
-            => await HttpSendAsync<T>(urlArguments, HttpMethod.Delete, new HttpFormData(), CancellationToken.None);
-
-        public async Task<T> DeleteAsync<T, TModel>(UrlArguments urlArguments, TModel data)
-            where T : class, new()
-            => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Delete, data, CancellationToken.None);
-
-        public async Task<T> DeleteAsync<T>(UrlArguments urlArguments, CancellationToken cancellationToken)
+        public async Task<T> DeleteAsync<T>(UrlArguments urlArguments, CancellationToken cancellationToken = default)
             where T : class, new()
             => await HttpSendAsync<T>(urlArguments, HttpMethod.Delete, new HttpFormData(), cancellationToken);
 
-        public async Task<T> DeleteAsync<T, TModel>(UrlArguments urlArguments, TModel data, CancellationToken cancellationToken)
+        public async Task<T> DeleteMsgPackAsync<T>(UrlArguments urlArguments, CancellationToken cancellationToken = default)
             where T : class, new()
-            => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Delete, data, cancellationToken);
+            => await HttpSendMsgPackAsync<T>(urlArguments, HttpMethod.Delete, null, cancellationToken);
 
         #endregion [ DELETE ]
 
         #region [ 内部方法 ]
 
-        private async Task<T> HttpSendAsync<T>(UrlArguments urlArguments, HttpMethod method, HttpFormData formData, CancellationToken cancellationToken)
+        private async Task<T> HttpSendAsync<T>(UrlArguments urlArguments, HttpMethod method, HttpFormData formData, CancellationToken cancellationToken = default)
             where T : class, new()
             => await HttpSendAsync<T>(urlArguments, method, () => formData == null || formData.IsEmpty ? null : new StringContent(formData.ToString(), Encoding.UTF8, "application/x-www-form-urlencoded"), cancellationToken);
 
-        private async Task<T> HttpSendAsync<T, TModel>(UrlArguments urlArguments, HttpMethod method, TModel postData, CancellationToken cancellationToken)
+        private async Task<T> HttpSendAsync<T, TModel>(UrlArguments urlArguments, HttpMethod method, TModel postData, CancellationToken cancellationToken = default)
             where T : class, new()
             => await HttpSendAsync<T>(urlArguments, method, () => postData == null ? null : new StringContent(postData.ToJson(), Encoding.UTF8, "application/json"), cancellationToken);
 
-        public virtual async Task<T> HttpSendAsync<T>(UrlArguments urlArguments, HttpMethod method, Func<HttpContent> contentCall, CancellationToken cancellationToken)
+        public virtual async Task<T> HttpSendAsync<T>(UrlArguments urlArguments, HttpMethod method, Func<HttpContent> contentCall, CancellationToken cancellationToken = default)
             where T : class, new()
         {
             HttpClient client = HttpClientFactory.CreateClient(string.IsNullOrEmpty(urlArguments.ClientName) ? "apiClient" : urlArguments.ClientName);
@@ -142,6 +119,8 @@ namespace Nigel.Core.HttpFactory
 
             */
 
+            HttpResponseMessage responseMessage = null;
+
             if (client.BaseAddress == null)
             {
                 HttpRequestMessage requestMessage = new HttpRequestMessage
@@ -157,16 +136,10 @@ namespace Nigel.Core.HttpFactory
                 if (content != null)
                     requestMessage.Content = content;
 
-                HttpResponseMessage responseMessage = await client.SendAsync(requestMessage, cancellationToken);
-
-                string res = await responseMessage.Content.ReadAsStringAsync();
-
-                return res.ToObject<T>();
+                responseMessage = await client.SendAsync(requestMessage, cancellationToken);
             }
             else
             {
-                HttpResponseMessage responseMessage = null;
-
                 RequestHeaders(client.DefaultRequestHeaders);
 
                 switch (method.Method)
@@ -174,28 +147,94 @@ namespace Nigel.Core.HttpFactory
                     case "GET":
                         responseMessage = await client.GetAsync(requestUrl, cancellationToken);
                         break;
-
                     case "POST":
                         responseMessage = await client.PostAsync(requestUrl, contentCall(), cancellationToken);
                         break;
-
                     case "PUT":
                         responseMessage = await client.PutAsync(requestUrl, contentCall(), cancellationToken);
                         break;
-
                     case "DELETE":
                         responseMessage = await client.DeleteAsync(requestUrl, cancellationToken);
                         break;
-
                     case "PATCH":
                         responseMessage = await client.PatchAsync(requestUrl, contentCall(), cancellationToken);
                         break;
                 }
-
-                string res = await responseMessage.Content.ReadAsStringAsync();
-
-                return res.ToObject<T>();
             }
+            string res = await responseMessage.Content.ReadAsStringAsync();
+
+            return res.ToObject<T>();
+        }
+
+        private async Task<T> HttpSendMsgPackAsync<T, TModel>(UrlArguments urlArguments, HttpMethod method, TModel postData, CancellationToken cancellationToken = default)
+            where T : class, new()
+            => await HttpSendMsgPackAsync<T>(urlArguments, method, () => postData == null ? null : new ByteArrayContent(postData.ToMsgPackBytes()), cancellationToken);
+
+        public virtual async Task<T> HttpSendMsgPackAsync<T>(UrlArguments urlArguments, HttpMethod method, Func<HttpContent> contentCall, CancellationToken cancellationToken = default)
+            where T : class, new()
+        {
+            HttpClient client = HttpClientFactory.CreateClient(string.IsNullOrEmpty(urlArguments.ClientName) ? "apiClient" : urlArguments.ClientName);
+
+            string requestUrl = urlArguments.Complete().Url;
+
+            /*
+
+            //如果使用了 nginx 反向代理，需要在nginx里配置，并使用该方法获取IP
+
+            if (_accessor.HttpContext.Request.Headers.ContainsKey("X-Real-IP"))
+                ipAddress = _accessor.HttpContext.Request.Headers["X-Real-IP"].NullToEmpty();
+            else
+                ipAddress = _accessor.HttpContext.Connection.RemoteIpAddress.NullToEmpty();
+
+            */
+
+            HttpResponseMessage responseMessage = null;
+
+            if (client.BaseAddress == null)
+            {
+                HttpRequestMessage requestMessage = new HttpRequestMessage
+                {
+                    Method = method,
+                    RequestUri = new Uri(requestUrl)
+                };
+
+                RequestHeaders(requestMessage.Headers);
+
+                var content = contentCall();
+
+                if (content != null)
+                    requestMessage.Content = content;
+
+                responseMessage = await client.SendAsync(requestMessage, cancellationToken);
+
+            }
+            else
+            {
+                RequestHeaders(client.DefaultRequestHeaders);
+
+                switch (method.Method)
+                {
+                    case "GET":
+                        responseMessage = await client.GetAsync(requestUrl, cancellationToken);
+                        break;
+                    case "POST":
+                        responseMessage = await client.PostAsync(requestUrl, contentCall(), cancellationToken);
+                        break;
+                    case "PUT":
+                        responseMessage = await client.PutAsync(requestUrl, contentCall(), cancellationToken);
+                        break;
+                    case "DELETE":
+                        responseMessage = await client.DeleteAsync(requestUrl, cancellationToken);
+                        break;
+                    case "PATCH":
+                        responseMessage = await client.PatchAsync(requestUrl, contentCall(), cancellationToken);
+                        break;
+                }
+            }
+
+            var res = await responseMessage.Content.ReadAsByteArrayAsync();
+
+            return res.ToMsgPackObject<T>();
         }
 
         /// <summary>

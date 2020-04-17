@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
 using Nigel.Core.Redis;
+using Nigel.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -34,6 +35,16 @@ namespace Nigel.ConsoleTests
     {
         static void Main(string[] args)
         {
+            User user = new User { Id = "1", Name = "张三1111" };
+
+            var _user1 = user.ToMsgPackBytes().ToMsgPackObject<User>();
+
+            var _user2 = user.ToMsgPackJson().ToMsgPackBytesFromJson().ToMsgPackObject<User>();
+
+
+
+
+
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
             var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.Test.json").Build();
@@ -41,8 +52,6 @@ namespace Nigel.ConsoleTests
             IRedisService redisService = new RedisServiceProvider(configuration, null);
 
             string hashId = "User";
-
-            User user = new User { Id = "1", Name = "张三1111" };
 
             //redisService.HashDelete(hashId, user.Id);
 

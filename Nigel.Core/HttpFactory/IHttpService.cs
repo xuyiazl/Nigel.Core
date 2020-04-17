@@ -12,54 +12,8 @@ namespace Nigel.Core.HttpFactory
     {
         IHttpClientFactory HttpClientFactory { get; set; }
 
-        /// <summary>
-        /// 异步DELETE
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="urlArguments"></param>
-        /// <returns></returns>
-        Task<T> DeleteAsync<T>(UrlArguments urlArguments)
-            where T : class, new();
 
-        /// <summary>
-        /// 异步DELETE
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="urlArguments"></param>
-        /// <param name="data"></param>
-        /// <returns></returns>
-        Task<T> DeleteAsync<T, TModel>(UrlArguments urlArguments, TModel data)
-            where T : class, new();
-
-        /// <summary>
-        /// 异步DELETE
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="urlArguments"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        Task<T> DeleteAsync<T>(UrlArguments urlArguments, CancellationToken cancellationToken)
-            where T : class, new();
-
-        /// <summary>
-        /// 异步DELETE
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="urlArguments"></param>
-        /// <param name="data"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        Task<T> DeleteAsync<T, TModel>(UrlArguments urlArguments, TModel data, CancellationToken cancellationToken)
-            where T : class, new();
-
-        /// <summary>
-        /// 异步GET
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="urlArguments"></param>
-        /// <returns></returns>
-        Task<T> GetAsync<T>(UrlArguments urlArguments)
-            where T : class, new();
+        #region [ GET ]
 
         /// <summary>
         /// 异步GET
@@ -68,20 +22,23 @@ namespace Nigel.Core.HttpFactory
         /// <param name="urlArguments"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<T> GetAsync<T>(UrlArguments urlArguments, CancellationToken cancellationToken)
+        Task<T> GetAsync<T>(UrlArguments urlArguments, CancellationToken cancellationToken = default)
             where T : class, new();
+
+        #endregion [ GET ]
+
+        #region [ POST ]
 
         /// <summary>
         /// 异步POST
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <typeparam name="TModel"></typeparam>
         /// <param name="urlArguments"></param>
-        /// <param name="postData"></param>
+        /// <param name="formData"></param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<T> PostAsync<T, TModel>(UrlArguments urlArguments, TModel postData)
+        Task<T> PostAsync<T>(UrlArguments urlArguments, HttpFormData formData, CancellationToken cancellationToken = default)
             where T : class, new();
-
         /// <summary>
         /// 异步POST
         /// </summary>
@@ -91,41 +48,33 @@ namespace Nigel.Core.HttpFactory
         /// <param name="postData"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<T> PostAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken)
+        Task<T> PostAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken = default)
             where T : class, new();
-
         /// <summary>
-        /// 异步POST
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="urlArguments"></param>
-        /// <param name="urlParamter"></param>
-        /// <returns></returns>
-        Task<T> PostAsync<T>(UrlArguments urlArguments, HttpFormData urlParamter)
-            where T : class, new();
-
-        /// <summary>
-        /// 异步POST
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="urlArguments"></param>
-        /// <param name="urlParamter"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
-        Task<T> PostAsync<T>(UrlArguments urlArguments, HttpFormData urlParamter, CancellationToken cancellationToken)
-            where T : class, new();
-
-        /// <summary>
-        /// 异步PUT
+        /// 异步POST MessagePack
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="TModel"></typeparam>
         /// <param name="urlArguments"></param>
         /// <param name="postData"></param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<T> PutAsync<T, TModel>(UrlArguments urlArguments, TModel postData)
+        Task<T> PostMsgPackAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken = default)
             where T : class, new();
 
+        #endregion [ POST ]
+
+        #region [ PUT ]
+        /// <summary>
+        /// 异步PUT
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="urlArguments"></param>
+        /// <param name="formData"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<T> PutAsync<T>(UrlArguments urlArguments, HttpFormData formData, CancellationToken cancellationToken = default)
+            where T : class, new();
         /// <summary>
         /// 异步PUT
         /// </summary>
@@ -135,39 +84,33 @@ namespace Nigel.Core.HttpFactory
         /// <param name="postData"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<T> PutAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken)
+        Task<T> PutAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken = default)
             where T : class, new();
-
         /// <summary>
-        /// 异步PUT
+        /// 异步PUT MessagePack
         /// </summary>
         /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TModel"></typeparam>
         /// <param name="urlArguments"></param>
-        /// <param name="urlParamter"></param>
-        /// <returns></returns>
-        Task<T> PutAsync<T>(UrlArguments urlArguments, HttpFormData urlParamter)
-            where T : class, new();
-
-        /// <summary>
-        /// 异步PUT
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="urlArguments"></param>
-        /// <param name="urlParamter"></param>
+        /// <param name="postData"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<T> PutAsync<T>(UrlArguments urlArguments, HttpFormData urlParamter, CancellationToken cancellationToken)
+        Task<T> PutMsgPackAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken = default)
             where T : class, new();
+
+        #endregion [ PUT ]
+
+        #region [ PATCH ]
 
         /// <summary>
         /// 异步PATCH
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <typeparam name="TModel"></typeparam>
         /// <param name="urlArguments"></param>
-        /// <param name="postData"></param>
+        /// <param name="formData"></param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<T> PatchAsync<T, TModel>(UrlArguments urlArguments, TModel postData)
+        Task<T> PatchAsync<T>(UrlArguments urlArguments, HttpFormData formData, CancellationToken cancellationToken = default)
             where T : class, new();
         /// <summary>
         /// 异步PATCH
@@ -178,26 +121,42 @@ namespace Nigel.Core.HttpFactory
         /// <param name="postData"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<T> PatchAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken)
+        Task<T> PatchAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken = default)
             where T : class, new();
         /// <summary>
-        /// 异步PATCH
+        /// 异步PATCH MessagePack
         /// </summary>
         /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TModel"></typeparam>
         /// <param name="urlArguments"></param>
-        /// <param name="urlParamter"></param>
-        /// <returns></returns>
-        Task<T> PatchAsync<T>(UrlArguments urlArguments, HttpFormData urlParamter)
-            where T : class, new();
-        /// <summary>
-        /// 异步PATCH
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="urlArguments"></param>
-        /// <param name="urlParamter"></param>
+        /// <param name="postData"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<T> PatchAsync<T>(UrlArguments urlArguments, HttpFormData urlParamter, CancellationToken cancellationToken)
+        Task<T> PatchMsgPackAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken = default)
             where T : class, new();
+
+        #endregion [ PATCH ]
+
+        #region [ DELETE ]
+        /// <summary>
+        /// 异步DELETE
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="urlArguments"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<T> DeleteAsync<T>(UrlArguments urlArguments, CancellationToken cancellationToken = default)
+             where T : class, new();
+        /// <summary>
+        /// 异步DELETE MessagePack
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="urlArguments"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<T> DeleteMsgPackAsync<T>(UrlArguments urlArguments, CancellationToken cancellationToken = default)
+             where T : class, new();
+
+        #endregion [ DELETE ]
     }
 }
