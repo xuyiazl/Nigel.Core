@@ -14958,6 +14958,15 @@
             <param name="cancellationToken"></param>
             <returns></returns>
         </member>
+        <member name="M:Nigel.Json.MessagePackExtensions.ToMsgPackObject``1(System.IO.Stream,MessagePack.MessagePackSerializerOptions,System.Threading.CancellationToken)">
+            <summary>
+            将MessagePack stream转换为对象
+            </summary>
+            <param name="stream"></param>
+            <param name="options"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
         <member name="M:Nigel.Json.MessagePackHelper.ToJson(System.Object,MessagePack.MessagePackSerializerOptions,System.Threading.CancellationToken)">
             <summary>
             将对象转换为MessagePack Json字符串
@@ -14999,6 +15008,15 @@
             将MessagePack Bytes转换为对象
             </summary>
             <param name="bytes"></param>
+            <param name="options"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Json.MessagePackHelper.ToObject``1(System.IO.Stream,MessagePack.MessagePackSerializerOptions,System.Threading.CancellationToken)">
+            <summary>
+            将MessagePack Bytes转换为对象
+            </summary>
+            <param name="stream"></param>
             <param name="options"></param>
             <param name="cancellationToken"></param>
             <returns></returns>

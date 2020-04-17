@@ -90,5 +90,21 @@ namespace Nigel.Json
 
             return res;
         }
+        /// <summary>
+        /// 将MessagePack Bytes转换为对象
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="options"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public static T ToObject<T>(Stream stream, MessagePackSerializerOptions options = null, CancellationToken cancellationToken = default)
+        {
+            if (stream == null || stream.Length == 0)
+                return default;
+
+            var res = MessagePackSerializer.Deserialize<T>(stream, options, cancellationToken);
+
+            return res;
+        }
     }
 }

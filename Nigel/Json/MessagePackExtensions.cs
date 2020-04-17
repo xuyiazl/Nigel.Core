@@ -68,5 +68,16 @@ namespace Nigel.Json
         {
             return MessagePackHelper.ToObject<T>(bytes, options, cancellationToken);
         }
+        /// <summary>
+        /// 将MessagePack stream转换为对象
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="options"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public static T ToMsgPackObject<T>(this Stream stream, MessagePackSerializerOptions options = null, CancellationToken cancellationToken = default)
+        {
+            return MessagePackHelper.ToObject<T>(stream, options, cancellationToken);
+        }
     }
 }

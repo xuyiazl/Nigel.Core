@@ -1,4 +1,5 @@
-﻿using Nigel.Helpers;
+﻿using MessagePack.Resolvers;
+using Nigel.Helpers;
 using Nigel.Json;
 using Nigel.Webs;
 using System;
@@ -27,6 +28,10 @@ namespace Nigel.Core.HttpFactory
         public async Task<T> GetAsync<T>(UrlArguments urlArguments, CancellationToken cancellationToken = default)
             where T : class, new()
             => await HttpSendAsync<T>(urlArguments, HttpMethod.Get, new HttpFormData(), cancellationToken);
+
+        public async Task<T> GetMsgPackAsync<T>(UrlArguments urlArguments, CancellationToken cancellationToken = default)
+            where T : class, new()
+            => await HttpSendMsgPackAsync<T>(urlArguments, HttpMethod.Get, null, cancellationToken);
 
         #endregion [ GET ]
 
@@ -87,7 +92,7 @@ namespace Nigel.Core.HttpFactory
 
         public async Task<T> DeleteMsgPackAsync<T>(UrlArguments urlArguments, CancellationToken cancellationToken = default)
             where T : class, new()
-            => await HttpSendMsgPackAsync<T>(urlArguments, HttpMethod.Delete, null, cancellationToken);
+            => await HttpSendMsgPackAsync<T>(urlArguments, HttpMethod.Delete, default, cancellationToken);
 
         #endregion [ DELETE ]
 
@@ -101,7 +106,7 @@ namespace Nigel.Core.HttpFactory
             where T : class, new()
             => await HttpSendAsync<T>(urlArguments, method, () => postData == null ? null : new StringContent(postData.ToJson(), Encoding.UTF8, "application/json"), cancellationToken);
 
-        public virtual async Task<T> HttpSendAsync<T>(UrlArguments urlArguments, HttpMethod method, Func<HttpContent> contentCall, CancellationToken cancellationToken = default)
+        public virtual async Task<T> HttpSendAsync<T>(UrlArguments urlArguments, HttpMethod method, Func<HttpContent> contentCall = null, CancellationToken cancellationToken = default)
             where T : class, new()
         {
             HttpClient client = HttpClientFactory.CreateClient(string.IsNullOrEmpty(urlArguments.ClientName) ? "apiClient" : urlArguments.ClientName);
@@ -131,10 +136,13 @@ namespace Nigel.Core.HttpFactory
 
                 RequestHeaders(requestMessage.Headers);
 
-                var content = contentCall();
+                if (contentCall != null)
+                {
+                    var content = contentCall();
 
-                if (content != null)
-                    requestMessage.Content = content;
+                    if (content != null)
+                        requestMessage.Content = content;
+                }
 
                 responseMessage = await client.SendAsync(requestMessage, cancellationToken);
             }
@@ -170,7 +178,7 @@ namespace Nigel.Core.HttpFactory
             where T : class, new()
             => await HttpSendMsgPackAsync<T>(urlArguments, method, () => postData == null ? null : new ByteArrayContent(postData.ToMsgPackBytes()), cancellationToken);
 
-        public virtual async Task<T> HttpSendMsgPackAsync<T>(UrlArguments urlArguments, HttpMethod method, Func<HttpContent> contentCall, CancellationToken cancellationToken = default)
+        public virtual async Task<T> HttpSendMsgPackAsync<T>(UrlArguments urlArguments, HttpMethod method, Func<HttpContent> contentCall = null, CancellationToken cancellationToken = default)
             where T : class, new()
         {
             HttpClient client = HttpClientFactory.CreateClient(string.IsNullOrEmpty(urlArguments.ClientName) ? "apiClient" : urlArguments.ClientName);
@@ -197,19 +205,24 @@ namespace Nigel.Core.HttpFactory
                     Method = method,
                     RequestUri = new Uri(requestUrl)
                 };
-
+                requestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-msgpack"));
                 RequestHeaders(requestMessage.Headers);
 
-                var content = contentCall();
+                if (contentCall != null)
+                {
+                    var content = contentCall();
 
-                if (content != null)
-                    requestMessage.Content = content;
+                    if (content != null)
+                        requestMessage.Content = content;
+                }
 
                 responseMessage = await client.SendAsync(requestMessage, cancellationToken);
 
             }
             else
             {
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-msgpack"));
+
                 RequestHeaders(client.DefaultRequestHeaders);
 
                 switch (method.Method)
@@ -232,7 +245,7 @@ namespace Nigel.Core.HttpFactory
                 }
             }
 
-            var res = await responseMessage.Content.ReadAsByteArrayAsync();
+            var res = await responseMessage.Content.ReadAsStreamAsync();
 
             return res.ToMsgPackObject<T>();
         }

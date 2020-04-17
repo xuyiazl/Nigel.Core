@@ -357,6 +357,15 @@
             <param name="cancellationToken"></param>
             <returns></returns>
         </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.GetMsgPackAsync``1(Nigel.Webs.UrlArguments,System.Threading.CancellationToken)">
+            <summary>
+            异步GET MessagePack
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="urlArguments"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
         <member name="M:Nigel.Core.HttpFactory.IHttpService.PostAsync``1(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpFormData,System.Threading.CancellationToken)">
             <summary>
             异步POST

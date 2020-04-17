@@ -25,6 +25,16 @@ namespace Nigel.Core.HttpFactory
         Task<T> GetAsync<T>(UrlArguments urlArguments, CancellationToken cancellationToken = default)
             where T : class, new();
 
+        /// <summary>
+        /// 异步GET MessagePack
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="urlArguments"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<T> GetMsgPackAsync<T>(UrlArguments urlArguments, CancellationToken cancellationToken = default)
+            where T : class, new();
+
         #endregion [ GET ]
 
         #region [ POST ]
