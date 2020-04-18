@@ -23,15 +23,13 @@ namespace Nigel.Core.HttpFactory
             this.HttpClientFactory = HttpClientFactory;
         }
 
+        #region [ JSON ]
+
         #region [ GET ]
 
         public async Task<T> GetAsync<T>(UrlArguments urlArguments, CancellationToken cancellationToken = default)
             where T : class, new()
             => await HttpSendAsync<T>(urlArguments, HttpMethod.Get, new HttpFormData(), cancellationToken);
-
-        public async Task<T> GetMsgPackAsync<T>(UrlArguments urlArguments, CancellationToken cancellationToken = default)
-            where T : class, new()
-            => await HttpSendMsgPackAsync<T>(urlArguments, HttpMethod.Get, null, cancellationToken);
 
         #endregion [ GET ]
 
@@ -45,10 +43,6 @@ namespace Nigel.Core.HttpFactory
             where T : class, new()
             => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Post, postData, cancellationToken);
 
-        public async Task<T> PostMsgPackAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken = default)
-            where T : class, new()
-            => await HttpSendMsgPackAsync<T, TModel>(urlArguments, HttpMethod.Post, postData, cancellationToken);
-
         #endregion [ POST ]
 
         #region [ PUT ]
@@ -61,9 +55,6 @@ namespace Nigel.Core.HttpFactory
             where T : class, new()
             => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Put, postData, cancellationToken);
 
-        public async Task<T> PutMsgPackAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken = default)
-            where T : class, new()
-            => await HttpSendMsgPackAsync<T, TModel>(urlArguments, HttpMethod.Put, postData, cancellationToken);
 
         #endregion [ PUT ]
 
@@ -78,9 +69,6 @@ namespace Nigel.Core.HttpFactory
             where T : class, new()
             => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Patch, postData, cancellationToken);
 
-        public async Task<T> PatchMsgPackAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken = default)
-            where T : class, new()
-            => await HttpSendMsgPackAsync<T, TModel>(urlArguments, HttpMethod.Patch, postData, cancellationToken);
 
         #endregion [ PATCH ]
 
@@ -90,9 +78,6 @@ namespace Nigel.Core.HttpFactory
             where T : class, new()
             => await HttpSendAsync<T>(urlArguments, HttpMethod.Delete, new HttpFormData(), cancellationToken);
 
-        public async Task<T> DeleteMsgPackAsync<T>(UrlArguments urlArguments, CancellationToken cancellationToken = default)
-            where T : class, new()
-            => await HttpSendMsgPackAsync<T>(urlArguments, HttpMethod.Delete, default, cancellationToken);
 
         #endregion [ DELETE ]
 
@@ -113,17 +98,6 @@ namespace Nigel.Core.HttpFactory
 
             string requestUrl = urlArguments.Complete().Url;
 
-            /*
-
-            //如果使用了 nginx 反向代理，需要在nginx里配置，并使用该方法获取IP
-
-            if (_accessor.HttpContext.Request.Headers.ContainsKey("X-Real-IP"))
-                ipAddress = _accessor.HttpContext.Request.Headers["X-Real-IP"].NullToEmpty();
-            else
-                ipAddress = _accessor.HttpContext.Connection.RemoteIpAddress.NullToEmpty();
-
-            */
-
             HttpResponseMessage responseMessage = null;
 
             if (client.BaseAddress == null)
@@ -137,12 +111,7 @@ namespace Nigel.Core.HttpFactory
                 RequestHeaders(requestMessage.Headers);
 
                 if (contentCall != null)
-                {
-                    var content = contentCall();
-
-                    if (content != null)
-                        requestMessage.Content = content;
-                }
+                    requestMessage.Content = contentCall();
 
                 responseMessage = await client.SendAsync(requestMessage, cancellationToken);
             }
@@ -150,29 +119,64 @@ namespace Nigel.Core.HttpFactory
             {
                 RequestHeaders(client.DefaultRequestHeaders);
 
-                switch (method.Method)
-                {
-                    case "GET":
-                        responseMessage = await client.GetAsync(requestUrl, cancellationToken);
-                        break;
-                    case "POST":
-                        responseMessage = await client.PostAsync(requestUrl, contentCall(), cancellationToken);
-                        break;
-                    case "PUT":
-                        responseMessage = await client.PutAsync(requestUrl, contentCall(), cancellationToken);
-                        break;
-                    case "DELETE":
-                        responseMessage = await client.DeleteAsync(requestUrl, cancellationToken);
-                        break;
-                    case "PATCH":
-                        responseMessage = await client.PatchAsync(requestUrl, contentCall(), cancellationToken);
-                        break;
-                }
+                HttpContent content = default;
+                if (contentCall != null)
+                    content = contentCall();
+
+                responseMessage = await SendAsync(client, requestUrl, method, content, cancellationToken);
             }
             string res = await responseMessage.Content.ReadAsStringAsync();
 
             return res.ToObject<T>();
         }
+
+        #endregion [ 内部方法 ]
+
+        #endregion
+
+        #region [ MessagePack ]
+
+        #region [ GET ]
+
+        public async Task<T> GetMsgPackAsync<T>(UrlArguments urlArguments, CancellationToken cancellationToken = default)
+            where T : class, new()
+            => await HttpSendMsgPackAsync<T>(urlArguments, HttpMethod.Get, default, cancellationToken);
+
+        #endregion [ GET ]
+
+        #region [ POST ]
+
+        public async Task<T> PostMsgPackAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken = default)
+            where T : class, new()
+            => await HttpSendMsgPackAsync<T, TModel>(urlArguments, HttpMethod.Post, postData, cancellationToken);
+
+        #endregion [ POST ]
+
+        #region [ PUT ]
+
+        public async Task<T> PutMsgPackAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken = default)
+            where T : class, new()
+            => await HttpSendMsgPackAsync<T, TModel>(urlArguments, HttpMethod.Put, postData, cancellationToken);
+
+        #endregion [ PUT ]
+
+        #region [ PATCH ]
+
+        public async Task<T> PatchMsgPackAsync<T, TModel>(UrlArguments urlArguments, TModel postData, CancellationToken cancellationToken = default)
+            where T : class, new()
+            => await HttpSendMsgPackAsync<T, TModel>(urlArguments, HttpMethod.Patch, postData, cancellationToken);
+
+        #endregion [ PATCH ]
+
+        #region [ DELETE ]
+
+        public async Task<T> DeleteMsgPackAsync<T>(UrlArguments urlArguments, CancellationToken cancellationToken = default)
+            where T : class, new()
+            => await HttpSendMsgPackAsync<T>(urlArguments, HttpMethod.Delete, default, cancellationToken);
+
+        #endregion [ DELETE ]
+
+        #region [ 内部方法 ]
 
         private async Task<T> HttpSendMsgPackAsync<T, TModel>(UrlArguments urlArguments, HttpMethod method, TModel postData, CancellationToken cancellationToken = default)
             where T : class, new()
@@ -185,16 +189,7 @@ namespace Nigel.Core.HttpFactory
 
             string requestUrl = urlArguments.Complete().Url;
 
-            /*
-
-            //如果使用了 nginx 反向代理，需要在nginx里配置，并使用该方法获取IP
-
-            if (_accessor.HttpContext.Request.Headers.ContainsKey("X-Real-IP"))
-                ipAddress = _accessor.HttpContext.Request.Headers["X-Real-IP"].NullToEmpty();
-            else
-                ipAddress = _accessor.HttpContext.Connection.RemoteIpAddress.NullToEmpty();
-
-            */
+            string contentType = "application/x-msgpack";
 
             HttpResponseMessage responseMessage = null;
 
@@ -205,49 +200,64 @@ namespace Nigel.Core.HttpFactory
                     Method = method,
                     RequestUri = new Uri(requestUrl)
                 };
-                requestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-msgpack"));
+
+                requestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(contentType));
+
                 RequestHeaders(requestMessage.Headers);
 
                 if (contentCall != null)
                 {
-                    var content = contentCall();
-
-                    if (content != null)
-                        requestMessage.Content = content;
+                    requestMessage.Content = contentCall();
+                    if (requestMessage.Content != null)
+                        requestMessage.Content.Headers.ContentType = new MediaTypeHeaderValue(contentType);
                 }
 
                 responseMessage = await client.SendAsync(requestMessage, cancellationToken);
-
             }
             else
             {
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-msgpack"));
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(contentType));
 
                 RequestHeaders(client.DefaultRequestHeaders);
 
-                switch (method.Method)
+                HttpContent content = default;
+                if (contentCall != null)
                 {
-                    case "GET":
-                        responseMessage = await client.GetAsync(requestUrl, cancellationToken);
-                        break;
-                    case "POST":
-                        responseMessage = await client.PostAsync(requestUrl, contentCall(), cancellationToken);
-                        break;
-                    case "PUT":
-                        responseMessage = await client.PutAsync(requestUrl, contentCall(), cancellationToken);
-                        break;
-                    case "DELETE":
-                        responseMessage = await client.DeleteAsync(requestUrl, cancellationToken);
-                        break;
-                    case "PATCH":
-                        responseMessage = await client.PatchAsync(requestUrl, contentCall(), cancellationToken);
-                        break;
+                    content = contentCall();
+                    if (content != null)
+                        content.Headers.ContentType = new MediaTypeHeaderValue(contentType);
                 }
+
+                responseMessage = await SendAsync(client, requestUrl, method, content, cancellationToken);
+
             }
 
             var res = await responseMessage.Content.ReadAsStreamAsync();
 
             return res.ToMsgPackObject<T>();
+        }
+
+        #endregion
+
+        #endregion
+
+        private async Task<HttpResponseMessage> SendAsync(HttpClient client, string requestUrl, HttpMethod method, HttpContent content, CancellationToken cancellationToken)
+        {
+            switch (method.Method)
+            {
+                case "GET":
+                    return await client.GetAsync(requestUrl, cancellationToken);
+                case "POST":
+                    return await client.PostAsync(requestUrl, content, cancellationToken);
+                case "PUT":
+                    return await client.PutAsync(requestUrl, content, cancellationToken);
+                case "DELETE":
+                    return await client.DeleteAsync(requestUrl, cancellationToken);
+                case "PATCH":
+                    return await client.PatchAsync(requestUrl, content, cancellationToken);
+                default:
+                    return await client.GetAsync(requestUrl, cancellationToken);
+            }
         }
 
         /// <summary>
@@ -258,7 +268,5 @@ namespace Nigel.Core.HttpFactory
         {
             headers.Add("ClientIP", Web.IP);
         }
-
-        #endregion [ 内部方法 ]
     }
 }

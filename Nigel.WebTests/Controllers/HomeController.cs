@@ -19,9 +19,21 @@ using Nigel.Core.Redis;
 using Nigel.WebTests.Data.DbService;
 using Nigel.Paging;
 using Nigel.Json;
+using MessagePack;
+using System;
 
 namespace Nigel.WebTests.Controllers
 {
+    [MessagePackObject]
+    public class User
+    {
+        [Key(0)]
+        public int Id { get; set; }
+        [Key(1)]
+        public string Name { get; set; }
+        [Key(2)]
+        public DateTime CreateTime { get; set; }
+    }
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -44,20 +56,40 @@ namespace Nigel.WebTests.Controllers
 
         }
 
-        [NoCache]
-        [Route("{id}")]
-        [RazorHtmlStatic(Template = "/static/{controller}/{action}-{id}.html")]
-        public async Task<IActionResult> Index(int id, CancellationToken cancellationToken)
+        public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
-            var url = UrlArguments.Create("test", $"/api/CommentsLive/GetPaged")
-                 .Add("aid", 1539)
-                 .Add("commentId", 0)
-                 .Add("pageSize", 10000);
+            var url = UrlArguments.Create("msgpack", "home/getuser");
 
-            var res = await _httpService.GetAsync<ReturnModel>(url, cancellationToken);
+            var res = await _httpService.GetMsgPackAsync<User>(url, cancellationToken);
 
-            return View(res);
+            var postUrl = UrlArguments.Create("msgpack", "home/postuser");
+
+            var res1 = await _httpService.PostMsgPackAsync<User, User>(postUrl, res, cancellationToken);
+
+            var url1 = UrlArguments.Create("test", $"/api/CommentsLive/GetPaged")
+                        .Add("aid", 1539)
+                        .Add("commentId", 0)
+                        .Add("pageSize", 10000);
+
+            var res2 = await _httpService.GetAsync<ReturnModel>(url1, cancellationToken);
+
+            return View(res2);
         }
+
+        //[NoCache]
+        //[Route("{id}")]
+        //[RazorHtmlStatic(Template = "/static/{controller}/{action}-{id}.html")]
+        //public async Task<IActionResult> Index(int id, CancellationToken cancellationToken)
+        //{
+        //var url = UrlArguments.Create("test", $"/api/CommentsLive/GetPaged")
+        //     .Add("aid", 1539)
+        //     .Add("commentId", 0)
+        //     .Add("pageSize", 10000);
+
+        //var res = await _httpService.GetAsync<ReturnModel>(url, cancellationToken);
+
+        //    return View(res);
+        //}
 
         public async Task<IActionResult> IndexView()
         {

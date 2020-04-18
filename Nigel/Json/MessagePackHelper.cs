@@ -1,4 +1,5 @@
 ﻿using MessagePack;
+using MessagePack.Resolvers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Nigel.Json
 {
+    /// <summary>
+    /// MessagePack操作辅助类
+    /// </summary>
     public class MessagePackHelper
     {
         /// <summary>
@@ -22,7 +26,7 @@ namespace Nigel.Json
             if (target == null)
                 return string.Empty;
 
-            var json = MessagePackSerializer.SerializeToJson(target, options, cancellationToken);
+            var json = MessagePackSerializer.SerializeToJson(target, options ?? ContractlessStandardResolver.Options, cancellationToken);
 
             return json;
         }
@@ -38,7 +42,7 @@ namespace Nigel.Json
             if (string.IsNullOrWhiteSpace(json))
                 return default;
 
-            var buffers = MessagePackSerializer.ConvertFromJson(json, options, cancellationToken);
+            var buffers = MessagePackSerializer.ConvertFromJson(json, options ?? ContractlessStandardResolver.Options, cancellationToken);
 
             return buffers;
         }
@@ -54,7 +58,7 @@ namespace Nigel.Json
             if (bytes == null || bytes.Length == 0)
                 return default;
 
-            var buffers = MessagePackSerializer.ConvertToJson(bytes, options, cancellationToken);
+            var buffers = MessagePackSerializer.ConvertToJson(bytes, options ?? ContractlessStandardResolver.Options, cancellationToken);
 
             return buffers;
         }
@@ -70,7 +74,7 @@ namespace Nigel.Json
             if (target == null)
                 return default;
 
-            var buffers = MessagePackSerializer.Serialize(target, options, cancellationToken);
+            var buffers = MessagePackSerializer.Serialize(target, options ?? ContractlessStandardResolver.Options, cancellationToken);
 
             return buffers;
         }
@@ -86,7 +90,7 @@ namespace Nigel.Json
             if (bytes == null || bytes.Length == 0)
                 return default;
 
-            var res = MessagePackSerializer.Deserialize<T>(bytes, options, cancellationToken);
+            var res = MessagePackSerializer.Deserialize<T>(bytes, options ?? ContractlessStandardResolver.Options, cancellationToken);
 
             return res;
         }
@@ -102,7 +106,7 @@ namespace Nigel.Json
             if (stream == null || stream.Length == 0)
                 return default;
 
-            var res = MessagePackSerializer.Deserialize<T>(stream, options, cancellationToken);
+            var res = MessagePackSerializer.Deserialize<T>(stream, options ?? ContractlessStandardResolver.Options, cancellationToken);
 
             return res;
         }

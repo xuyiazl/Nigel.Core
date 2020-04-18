@@ -14967,6 +14967,11 @@
             <param name="cancellationToken"></param>
             <returns></returns>
         </member>
+        <member name="T:Nigel.Json.MessagePackHelper">
+            <summary>
+            MessagePack操作辅助类
+            </summary>
+        </member>
         <member name="M:Nigel.Json.MessagePackHelper.ToJson(System.Object,MessagePack.MessagePackSerializerOptions,System.Threading.CancellationToken)">
             <summary>
             将对象转换为MessagePack Json字符串
