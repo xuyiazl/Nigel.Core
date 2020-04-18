@@ -29,25 +29,37 @@ namespace Nigel.ConsoleTests
         public string Id { get; set; }
         [Key(1)]
         public string Name { get; set; }
+        [Key(2)]
+        public Dictionary<string, object> Dict { get; set; }
     }
 
     class Program
     {
         static void Main(string[] args)
         {
-            User user = new User { Id = "1", Name = "张三1111" };
+            User user = new User
+            {
+                Id = "1",
+                Name = "张三1111"
+            };
+            user.Dict = new Dictionary<string, object>();
+            user.Dict.Add("Id", 1);
+            user.Dict.Add("Name", "张三");
+
+            var jj = user.ToMsgPackJson();
+
+            var _dict = user.ToMsgPackBytes();
+
+            var _dict1 = _dict.ToMsgPackObject<User>();
 
             var _user1 = user.ToMsgPackBytes().ToMsgPackObject<User>();
 
             var _user2 = user.ToMsgPackJson().ToMsgPackBytesFromJson().ToMsgPackObject<User>();
 
-            var dict = new Dictionary<string, object>();
-            dict.Add("Id", 1);
-            dict.Add("Name", "张三");
+            //var dict = new Dictionary<string, object>();
+            //dict.Add("Id", 1);
+            //dict.Add("Name", "张三");
 
-            var _dict = dict.ToMsgPackBytes();
-
-            var _dict1 = _dict.ToMsgPackObject<Dictionary<string, object>>();
 
 
 
