@@ -41,6 +41,13 @@ namespace Nigel.ConsoleTests
 
             var _user2 = user.ToMsgPackJson().ToMsgPackBytesFromJson().ToMsgPackObject<User>();
 
+            var dict = new Dictionary<string, object>();
+            dict.Add("Id", 1);
+            dict.Add("Name", "张三");
+
+            var _dict = dict.ToMsgPackBytes();
+
+            var _dict1 = _dict.ToMsgPackObject<Dictionary<string, object>>();
 
 
 
