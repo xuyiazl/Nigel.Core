@@ -1077,6 +1077,42 @@
             执行结果
             </summary>
         </member>
+        <member name="T:Nigel.Core.Result`1">
+            <summary>
+            返回结构体
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:Nigel.Core.Result`1.code">
+            <summary>
+            状态码
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Result`1.subCode">
+            <summary>
+            业务状态码
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Result`1.message">
+            <summary>
+            消息
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Result`1.data">
+            <summary>
+            数据
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Result`1.operationTime">
+            <summary>
+            操作时间
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Result`1.elapsedTime">
+            <summary>
+            请求耗时
+            </summary>
+        </member>
         <member name="T:Nigel.Core.StateCode">
             <summary>
             状态码
