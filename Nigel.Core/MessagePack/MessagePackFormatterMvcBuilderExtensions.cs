@@ -2,7 +2,7 @@
 using System;
 using Microsoft.Net.Http.Headers;
 
-namespace Nigel.CoreMessagePack
+namespace Nigel.Core.MessagePack
 {
     public static class MessagePackFormatterMvcBuilderExtensions
     {

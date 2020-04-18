@@ -11,7 +11,7 @@ using Newtonsoft.Json.Serialization;
 using Nigel.Core.Extensions;
 using Nigel.Core.Jwt;
 using Nigel.Core.Logging.Log4Net;
-using Nigel.CoreMessagePack;
+using Nigel.Core.MessagePack;
 
 namespace Nigel.ApiTests
 {

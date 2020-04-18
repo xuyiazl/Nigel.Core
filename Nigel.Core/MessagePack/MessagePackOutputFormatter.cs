@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 using MessagePack;
 using Microsoft.Net.Http.Headers;
 
-namespace Nigel.CoreMessagePack
+namespace Nigel.Core.MessagePack
 {
     public class MessagePackOutputFormatter : OutputFormatter
     {

@@ -2,7 +2,7 @@
 using MessagePack.Resolvers;
 using System.Collections.Generic;
 
-namespace Nigel.CoreMessagePack
+namespace Nigel.Core.MessagePack
 {
     public class MessagePackFormatterOptions
     {

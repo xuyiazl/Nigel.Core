@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.Threading;
 using Microsoft.AspNetCore.Http;
 
-namespace Nigel.CoreMessagePack
+namespace Nigel.Core.MessagePack
 {
     public class MessagePackInputFormatter : InputFormatter
     {
