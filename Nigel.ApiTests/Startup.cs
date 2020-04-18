@@ -11,6 +11,7 @@ using Newtonsoft.Json.Serialization;
 using Nigel.Core.Extensions;
 using Nigel.Core.Jwt;
 using Nigel.Core.Logging.Log4Net;
+using Nigel.CoreMessagePack;
 
 namespace Nigel.ApiTests
 {
@@ -44,6 +45,7 @@ namespace Nigel.ApiTests
              });
 
             services.AddControllers()
+                .AddMessagePackFormatters()
                 .AddNewtonsoftJson(options =>
                 {
                     //需要引入nuget

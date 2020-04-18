@@ -21,6 +21,7 @@ using Nigel.Paging;
 using Nigel.Json;
 using MessagePack;
 using System;
+using Nigel.Core;
 
 namespace Nigel.WebTests.Controllers
 {
@@ -58,11 +59,11 @@ namespace Nigel.WebTests.Controllers
 
         public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
-            var url = UrlArguments.Create("msgpack", "home/getuser");
+            var url = UrlArguments.Create("msgpack", "api/messagepack/get");
 
             var res = await _httpService.GetMsgPackAsync<User>(url, cancellationToken);
 
-            var postUrl = UrlArguments.Create("msgpack", "home/postuser");
+            var postUrl = UrlArguments.Create("msgpack", "api/messagepack/add");
 
             var res1 = await _httpService.PostMsgPackAsync<User, User>(postUrl, res, cancellationToken);
 
