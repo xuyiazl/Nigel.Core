@@ -111,9 +111,9 @@ namespace Nigel.Core.HttpFactory
 
             string requestUrl = urlArguments.Complete().Url;
 
-            string mediaType = mediaType.Description();
+            string _mediaType = mediaType.Description();
             
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(mediaType));
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_mediaType));
 
             HttpResponseMessage responseMessage = null;
 
@@ -132,7 +132,7 @@ namespace Nigel.Core.HttpFactory
 
                 requestMessage.Content = contentCall?.Invoke();
                 if (requestMessage.Content != null)
-                    requestMessage.Content.Headers.ContentType = new MediaTypeHeaderValue(mediaType);
+                    requestMessage.Content.Headers.ContentType = new MediaTypeHeaderValue(_mediaType);
 
                 responseMessage = await client.SendAsync(requestMessage, cancellationToken);
             }
@@ -142,7 +142,7 @@ namespace Nigel.Core.HttpFactory
 
                 HttpContent content = contentCall?.Invoke();
                 if (content != null)
-                    content.Headers.ContentType = new MediaTypeHeaderValue(mediaType);
+                    content.Headers.ContentType = new MediaTypeHeaderValue(_mediaType);
 
                 responseMessage = await SendAsync(client, requestUrl, method, content, cancellationToken);
             }
@@ -154,7 +154,7 @@ namespace Nigel.Core.HttpFactory
                         var res = await responseMessage.Content.ReadAsByteArrayAsync();
 
                         if (_logger.IsEnabled(LogLevel.Information))
-                            _logger.LogInformation($"{client.BaseAddress}{requestUrl} MediaType：{mediaType.Description()}，Method：{method.Method}，HttpMessage Read Byte Data Length：{res.Length}");
+                            _logger.LogInformation($"{client.BaseAddress}{requestUrl} MediaType：{_mediaType}，Method：{method.Method}，HttpMessage Read Byte Data Length：{res.Length}");
 
                         return res.ToMsgPackObject<T>();
                     }
@@ -163,7 +163,7 @@ namespace Nigel.Core.HttpFactory
                         var res = await responseMessage.Content.ReadAsStringAsync();
 
                         if (_logger.IsEnabled(LogLevel.Information))
-                            _logger.LogInformation($"{client.BaseAddress}{requestUrl} MediaType：{mediaType.Description()}，Method：{method.Method}，HttpMessage Read Json Data：{res}");
+                            _logger.LogInformation($"{client.BaseAddress}{requestUrl} MediaType：{_mediaType}，Method：{method.Method}，HttpMessage Read Json Data：{res}");
 
                         return res.ToObject<T>();
                     }
