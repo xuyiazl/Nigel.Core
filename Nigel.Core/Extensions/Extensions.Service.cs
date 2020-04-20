@@ -99,7 +99,6 @@ namespace Nigel.Core.Extensions
             {
                 c.BaseAddress = new Uri(baseAddress);
                 c.DefaultRequestHeaders.Add("Accept-Encoding", "gzip,deflate");
-                c.DefaultRequestHeaders.Add("Accept", "application/json");
             };
 
             services.AddHttpService<TImplementation>(clientName, client, messageHandler, httpClientLeftTime, serviceLifetime);
@@ -133,7 +132,6 @@ namespace Nigel.Core.Extensions
                 {
                     //c.BaseAddress = new Uri(baseAddress);
                     c.DefaultRequestHeaders.Add("Accept-Encoding", "gzip,deflate");
-                    c.DefaultRequestHeaders.Add("Accept", "application/json");
                 };
 
             var httpClientBuilder = services.AddHttpClient(clientName, client);

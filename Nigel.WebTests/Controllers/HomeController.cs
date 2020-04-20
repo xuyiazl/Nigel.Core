@@ -61,11 +61,11 @@ namespace Nigel.WebTests.Controllers
         {
             var url = UrlArguments.Create("msgpack", "api/messagepack/get");
 
-            var res = await _httpService.GetMsgPackAsync<User>(url, cancellationToken);
+            var res = await _httpService.GetAsync<User>(url, cancellationToken);
 
             var postUrl = UrlArguments.Create("msgpack", "api/messagepack/add");
 
-            var res1 = await _httpService.PostMsgPackAsync<User, User>(postUrl, res, cancellationToken);
+            var res1 = await _httpService.PostAsync<User, User>(postUrl, res, cancellationToken);
 
             var url1 = UrlArguments.Create("test", $"/api/CommentsLive/GetPaged")
                         .Add("aid", 1539)

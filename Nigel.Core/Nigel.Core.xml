@@ -332,6 +332,11 @@
             http formdata 线程安全集合
             </summary>
         </member>
+        <member name="T:Nigel.Core.HttpFactory.HttpMediaType">
+            <summary>
+            数据类型
+            </summary>
+        </member>
         <member name="T:Nigel.Core.HttpFactory.HttpService">
             <summary>
             HttpRequestMessage服务类
@@ -347,138 +352,6 @@
             <summary>
             HttpRequestMessage服务类
             </summary>
-        </member>
-        <member name="M:Nigel.Core.HttpFactory.IHttpService.GetAsync``1(Nigel.Webs.UrlArguments,System.Threading.CancellationToken)">
-            <summary>
-            异步GET
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="urlArguments"></param>
-            <param name="cancellationToken"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Core.HttpFactory.IHttpService.GetMsgPackAsync``1(Nigel.Webs.UrlArguments,System.Threading.CancellationToken)">
-            <summary>
-            异步GET MessagePack
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="urlArguments"></param>
-            <param name="cancellationToken"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Core.HttpFactory.IHttpService.PostAsync``1(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpFormData,System.Threading.CancellationToken)">
-            <summary>
-            异步POST
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="urlArguments"></param>
-            <param name="formData"></param>
-            <param name="cancellationToken"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Core.HttpFactory.IHttpService.PostAsync``2(Nigel.Webs.UrlArguments,``1,System.Threading.CancellationToken)">
-            <summary>
-            异步POST
-            </summary>
-            <typeparam name="T"></typeparam>
-            <typeparam name="TModel"></typeparam>
-            <param name="urlArguments"></param>
-            <param name="postData"></param>
-            <param name="cancellationToken"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Core.HttpFactory.IHttpService.PostMsgPackAsync``2(Nigel.Webs.UrlArguments,``1,System.Threading.CancellationToken)">
-            <summary>
-            异步POST MessagePack
-            </summary>
-            <typeparam name="T"></typeparam>
-            <typeparam name="TModel"></typeparam>
-            <param name="urlArguments"></param>
-            <param name="postData"></param>
-            <param name="cancellationToken"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Core.HttpFactory.IHttpService.PutAsync``1(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpFormData,System.Threading.CancellationToken)">
-            <summary>
-            异步PUT
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="urlArguments"></param>
-            <param name="formData"></param>
-            <param name="cancellationToken"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Core.HttpFactory.IHttpService.PutAsync``2(Nigel.Webs.UrlArguments,``1,System.Threading.CancellationToken)">
-            <summary>
-            异步PUT
-            </summary>
-            <typeparam name="T"></typeparam>
-            <typeparam name="TModel"></typeparam>
-            <param name="urlArguments"></param>
-            <param name="postData"></param>
-            <param name="cancellationToken"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Core.HttpFactory.IHttpService.PutMsgPackAsync``2(Nigel.Webs.UrlArguments,``1,System.Threading.CancellationToken)">
-            <summary>
-            异步PUT MessagePack
-            </summary>
-            <typeparam name="T"></typeparam>
-            <typeparam name="TModel"></typeparam>
-            <param name="urlArguments"></param>
-            <param name="postData"></param>
-            <param name="cancellationToken"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Core.HttpFactory.IHttpService.PatchAsync``1(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpFormData,System.Threading.CancellationToken)">
-            <summary>
-            异步PATCH
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="urlArguments"></param>
-            <param name="formData"></param>
-            <param name="cancellationToken"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Core.HttpFactory.IHttpService.PatchAsync``2(Nigel.Webs.UrlArguments,``1,System.Threading.CancellationToken)">
-            <summary>
-            异步PATCH
-            </summary>
-            <typeparam name="T"></typeparam>
-            <typeparam name="TModel"></typeparam>
-            <param name="urlArguments"></param>
-            <param name="postData"></param>
-            <param name="cancellationToken"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Core.HttpFactory.IHttpService.PatchMsgPackAsync``2(Nigel.Webs.UrlArguments,``1,System.Threading.CancellationToken)">
-            <summary>
-            异步PATCH MessagePack
-            </summary>
-            <typeparam name="T"></typeparam>
-            <typeparam name="TModel"></typeparam>
-            <param name="urlArguments"></param>
-            <param name="postData"></param>
-            <param name="cancellationToken"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Core.HttpFactory.IHttpService.DeleteAsync``1(Nigel.Webs.UrlArguments,System.Threading.CancellationToken)">
-            <summary>
-            异步DELETE
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="urlArguments"></param>
-            <param name="cancellationToken"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Core.HttpFactory.IHttpService.DeleteMsgPackAsync``1(Nigel.Webs.UrlArguments,System.Threading.CancellationToken)">
-            <summary>
-            异步DELETE MessagePack
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="urlArguments"></param>
-            <param name="cancellationToken"></param>
-            <returns></returns>
         </member>
         <member name="T:Nigel.Core.Middlewares.AdminSafeListMiddleware">
             <summary>
