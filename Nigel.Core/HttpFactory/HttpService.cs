@@ -75,6 +75,10 @@ namespace Nigel.Core.HttpFactory
             where T : class, new()
             => await HttpSendAsync<T>(urlArguments, HttpMethod.Delete, new HttpFormData(), cancellationToken);
 
+        public async Task<T> DeleteAsync<T>(UrlArguments urlArguments, HttpMediaType httpData, CancellationToken cancellationToken = default)
+            where T : class, new()
+            => await HttpSendAsync<T>(urlArguments, HttpMethod.Delete, () => null, httpData, cancellationToken);
+
         private async Task<T> HttpSendAsync<T>(UrlArguments urlArguments, HttpMethod method, HttpFormData formData, CancellationToken cancellationToken = default)
             where T : class, new()
             => await HttpSendAsync<T>(

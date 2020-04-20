@@ -49,6 +49,9 @@ namespace Nigel.Core.HttpFactory
         Task<T> DeleteAsync<T>(UrlArguments urlArguments, CancellationToken cancellationToken = default)
           where T : class, new();
 
+        Task<T> DeleteAsync<T>(UrlArguments urlArguments, HttpMediaType httpData, CancellationToken cancellationToken = default)
+          where T : class, new();
+
         Task<T> HttpSendAsync<T, TModel>(UrlArguments urlArguments, HttpMethod method, TModel postData, HttpMediaType httpData = HttpMediaType.Json, CancellationToken cancellationToken = default)
           where T : class, new();
 

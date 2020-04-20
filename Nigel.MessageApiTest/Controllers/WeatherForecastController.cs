@@ -79,5 +79,78 @@ namespace Nigel.MessageApiTest.Controllers
 
             return Success("0000001", "POST成功", weatherForecast);
         }
+
+        [HttpGet]
+        public async Task<Result<WeatherForecast>> PutDemo(HttpMediaType mediaType)
+        {
+            var url = UrlArguments.Create("msgpack", "WeatherForecast/PutWeather");
+
+            WeatherForecast weather = new WeatherForecast
+            {
+                Date = DateTime.UtcNow,
+                Summary = "测试POST",
+                TemperatureC = 33
+            };
+
+            var res = await _httpService.PutAsync<Result<WeatherForecast>, WeatherForecast>(url, weather, mediaType);
+
+            return Success("0000001", "POST成功", res.data);
+        }
+
+        [HttpPut]
+        public Result<WeatherForecast> PutWeather([FromBody] WeatherForecast weatherForecast)
+        {
+            weatherForecast.Summary = "PUT成功，接收后修改的Summary";
+
+            return Success("0000001", "PUT成功", weatherForecast);
+        }
+
+        [HttpGet]
+        public async Task<Result<WeatherForecast>> PatchDemo(HttpMediaType mediaType)
+        {
+            var url = UrlArguments.Create("msgpack", "WeatherForecast/PatchWeather");
+
+            WeatherForecast weather = new WeatherForecast
+            {
+                Date = DateTime.UtcNow,
+                Summary = "测试patch",
+                TemperatureC = 33
+            };
+
+            var res = await _httpService.PatchAsync<Result<WeatherForecast>, WeatherForecast>(url, weather, mediaType);
+
+            return Success("0000001", "PATCH成功", res.data);
+        }
+
+        [HttpPatch]
+        public Result<WeatherForecast> PatchWeather([FromBody] WeatherForecast weatherForecast)
+        {
+            weatherForecast.Summary = "Patch成功，接收后修改的Summary";
+
+            return Success("0000001", "Patch成功", weatherForecast);
+        }
+
+        [HttpGet]
+        public async Task<Result<WeatherForecast>> DeleteDemo(HttpMediaType mediaType)
+        {
+            var url = UrlArguments.Create("msgpack", "WeatherForecast/DeleteWeather");
+
+            var res = await _httpService.DeleteAsync<Result<WeatherForecast>>(url, mediaType);
+
+            return Success("0000001", "POST成功", res.data);
+        }
+
+        [HttpDelete]
+        public Result<WeatherForecast> DeleteWeather()
+        {
+            WeatherForecast weather = new WeatherForecast
+            {
+                Date = DateTime.UtcNow,
+                Summary = "我是删除后返回的数据",
+                TemperatureC = 11
+            };
+
+            return Success("0000001", "DELETE成功", weather);
+        }
     }
 }
