@@ -11,7 +11,7 @@ namespace Nigel.ApiTests.Controllers
 {
     [Route("api/[controller]/[Action]")]
     [ApiController]
-    [MediaType]
+    [MediaTypeHeader]
     public class MessagePackController : ControllerBase
     {
         public User Get()

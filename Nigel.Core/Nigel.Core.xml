@@ -1098,11 +1098,6 @@
             消息
             </summary>
         </member>
-        <member name="P:Nigel.Core.Result`1.data">
-            <summary>
-            数据
-            </summary>
-        </member>
         <member name="P:Nigel.Core.Result`1.operationTime">
             <summary>
             操作时间
@@ -1111,6 +1106,11 @@
         <member name="P:Nigel.Core.Result`1.elapsedTime">
             <summary>
             请求耗时
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.Result`1.data">
+            <summary>
+            数据
             </summary>
         </member>
         <member name="T:Nigel.Core.StateCode">
