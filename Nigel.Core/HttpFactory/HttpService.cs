@@ -31,9 +31,9 @@ namespace Nigel.Core.HttpFactory
             where T : class, new()
             => await HttpSendAsync<T>(urlArguments, HttpMethod.Get, new HttpFormData(), cancellationToken);
 
-        public async Task<T> GetAsync<T>(UrlArguments urlArguments, HttpMediaType httpData, CancellationToken cancellationToken = default)
+        public async Task<T> GetAsync<T>(UrlArguments urlArguments, HttpMediaType mediaType, CancellationToken cancellationToken = default)
             where T : class, new()
-            => await HttpSendAsync<T>(urlArguments, HttpMethod.Get, () => null, httpData, cancellationToken);
+            => await HttpSendAsync<T>(urlArguments, HttpMethod.Get, () => null, mediaType, cancellationToken);
 
         public async Task<T> PostAsync<T>(UrlArguments urlArguments, HttpFormData formData, CancellationToken cancellationToken = default)
             where T : class, new()
@@ -43,9 +43,9 @@ namespace Nigel.Core.HttpFactory
             where T : class, new()
             => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Post, postData, HttpMediaType.Json, cancellationToken);
 
-        public async Task<T> PostAsync<T, TModel>(UrlArguments urlArguments, TModel postData, HttpMediaType httpData, CancellationToken cancellationToken = default)
+        public async Task<T> PostAsync<T, TModel>(UrlArguments urlArguments, TModel postData, HttpMediaType mediaType, CancellationToken cancellationToken = default)
             where T : class, new()
-            => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Post, postData, httpData, cancellationToken);
+            => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Post, postData, mediaType, cancellationToken);
 
         public async Task<T> PutAsync<T>(UrlArguments urlArguments, HttpFormData formData, CancellationToken cancellationToken = default)
             where T : class, new()
@@ -55,9 +55,9 @@ namespace Nigel.Core.HttpFactory
             where T : class, new()
             => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Put, postData, HttpMediaType.Json, cancellationToken);
 
-        public async Task<T> PutAsync<T, TModel>(UrlArguments urlArguments, TModel postData, HttpMediaType httpData, CancellationToken cancellationToken = default)
+        public async Task<T> PutAsync<T, TModel>(UrlArguments urlArguments, TModel postData, HttpMediaType mediaType, CancellationToken cancellationToken = default)
             where T : class, new()
-            => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Put, postData, httpData, cancellationToken);
+            => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Put, postData, mediaType, cancellationToken);
 
         public async Task<T> PatchAsync<T>(UrlArguments urlArguments, HttpFormData formData, CancellationToken cancellationToken = default)
             where T : class, new()
@@ -67,17 +67,17 @@ namespace Nigel.Core.HttpFactory
             where T : class, new()
             => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Patch, postData, HttpMediaType.Json, cancellationToken);
 
-        public async Task<T> PatchAsync<T, TModel>(UrlArguments urlArguments, TModel postData, HttpMediaType httpData, CancellationToken cancellationToken = default)
+        public async Task<T> PatchAsync<T, TModel>(UrlArguments urlArguments, TModel postData, HttpMediaType mediaType, CancellationToken cancellationToken = default)
             where T : class, new()
-            => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Patch, postData, httpData, cancellationToken);
+            => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Patch, postData, mediaType, cancellationToken);
 
         public async Task<T> DeleteAsync<T>(UrlArguments urlArguments, CancellationToken cancellationToken = default)
             where T : class, new()
             => await HttpSendAsync<T>(urlArguments, HttpMethod.Delete, new HttpFormData(), cancellationToken);
 
-        public async Task<T> DeleteAsync<T>(UrlArguments urlArguments, HttpMediaType httpData, CancellationToken cancellationToken = default)
+        public async Task<T> DeleteAsync<T>(UrlArguments urlArguments, HttpMediaType mediaType, CancellationToken cancellationToken = default)
             where T : class, new()
-            => await HttpSendAsync<T>(urlArguments, HttpMethod.Delete, () => null, httpData, cancellationToken);
+            => await HttpSendAsync<T>(urlArguments, HttpMethod.Delete, () => null, mediaType, cancellationToken);
 
         private async Task<T> HttpSendAsync<T>(UrlArguments urlArguments, HttpMethod method, HttpFormData formData, CancellationToken cancellationToken = default)
             where T : class, new()
@@ -88,30 +88,30 @@ namespace Nigel.Core.HttpFactory
                  HttpMediaType.Json,
                 cancellationToken);
 
-        public async Task<T> HttpSendAsync<T, TModel>(UrlArguments urlArguments, HttpMethod method, TModel postData, HttpMediaType httpData = HttpMediaType.Json, CancellationToken cancellationToken = default)
+        public async Task<T> HttpSendAsync<T, TModel>(UrlArguments urlArguments, HttpMethod method, TModel postData, HttpMediaType mediaType = HttpMediaType.Json, CancellationToken cancellationToken = default)
             where T : class, new()
         {
-            switch (httpData)
+            switch (mediaType)
             {
                 case HttpMediaType.MessagePack:
                     {
-                        return await HttpSendAsync<T>(urlArguments, method, () => postData == null ? null : new ByteArrayContent(postData.ToMsgPackBytes()), httpData, cancellationToken);
+                        return await HttpSendAsync<T>(urlArguments, method, () => postData == null ? null : new ByteArrayContent(postData.ToMsgPackBytes()), mediaType, cancellationToken);
                     }
                 default:
                     {
-                        return await HttpSendAsync<T>(urlArguments, method, () => postData == null ? null : new StringContent(postData.ToJson(), Encoding.UTF8, "application/json"), httpData, cancellationToken);
+                        return await HttpSendAsync<T>(urlArguments, method, () => postData == null ? null : new StringContent(postData.ToJson(), Encoding.UTF8, "application/json"), mediaType, cancellationToken);
                     }
             }
         }
 
-        public virtual async Task<T> HttpSendAsync<T>(UrlArguments urlArguments, HttpMethod method, Func<HttpContent> contentCall, HttpMediaType httpData = HttpMediaType.Json, CancellationToken cancellationToken = default)
+        public virtual async Task<T> HttpSendAsync<T>(UrlArguments urlArguments, HttpMethod method, Func<HttpContent> contentCall, HttpMediaType mediaType = HttpMediaType.Json, CancellationToken cancellationToken = default)
             where T : class, new()
         {
             HttpClient client = HttpClientFactory.CreateClient(string.IsNullOrEmpty(urlArguments.ClientName) ? "apiClient" : urlArguments.ClientName);
 
             string requestUrl = urlArguments.Complete().Url;
 
-            string mediaType = httpData.Description();
+            string mediaType = mediaType.Description();
             
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(mediaType));
 
@@ -147,14 +147,14 @@ namespace Nigel.Core.HttpFactory
                 responseMessage = await SendAsync(client, requestUrl, method, content, cancellationToken);
             }
 
-            switch (httpData)
+            switch (mediaType)
             {
                 case HttpMediaType.MessagePack:
                     {
                         var res = await responseMessage.Content.ReadAsByteArrayAsync();
 
                         if (_logger.IsEnabled(LogLevel.Information))
-                            _logger.LogInformation($"{client.BaseAddress}{requestUrl} MediaType：{httpData.Description()}，Method：{method.Method}，HttpMessage Read Byte Data Length：{res.Length}");
+                            _logger.LogInformation($"{client.BaseAddress}{requestUrl} MediaType：{mediaType.Description()}，Method：{method.Method}，HttpMessage Read Byte Data Length：{res.Length}");
 
                         return res.ToMsgPackObject<T>();
                     }
@@ -163,7 +163,7 @@ namespace Nigel.Core.HttpFactory
                         var res = await responseMessage.Content.ReadAsStringAsync();
 
                         if (_logger.IsEnabled(LogLevel.Information))
-                            _logger.LogInformation($"{client.BaseAddress}{requestUrl} MediaType：{httpData.Description()}，Method：{method.Method}，HttpMessage Read Json Data：{res}");
+                            _logger.LogInformation($"{client.BaseAddress}{requestUrl} MediaType：{mediaType.Description()}，Method：{method.Method}，HttpMessage Read Json Data：{res}");
 
                         return res.ToObject<T>();
                     }
