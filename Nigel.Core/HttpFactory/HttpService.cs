@@ -36,7 +36,7 @@ namespace Nigel.Core.HttpFactory
         /// <returns></returns>
         public async Task<T> GetAsync<T>(UrlArguments urlArguments, CancellationToken cancellationToken = default)
             where T : class, new()
-            => await HttpSendAsync<T>(urlArguments, HttpMethod.Get, new HttpFormData(), cancellationToken);
+            => await HttpSendAsync<T>(urlArguments, HttpMethod.Get, null, HttpMediaType.Json, cancellationToken);
 
         /// <summary>
         /// GET请求数据
@@ -48,13 +48,13 @@ namespace Nigel.Core.HttpFactory
         /// <returns></returns>
         public async Task<T> GetAsync<T>(UrlArguments urlArguments, HttpMediaType mediaType, CancellationToken cancellationToken = default)
             where T : class, new()
-            => await HttpSendAsync<T>(urlArguments, HttpMethod.Get, () => null, mediaType, cancellationToken);
+            => await HttpSendAsync<T>(urlArguments, HttpMethod.Get, null, mediaType, cancellationToken);
         /// <summary>
         /// POST提交数据
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="urlArguments">Url构造器</param>
-        /// <param name="formData">formdata（a=1&b=1&c=1，application/x-www-form-urlencoded）</param>
+        /// <param name="formData">formdata（application/x-www-form-urlencoded）</param>
         /// <param name="cancellationToken">取消令牌</param>
         /// <returns></returns>
         public async Task<T> PostAsync<T>(UrlArguments urlArguments, HttpFormData formData, CancellationToken cancellationToken = default)
@@ -93,7 +93,7 @@ namespace Nigel.Core.HttpFactory
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="urlArguments">Url构造器</param>
-        /// <param name="formData">formdata（a=1&b=1&c=1，application/x-www-form-urlencoded）</param>
+        /// <param name="formData">formdata（application/x-www-form-urlencoded）</param>
         /// <param name="cancellationToken">取消令牌</param>
         /// <returns></returns>
         public async Task<T> PutAsync<T>(UrlArguments urlArguments, HttpFormData formData, CancellationToken cancellationToken = default)
@@ -132,7 +132,7 @@ namespace Nigel.Core.HttpFactory
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="urlArguments">Url构造器</param>
-        /// <param name="formData">formdata（a=1&b=1&c=1，application/x-www-form-urlencoded）</param>
+        /// <param name="formData">formdata（application/x-www-form-urlencoded）</param>
         /// <param name="cancellationToken">取消令牌</param>
         /// <returns></returns>
         public async Task<T> PatchAsync<T>(UrlArguments urlArguments, HttpFormData formData, CancellationToken cancellationToken = default)
@@ -175,7 +175,7 @@ namespace Nigel.Core.HttpFactory
         /// <returns></returns>
         public async Task<T> DeleteAsync<T>(UrlArguments urlArguments, CancellationToken cancellationToken = default)
             where T : class, new()
-            => await HttpSendAsync<T>(urlArguments, HttpMethod.Delete, new HttpFormData(), cancellationToken);
+            => await HttpSendAsync<T>(urlArguments, HttpMethod.Delete, null, HttpMediaType.Json, cancellationToken);
 
         /// <summary>
         /// DELETE请求删除数据
@@ -187,7 +187,7 @@ namespace Nigel.Core.HttpFactory
         /// <returns></returns>
         public async Task<T> DeleteAsync<T>(UrlArguments urlArguments, HttpMediaType mediaType, CancellationToken cancellationToken = default)
             where T : class, new()
-            => await HttpSendAsync<T>(urlArguments, HttpMethod.Delete, () => null, mediaType, cancellationToken);
+            => await HttpSendAsync<T>(urlArguments, HttpMethod.Delete, null, mediaType, cancellationToken);
 
         private async Task<T> HttpSendAsync<T>(UrlArguments urlArguments, HttpMethod method, HttpFormData formData, CancellationToken cancellationToken = default)
             where T : class, new()
@@ -211,19 +211,7 @@ namespace Nigel.Core.HttpFactory
         /// <returns></returns>
         public async Task<T> HttpSendAsync<T, TModel>(UrlArguments urlArguments, HttpMethod method, TModel postData, HttpMediaType mediaType = HttpMediaType.Json, CancellationToken cancellationToken = default)
             where T : class, new()
-        {
-            switch (mediaType)
-            {
-                case HttpMediaType.MessagePack:
-                    {
-                        return await HttpSendAsync<T>(urlArguments, method, () => postData == null ? null : new ByteArrayContent(postData.ToMsgPackBytes()), mediaType, cancellationToken);
-                    }
-                default:
-                    {
-                        return await HttpSendAsync<T>(urlArguments, method, () => postData == null ? null : new StringContent(postData.ToJson(), Encoding.UTF8, "application/json"), mediaType, cancellationToken);
-                    }
-            }
-        }
+            => await HttpSendAsync<T>(urlArguments, method, () => postData == null ? null : new StringContent(postData.ToJson(), Encoding.UTF8, "application/json"), mediaType, cancellationToken);
 
         /// <summary>
         /// 发送请求数据
@@ -262,8 +250,8 @@ namespace Nigel.Core.HttpFactory
                 RequestHeaders(requestMessage.Headers);
 
                 requestMessage.Content = contentCall?.Invoke();
-                if (requestMessage.Content != null)
-                    requestMessage.Content.Headers.ContentType = new MediaTypeHeaderValue(_mediaType);
+                //if (requestMessage.Content != null)
+                //    requestMessage.Content.Headers.ContentType = new MediaTypeHeaderValue(_mediaType);
 
                 responseMessage = await client.SendAsync(requestMessage, cancellationToken);
             }
@@ -272,8 +260,8 @@ namespace Nigel.Core.HttpFactory
                 RequestHeaders(client.DefaultRequestHeaders);
 
                 HttpContent content = contentCall?.Invoke();
-                if (content != null)
-                    content.Headers.ContentType = new MediaTypeHeaderValue(_mediaType);
+                //if (content != null)
+                //    content.Headers.ContentType = new MediaTypeHeaderValue(_mediaType);
 
                 responseMessage = await SendAsync(client, requestUrl, method, content, cancellationToken);
             }

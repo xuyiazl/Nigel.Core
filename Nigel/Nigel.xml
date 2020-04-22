@@ -197,19 +197,19 @@
             <param name="value">值</param>
             <returns></returns>
         </member>
-        <member name="T:Nigel.Extensions.Bases.DecimalExtensions">
+        <member name="T:Nigel.Extensions.DecimalExtensions">
             <summary>
             <see cref="T:System.Decimal"/> 扩展
             </summary>
         </member>
-        <member name="M:Nigel.Extensions.Bases.DecimalExtensions.Rounding(System.Decimal)">
+        <member name="M:Nigel.Extensions.DecimalExtensions.Rounding(System.Decimal)">
             <summary>
             将数值四舍五入，保留两位小数
             </summary>
             <param name="value">值</param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Extensions.Bases.DecimalExtensions.Rounding(System.Decimal,System.Int32)">
+        <member name="M:Nigel.Extensions.DecimalExtensions.Rounding(System.Decimal,System.Int32)">
             <summary>
             将数值四舍五入，保留指定小数位数
             </summary>
@@ -217,14 +217,14 @@
             <param name="decimals">小数位数</param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Extensions.Bases.DecimalExtensions.Abs(System.Decimal)">
+        <member name="M:Nigel.Extensions.DecimalExtensions.Abs(System.Decimal)">
             <summary>
             返回数字的绝对值
             </summary>
             <param name="value">值</param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Extensions.Bases.DecimalExtensions.Abs(System.Collections.Generic.IEnumerable{System.Decimal})">
+        <member name="M:Nigel.Extensions.DecimalExtensions.Abs(System.Collections.Generic.IEnumerable{System.Decimal})">
             <summary>
             返回数字的绝对值
             </summary>

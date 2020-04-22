@@ -352,6 +352,141 @@
             HttpRequestMessage服务类
             </summary>
         </member>
+        <member name="M:Nigel.Core.HttpFactory.HttpService.GetAsync``1(Nigel.Webs.UrlArguments,System.Threading.CancellationToken)">
+            <summary>
+            GET请求数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.HttpService.GetAsync``1(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpMediaType,System.Threading.CancellationToken)">
+            <summary>
+            GET请求数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="mediaType">mediaType数据格式，请求格式和返回格式一致（JSON、MessagePack）</param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Nigel.Core.HttpFactory.HttpService.PostAsync``1(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpFormData,System.Threading.CancellationToken)" -->
+        <member name="M:Nigel.Core.HttpFactory.HttpService.PostAsync``2(Nigel.Webs.UrlArguments,``1,System.Threading.CancellationToken)">
+            <summary>
+            POST提交数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TModel"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="postData">模型数据</param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.HttpService.PostAsync``2(Nigel.Webs.UrlArguments,``1,Nigel.Core.HttpFactory.HttpMediaType,System.Threading.CancellationToken)">
+            <summary>
+            POST提交数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TModel"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="postData">模型数据</param>
+            <param name="mediaType">mediaType数据格式，请求格式和返回格式一致（JSON、MessagePack）</param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Nigel.Core.HttpFactory.HttpService.PutAsync``1(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpFormData,System.Threading.CancellationToken)" -->
+        <member name="M:Nigel.Core.HttpFactory.HttpService.PutAsync``2(Nigel.Webs.UrlArguments,``1,System.Threading.CancellationToken)">
+            <summary>
+            PUT提交数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TModel"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="postData">模型数据</param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.HttpService.PutAsync``2(Nigel.Webs.UrlArguments,``1,Nigel.Core.HttpFactory.HttpMediaType,System.Threading.CancellationToken)">
+            <summary>
+            PUT提交数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TModel"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="postData">模型数据</param>
+            <param name="mediaType">mediaType数据格式，请求格式和返回格式一致（JSON、MessagePack）</param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Nigel.Core.HttpFactory.HttpService.PatchAsync``1(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpFormData,System.Threading.CancellationToken)" -->
+        <member name="M:Nigel.Core.HttpFactory.HttpService.PatchAsync``2(Nigel.Webs.UrlArguments,``1,System.Threading.CancellationToken)">
+            <summary>
+            PATCH提交数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TModel"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="postData">模型数据</param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.HttpService.PatchAsync``2(Nigel.Webs.UrlArguments,``1,Nigel.Core.HttpFactory.HttpMediaType,System.Threading.CancellationToken)">
+            <summary>
+            PATCH提交数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TModel"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="postData">模型数据</param>
+            <param name="mediaType">mediaType数据格式，请求格式和返回格式一致（JSON、MessagePack）</param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.HttpService.DeleteAsync``1(Nigel.Webs.UrlArguments,System.Threading.CancellationToken)">
+            <summary>
+            DELETE请求删除数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.HttpService.DeleteAsync``1(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpMediaType,System.Threading.CancellationToken)">
+            <summary>
+            DELETE请求删除数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="mediaType">mediaType数据格式，请求格式和返回格式一致（JSON、MessagePack）</param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.HttpService.HttpSendAsync``2(Nigel.Webs.UrlArguments,System.Net.Http.HttpMethod,``1,Nigel.Core.HttpFactory.HttpMediaType,System.Threading.CancellationToken)">
+            <summary>
+            发送请求数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TModel"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="method">请求类型</param>
+            <param name="postData">模型数据</param>
+            <param name="mediaType">mediaType数据格式，请求格式和返回格式一致（JSON、MessagePack）</param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.HttpService.HttpSendAsync``1(Nigel.Webs.UrlArguments,System.Net.Http.HttpMethod,System.Func{System.Net.Http.HttpContent},Nigel.Core.HttpFactory.HttpMediaType,System.Threading.CancellationToken)">
+            <summary>
+            发送请求数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="method">请求类型</param>
+            <param name="contentCall">HttpContent请求内容</param>
+            <param name="mediaType">mediaType数据格式，请求格式和返回格式一致（JSON、MessagePack）</param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
         <member name="M:Nigel.Core.HttpFactory.HttpService.RequestHeaders(System.Net.Http.Headers.HttpRequestHeaders)">
             <summary>
             添加Headers消息头
@@ -362,6 +497,141 @@
             <summary>
             HttpRequestMessage服务类
             </summary>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.GetAsync``1(Nigel.Webs.UrlArguments,System.Threading.CancellationToken)">
+            <summary>
+            GET请求数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.GetAsync``1(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpMediaType,System.Threading.CancellationToken)">
+            <summary>
+            GET请求数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="mediaType">mediaType数据格式，请求格式和返回格式一致（JSON、MessagePack）</param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Nigel.Core.HttpFactory.IHttpService.PostAsync``1(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpFormData,System.Threading.CancellationToken)" -->
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.PostAsync``2(Nigel.Webs.UrlArguments,``1,System.Threading.CancellationToken)">
+            <summary>
+            POST提交数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TModel"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="postData">模型数据</param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.PostAsync``2(Nigel.Webs.UrlArguments,``1,Nigel.Core.HttpFactory.HttpMediaType,System.Threading.CancellationToken)">
+            <summary>
+            POST提交数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TModel"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="postData">模型数据</param>
+            <param name="mediaType">mediaType数据格式，请求格式和返回格式一致（JSON、MessagePack）</param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Nigel.Core.HttpFactory.IHttpService.PutAsync``1(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpFormData,System.Threading.CancellationToken)" -->
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.PutAsync``2(Nigel.Webs.UrlArguments,``1,System.Threading.CancellationToken)">
+            <summary>
+            PUT提交数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TModel"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="postData">模型数据</param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.PutAsync``2(Nigel.Webs.UrlArguments,``1,Nigel.Core.HttpFactory.HttpMediaType,System.Threading.CancellationToken)">
+            <summary>
+            PUT提交数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TModel"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="postData">模型数据</param>
+            <param name="mediaType">mediaType数据格式，请求格式和返回格式一致（JSON、MessagePack）</param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Nigel.Core.HttpFactory.IHttpService.PatchAsync``1(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpFormData,System.Threading.CancellationToken)" -->
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.PatchAsync``2(Nigel.Webs.UrlArguments,``1,System.Threading.CancellationToken)">
+            <summary>
+            PATCH提交数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TModel"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="postData">模型数据</param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.PatchAsync``2(Nigel.Webs.UrlArguments,``1,Nigel.Core.HttpFactory.HttpMediaType,System.Threading.CancellationToken)">
+            <summary>
+            PATCH提交数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TModel"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="postData">模型数据</param>
+            <param name="mediaType">mediaType数据格式，请求格式和返回格式一致（JSON、MessagePack）</param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.DeleteAsync``1(Nigel.Webs.UrlArguments,System.Threading.CancellationToken)">
+            <summary>
+            DELETE请求删除数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.DeleteAsync``1(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpMediaType,System.Threading.CancellationToken)">
+            <summary>
+            DELETE请求删除数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="mediaType">mediaType数据格式，请求格式和返回格式一致（JSON、MessagePack）</param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.HttpSendAsync``2(Nigel.Webs.UrlArguments,System.Net.Http.HttpMethod,``1,Nigel.Core.HttpFactory.HttpMediaType,System.Threading.CancellationToken)">
+            <summary>
+            发送请求数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <typeparam name="TModel"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="method">请求类型</param>
+            <param name="postData">模型数据</param>
+            <param name="mediaType">mediaType数据格式，请求格式和返回格式一致（JSON、MessagePack）</param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.IHttpService.HttpSendAsync``1(Nigel.Webs.UrlArguments,System.Net.Http.HttpMethod,System.Func{System.Net.Http.HttpContent},Nigel.Core.HttpFactory.HttpMediaType,System.Threading.CancellationToken)">
+            <summary>
+            发送请求数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="method">请求类型</param>
+            <param name="contentCall">HttpContent请求内容</param>
+            <param name="mediaType">mediaType数据格式，请求格式和返回格式一致（JSON、MessagePack）</param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
         </member>
         <member name="T:Nigel.Core.Middlewares.AdminSafeListMiddleware">
             <summary>

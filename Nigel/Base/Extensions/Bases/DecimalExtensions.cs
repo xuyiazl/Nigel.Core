@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Nigel.Extensions.Bases
+namespace Nigel.Extensions
 {
     /// <summary>
     /// <see cref="Decimal"/> 扩展

@@ -7,7 +7,7 @@ namespace Nigel.Core.MessagePack
 {
     public class MediaTypeHeaderAttribute : ProducesAttribute
     {
-        public MediaTypeHeaderAttribute() : base("application/x-msgpack", "application/json")
+        public MediaTypeHeaderAttribute() : base("application/json", "application/x-msgpack")
         {
 
         }

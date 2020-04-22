@@ -35,7 +35,7 @@ namespace Nigel.MessageApiTest.Controllers
         {
             var url = UrlArguments.Create("msgpack", "WeatherForecast/GetWeather");
 
-            var res = await _httpService.GetAsync<Result<List<WeatherForecast>>>(url);
+            var res = await _httpService.GetAsync<Result<List<WeatherForecast>>>(url, HttpMediaType.MessagePack);
 
             return Success("0000001", "查询成功", res.data);
         }
@@ -67,7 +67,7 @@ namespace Nigel.MessageApiTest.Controllers
                 TemperatureC = 33
             };
 
-            var res = await _httpService.PostAsync<Result<WeatherForecast>, WeatherForecast>(url, weather);
+            var res = await _httpService.PostAsync<Result<WeatherForecast>, WeatherForecast>(url, weather, HttpMediaType.MessagePack);
 
             return Success("0000001", "POST成功", res.data);
         }
@@ -81,7 +81,7 @@ namespace Nigel.MessageApiTest.Controllers
         }
 
         [HttpGet]
-        public async Task<Result<WeatherForecast>> PutDemo(HttpMediaType mediaType)
+        public async Task<Result<WeatherForecast>> PutDemo()
         {
             var url = UrlArguments.Create("msgpack", "WeatherForecast/PutWeather");
 
@@ -92,7 +92,7 @@ namespace Nigel.MessageApiTest.Controllers
                 TemperatureC = 33
             };
 
-            var res = await _httpService.PutAsync<Result<WeatherForecast>, WeatherForecast>(url, weather, mediaType);
+            var res = await _httpService.PutAsync<Result<WeatherForecast>, WeatherForecast>(url, weather, HttpMediaType.MessagePack);
 
             return Success("0000001", "POST成功", res.data);
         }
@@ -106,7 +106,7 @@ namespace Nigel.MessageApiTest.Controllers
         }
 
         [HttpGet]
-        public async Task<Result<WeatherForecast>> PatchDemo(HttpMediaType mediaType)
+        public async Task<Result<WeatherForecast>> PatchDemo()
         {
             var url = UrlArguments.Create("msgpack", "WeatherForecast/PatchWeather");
 
@@ -117,7 +117,7 @@ namespace Nigel.MessageApiTest.Controllers
                 TemperatureC = 33
             };
 
-            var res = await _httpService.PatchAsync<Result<WeatherForecast>, WeatherForecast>(url, weather, mediaType);
+            var res = await _httpService.PatchAsync<Result<WeatherForecast>, WeatherForecast>(url, weather, HttpMediaType.MessagePack);
 
             return Success("0000001", "PATCH成功", res.data);
         }
@@ -131,11 +131,11 @@ namespace Nigel.MessageApiTest.Controllers
         }
 
         [HttpGet]
-        public async Task<Result<WeatherForecast>> DeleteDemo(HttpMediaType mediaType)
+        public async Task<Result<WeatherForecast>> DeleteDemo()
         {
             var url = UrlArguments.Create("msgpack", "WeatherForecast/DeleteWeather");
 
-            var res = await _httpService.DeleteAsync<Result<WeatherForecast>>(url, mediaType);
+            var res = await _httpService.DeleteAsync<Result<WeatherForecast>>(url, HttpMediaType.MessagePack);
 
             return Success("0000001", "POST成功", res.data);
         }
