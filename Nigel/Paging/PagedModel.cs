@@ -21,6 +21,10 @@ namespace Nigel.Paging
 
         public IList<T> Items { get; set; }
 
+        public PagedModel()
+        {
+        }
+
         public PagedModel(IList<T> items, int totalRecords, int pageNumber, int pageSize)
         {
             PageNumber = pageNumber;

@@ -6,11 +6,15 @@ namespace Nigel.Paging
     [Serializable]
     public class PagedSkipModel<T>
     {
-        public int Limit { get; private set; }
-        public int Skip { get; private set; }
-        public int TotalRecords { get; private set; }
+        public int Limit { get; set; }
+        public int Skip { get; set; }
+        public int TotalRecords { get; set; }
 
         public IList<T> Items { get; set; }
+
+        public PagedSkipModel()
+        {
+        }
 
         public PagedSkipModel(IList<T> items, int totalRecords, int skip, int limit)
         {

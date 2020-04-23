@@ -20,17 +20,24 @@ namespace Nigel.Paging
         /// <summary>
         /// 获取记录数
         /// </summary>
-        public int Limit { get; private set; }
+        public int Limit { get; set; }
 
         /// <summary>
         /// 偏移量
         /// </summary>
-        public int Offset { get; private set; }
+        public int Offset { get; set; }
 
         /// <summary>
         /// 总记录数
         /// </summary>
-        public int TotalRecords { get; private set; }
+        public int TotalRecords { get; set; }
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        public PagedSkipList()
+        {
+        }
 
         /// <summary>
         /// 构造函数

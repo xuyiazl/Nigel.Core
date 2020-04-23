@@ -49,6 +49,13 @@
         /// <summary>
         /// 构造函数
         /// </summary>
+        public PagedList()
+        {
+        }
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
         /// <param name="items">数据</param>
         /// <param name="totalRecords">总记录数</param>
         /// <param name="pageNumber">页码</param>
