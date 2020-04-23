@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Nigel.Core.MessagePack
 {
-    public class MessagePackRequestContentTypeAttribute : ProducesAttribute
+    public class MessagePackRequestContentTypeAttribute : ConsumesAttribute
     {
         public MessagePackRequestContentTypeAttribute() : base("application/json")
         {
