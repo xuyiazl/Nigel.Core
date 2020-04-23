@@ -13,7 +13,7 @@ namespace Nigel.MessageApiTest
     /// </summary>
     [ApiController]
     [Route("api/[controller]/[action]")]
-    [MediaTypeHeader]
+    [MessagePackResponseContentType]
     public class ApiControllerBase : ControllerBase
     {
         public ApiControllerBase(ILogger logger)
