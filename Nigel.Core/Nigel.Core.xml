@@ -371,7 +371,16 @@
             <param name="cancellationToken">取消令牌</param>
             <returns></returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Nigel.Core.HttpFactory.HttpService.PostAsync``1(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpFormData,System.Threading.CancellationToken)" -->
+        <member name="M:Nigel.Core.HttpFactory.HttpService.PostAsync``1(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpFormData,System.Threading.CancellationToken)">
+            <summary>
+            POST提交数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="formData">formdata（application/x-www-form-urlencoded）</param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
         <member name="M:Nigel.Core.HttpFactory.HttpService.PostAsync``2(Nigel.Webs.UrlArguments,``1,System.Threading.CancellationToken)">
             <summary>
             POST提交数据
@@ -395,7 +404,16 @@
             <param name="cancellationToken">取消令牌</param>
             <returns></returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Nigel.Core.HttpFactory.HttpService.PutAsync``1(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpFormData,System.Threading.CancellationToken)" -->
+        <member name="M:Nigel.Core.HttpFactory.HttpService.PutAsync``1(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpFormData,System.Threading.CancellationToken)">
+            <summary>
+            PUT提交数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="formData">formdata（application/x-www-form-urlencoded）</param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
         <member name="M:Nigel.Core.HttpFactory.HttpService.PutAsync``2(Nigel.Webs.UrlArguments,``1,System.Threading.CancellationToken)">
             <summary>
             PUT提交数据
@@ -419,7 +437,16 @@
             <param name="cancellationToken">取消令牌</param>
             <returns></returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Nigel.Core.HttpFactory.HttpService.PatchAsync``1(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpFormData,System.Threading.CancellationToken)" -->
+        <member name="M:Nigel.Core.HttpFactory.HttpService.PatchAsync``1(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpFormData,System.Threading.CancellationToken)">
+            <summary>
+            PATCH提交数据
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="formData">formdata（application/x-www-form-urlencoded）</param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
         <member name="M:Nigel.Core.HttpFactory.HttpService.PatchAsync``2(Nigel.Webs.UrlArguments,``1,System.Threading.CancellationToken)">
             <summary>
             PATCH提交数据

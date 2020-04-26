@@ -15115,6 +15115,11 @@
             总记录数
             </summary>
         </member>
+        <member name="M:Nigel.Paging.PagedList`1.#ctor">
+            <summary>
+            构造函数
+            </summary>
+        </member>
         <member name="M:Nigel.Paging.PagedList`1.#ctor(System.Collections.Generic.IList{`0},System.Int32,System.Int32,System.Int32)">
             <summary>
             构造函数
@@ -15173,6 +15178,11 @@
         <member name="P:Nigel.Paging.PagedSkipList`1.TotalRecords">
             <summary>
             总记录数
+            </summary>
+        </member>
+        <member name="M:Nigel.Paging.PagedSkipList`1.#ctor">
+            <summary>
+            构造函数
             </summary>
         </member>
         <member name="M:Nigel.Paging.PagedSkipList`1.#ctor(System.Collections.Generic.IList{`0},System.Int32,System.Int32,System.Int32)">
