@@ -35,8 +35,75 @@ namespace Nigel.ConsoleTests
 
     class Program
     {
+        public class CryptString
+        {
+            ///  
+            /// 转换数字成单个16进制字符，要求输入值小于16
+            ///  
+            /// value
+            ///  
+            public static string GetHexChar(string value)
+            {
+                string sReturn = string.Empty;
+                switch (value)
+                {
+                    case "10":
+                        sReturn = "A";
+                        break;
+                    case "11":
+                        sReturn = "B";
+                        break;
+                    case "12":
+                        sReturn = "C";
+                        break;
+                    case "13":
+                        sReturn = "D";
+                        break;
+                    case "14":
+                        sReturn = "E";
+                        break;
+                    case "15":
+                        sReturn = "F";
+                        break;
+                    default:
+                        sReturn = value;
+                        break;
+                }
+                return sReturn;
+            }
+
+            ///  
+            /// 返回进制字符串
+            ///  
+            /// value
+            ///  
+
+            public static string ConvertHex(string value)
+            {
+                string sReturn = string.Empty;
+                try
+                {
+
+                    while (ulong.Parse(value) >= 16)
+                    {
+                        ulong v = ulong.Parse(value);
+                        sReturn = GetHexChar((v % 16).ToString()) + sReturn;
+                        value = Math.Floor(Convert.ToDouble(v / 16)).ToString();
+                    }
+                    sReturn = GetHexChar(value) + sReturn;
+                }
+                catch
+                {
+                    sReturn = "###Valid Value!###";
+                }
+                return sReturn;
+            }
+        }
+
         static void Main(string[] args)
         {
+            var hex = CryptString.ConvertHex("111111");
+
             User user = new User
             {
                 Id = "1",

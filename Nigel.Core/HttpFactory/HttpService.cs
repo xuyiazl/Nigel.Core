@@ -247,6 +247,8 @@ namespace Nigel.Core.HttpFactory
                 foreach (var accept in client.DefaultRequestHeaders.Accept)
                     requestMessage.Headers.Accept.Add(accept);
 
+                requestMessage.Headers.Authorization = client.DefaultRequestHeaders.Authorization;
+
                 RequestHeaders(requestMessage.Headers);
 
                 requestMessage.Content = contentCall?.Invoke();
