@@ -177,6 +177,39 @@
             <param name="serviceLifetime"></param>
             <returns></returns>
         </member>
+        <member name="M:Nigel.Core.Extensions.Extensions.AddHttpMessageService``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.String,System.Func{System.Net.Http.HttpMessageHandler},System.Nullable{System.TimeSpan},Microsoft.Extensions.DependencyInjection.ServiceLifetime)">
+            <summary>
+            注册 HttpFactory Service
+            </summary>
+            <typeparam name="TImplementation"></typeparam>
+            <param name="services"></param>
+            <param name="clientName"></param>
+            <param name="baseAddress"></param>
+            <param name="messageHandler"></param>
+            <param name="httpClientLeftTime"></param>
+            <param name="serviceLifetime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.Extensions.Extensions.AddHttpMessageService``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.Action{System.Net.Http.HttpClient},System.Func{System.Net.Http.HttpMessageHandler},System.Nullable{System.TimeSpan},Microsoft.Extensions.DependencyInjection.ServiceLifetime)">
+            <summary>
+            注册 HTTPFactory Srevice
+            </summary>
+            <param name="services"></param>
+            <param name="clientName"></param>
+            <param name="client"></param>
+            <param name="messageHandler"></param>
+            <param name="httpClientLeftTime"></param>
+            <param name="serviceLifetime"></param>
+        </member>
+        <member name="M:Nigel.Core.Extensions.Extensions.AddHttpMessageService``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.DependencyInjection.ServiceLifetime)">
+            <summary>
+            注册 HTTPFactory Srevice
+            </summary>
+            <typeparam name="TImplementation"></typeparam>
+            <param name="services"></param>
+            <param name="serviceLifetime"></param>
+            <returns></returns>
+        </member>
         <member name="T:Nigel.Core.Extensions.ViewResultExtensions">
             <summary>
             视图结果 扩展
@@ -345,6 +378,189 @@
         <member name="F:Nigel.Core.HttpFactory.HttpMediaType.MessagePack">
             <summary>
             返回的数据类型为MessagePack
+            </summary>
+        </member>
+        <member name="T:Nigel.Core.HttpFactory.HttpMessageService">
+            <summary>
+            HttpRequestMessage服务类
+            </summary>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.HttpMessageService.GetAsync(Nigel.Webs.UrlArguments,System.Action{System.Net.Http.Headers.HttpRequestHeaders},System.Threading.CancellationToken)">
+            <summary>
+            GET请求数据
+            </summary>
+            <param name="urlArguments">Url构造器</param>
+            <param name="headersCall"></param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.HttpMessageService.GetAsync(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpMediaType,System.Action{System.Net.Http.Headers.HttpRequestHeaders},System.Threading.CancellationToken)">
+            <summary>
+            GET请求数据
+            </summary>
+            <param name="urlArguments">Url构造器</param>
+            <param name="mediaType">mediaType数据格式，请求格式和返回格式一致（JSON、MessagePack）</param>
+            <param name="headersCall"></param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.HttpMessageService.PostAsync(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpFormData,System.Action{System.Net.Http.Headers.HttpRequestHeaders},System.Threading.CancellationToken)">
+            <summary>
+            POST提交数据
+            </summary>
+            <param name="urlArguments">Url构造器</param>
+            <param name="formData">formdata（application/x-www-form-urlencoded）</param>
+            <param name="headersCall"></param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.HttpMessageService.PostAsync``1(Nigel.Webs.UrlArguments,``0,System.Action{System.Net.Http.Headers.HttpRequestHeaders},System.Threading.CancellationToken)">
+            <summary>
+            POST提交数据
+            </summary>
+            <typeparam name="TModel"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="postData">模型数据</param>
+            <param name="headersCall"></param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.HttpMessageService.PostAsync``1(Nigel.Webs.UrlArguments,``0,Nigel.Core.HttpFactory.HttpMediaType,System.Action{System.Net.Http.Headers.HttpRequestHeaders},System.Threading.CancellationToken)">
+            <summary>
+            POST提交数据
+            </summary>
+            <typeparam name="TModel"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="postData">模型数据</param>
+            <param name="mediaType">mediaType数据格式，请求格式和返回格式一致（JSON、MessagePack）</param>
+            <param name="headersCall"></param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.HttpMessageService.PutAsync(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpFormData,System.Action{System.Net.Http.Headers.HttpRequestHeaders},System.Threading.CancellationToken)">
+            <summary>
+            PUT提交数据
+            </summary>
+            <param name="urlArguments">Url构造器</param>
+            <param name="formData">formdata（application/x-www-form-urlencoded）</param>
+            <param name="headersCall"></param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.HttpMessageService.PutAsync``1(Nigel.Webs.UrlArguments,``0,System.Action{System.Net.Http.Headers.HttpRequestHeaders},System.Threading.CancellationToken)">
+            <summary>
+            PUT提交数据
+            </summary>
+            <typeparam name="TModel"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="postData">模型数据</param>
+            <param name="headersCall"></param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.HttpMessageService.PutAsync``1(Nigel.Webs.UrlArguments,``0,Nigel.Core.HttpFactory.HttpMediaType,System.Action{System.Net.Http.Headers.HttpRequestHeaders},System.Threading.CancellationToken)">
+            <summary>
+            PUT提交数据
+            </summary>
+            <typeparam name="TModel"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="postData">模型数据</param>
+            <param name="mediaType">mediaType数据格式，请求格式和返回格式一致（JSON、MessagePack）</param>
+            <param name="headersCall"></param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.HttpMessageService.PatchAsync(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpFormData,System.Action{System.Net.Http.Headers.HttpRequestHeaders},System.Threading.CancellationToken)">
+            <summary>
+            PATCH提交数据
+            </summary>
+            <param name="urlArguments">Url构造器</param>
+            <param name="formData">formdata（application/x-www-form-urlencoded）</param>
+            <param name="headersCall"></param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.HttpMessageService.PatchAsync``1(Nigel.Webs.UrlArguments,``0,System.Action{System.Net.Http.Headers.HttpRequestHeaders},System.Threading.CancellationToken)">
+            <summary>
+            PATCH提交数据
+            </summary>
+            <typeparam name="TModel"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="postData">模型数据</param>
+            <param name="headersCall"></param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.HttpMessageService.PatchAsync``1(Nigel.Webs.UrlArguments,``0,Nigel.Core.HttpFactory.HttpMediaType,System.Action{System.Net.Http.Headers.HttpRequestHeaders},System.Threading.CancellationToken)">
+            <summary>
+            PATCH提交数据
+            </summary>
+            <typeparam name="TModel"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="postData">模型数据</param>
+            <param name="mediaType">mediaType数据格式，请求格式和返回格式一致（JSON、MessagePack）</param>
+            <param name="headersCall"></param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.HttpMessageService.DeleteAsync(Nigel.Webs.UrlArguments,System.Action{System.Net.Http.Headers.HttpRequestHeaders},System.Threading.CancellationToken)">
+            <summary>
+            DELETE请求删除数据
+            </summary>
+            <param name="urlArguments">Url构造器</param>
+            <param name="headersCall"></param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.HttpMessageService.DeleteAsync(Nigel.Webs.UrlArguments,Nigel.Core.HttpFactory.HttpMediaType,System.Action{System.Net.Http.Headers.HttpRequestHeaders},System.Threading.CancellationToken)">
+            <summary>
+            DELETE请求删除数据
+            </summary>
+            <param name="urlArguments">Url构造器</param>
+            <param name="mediaType">mediaType数据格式，请求格式和返回格式一致（JSON、MessagePack）</param>
+            <param name="headersCall"></param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.HttpMessageService.HttpSendAsync``1(Nigel.Webs.UrlArguments,System.Net.Http.HttpMethod,``0,Nigel.Core.HttpFactory.HttpMediaType,System.Action{System.Net.Http.Headers.HttpRequestHeaders},System.Threading.CancellationToken)">
+            <summary>
+            发送请求数据
+            </summary>
+            <typeparam name="TModel"></typeparam>
+            <param name="urlArguments">Url构造器</param>
+            <param name="method">请求类型</param>
+            <param name="postData">模型数据</param>
+            <param name="mediaType">mediaType数据格式，请求格式和返回格式一致（JSON、MessagePack）</param>
+            <param name="headersCall"></param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.HttpMessageService.HttpSendAsync(Nigel.Webs.UrlArguments,System.Net.Http.HttpMethod,System.Func{System.Net.Http.HttpContent},Nigel.Core.HttpFactory.HttpMediaType,System.Action{System.Net.Http.Headers.HttpRequestHeaders},System.Threading.CancellationToken)">
+            <summary>
+            发送请求数据
+            </summary>
+            <param name="urlArguments">Url构造器</param>
+            <param name="method">请求类型</param>
+            <param name="contentCall">HttpContent请求内容</param>
+            <param name="mediaType">mediaType数据格式，请求格式和返回格式一致（JSON、MessagePack）</param>
+            <param name="headersCall"></param>
+            <param name="cancellationToken">取消令牌</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Core.HttpFactory.HttpMessageService.RequestHeaders(System.Net.Http.Headers.HttpRequestHeaders)">
+            <summary>
+            添加Headers消息头
+            </summary>
+            <param name="headers">header</param>
+        </member>
+        <member name="T:Nigel.Core.HttpFactory.HttpRemote">
+            <summary>
+            Http远程操作
+            </summary>
+        </member>
+        <member name="P:Nigel.Core.HttpFactory.HttpRemote.Service">
+            <summary>
+            获取HttpService
             </summary>
         </member>
         <member name="T:Nigel.Core.HttpFactory.HttpService">
