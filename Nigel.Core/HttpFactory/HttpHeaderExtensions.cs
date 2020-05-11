@@ -9,6 +9,13 @@ namespace Nigel.Core.HttpFactory
 {
     public static class HttpHeaderExtensions
     {
+        public static HttpClient SetHeader(this HttpClient client, Action<HttpRequestHeaders> action)
+        {
+            action.Invoke(client.DefaultRequestHeaders);
+
+            return client;
+        }
+
         public static HttpClient SetHeaderToken(this HttpClient client, string scheme, string token)
         {
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(scheme, token);
@@ -22,6 +29,21 @@ namespace Nigel.Core.HttpFactory
 
             return client;
         }
+
+        public static HttpClient SetHeaderClientIP(this HttpClient client, string clientIP = "")
+        {
+            client.DefaultRequestHeaders.Add("Client-IP", string.IsNullOrEmpty(clientIP) ? Web.IP : clientIP);
+
+            return client;
+        }
+
+        public static HttpRequestMessage SetHeader(this HttpRequestMessage request, Action<HttpRequestHeaders> action)
+        {
+            action.Invoke(request.Headers);
+
+            return request;
+        }
+
         public static HttpRequestMessage SetHeaderToken(this HttpRequestMessage request, string scheme, string token)
         {
             request.Headers.Authorization = new AuthenticationHeaderValue(scheme, token);
@@ -36,18 +58,12 @@ namespace Nigel.Core.HttpFactory
             return request;
         }
 
-        public static HttpRequestHeaders SetHeaderClientIP(this HttpRequestHeaders headers, string clientIP = "")
+        public static HttpRequestMessage SetHeaderClientIP(this HttpRequestMessage request, string clientIP = "")
         {
-            headers.Add("Client-IP", string.IsNullOrEmpty(clientIP) ? Web.IP : clientIP);
+            request.Headers.Add("Client-IP", string.IsNullOrEmpty(clientIP) ? Web.IP : clientIP);
 
-            return headers;
+            return request;
         }
 
-        public static HttpRequestHeaders SetHeader(this HttpRequestHeaders headers, Action<HttpRequestHeaders> action)
-        {
-            action.Invoke(headers);
-
-            return headers;
-        }
     }
 }
