@@ -8,27 +8,27 @@ namespace Nigel.Core.HttpFactory
 {
     public static class HttpAuthorizationHeaderExtensions
     {
-        public static HttpClient SetToken(this HttpClient client, string scheme, string token)
+        public static HttpClient SetHeaderToken(this HttpClient client, string scheme, string token)
         {
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(scheme, token);
 
             return client;
         }
-        public static HttpClient SetBearerToken(this HttpClient client, string token)
+        public static HttpClient SetHeaderBearerToken(this HttpClient client, string token)
         {
-            client.SetToken("Bearer", token);
+            client.SetHeaderToken("Bearer", token);
 
             return client;
         }
-        public static HttpRequestMessage SetToken(this HttpRequestMessage request, string scheme, string token)
+        public static HttpRequestMessage SetHeaderToken(this HttpRequestMessage request, string scheme, string token)
         {
             request.Headers.Authorization = new AuthenticationHeaderValue(scheme, token);
 
             return request;
         }
-        public static HttpRequestMessage SetBearerToken(this HttpRequestMessage request, string token)
+        public static HttpRequestMessage SetHeaderBearerToken(this HttpRequestMessage request, string token)
         {
-            request.SetToken("Bearer", token);
+            request.SetHeaderToken("Bearer", token);
 
             return request;
         }
