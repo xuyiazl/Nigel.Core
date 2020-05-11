@@ -17,9 +17,23 @@ namespace Nigel.Core.HttpFactory
             return client;
         }
 
+        public static HttpClient SetHeader(this HttpClient client, string name, string value)
+        {
+            client.DefaultRequestHeaders.Add(name, value);
+
+            return client;
+        }
+
         public static HttpClient SetHeaderMediaType(this HttpClient client, HttpMediaType mediaType)
         {
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(mediaType.Description()));
+            client.SetHeaderMediaType(mediaType.Description());
+
+            return client;
+        }
+
+        public static HttpClient SetHeaderMediaType(this HttpClient client, string mediaType)
+        {
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(mediaType));
 
             return client;
         }
@@ -40,7 +54,7 @@ namespace Nigel.Core.HttpFactory
 
         public static HttpClient SetHeaderClientIP(this HttpClient client, string clientIP = "")
         {
-            client.DefaultRequestHeaders.Add("Client-IP", string.IsNullOrEmpty(clientIP) ? Web.IP : clientIP);
+            client.SetHeader("Client-IP", string.IsNullOrEmpty(clientIP) ? Web.IP : clientIP);
 
             return client;
         }
@@ -52,9 +66,23 @@ namespace Nigel.Core.HttpFactory
             return request;
         }
 
+        public static HttpRequestMessage SetHeader(this HttpRequestMessage request, string name, string value)
+        {
+            request.Headers.Add(name, value);
+
+            return request;
+        }
+
         public static HttpRequestMessage SetHeaderMediaType(this HttpRequestMessage request, HttpMediaType mediaType)
         {
-            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(mediaType.Description()));
+            request.SetHeaderMediaType(mediaType.Description());
+
+            return request;
+        }
+
+        public static HttpRequestMessage SetHeaderMediaType(this HttpRequestMessage request, string mediaType)
+        {
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(mediaType));
 
             return request;
         }
@@ -75,10 +103,11 @@ namespace Nigel.Core.HttpFactory
 
         public static HttpRequestMessage SetHeaderClientIP(this HttpRequestMessage request, string clientIP = "")
         {
-            request.Headers.Add("Client-IP", string.IsNullOrEmpty(clientIP) ? Web.IP : clientIP);
+            request.SetHeader("Client-IP", string.IsNullOrEmpty(clientIP) ? Web.IP : clientIP);
 
             return request;
         }
+
 
     }
 }
