@@ -24,14 +24,14 @@ namespace Nigel.Core.HttpFactory
             return client;
         }
 
-        public static HttpClient SetHeaderMediaType(this HttpClient client, HttpMediaType mediaType)
+        public static HttpClient SetHeaderAccept(this HttpClient client, HttpMediaType mediaType)
         {
             client.SetHeaderMediaType(mediaType.Description());
 
             return client;
         }
 
-        public static HttpClient SetHeaderMediaType(this HttpClient client, string mediaType)
+        public static HttpClient SetHeaderAccept(this HttpClient client, string mediaType)
         {
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(mediaType));
 
@@ -73,14 +73,14 @@ namespace Nigel.Core.HttpFactory
             return request;
         }
 
-        public static HttpRequestMessage SetHeaderMediaType(this HttpRequestMessage request, HttpMediaType mediaType)
+        public static HttpRequestMessage SetHeaderAccept(this HttpRequestMessage request, HttpMediaType mediaType)
         {
             request.SetHeaderMediaType(mediaType.Description());
 
             return request;
         }
 
-        public static HttpRequestMessage SetHeaderMediaType(this HttpRequestMessage request, string mediaType)
+        public static HttpRequestMessage SetHeaderAccept(this HttpRequestMessage request, string mediaType)
         {
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(mediaType));
 
