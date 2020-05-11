@@ -25,5 +25,21 @@ namespace Nigel.Core.HttpFactory
                 return httpService;
             }
         }
+
+        /// <summary>
+        /// 获取HttpMessageService
+        /// </summary>
+        public static IHttpMessageService MessageService
+        {
+            get
+            {
+                var httpService = Web.GetService<IHttpMessageService>();
+
+                if (httpService == null)
+                    throw new ArgumentNullException($"请注入{nameof(IHttpMessageService)}服务，services.HttpMessageService(clientname, [servser])。");
+
+                return httpService;
+            }
+        }
     }
 }

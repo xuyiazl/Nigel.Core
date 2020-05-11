@@ -25,8 +25,7 @@ namespace Nigel.Core.HttpFactory
             this.HttpClientFactory = HttpClientFactory;
         }
 
-
-        public HttpClient CreateClient(string clientName, HttpMediaType mediaType = HttpMediaType.Json)
+        public HttpClient CreateClient(string clientName = "", HttpMediaType mediaType = HttpMediaType.Json)
         {
             HttpClient client = HttpClientFactory.CreateClient(string.IsNullOrEmpty(clientName) ? "apiClient" : clientName);
 
@@ -36,7 +35,6 @@ namespace Nigel.Core.HttpFactory
 
             return client;
         }
-
 
     }
 }
