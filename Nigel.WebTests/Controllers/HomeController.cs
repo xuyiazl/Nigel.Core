@@ -39,6 +39,7 @@ namespace Nigel.WebTests.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IHttpService _httpService;
+        private readonly IHttpMessageService _httpMessage;
 
         private readonly IRedisService _redisService;
         private readonly IDbAdminUsersServiceProvider _dbAdminUsersServiceProvider;
@@ -47,18 +48,31 @@ namespace Nigel.WebTests.Controllers
         /// </summary>
         private IFileUploadService _fileUploadService;
 
-        public HomeController(ILogger<HomeController> logger, IDbAdminUsersServiceProvider dbAdminUsersServiceProvider, IHttpService httpService, IFileUploadService fileUploadService, IRedisService redisService)
+        public HomeController(ILogger<HomeController> logger, IHttpMessageService httpMessage, IDbAdminUsersServiceProvider dbAdminUsersServiceProvider, IHttpService httpService, IFileUploadService fileUploadService, IRedisService redisService)
         {
             _logger = logger;
             _httpService = httpService;
+            _httpMessage = httpMessage;
             _fileUploadService = fileUploadService;
             _redisService = redisService;
             _dbAdminUsersServiceProvider = dbAdminUsersServiceProvider;
-
         }
 
         public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
+            var ur2 = UrlArguments.Create("api/messagepack/add");
+
+            var resData = await _httpMessage.CreateClient("msgtest", HttpMediaType.MessagePack).PostAsync<User>(ur2, null, cancellationToken);
+
+            if (resData.IsSuccessStatusCode)
+            {
+
+            }
+
+            var m = await resData.Content.ReadAsAsync<User>(HttpMediaType.MessagePack);
+
+
+
             var url = UrlArguments.Create("msgpack", "api/messagepack/get");
 
             var res = await _httpService.GetAsync<User>(url, cancellationToken);

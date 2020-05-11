@@ -35,16 +35,6 @@ namespace Nigel.Core.HttpFactory
         /// POST提交数据
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="urlArguments">Url构造器</param>
-        /// <param name="formData">formdata（a=1&b=1&c=1，application/x-www-form-urlencoded）</param>
-        /// <param name="cancellationToken">取消令牌</param>
-        /// <returns></returns>
-        Task<T> PostAsync<T>(UrlArguments urlArguments, HttpFormData formData, CancellationToken cancellationToken = default)
-          where T : class, new();
-        /// <summary>
-        /// POST提交数据
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <typeparam name="TModel"></typeparam>
         /// <param name="urlArguments">Url构造器</param>
         /// <param name="postData">模型数据</param>
@@ -68,16 +58,6 @@ namespace Nigel.Core.HttpFactory
         /// PUT提交数据
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="urlArguments">Url构造器</param>
-        /// <param name="formData">formdata（a=1&b=1&c=1，application/x-www-form-urlencoded）</param>
-        /// <param name="cancellationToken">取消令牌</param>
-        /// <returns></returns>
-        Task<T> PutAsync<T>(UrlArguments urlArguments, HttpFormData formData, CancellationToken cancellationToken = default)
-          where T : class, new();
-        /// <summary>
-        /// PUT提交数据
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <typeparam name="TModel"></typeparam>
         /// <param name="urlArguments">Url构造器</param>
         /// <param name="postData">模型数据</param>
@@ -96,16 +76,6 @@ namespace Nigel.Core.HttpFactory
         /// <param name="cancellationToken">取消令牌</param>
         /// <returns></returns>
         Task<T> PutAsync<T, TModel>(UrlArguments urlArguments, TModel postData, HttpMediaType mediaType, CancellationToken cancellationToken = default)
-          where T : class, new();
-        /// <summary>
-        /// PATCH提交数据
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="urlArguments">Url构造器</param>
-        /// <param name="formData">formdata（a=1&b=1&c=1，application/x-www-form-urlencoded）</param>
-        /// <param name="cancellationToken">取消令牌</param>
-        /// <returns></returns>
-        Task<T> PatchAsync<T>(UrlArguments urlArguments, HttpFormData formData, CancellationToken cancellationToken = default)
           where T : class, new();
         /// <summary>
         /// PATCH提交数据

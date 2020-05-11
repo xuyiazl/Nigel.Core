@@ -53,18 +53,6 @@ namespace Nigel.Core.HttpFactory
         /// POST提交数据
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="urlArguments">Url构造器</param>
-        /// <param name="formData">formdata（application/x-www-form-urlencoded）</param>
-        /// <param name="cancellationToken">取消令牌</param>
-        /// <returns></returns>
-        public async Task<T> PostAsync<T>(UrlArguments urlArguments, HttpFormData formData, CancellationToken cancellationToken = default)
-            where T : class, new()
-            => await HttpSendAsync<T>(urlArguments, HttpMethod.Post, formData, cancellationToken);
-
-        /// <summary>
-        /// POST提交数据
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <typeparam name="TModel"></typeparam>
         /// <param name="urlArguments">Url构造器</param>
         /// <param name="postData">模型数据</param>
@@ -92,18 +80,6 @@ namespace Nigel.Core.HttpFactory
         /// PUT提交数据
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="urlArguments">Url构造器</param>
-        /// <param name="formData">formdata（application/x-www-form-urlencoded）</param>
-        /// <param name="cancellationToken">取消令牌</param>
-        /// <returns></returns>
-        public async Task<T> PutAsync<T>(UrlArguments urlArguments, HttpFormData formData, CancellationToken cancellationToken = default)
-            where T : class, new()
-            => await HttpSendAsync<T>(urlArguments, HttpMethod.Put, formData, cancellationToken);
-
-        /// <summary>
-        /// PUT提交数据
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
         /// <typeparam name="TModel"></typeparam>
         /// <param name="urlArguments">Url构造器</param>
         /// <param name="postData">模型数据</param>
@@ -126,18 +102,6 @@ namespace Nigel.Core.HttpFactory
         public async Task<T> PutAsync<T, TModel>(UrlArguments urlArguments, TModel postData, HttpMediaType mediaType, CancellationToken cancellationToken = default)
             where T : class, new()
             => await HttpSendAsync<T, TModel>(urlArguments, HttpMethod.Put, postData, mediaType, cancellationToken);
-
-        /// <summary>
-        /// PATCH提交数据
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="urlArguments">Url构造器</param>
-        /// <param name="formData">formdata（application/x-www-form-urlencoded）</param>
-        /// <param name="cancellationToken">取消令牌</param>
-        /// <returns></returns>
-        public async Task<T> PatchAsync<T>(UrlArguments urlArguments, HttpFormData formData, CancellationToken cancellationToken = default)
-            where T : class, new()
-            => await HttpSendAsync<T>(urlArguments, HttpMethod.Patch, formData, cancellationToken);
 
         /// <summary>
         /// PATCH提交数据
@@ -188,15 +152,6 @@ namespace Nigel.Core.HttpFactory
         public async Task<T> DeleteAsync<T>(UrlArguments urlArguments, HttpMediaType mediaType, CancellationToken cancellationToken = default)
             where T : class, new()
             => await HttpSendAsync<T>(urlArguments, HttpMethod.Delete, null, mediaType, cancellationToken);
-
-        private async Task<T> HttpSendAsync<T>(UrlArguments urlArguments, HttpMethod method, HttpFormData formData, CancellationToken cancellationToken = default)
-            where T : class, new()
-            => await HttpSendAsync<T>(
-                urlArguments,
-                method,
-                () => formData == null || formData.IsEmpty ? null : new StringContent(formData.ToString(), Encoding.UTF8, "application/x-www-form-urlencoded"),
-                 HttpMediaType.Json,
-                cancellationToken);
 
         /// <summary>
         /// 发送请求数据

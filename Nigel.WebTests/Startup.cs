@@ -65,6 +65,8 @@ namespace Nigel.WebTests
             services.AddHttpService<HttpService>();
             services.AddHttpService<HttpService>("msgpack", "http://localhost:57802");
 
+            services.AddHttpMessageService();
+
             services.AddRedisService().AddJsonRedisSerializer();
 
             //×¢²árazor¾²Ì¬HTMLÉú³ÉÆ÷

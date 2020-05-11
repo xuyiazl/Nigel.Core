@@ -195,7 +195,6 @@ namespace Nigel.Core.Extensions
         /// <summary>
         /// 注册 HttpFactory Service
         /// </summary>
-        /// <typeparam name="TImplementation"></typeparam>
         /// <param name="services"></param>
         /// <param name="clientName"></param>
         /// <param name="baseAddress"></param>
@@ -203,13 +202,12 @@ namespace Nigel.Core.Extensions
         /// <param name="httpClientLeftTime"></param>
         /// <param name="serviceLifetime"></param>
         /// <returns></returns>
-        public static IServiceCollection AddHttpMessageService<TImplementation>(this IServiceCollection services,
+        public static IServiceCollection AddHttpMessageService(this IServiceCollection services,
             string clientName,
             string baseAddress,
             Func<HttpMessageHandler> messageHandler = null,
             TimeSpan? httpClientLeftTime = null,
             ServiceLifetime serviceLifetime = ServiceLifetime.Singleton)
-            where TImplementation : class, IHttpMessageService
         {
             Action<HttpClient> client = c =>
             {
@@ -217,7 +215,7 @@ namespace Nigel.Core.Extensions
                 c.DefaultRequestHeaders.Add("Accept-Encoding", "gzip,deflate");
             };
 
-            services.AddHttpMessageService<TImplementation>(clientName, client, messageHandler, httpClientLeftTime, serviceLifetime);
+            services.AddHttpMessageService(clientName, client, messageHandler, httpClientLeftTime, serviceLifetime);
 
             return services;
         }
@@ -231,13 +229,12 @@ namespace Nigel.Core.Extensions
         /// <param name="messageHandler"></param>
         /// <param name="httpClientLeftTime"></param>
         /// <param name="serviceLifetime"></param>
-        public static IServiceCollection AddHttpMessageService<TImplementation>(this IServiceCollection services,
+        public static IServiceCollection AddHttpMessageService(this IServiceCollection services,
             string clientName = "apiClient",
             Action<HttpClient> client = null,
             Func<HttpMessageHandler> messageHandler = null,
             TimeSpan? httpClientLeftTime = null,
             ServiceLifetime serviceLifetime = ServiceLifetime.Singleton)
-            where TImplementation : class, IHttpMessageService
         {
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
@@ -270,7 +267,7 @@ namespace Nigel.Core.Extensions
             if (httpClientLeftTime != null)
                 httpClientBuilder.SetHandlerLifetime(httpClientLeftTime.Value);
 
-            services.AddHttpMessageService<IHttpMessageService>(serviceLifetime);
+            services.AddHttpMessageServiceLeftTime(serviceLifetime);
 
             return services;
         }
@@ -278,26 +275,24 @@ namespace Nigel.Core.Extensions
         /// <summary>
         /// 注册 HTTPFactory Srevice
         /// </summary>
-        /// <typeparam name="TImplementation"></typeparam>
         /// <param name="services"></param>
         /// <param name="serviceLifetime"></param>
         /// <returns></returns>
-        private static IServiceCollection AddHttpMessageService<TImplementation>(this IServiceCollection services,
+        private static IServiceCollection AddHttpMessageServiceLeftTime(this IServiceCollection services,
            ServiceLifetime serviceLifetime = ServiceLifetime.Singleton)
-           where TImplementation : class, IHttpMessageService
         {
             switch (serviceLifetime)
             {
                 case ServiceLifetime.Scoped:
-                    services.TryAddScoped<IHttpMessageService, TImplementation>();
+                    services.TryAddScoped<IHttpMessageService, HttpMessageService>();
                     break;
 
                 case ServiceLifetime.Transient:
-                    services.TryAddTransient<IHttpMessageService, TImplementation>();
+                    services.TryAddTransient<IHttpMessageService, HttpMessageService>();
                     break;
 
                 case ServiceLifetime.Singleton:
-                    services.TryAddSingleton<IHttpMessageService, TImplementation>();
+                    services.TryAddSingleton<IHttpMessageService, HttpMessageService>();
                     break;
             }
 
