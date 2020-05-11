@@ -1,12 +1,15 @@
-﻿using Nigel.Json;
+﻿using Nigel.Extensions;
+using Nigel.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Nigel.Core.HttpFactory
 {
+
     public static class HttpContentMessage
     {
         public static HttpContent CreateJsonContent<TModel>(TModel model, Encoding encoding = null)
@@ -23,12 +26,14 @@ namespace Nigel.Core.HttpFactory
         {
             switch (mediaType)
             {
-                case HttpMediaType.Json:
-                    return new StringContent(model.ToJson(), encoding ?? Encoding.UTF8, "application/json");
                 case HttpMediaType.MessagePack:
-                    return new ByteArrayContent(model.ToMsgPackBytes());
+                    {
+                        var content = new ByteArrayContent(model.ToMsgPackBytes());
+                        content.Headers.ContentType = new MediaTypeHeaderValue(mediaType.Description());
+                        return content;
+                    }
                 default:
-                    return new StringContent(model.ToJson(), encoding ?? Encoding.UTF8, "application/json");
+                    return new StringContent(model.ToJson(), encoding ?? Encoding.UTF8, mediaType.Description());
             }
         }
     }
