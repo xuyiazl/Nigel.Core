@@ -7,7 +7,7 @@ namespace Nigel.Core.MessagePack
 {
     public class MessagePackRequestContentTypeAttribute : ConsumesAttribute
     {
-        public MessagePackRequestContentTypeAttribute() : base("application/json")
+        public MessagePackRequestContentTypeAttribute() : base("application/json", "application/x-msgpack")
         {
 
         }
