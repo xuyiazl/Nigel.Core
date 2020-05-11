@@ -13,6 +13,6 @@ namespace Nigel.Core.HttpFactory
     public interface IHttpMessageService
     {
         IHttpClientFactory HttpClientFactory { get; set; }
-        HttpClient CreateClient(string clientName, HttpMediaType mediaType = HttpMediaType.Json);
+        HttpClient CreateClient(string clientName);
     }
 }

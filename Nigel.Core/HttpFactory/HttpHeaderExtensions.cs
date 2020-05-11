@@ -1,4 +1,5 @@
-﻿using Nigel.Helpers;
+﻿using Nigel.Extensions;
+using Nigel.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -12,6 +13,13 @@ namespace Nigel.Core.HttpFactory
         public static HttpClient SetHeader(this HttpClient client, Action<HttpRequestHeaders> action)
         {
             action.Invoke(client.DefaultRequestHeaders);
+
+            return client;
+        }
+
+        public static HttpClient SetHeaderMediaType(this HttpClient client, HttpMediaType mediaType)
+        {
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(mediaType.Description()));
 
             return client;
         }
@@ -40,6 +48,13 @@ namespace Nigel.Core.HttpFactory
         public static HttpRequestMessage SetHeader(this HttpRequestMessage request, Action<HttpRequestHeaders> action)
         {
             action.Invoke(request.Headers);
+
+            return request;
+        }
+
+        public static HttpRequestMessage SetHeaderMediaType(this HttpRequestMessage request, HttpMediaType mediaType)
+        {
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(mediaType.Description()));
 
             return request;
         }

@@ -388,6 +388,11 @@
             获取HttpService
             </summary>
         </member>
+        <member name="P:Nigel.Core.HttpFactory.HttpRemote.MessageService">
+            <summary>
+            获取HttpMessageService
+            </summary>
+        </member>
         <member name="T:Nigel.Core.HttpFactory.HttpService">
             <summary>
             HttpRequestMessage服务类

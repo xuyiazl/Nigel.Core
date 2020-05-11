@@ -25,16 +25,11 @@ namespace Nigel.Core.HttpFactory
             this.HttpClientFactory = HttpClientFactory;
         }
 
-        public HttpClient CreateClient(string clientName = "", HttpMediaType mediaType = HttpMediaType.Json)
+        public HttpClient CreateClient(string clientName = "")
         {
             HttpClient client = HttpClientFactory.CreateClient(string.IsNullOrEmpty(clientName) ? "apiClient" : clientName);
 
-            string _mediaType = mediaType.Description();
-
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(_mediaType));
-
             return client;
         }
-
     }
 }

@@ -7,9 +7,19 @@ using System.Threading.Tasks;
 
 namespace Nigel.Core.HttpFactory
 {
-    public static class HttpContent<TModel>
+    public static class HttpContentMessage
     {
-        public static HttpContent Create(TModel model, Encoding encoding = null, HttpMediaType mediaType = HttpMediaType.Json)
+        public static HttpContent CreateJsonContent<TModel>(TModel model, Encoding encoding = null)
+        {
+            return Create(model, encoding, HttpMediaType.Json);
+        }
+
+        public static HttpContent CreateMessagePackContent<TModel>(TModel model, Encoding encoding = null)
+        {
+            return Create(model, encoding, HttpMediaType.MessagePack);
+        }
+
+        public static HttpContent Create<TModel>(TModel model, Encoding encoding = null, HttpMediaType mediaType = HttpMediaType.Json)
         {
             switch (mediaType)
             {
@@ -25,7 +35,17 @@ namespace Nigel.Core.HttpFactory
 
     public static class HttpContentExtensions
     {
-        public static async Task<TModel> ReadAsAsync<TModel>(this HttpContent httpContent, HttpMediaType mediaType = HttpMediaType.Json)
+        public static async Task<TModel> ReadAsJsonAsync<TModel>(this HttpContent httpContent)
+        {
+            return await httpContent.ReadAsAsync<TModel>(HttpMediaType.Json);
+        }
+
+        public static async Task<TModel> ReadAsMessagePackAsync<TModel>(this HttpContent httpContent)
+        {
+            return await httpContent.ReadAsAsync<TModel>(HttpMediaType.MessagePack);
+        }
+
+        public static async Task<TModel> ReadAsAsync<TModel>(this HttpContent httpContent, HttpMediaType mediaType)
         {
             switch (mediaType)
             {
