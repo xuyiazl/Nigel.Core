@@ -62,7 +62,7 @@ namespace Nigel.WebTests.Controllers
         {
             var ur2 = UrlArguments.Create("api/messagepack/add");
 
-            var resData = await _httpMessage.CreateClient("msgtest").SetHeaderMediaType(HttpMediaType.MessagePack).PostAsync<User>(ur2, null, cancellationToken);
+            var resData = await _httpMessage.CreateClient("msgtest").SetHeaderAccept(HttpMediaType.MessagePack).PostAsync<User>(ur2, null, cancellationToken);
 
             if (resData.IsSuccessStatusCode)
             {

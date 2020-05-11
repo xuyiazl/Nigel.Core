@@ -26,7 +26,7 @@ namespace Nigel.Core.HttpFactory
 
         public static HttpClient SetHeaderAccept(this HttpClient client, HttpMediaType mediaType)
         {
-            client.SetHeaderMediaType(mediaType.Description());
+            client.SetHeaderAccept(mediaType.Description());
 
             return client;
         }
@@ -75,7 +75,7 @@ namespace Nigel.Core.HttpFactory
 
         public static HttpRequestMessage SetHeaderAccept(this HttpRequestMessage request, HttpMediaType mediaType)
         {
-            request.SetHeaderMediaType(mediaType.Description());
+            request.SetHeaderAccept(mediaType.Description());
 
             return request;
         }
