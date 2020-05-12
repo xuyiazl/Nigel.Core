@@ -50,6 +50,11 @@ namespace Nigel.Core.HttpFactory
             return await httpContent.ReadAsAsync<TModel>(HttpMediaType.MessagePack, options);
         }
 
+        public static async Task<TModel> ReadAsMessagePackJacksonAsync<TModel>(this HttpContent httpContent, MessagePackSerializerOptions options = null)
+        {
+            return await httpContent.ReadAsAsync<TModel>(HttpMediaType.MessagePackJackson, options);
+        }
+
         public static async Task<TModel> ReadAsAsync<TModel>(this HttpContent httpContent, HttpMediaType mediaType, MessagePackSerializerOptions options = null)
         {
             switch (mediaType)
