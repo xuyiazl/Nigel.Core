@@ -26,11 +26,7 @@ namespace Nigel.Json
             if (target == null)
                 return string.Empty;
 
-            var formatter = CompositeResolver.Create(
-                          new[] { new DurableDateTimeFormatter() },
-                          new[] { ContractlessStandardResolver.Instance });
-
-            options = options ?? ContractlessStandardResolver.Options.WithResolver(formatter);
+            options = options ?? MessagePackSerializerFormatterResolver.DateTimeOptions;
 
             var json = MessagePackSerializer.SerializeToJson(target, options, cancellationToken);
 
@@ -48,11 +44,7 @@ namespace Nigel.Json
             if (string.IsNullOrWhiteSpace(json))
                 return default;
 
-            var formatter = CompositeResolver.Create(
-                          new[] { new DurableDateTimeFormatter() },
-                          new[] { ContractlessStandardResolver.Instance });
-
-            options = options ?? ContractlessStandardResolver.Options.WithResolver(formatter);
+            options = options ?? MessagePackSerializerFormatterResolver.DateTimeOptions;
 
             var buffers = MessagePackSerializer.ConvertFromJson(json, options, cancellationToken);
 
@@ -70,12 +62,7 @@ namespace Nigel.Json
             if (bytes == null || bytes.Length == 0)
                 return default;
 
-            var formatter = CompositeResolver.Create(
-                          new[] { new DurableDateTimeFormatter() },
-                          new[] { ContractlessStandardResolver.Instance });
-
-            options = options ?? ContractlessStandardResolver.Options.WithResolver(formatter);
-
+            options = options ?? MessagePackSerializerFormatterResolver.DateTimeOptions;
 
             var buffers = MessagePackSerializer.ConvertToJson(bytes, options, cancellationToken);
 
@@ -93,11 +80,7 @@ namespace Nigel.Json
             if (target == null)
                 return default;
 
-            var formatter = CompositeResolver.Create(
-                          new[] { new DurableDateTimeFormatter() },
-                          new[] { ContractlessStandardResolver.Instance });
-
-            options = options ?? ContractlessStandardResolver.Options.WithResolver(formatter);
+            options = options ?? MessagePackSerializerFormatterResolver.DateTimeOptions;
 
             var buffers = MessagePackSerializer.Serialize(target, options, cancellationToken);
 
@@ -115,11 +98,7 @@ namespace Nigel.Json
             if (bytes == null || bytes.Length == 0)
                 return default;
 
-            var formatter = CompositeResolver.Create(
-                          new[] { new DurableDateTimeFormatter() },
-                          new[] { ContractlessStandardResolver.Instance });
-
-            options = options ?? ContractlessStandardResolver.Options.WithResolver(formatter);
+            options = options ?? MessagePackSerializerFormatterResolver.DateTimeOptions;
 
             var res = MessagePackSerializer.Deserialize<T>(bytes, options, cancellationToken);
 
@@ -137,11 +116,7 @@ namespace Nigel.Json
             if (stream == null || stream.Length == 0)
                 return default;
 
-            var formatter = CompositeResolver.Create(
-                          new[] { new DurableDateTimeFormatter() },
-                          new[] { ContractlessStandardResolver.Instance });
-
-            options = options ?? ContractlessStandardResolver.Options.WithResolver(formatter);
+            options = options ?? MessagePackSerializerFormatterResolver.DateTimeOptions;
 
             var res = MessagePackSerializer.Deserialize<T>(stream, options, cancellationToken);
 
