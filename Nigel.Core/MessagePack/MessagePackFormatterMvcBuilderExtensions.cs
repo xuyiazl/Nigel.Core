@@ -39,12 +39,6 @@ namespace Nigel.Core.MessagePack
             var messagePackFormatterOptions = new MessagePackFormatterOptions();
             messagePackFormatterOptionsConfiguration?.Invoke(messagePackFormatterOptions);
 
-            //var formatter = CompositeResolver.Create(
-            //              new[] { new DurableDateTimeFormatter() },
-            //              new[] { messagePackFormatterOptions.FormatterResolver });
-
-            //messagePackFormatterOptions.Options.WithResolver(formatter);
-
             messagePackFormatterOptions.Options.WithResolver(messagePackFormatterOptions.FormatterResolver);
 
             foreach (var extension in messagePackFormatterOptions.SupportedExtensions)
@@ -70,12 +64,6 @@ namespace Nigel.Core.MessagePack
 
             var messagePackFormatterOptions = new MessagePackFormatterOptions();
             messagePackFormatterOptionsConfiguration?.Invoke(messagePackFormatterOptions);
-
-            //var formatter = CompositeResolver.Create(
-            //              new[] { new DurableDateTimeFormatter() },
-            //              new[] { messagePackFormatterOptions.FormatterResolver });
-
-            //messagePackFormatterOptions.Options.WithResolver(formatter);
 
             messagePackFormatterOptions.Options.WithResolver(messagePackFormatterOptions.FormatterResolver);
 

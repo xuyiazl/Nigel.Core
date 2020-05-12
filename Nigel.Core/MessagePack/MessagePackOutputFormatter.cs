@@ -10,6 +10,7 @@ using MessagePack;
 using Microsoft.Net.Http.Headers;
 using System.Text;
 using Nigel.Extensions;
+using Newtonsoft.Json;
 
 namespace Nigel.Core.MessagePack
 {
@@ -31,18 +32,37 @@ namespace Nigel.Core.MessagePack
             if (context == null)
                 throw new ArgumentNullException(nameof(context));
 
-            if (context.ContentType.SafeString().ToLower() == "application/x-msgpack-jackson")
+            switch (context.ContentType.SafeString().ToLower())
             {
-                var res = MessagePackSerializer.SerializeToJson(context.Object, _options.Options);
+                case "application/json":
+                    {
+                        var res = JsonConvert.SerializeObject(context.Object, _options.JsonSerializerSettings);
 
-                var bytes = Encoding.UTF8.GetBytes(res);
+                        var bytes = Encoding.UTF8.GetBytes(res);
 
-                context.HttpContext.Response.ContentType = "application/json";
-                await context.HttpContext.Response.Body.WriteAsync(bytes, 0, bytes.Length);
-            }
-            else
-            {
-                await MessagePackSerializer.SerializeAsync(context.ObjectType, context.HttpContext.Response.Body, context.Object, _options.Options);
+                        context.HttpContext.Response.ContentType = "application/json";
+
+                        await context.HttpContext.Response.Body.WriteAsync(bytes, 0, bytes.Length);
+                    }
+                    break;
+                case "application/x-msgpack-jackson":
+                    {
+                        var res = MessagePackSerializer.SerializeToJson(context.Object, _options.Options);
+
+                        var bytes = Encoding.UTF8.GetBytes(res);
+
+                        context.HttpContext.Response.ContentType = "application/json";
+
+                        await context.HttpContext.Response.Body.WriteAsync(bytes, 0, bytes.Length);
+                    }
+                    break;
+                default:
+                    {
+                        context.HttpContext.Response.ContentType = "application/octet-stream";
+
+                        await MessagePackSerializer.SerializeAsync(context.ObjectType, context.HttpContext.Response.Body, context.Object, _options.Options);
+                    }
+                    break;
             }
         }
     }

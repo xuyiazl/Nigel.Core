@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Threading;
 using Microsoft.AspNetCore.Http;
+using Nigel.Extensions;
+using System.Text;
+using Newtonsoft.Json;
 
 namespace Nigel.Core.MessagePack
 {
@@ -48,10 +51,28 @@ namespace Nigel.Core.MessagePack
                 request.Body.Seek(0L, SeekOrigin.Begin);
             }
 
-            var result = await MessagePackSerializer.DeserializeAsync(context.ModelType, request.Body, _options.Options);
-            var formatterResult = await InputFormatterResult.SuccessAsync(result);
+            if (request.ContentType.ToLower() == "application/json")
+            {
+                var bytes = request.Body.ReadAllBytes();
 
-            return formatterResult;
+                var json = Encoding.UTF8.GetString(bytes);
+
+                var result = JsonConvert.DeserializeObject(json, context.ModelType, _options.JsonSerializerSettings);
+
+                var formatterResult = await InputFormatterResult.SuccessAsync(result);
+
+                return formatterResult;
+            }
+            else
+            {
+
+                var result = await MessagePackSerializer.DeserializeAsync(context.ModelType, request.Body, _options.Options);
+
+                var formatterResult = await InputFormatterResult.SuccessAsync(result);
+
+                return formatterResult;
+            }
+
         }
 
         protected override bool CanReadType(Type type)

@@ -1,11 +1,19 @@
 ﻿using MessagePack;
 using MessagePack.Resolvers;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System.Collections.Generic;
 
 namespace Nigel.Core.MessagePack
 {
     public class MessagePackFormatterOptions
     {
+        public JsonSerializerSettings JsonSerializerSettings { get; set; } = new JsonSerializerSettings()
+        {
+            DateTimeZoneHandling = DateTimeZoneHandling.Utc,
+            ContractResolver = new DefaultContractResolver()
+        };
+
         public IFormatterResolver FormatterResolver { get; set; } = ContractlessStandardResolver.Instance;
 
         public MessagePackSerializerOptions Options { get; set; } = ContractlessStandardResolver.Options;
