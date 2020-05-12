@@ -234,6 +234,15 @@ namespace Nigel.Core.HttpFactory
 
                         return res.ToMsgPackObject<T>();
                     }
+                case HttpMediaType.MessagePackJackson:
+                    {
+                        var res = await responseMessage.Content.ReadAsStringAsync();
+
+                        if (_logger.IsEnabled(LogLevel.Debug))
+                            _logger.LogDebug($"{client.BaseAddress}{requestUrl} MediaType：{_mediaType}，Method：{method.Method}，HttpMessage Read Jackson Data：{res}");
+
+                        return res.ToMsgPackBytesFromJson().ToMsgPackObject<T>();
+                    }
                 default:
                     {
                         var res = await responseMessage.Content.ReadAsStringAsync();
