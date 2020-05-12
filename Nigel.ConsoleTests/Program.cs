@@ -84,11 +84,11 @@ namespace Nigel.ConsoleTests
 
                 var _user1 = user.ToMsgPackBytes().ToMsgPackObject<User>();
 
-                var json = user.ToMsgPackJson(MessagePackSerializerFormatterResolver.UnixDateTimeOptions);
+                var json = user.ToMsgPackJson(MessagePackSerializerResolver.UnixDateTimeOptions);
 
-                var jsonBytes = json.ToMsgPackBytesFromJson(MessagePackSerializerFormatterResolver.UnixDateTimeOptions);
+                var jsonBytes = json.ToMsgPackBytesFromJson(MessagePackSerializerResolver.UnixDateTimeOptions);
 
-                var data = jsonBytes.ToMsgPackObject<User>(MessagePackSerializerFormatterResolver.UnixDateTimeOptions);
+                var data = jsonBytes.ToMsgPackObject<User>(MessagePackSerializerResolver.UnixDateTimeOptions);
 
                 //var dict = new Dictionary<string, object>();
                 //dict.Add("Id", 1);

@@ -26,7 +26,7 @@ namespace Nigel.Json
             if (target == null)
                 return string.Empty;
 
-            options = options ?? MessagePackSerializerFormatterResolver.DateTimeOptions;
+            options = options ?? MessagePackSerializerResolver.DateTimeOptions;
 
             var json = MessagePackSerializer.SerializeToJson(target, options, cancellationToken);
 
@@ -44,7 +44,7 @@ namespace Nigel.Json
             if (string.IsNullOrWhiteSpace(json))
                 return default;
 
-            options = options ?? MessagePackSerializerFormatterResolver.DateTimeOptions;
+            options = options ?? MessagePackSerializerResolver.DateTimeOptions;
 
             var buffers = MessagePackSerializer.ConvertFromJson(json, options, cancellationToken);
 
@@ -62,7 +62,7 @@ namespace Nigel.Json
             if (bytes == null || bytes.Length == 0)
                 return default;
 
-            options = options ?? MessagePackSerializerFormatterResolver.DateTimeOptions;
+            options = options ?? MessagePackSerializerResolver.DateTimeOptions;
 
             var buffers = MessagePackSerializer.ConvertToJson(bytes, options, cancellationToken);
 
@@ -80,7 +80,7 @@ namespace Nigel.Json
             if (target == null)
                 return default;
 
-            options = options ?? MessagePackSerializerFormatterResolver.DateTimeOptions;
+            options = options ?? MessagePackSerializerResolver.DateTimeOptions;
 
             var buffers = MessagePackSerializer.Serialize(target, options, cancellationToken);
 
@@ -98,7 +98,7 @@ namespace Nigel.Json
             if (bytes == null || bytes.Length == 0)
                 return default;
 
-            options = options ?? MessagePackSerializerFormatterResolver.DateTimeOptions;
+            options = options ?? MessagePackSerializerResolver.DateTimeOptions;
 
             var res = MessagePackSerializer.Deserialize<T>(bytes, options, cancellationToken);
 
@@ -116,7 +116,7 @@ namespace Nigel.Json
             if (stream == null || stream.Length == 0)
                 return default;
 
-            options = options ?? MessagePackSerializerFormatterResolver.DateTimeOptions;
+            options = options ?? MessagePackSerializerResolver.DateTimeOptions;
 
             var res = MessagePackSerializer.Deserialize<T>(stream, options, cancellationToken);
 

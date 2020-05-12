@@ -10,34 +10,45 @@ using MessagePack.Resolvers;
 
 namespace Nigel.Json
 {
-    public static class MessagePackSerializerFormatterResolver
+    public static class MessagePackSerializerResolver
     {
+        public static IFormatterResolver DateTimeFormatter
+        {
+            get
+            {
+                return CompositeResolver.Create(
+                        new[] { new DurableDateTimeFormatter() },
+                        new[] { ContractlessStandardResolver.Instance });
+            }
+        }
+
         public static MessagePackSerializerOptions DateTimeOptions
         {
             get
             {
-                var formatter = CompositeResolver.Create(
-                              new[] { new DurableDateTimeFormatter() },
-                              new[] { ContractlessStandardResolver.Instance });
-
-                return ContractlessStandardResolver.Options.WithResolver(formatter);
+                return ContractlessStandardResolver.Options.WithResolver(DateTimeFormatter);
             }
 
+        }
+
+        public static IFormatterResolver UnixDateTimeFormatter
+        {
+            get
+            {
+                return CompositeResolver.Create(
+                        new[] { new DurableUnixDateTimeFormatter() },
+                        new[] { ContractlessStandardResolver.Instance });
+
+            }
         }
 
         public static MessagePackSerializerOptions UnixDateTimeOptions
         {
             get
             {
-                var formatter = CompositeResolver.Create(
-                              new[] { new DurableUnixDateTimeFormatter() },
-                              new[] { ContractlessStandardResolver.Instance });
-
-                return ContractlessStandardResolver.Options.WithResolver(formatter);
+                return ContractlessStandardResolver.Options.WithResolver(UnixDateTimeFormatter);
             }
-
         }
-
     }
 
     public class DurableDateTimeFormatter : IMessagePackFormatter<DateTime>
