@@ -16,7 +16,7 @@ namespace Nigel.Json
     {
         /// <summary>
         /// 将对象转换为MessagePack Json字符串
-        /// </summary>
+        /// </summary> 
         /// <param name="target">目标对象</param>
         /// <param name="options"></param>
         /// <param name="cancellationToken"></param>
