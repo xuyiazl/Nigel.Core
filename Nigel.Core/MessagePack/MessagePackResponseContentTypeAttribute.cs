@@ -7,7 +7,7 @@ namespace Nigel.Core.MessagePack
 {
     public class MessagePackResponseContentTypeAttribute : ProducesAttribute
     {
-        public MessagePackResponseContentTypeAttribute() : base("application/json", "application/x-msgpack")
+        public MessagePackResponseContentTypeAttribute() : base("application/json", "application/x-msgpack", "application/x-msgpack-jackson")
         {
 
         }

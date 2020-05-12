@@ -19,6 +19,11 @@ namespace Nigel.Core.HttpFactory
         /// 返回的数据类型为MessagePack
         /// </summary>
         [Description("application/x-msgpack")]
-        MessagePack = 2
+        MessagePack = 2,
+        /// <summary>
+        /// 返回的数据类型为MessagePack-Jackson
+        /// </summary>
+        [Description("application/x-msgpack-jackson")]
+        MessagePackJackson = 3
     }
 }

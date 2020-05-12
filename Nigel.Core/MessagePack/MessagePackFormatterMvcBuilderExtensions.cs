@@ -1,9 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using Microsoft.Net.Http.Headers;
+using MessagePack.Resolvers;
+using Nigel.Json;
 
 namespace Nigel.Core.MessagePack
 {
+
     public static class MessagePackFormatterMvcBuilderExtensions
     {
         public static IMvcBuilder AddMessagePackFormatters(this IMvcBuilder builder)
@@ -36,6 +39,12 @@ namespace Nigel.Core.MessagePack
             var messagePackFormatterOptions = new MessagePackFormatterOptions();
             messagePackFormatterOptionsConfiguration?.Invoke(messagePackFormatterOptions);
 
+            var formatter = CompositeResolver.Create(
+                          new[] { new DurableDateTimeFormatter() },
+                          new[] { messagePackFormatterOptions.FormatterResolver });
+
+            messagePackFormatterOptions.Options.WithResolver(formatter);
+
             foreach (var extension in messagePackFormatterOptions.SupportedExtensions)
             {
                 foreach (var contentType in messagePackFormatterOptions.SupportedContentTypes)
@@ -59,6 +68,12 @@ namespace Nigel.Core.MessagePack
 
             var messagePackFormatterOptions = new MessagePackFormatterOptions();
             messagePackFormatterOptionsConfiguration?.Invoke(messagePackFormatterOptions);
+
+            var formatter = CompositeResolver.Create(
+                          new[] { new DurableDateTimeFormatter() },
+                          new[] { messagePackFormatterOptions.FormatterResolver });
+
+            messagePackFormatterOptions.Options.WithResolver(formatter);
 
             foreach (var extension in messagePackFormatterOptions.SupportedExtensions)
             {

@@ -373,6 +373,11 @@
             返回的数据类型为MessagePack
             </summary>
         </member>
+        <member name="F:Nigel.Core.HttpFactory.HttpMediaType.MessagePackJackson">
+            <summary>
+            返回的数据类型为MessagePack-Jackson
+            </summary>
+        </member>
         <member name="T:Nigel.Core.HttpFactory.HttpMessageService">
             <summary>
             HttpRequestMessage服务类

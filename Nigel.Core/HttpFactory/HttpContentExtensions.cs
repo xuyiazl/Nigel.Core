@@ -9,32 +9,31 @@ using System.Threading.Tasks;
 
 namespace Nigel.Core.HttpFactory
 {
-
     public static class HttpContentMessage
     {
         public static HttpContent CreateJsonContent<TModel>(TModel model, Encoding encoding = null)
-        {
-            return Create(model, encoding, HttpMediaType.Json);
-        }
+            => Create(model, encoding, HttpMediaType.Json);
 
         public static HttpContent CreateMessagePackContent<TModel>(TModel model, Encoding encoding = null)
-        {
-            return Create(model, encoding, HttpMediaType.MessagePack);
-        }
+            => Create(model, encoding, HttpMediaType.MessagePack);
 
         public static HttpContent Create<TModel>(TModel model, Encoding encoding = null, HttpMediaType mediaType = HttpMediaType.Json)
         {
+            HttpContent content;
+
             switch (mediaType)
             {
                 case HttpMediaType.MessagePack:
-                    {
-                        var content = new ByteArrayContent(model.ToMsgPackBytes());
-                        content.Headers.ContentType = new MediaTypeHeaderValue(mediaType.Description());
-                        return content;
-                    }
+                    content = new ByteArrayContent(model.ToMsgPackBytes());
+                    break;
                 default:
-                    return new StringContent(model.ToJson(), encoding ?? Encoding.UTF8, mediaType.Description());
+                    content = new StringContent(model.ToJson(), encoding ?? Encoding.UTF8);
+                    break;
             }
+
+            content.Headers.ContentType = new MediaTypeHeaderValue(mediaType.Description());
+
+            return content;
         }
     }
 
@@ -59,6 +58,12 @@ namespace Nigel.Core.HttpFactory
                         var res = await httpContent.ReadAsByteArrayAsync();
 
                         return res.ToMsgPackObject<TModel>();
+                    }
+                case HttpMediaType.MessagePackJackson:
+                    {
+                        var res = await httpContent.ReadAsStringAsync();
+
+                        return res.ToMsgPackBytesFromJson().ToMsgPackObject<TModel>();
                     }
                 default:
                     {

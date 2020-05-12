@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using MessagePack;
 using Microsoft.Net.Http.Headers;
+using System.Text;
+using Nigel.Extensions;
 
 namespace Nigel.Core.MessagePack
 {
@@ -29,7 +31,19 @@ namespace Nigel.Core.MessagePack
             if (context == null)
                 throw new ArgumentNullException(nameof(context));
 
-            await MessagePackSerializer.SerializeAsync(context.ObjectType, context.HttpContext.Response.Body, context.Object, _options.Options);
+            if (context.ContentType.SafeString().ToLower() == "application/x-msgpack-jackson")
+            {
+                var res = MessagePackSerializer.SerializeToJson(context.Object, _options.Options);
+
+                var bytes = Encoding.UTF8.GetBytes(res);
+
+                context.HttpContext.Response.ContentType = "application/json";
+                await context.HttpContext.Response.Body.WriteAsync(bytes, 0, bytes.Length);
+            }
+            else
+            {
+                await MessagePackSerializer.SerializeAsync(context.ObjectType, context.HttpContext.Response.Body, context.Object, _options.Options);
+            }
         }
     }
 }

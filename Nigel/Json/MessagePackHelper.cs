@@ -26,7 +26,13 @@ namespace Nigel.Json
             if (target == null)
                 return string.Empty;
 
-            var json = MessagePackSerializer.SerializeToJson(target, options ?? ContractlessStandardResolver.Options, cancellationToken);
+            var formatter = CompositeResolver.Create(
+                          new[] { new DurableDateTimeFormatter() },
+                          new[] { ContractlessStandardResolver.Instance });
+
+            options = options ?? ContractlessStandardResolver.Options.WithResolver(formatter);
+
+            var json = MessagePackSerializer.SerializeToJson(target, options, cancellationToken);
 
             return json;
         }
@@ -42,7 +48,13 @@ namespace Nigel.Json
             if (string.IsNullOrWhiteSpace(json))
                 return default;
 
-            var buffers = MessagePackSerializer.ConvertFromJson(json, options ?? ContractlessStandardResolver.Options, cancellationToken);
+            var formatter = CompositeResolver.Create(
+                          new[] { new DurableDateTimeFormatter() },
+                          new[] { ContractlessStandardResolver.Instance });
+
+            options = options ?? ContractlessStandardResolver.Options.WithResolver(formatter);
+
+            var buffers = MessagePackSerializer.ConvertFromJson(json, options, cancellationToken);
 
             return buffers;
         }
@@ -58,7 +70,14 @@ namespace Nigel.Json
             if (bytes == null || bytes.Length == 0)
                 return default;
 
-            var buffers = MessagePackSerializer.ConvertToJson(bytes, options ?? ContractlessStandardResolver.Options, cancellationToken);
+            var formatter = CompositeResolver.Create(
+                          new[] { new DurableDateTimeFormatter() },
+                          new[] { ContractlessStandardResolver.Instance });
+
+            options = options ?? ContractlessStandardResolver.Options.WithResolver(formatter);
+
+
+            var buffers = MessagePackSerializer.ConvertToJson(bytes, options, cancellationToken);
 
             return buffers;
         }
@@ -74,7 +93,13 @@ namespace Nigel.Json
             if (target == null)
                 return default;
 
-            var buffers = MessagePackSerializer.Serialize(target, options ?? ContractlessStandardResolver.Options, cancellationToken);
+            var formatter = CompositeResolver.Create(
+                          new[] { new DurableDateTimeFormatter() },
+                          new[] { ContractlessStandardResolver.Instance });
+
+            options = options ?? ContractlessStandardResolver.Options.WithResolver(formatter);
+
+            var buffers = MessagePackSerializer.Serialize(target, options, cancellationToken);
 
             return buffers;
         }
@@ -90,7 +115,13 @@ namespace Nigel.Json
             if (bytes == null || bytes.Length == 0)
                 return default;
 
-            var res = MessagePackSerializer.Deserialize<T>(bytes, options ?? ContractlessStandardResolver.Options, cancellationToken);
+            var formatter = CompositeResolver.Create(
+                          new[] { new DurableDateTimeFormatter() },
+                          new[] { ContractlessStandardResolver.Instance });
+
+            options = options ?? ContractlessStandardResolver.Options.WithResolver(formatter);
+
+            var res = MessagePackSerializer.Deserialize<T>(bytes, options, cancellationToken);
 
             return res;
         }
@@ -106,7 +137,13 @@ namespace Nigel.Json
             if (stream == null || stream.Length == 0)
                 return default;
 
-            var res = MessagePackSerializer.Deserialize<T>(stream, options ?? ContractlessStandardResolver.Options, cancellationToken);
+            var formatter = CompositeResolver.Create(
+                          new[] { new DurableDateTimeFormatter() },
+                          new[] { ContractlessStandardResolver.Instance });
+
+            options = options ?? ContractlessStandardResolver.Options.WithResolver(formatter);
+
+            var res = MessagePackSerializer.Deserialize<T>(stream, options, cancellationToken);
 
             return res;
         }
