@@ -1,4 +1,5 @@
-﻿using Nigel.Extensions;
+﻿using MessagePack;
+using Nigel.Extensions;
 using Nigel.Json;
 using System;
 using System.Collections.Generic;
@@ -44,12 +45,12 @@ namespace Nigel.Core.HttpFactory
             return await httpContent.ReadAsAsync<TModel>(HttpMediaType.Json);
         }
 
-        public static async Task<TModel> ReadAsMessagePackAsync<TModel>(this HttpContent httpContent)
+        public static async Task<TModel> ReadAsMessagePackAsync<TModel>(this HttpContent httpContent, MessagePackSerializerOptions options = null)
         {
-            return await httpContent.ReadAsAsync<TModel>(HttpMediaType.MessagePack);
+            return await httpContent.ReadAsAsync<TModel>(HttpMediaType.MessagePack, options);
         }
 
-        public static async Task<TModel> ReadAsAsync<TModel>(this HttpContent httpContent, HttpMediaType mediaType)
+        public static async Task<TModel> ReadAsAsync<TModel>(this HttpContent httpContent, HttpMediaType mediaType, MessagePackSerializerOptions options = null)
         {
             switch (mediaType)
             {
@@ -57,13 +58,13 @@ namespace Nigel.Core.HttpFactory
                     {
                         var res = await httpContent.ReadAsByteArrayAsync();
 
-                        return res.ToMsgPackObject<TModel>();
+                        return res.ToMsgPackObject<TModel>(options);
                     }
                 case HttpMediaType.MessagePackJackson:
                     {
                         var res = await httpContent.ReadAsStringAsync();
 
-                        return res.ToMsgPackBytesFromJson().ToMsgPackObject<TModel>();
+                        return res.ToMsgPackBytesFromJson(options).ToMsgPackObject<TModel>(options);
                     }
                 default:
                     {
