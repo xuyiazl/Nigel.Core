@@ -17,7 +17,7 @@ namespace Nigel.Core.Redis
 
             return value.ToJson(new JsonSerializerSettings
             {
-                DateTimeZoneHandling = DateTimeZoneHandling.Local,
+                DateTimeZoneHandling = DateTimeZoneHandling.Utc,
                 ContractResolver = new DefaultContractResolver()
             });
         }
