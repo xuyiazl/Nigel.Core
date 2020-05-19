@@ -49,8 +49,19 @@ namespace Nigel.Core.MessagePack
                 }
             }
 
-            builder.AddMvcOptions(options => options.InputFormatters.Add(new MessagePackInputFormatter(messagePackFormatterOptions)));
-            builder.AddMvcOptions(options => options.OutputFormatters.Add(new MessagePackOutputFormatter(messagePackFormatterOptions)));
+            //builder.AddMvcOptions(options => options.InputFormatters.Add(new MessagePackInputFormatter(messagePackFormatterOptions)));
+            //builder.AddMvcOptions(options => options.OutputFormatters.Add(new MessagePackOutputFormatter(messagePackFormatterOptions)));
+
+            builder.AddMvcOptions(options =>
+            {
+                options.InputFormatters.Clear();
+                options.InputFormatters.Add(new MessagePackInputFormatter(messagePackFormatterOptions));
+            });
+            builder.AddMvcOptions(options =>
+            {
+                options.OutputFormatters.Clear();
+                options.OutputFormatters.Add(new MessagePackOutputFormatter(messagePackFormatterOptions));
+            });
 
             return builder;
         }
@@ -76,8 +87,19 @@ namespace Nigel.Core.MessagePack
                 }
             }
 
-            builder.AddMvcOptions(options => options.InputFormatters.Add(new MessagePackInputFormatter(messagePackFormatterOptions)));
-            builder.AddMvcOptions(options => options.OutputFormatters.Add(new MessagePackOutputFormatter(messagePackFormatterOptions)));
+            //builder.AddMvcOptions(options => options.InputFormatters.Add(new MessagePackInputFormatter(messagePackFormatterOptions)));
+            //builder.AddMvcOptions(options => options.OutputFormatters.Add(new MessagePackOutputFormatter(messagePackFormatterOptions)));
+
+            builder.AddMvcOptions(options =>
+            {
+                options.InputFormatters.Clear();
+                options.InputFormatters.Add(new MessagePackInputFormatter(messagePackFormatterOptions));
+            });
+            builder.AddMvcOptions(options =>
+            {
+                options.OutputFormatters.Clear();
+                options.OutputFormatters.Add(new MessagePackOutputFormatter(messagePackFormatterOptions));
+            });
 
             return builder;
         }
