@@ -13,9 +13,13 @@ namespace Nigel.Core.Redis
 {
     public abstract partial class StackExchangeRedis : IStringRedisCommandAsync
     {
-        public async Task<TResult> StringGetOrInsertAsync<TResult>(string key, Func<TResult> fetcher, int seconds = 0, string connectionRead = null, string connectionWrite = null, IRedisSerializer serializer = null)
+        public async Task<TResult> StringGetOrInsertAsync<TResult>(string key, Func<TResult> fetcher, int seconds = 0, string connectionRead = null, string connectionWrite = null,
+            bool isCache = true, IRedisSerializer serializer = null)
         {
             RedisThrow.NullSerializer(redisSerializer, serializer);
+
+            if (!isCache)
+                return fetcher.Invoke();
 
             if (!await KeyExistsAsync(key, connectionRead))
             {
@@ -30,9 +34,13 @@ namespace Nigel.Core.Redis
             }
         }
 
-        public async Task<TResult> StringGetOrInsertAsync<T, TResult>(string key, Func<T, TResult> fetcher, T t, int seconds = 0, string connectionRead = null, string connectionWrite = null, IRedisSerializer serializer = null)
+        public async Task<TResult> StringGetOrInsertAsync<T, TResult>(string key, Func<T, TResult> fetcher, T t, int seconds = 0, string connectionRead = null, string connectionWrite = null,
+            bool isCache = true, IRedisSerializer serializer = null)
         {
             RedisThrow.NullSerializer(redisSerializer, serializer);
+
+            if (!isCache)
+                return fetcher.Invoke(t);
 
             if (!await KeyExistsAsync(key, connectionRead))
             {

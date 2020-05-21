@@ -39,4 +39,10 @@
     <ProjectReference Include="..\Nigel\Nigel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Nigel.Core.Jwt.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

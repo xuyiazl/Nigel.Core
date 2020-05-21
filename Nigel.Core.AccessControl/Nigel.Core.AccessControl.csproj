@@ -35,4 +35,10 @@
 		<PackageReference Include="Microsoft.AspNetCore.Razor" Version="2.2.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="Nigel.Core.AccessControl.xml">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
 </Project>

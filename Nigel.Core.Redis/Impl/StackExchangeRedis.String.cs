@@ -13,9 +13,13 @@ namespace Nigel.Core.Redis
 {
     public abstract partial class StackExchangeRedis : IStringRedisCommand
     {
-        public TResult StringGetOrInsert<TResult>(string key, Func<TResult> fetcher, int seconds = 0, string connectionRead = null, string connectionWrite = null, IRedisSerializer serializer = null)
+        public TResult StringGetOrInsert<TResult>(string key, Func<TResult> fetcher, int seconds = 0, string connectionRead = null, string connectionWrite = null,
+            bool isCache = true, IRedisSerializer serializer = null)
         {
             RedisThrow.NullSerializer(redisSerializer, serializer);
+
+            if (!isCache)
+                return fetcher.Invoke();
 
             if (!KeyExists(key, connectionRead))
             {
@@ -30,9 +34,13 @@ namespace Nigel.Core.Redis
             }
         }
 
-        public TResult StringGetOrInsert<T, TResult>(string key, Func<T, TResult> fetcher, T t, int seconds = 0, string connectionRead = null, string connectionWrite = null, IRedisSerializer serializer = null)
+        public TResult StringGetOrInsert<T, TResult>(string key, Func<T, TResult> fetcher, T t, int seconds = 0, string connectionRead = null, string connectionWrite = null,
+            bool isCache = true, IRedisSerializer serializer = null)
         {
             RedisThrow.NullSerializer(redisSerializer, serializer);
+
+            if (!isCache)
+                return fetcher.Invoke(t);
 
             if (!KeyExists(key, connectionRead))
             {

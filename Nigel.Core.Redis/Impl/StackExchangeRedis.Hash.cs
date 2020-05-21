@@ -51,9 +51,13 @@ namespace Nigel.Core.Redis
             });
         }
 
-        public TResult HashGetOrInsert<TResult>(string hashId, string key, Func<TResult> fetcher, int seconds = 0, string connectionRead = null, string connectionWrite = null, IRedisSerializer serializer = null)
+        public TResult HashGetOrInsert<TResult>(string hashId, string key, Func<TResult> fetcher, int seconds = 0, string connectionRead = null, string connectionWrite = null,
+            bool isCache = true, IRedisSerializer serializer = null)
         {
             RedisThrow.NullSerializer(redisSerializer, serializer);
+
+            if (!isCache)
+                return fetcher.Invoke();
 
             if (!HashExists(hashId, key, connectionRead))
             {
@@ -83,9 +87,13 @@ namespace Nigel.Core.Redis
             }
         }
 
-        public TResult HashGetOrInsert<T, TResult>(string hashId, string key, Func<T, TResult> fetcher, T t, int seconds = 0, string connectionRead = null, string connectionWrite = null, IRedisSerializer serializer = null)
+        public TResult HashGetOrInsert<T, TResult>(string hashId, string key, Func<T, TResult> fetcher, T t, int seconds = 0, string connectionRead = null, string connectionWrite = null,
+            bool isCache = true, IRedisSerializer serializer = null)
         {
             RedisThrow.NullSerializer(redisSerializer, serializer);
+
+            if (!isCache)
+                return fetcher.Invoke(t);
 
             if (!HashExists(hashId, key, connectionRead))
             {

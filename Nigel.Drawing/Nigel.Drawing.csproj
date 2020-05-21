@@ -38,4 +38,10 @@
       <DependentUpon>Base/Drawing/ImageHelper.cs</DependentUpon>
     </Compile>
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Nigel.Drawing.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>

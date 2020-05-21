@@ -73,4 +73,9 @@
 			<DependentUpon>FileHelper.cs</DependentUpon>
 		</Compile>
 	</ItemGroup>
+	<ItemGroup>
+	  <None Update="Nigel.xml">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
 </Project>

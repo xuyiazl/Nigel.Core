@@ -235,7 +235,7 @@
             <param name="serializer">序列化</param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashGetOrInsert``1(System.String,System.String,System.Func{``0},System.Int32,System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashGetOrInsert``1(System.String,System.String,System.Func{``0},System.Int32,System.String,System.String,System.Boolean,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获得Hash键值对值（可以理解为获得某一行中的某一列数据），当数据为空 则重新写入redis数据
             </summary>
@@ -246,10 +246,11 @@
             <param name="seconds"></param>
             <param name="connectionRead"></param>
             <param name="connectionWrite"></param>
+            <param name="isCache">是否缓存，默认true，如果设置为false则不走缓存直接走fetcher</param>
             <param name="serializer">序列化</param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashGetOrInsert``2(System.String,System.String,System.Func{``0,``1},``0,System.Int32,System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommand.HashGetOrInsert``2(System.String,System.String,System.Func{``0,``1},``0,System.Int32,System.String,System.String,System.Boolean,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获得Hash键值对值（可以理解为获得某一行中的某一列数据），当数据为空 则重新写入redis数据
             </summary>
@@ -262,6 +263,7 @@
             <param name="seconds"></param>
             <param name="connectionRead"></param>
             <param name="connectionWrite"></param>
+            <param name="isCache">是否缓存，默认true，如果设置为false则不走缓存直接走fetcher</param>
             <param name="serializer">序列化</param>
             <returns></returns>
         </member>
@@ -385,7 +387,7 @@
             <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommandAsync.HashGetOrInsertAsync``1(System.String,System.String,System.Func{``0},System.Int32,System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommandAsync.HashGetOrInsertAsync``1(System.String,System.String,System.Func{``0},System.Int32,System.String,System.String,System.Boolean,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获得Hash键值对值（可以理解为获得某一行中的某一列数据），当数据为空 则重新写入redis数据
             </summary>
@@ -396,10 +398,11 @@
             <param name="seconds"></param>
             <param name="connectionRead"></param>
             <param name="connectionWrite"></param>
+            <param name="isCache">是否缓存，默认true，如果设置为false则不走缓存直接走fetcher</param>
             <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommandAsync.HashGetOrInsertAsync``2(System.String,System.String,System.Func{``0,``1},``0,System.Int32,System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IHashRedisCommandAsync.HashGetOrInsertAsync``2(System.String,System.String,System.Func{``0,``1},``0,System.Int32,System.String,System.String,System.Boolean,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获得Hash键值对值（可以理解为获得某一行中的某一列数据），当数据为空 则重新写入redis数据
             </summary>
@@ -412,6 +415,7 @@
             <param name="seconds"></param>
             <param name="connectionRead"></param>
             <param name="connectionWrite"></param>
+            <param name="isCache">是否缓存，默认true，如果设置为false则不走缓存直接走fetcher</param>
             <param name="serializer"></param>
             <returns></returns>
         </member>
@@ -1342,7 +1346,7 @@
             <param name="connectionName">连接名称</param>
             <param name="serializer"></param>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommand.StringGetOrInsert``1(System.String,System.Func{``0},System.Int32,System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommand.StringGetOrInsert``1(System.String,System.Func{``0},System.Int32,System.String,System.String,System.Boolean,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获取string的value值，如果不存在则写入
             </summary>
@@ -1352,10 +1356,11 @@
             <param name="seconds"></param>
             <param name="connectionRead"></param>
             <param name="connectionWrite"></param>
+            <param name="isCache">是否缓存，默认true，如果设置为false则不走缓存直接走fetcher</param>
             <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommand.StringGetOrInsert``2(System.String,System.Func{``0,``1},``0,System.Int32,System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommand.StringGetOrInsert``2(System.String,System.Func{``0,``1},``0,System.Int32,System.String,System.String,System.Boolean,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获取string的value值，如果不存在则写入
             </summary>
@@ -1367,6 +1372,7 @@
             <param name="seconds"></param>
             <param name="connectionRead"></param>
             <param name="connectionWrite"></param>
+            <param name="isCache">是否缓存，默认true，如果设置为false则不走缓存直接走fetcher</param>
             <param name="serializer"></param>
             <returns></returns>
         </member>
@@ -1413,7 +1419,7 @@
             <param name="connectionName">连接名称</param>
             <param name="serializer"></param>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommandAsync.StringGetOrInsertAsync``1(System.String,System.Func{``0},System.Int32,System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommandAsync.StringGetOrInsertAsync``1(System.String,System.Func{``0},System.Int32,System.String,System.String,System.Boolean,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获取string的value值，如果不存在则写入
             </summary>
@@ -1423,10 +1429,11 @@
             <param name="seconds"></param>
             <param name="connectionRead"></param>
             <param name="connectionWrite"></param>
+            <param name="isCache">是否缓存，默认true，如果设置为false则不走缓存直接走fetcher</param>
             <param name="serializer"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommandAsync.StringGetOrInsertAsync``2(System.String,System.Func{``0,``1},``0,System.Int32,System.String,System.String,Nigel.Core.Redis.IRedisSerializer)">
+        <member name="M:Nigel.Core.Redis.RedisCommand.IStringRedisCommandAsync.StringGetOrInsertAsync``2(System.String,System.Func{``0,``1},``0,System.Int32,System.String,System.String,System.Boolean,Nigel.Core.Redis.IRedisSerializer)">
             <summary>
             获取string的value值，如果不存在则写入
             </summary>
@@ -1438,6 +1445,7 @@
             <param name="seconds"></param>
             <param name="connectionRead"></param>
             <param name="connectionWrite"></param>
+            <param name="isCache">是否缓存，默认true，如果设置为false则不走缓存直接走fetcher</param>
             <param name="serializer"></param>
             <returns></returns>
         </member>
