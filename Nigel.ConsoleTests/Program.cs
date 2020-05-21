@@ -58,7 +58,7 @@ namespace Nigel.ConsoleTests
             {
                 Parallel.For(0, 100,  ndx =>
                 {
-                    Console.WriteLine(RandomName.GetRandomName());
+                    Console.WriteLine(RandomName.GetFullName());
                 });
             }
 

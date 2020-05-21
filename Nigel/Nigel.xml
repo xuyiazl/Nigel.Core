@@ -7329,7 +7329,7 @@
             <param name="sex">1 = 男士 2 = 女士 0 = 随机</param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Helpers.RandomName.GetRandomName(System.Int32,System.Int32)">
+        <member name="M:Nigel.Helpers.RandomName.GetFullName(System.Int32,System.Int32)">
             <summary>
             随机获取姓名
             </summary>
