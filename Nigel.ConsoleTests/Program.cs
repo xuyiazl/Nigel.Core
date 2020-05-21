@@ -55,8 +55,14 @@ namespace Nigel.ConsoleTests
     {
         static void Main(string[] args)
         {
+            {
+                Parallel.For(0, 100,  ndx =>
+                {
+                    Console.WriteLine(RandomName.GetRandomName());
+                });
+            }
 
-
+            Console.ReadLine();
             {
                 User user = new User
                 {
@@ -95,7 +101,7 @@ namespace Nigel.ConsoleTests
                 //dict.Add("Name", "张三");
 
 
-
+                
 
 
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);

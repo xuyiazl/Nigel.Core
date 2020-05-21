@@ -4,6 +4,126 @@
         <name>Nigel</name>
     </assembly>
     <members>
+        <member name="F:Nigel.CacheTime.None">
+            <summary>
+            none
+            </summary>
+        </member>
+        <member name="F:Nigel.CacheTime.Second3">
+            <summary>
+            缓存3秒
+            </summary>
+        </member>
+        <member name="F:Nigel.CacheTime.Second5">
+            <summary>
+            缓存5秒
+            </summary>
+        </member>
+        <member name="F:Nigel.CacheTime.Second10">
+            <summary>
+            缓存10秒
+            </summary>
+        </member>
+        <member name="F:Nigel.CacheTime.Second30">
+            <summary>
+            缓存30秒
+            </summary>
+        </member>
+        <member name="F:Nigel.CacheTime.Min1">
+            <summary>
+            缓存1分钟
+            </summary>
+        </member>
+        <member name="F:Nigel.CacheTime.Min2">
+            <summary>
+            缓存2分钟
+            </summary>
+        </member>
+        <member name="F:Nigel.CacheTime.Min3">
+            <summary>
+            缓存3分钟
+            </summary>
+        </member>
+        <member name="F:Nigel.CacheTime.Min4">
+            <summary>
+            缓存4分钟
+            </summary>
+        </member>
+        <member name="F:Nigel.CacheTime.Min5">
+            <summary>
+            缓存5分钟
+            </summary>
+        </member>
+        <member name="F:Nigel.CacheTime.Min10">
+            <summary>
+            缓存10分钟
+            </summary>
+        </member>
+        <member name="F:Nigel.CacheTime.Min15">
+            <summary>
+            缓存15分钟
+            </summary>
+        </member>
+        <member name="F:Nigel.CacheTime.Min30">
+            <summary>
+            缓存30分钟
+            </summary>
+        </member>
+        <member name="F:Nigel.CacheTime.Hour1">
+            <summary>
+            缓存1小时
+            </summary>
+        </member>
+        <member name="F:Nigel.CacheTime.Hour2">
+            <summary>
+            缓存2小时
+            </summary>
+        </member>
+        <member name="F:Nigel.CacheTime.Hour3">
+            <summary>
+            缓存3小时
+            </summary>
+        </member>
+        <member name="F:Nigel.CacheTime.Hour4">
+            <summary>
+            缓存4小时
+            </summary>
+        </member>
+        <member name="F:Nigel.CacheTime.Hour5">
+            <summary>
+            缓存5小时
+            </summary>
+        </member>
+        <member name="F:Nigel.CacheTime.Hour6">
+            <summary>
+            缓存6小时
+            </summary>
+        </member>
+        <member name="F:Nigel.CacheTime.Day1">
+            <summary>
+            缓存1天
+            </summary>
+        </member>
+        <member name="F:Nigel.CacheTime.Day2">
+            <summary>
+            缓存2天
+            </summary>
+        </member>
+        <member name="F:Nigel.CacheTime.Week1">
+            <summary>
+            缓存1星期
+            </summary>
+        </member>
+        <member name="F:Nigel.CacheTime.Month1">
+            <summary>
+            缓存1个月
+            </summary>
+        </member>
+        <member name="F:Nigel.CacheTime.Year1">
+            <summary>
+            缓存1年
+            </summary>
+        </member>
         <member name="T:Nigel.Extensions.BooleanExtensions">
             <summary>
             布尔值(<see cref="T:System.Boolean"/>) 扩展
@@ -7188,6 +7308,33 @@
             <param name="propertyName">属性名</param>
             <param name="value">值</param>
             <param name="operator">运算符</param>
+            <returns></returns>
+        </member>
+        <member name="T:Nigel.Helpers.RandomName">
+            <summary>
+            随机获取姓名操作
+            </summary>
+        </member>
+        <member name="M:Nigel.Helpers.RandomName.GetFirstName">
+            <summary>
+            随机获取姓
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Helpers.RandomName.GetLastName(System.Int32,System.Int32)">
+            <summary>
+            随机获取名
+            </summary>
+            <param name="lastNameLenth">名的字数（默认为随机取2个字）</param>
+            <param name="sex">1 = 男士 2 = 女士 0 = 随机</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Helpers.RandomName.GetRandomName(System.Int32,System.Int32)">
+            <summary>
+            随机获取姓名
+            </summary>
+            <param name="lastNameLenth">名的字数（默认为随机取2个字）</param>
+            <param name="sex">1 = 男士 2 = 女士 0 = 随机</param>
             <returns></returns>
         </member>
         <member name="T:Nigel.Helpers.Reflection">
