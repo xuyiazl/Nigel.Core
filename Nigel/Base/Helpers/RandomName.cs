@@ -104,7 +104,7 @@ namespace Nigel.Helpers
         /// <param name="lastNameLenth">名的字数（默认为随机取2个字）</param>
         /// <param name="sex">1 = 男士 2 = 女士 0 = 随机</param>
         /// <returns></returns>
-        public static string GetRandomName(int lastNameLenth = 2, int sex = 0)
+        public static string GetFullName(int lastNameLenth = 2, int sex = 0)
         {
             return $"{GetFirstName()}{GetLastName(lastNameLenth, sex)}";
         }
