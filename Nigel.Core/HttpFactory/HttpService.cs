@@ -16,6 +16,7 @@ namespace Nigel.Core.HttpFactory
     /// <summary>
     /// HttpRequestMessage服务类
     /// </summary>
+    [Obsolete("已弃用该服务，请使用 AddHttpMessageService")]
     public class HttpService : IHttpService
     {
         public IHttpClientFactory HttpClientFactory { get; set; }

@@ -87,6 +87,7 @@ namespace Nigel.Core.Extensions
         /// <param name="httpClientLeftTime"></param>
         /// <param name="serviceLifetime"></param>
         /// <returns></returns>
+        [Obsolete("已弃用该方法，请使用 AddHttpMessageService")]
         public static IServiceCollection AddHttpService<TImplementation>(this IServiceCollection services,
             string clientName,
             string baseAddress,
@@ -115,6 +116,7 @@ namespace Nigel.Core.Extensions
         /// <param name="messageHandler"></param>
         /// <param name="httpClientLeftTime"></param>
         /// <param name="serviceLifetime"></param>
+        [Obsolete("已弃用该方法，请使用 AddHttpMessageService")]
         public static IServiceCollection AddHttpService<TImplementation>(this IServiceCollection services,
             string clientName = "apiClient",
             Action<HttpClient> client = null,

@@ -13,6 +13,7 @@ namespace Nigel.Core.HttpFactory
         /// <summary>
         /// 获取HttpService
         /// </summary>
+        [Obsolete("已弃用该方法，请使用 MessageService")]
         public static IHttpService Service
         {
             get
