@@ -1,7 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Nigel.Data.DbService
 {
@@ -21,8 +24,17 @@ namespace Nigel.Data.DbService
 
         public virtual void BatchInsert<TEntity>(IList<TEntity> entities) where TEntity : class, new()
         {
-            //批量执行操作
+            base.AddRange(entities);
+        }
 
+        public virtual int SaveChanges()
+        {
+            return base.SaveChanges();
+        }
+
+        public virtual async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            return await base.SaveChangesAsync(cancellationToken);
         }
     }
 }

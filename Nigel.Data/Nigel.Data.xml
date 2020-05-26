@@ -89,85 +89,17 @@
             <typeparam name="TEntity"></typeparam>
             <param name="entities"></param>
         </member>
+        <member name="M:Nigel.Data.DbService.IBaseContext.SaveChangesAsync(System.Threading.CancellationToken)">
+            <summary>
+            执行异步存储操作
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Nigel.Data.DbService.IBaseRepository`1">
             <summary>
             通用仓储库的方法定义
             </summary>
             <typeparam name="T"></typeparam>
-        </member>
-        <member name="M:Nigel.Data.DbService.IBaseRepository`1.GetListAsync">
-            <summary>
-            异步返回集合对象
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Data.DbService.IBaseRepository`1.GetListAsync(System.String)">
-            <summary>
-            异步返回集合对象
-            </summary>
-            <param name="orderby">exp:"name asc,createtime desc"</param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Data.DbService.IBaseRepository`1.GetListAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
-            <summary>
-            通过表达式条件返回指定集合对象
-            </summary>
-            <param name="selector"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Data.DbService.IBaseRepository`1.GetListAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.String)">
-            <summary>
-            通过表达式条件返回指定集合对象
-            </summary>
-            <param name="selector"></param>
-            <param name="orderby">exp:"name asc,createtime desc"</param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Data.DbService.IBaseRepository`1.GetListAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Int32,System.Int32)">
-            <summary>
-            通过表达式条件返回指定集合对象，基于分页操作
-            </summary>
-            <param name="selector"></param>
-            <param name="skip"></param>
-            <param name="limit"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Data.DbService.IBaseRepository`1.GetListAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.String,System.Int32,System.Int32)">
-            <summary>
-            通过表达式条件返回指定集合对象，基于分页操作
-            </summary>
-            <param name="selector"></param>
-            <param name="orderby">exp:"name asc,createtime desc"</param>
-            <param name="skip"></param>
-            <param name="limit"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Data.DbService.IBaseRepository`1.GetPagedSkipListAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.String,System.Int32,System.Int32)">
-            <summary>
-            通过表达式条件返回指定集合对象，基于分页操作
-            </summary>
-            <param name="selector"></param>
-            <param name="orderby">exp:"name asc,createtime desc"</param>
-            <param name="skip"></param>
-            <param name="limit"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Data.DbService.IBaseRepository`1.GetPagedListAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.String,System.Int32,System.Int32)">
-            <summary>
-            通过表达式条件返回指定集合对象，基于分页操作
-            </summary>
-            <param name="selector"></param>
-            <param name="orderby">exp:"name asc,createtime desc"</param>
-            <param name="pageNumber"></param>
-            <param name="pageSize"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Data.DbService.IBaseRepository`1.GetCountAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
-            <summary>
-            获取记录数
-            </summary>
-            <param name="selector"></param>
-            <returns></returns>
         </member>
         <member name="T:Nigel.Data.DbService.IDbContext">
             <summary>

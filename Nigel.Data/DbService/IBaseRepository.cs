@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Nigel.Data.DbService
@@ -14,88 +15,44 @@ namespace Nigel.Data.DbService
     /// <typeparam name="T"></typeparam>
     public interface IBaseRepository<T> where T : class, new()
     {
-        int Insert(T entity);
+        int SaveChanges();
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 
-        Task<int> InsertAsync(T entity);
-
-        int BatchInsert(params T[] entities);
-
-        Task<int> BatchInsertAsync(params T[] entities);
-
-        int Update(T entity);
-
-        int BatchUpdate(params T[] entities);
-
-        int Delete(T entity);
-
-        int BatchDelete(params T[] entities);
-
+        int Insert(T entity, bool isSaveChange = true);
+        Task<int> InsertAsync(T entity, bool isSaveChange = true, CancellationToken cancellationToken = default);
+        int BatchInsert(T[] entities, bool isSaveChange = true);
+        Task<int> BatchInsertAsync(T[] entities, bool isSaveChange = true, CancellationToken cancellationToken = default);
+        int Update(T entity, bool isSaveChange = true);
+        Task<int> UpdateAsync(T entity, bool isSaveChange = true, CancellationToken cancellationToken = default);
+        int Update(T entity, List<string> updatePropertyList, bool modified = true, bool isSaveChange = true);
+        Task<int> UpdateAsync(T entity, List<string> updatePropertyList, bool modified = true, bool isSaveChange = true, CancellationToken cancellationToken = default);
+        int BatchUpdate(T[] entities, bool isSaveChange = true);
+        Task<int> BatchUpdateAsync(T[] entities, bool isSaveChange = true, CancellationToken cancellationToken = default);
+        int Delete(T entity, bool isSaveChange = true);
+        Task<int> DeleteAsync(T entity, bool isSaveChange = true, CancellationToken cancellationToken = default);
+        int BatchDelete(T[] entities, bool isSaveChange = true);
+        Task<int> BatchDeleteAsync(T[] entities, bool isSaveChange = true, CancellationToken cancellationToken = default);
+        T GetById(object id);
         Task<T> GetByIdAsync(object id);
-
-        /// <summary>
-        /// 异步返回集合对象
-        /// </summary>
-        /// <returns></returns>
+        List<T> GetList();
         Task<List<T>> GetListAsync();
-        /// <summary>
-        /// 异步返回集合对象
-        /// </summary>
-        /// <param name="orderby">exp:"name asc,createtime desc"</param>
-        /// <returns></returns>
+        List<T> GetList(string orderby);
         Task<List<T>> GetListAsync(string orderby);
-        /// <summary>
-        /// 通过表达式条件返回指定集合对象
-        /// </summary>
-        /// <param name="selector"></param>
-        /// <returns></returns>
+        List<T> GetList(Expression<Func<T, bool>> selector);
         Task<List<T>> GetListAsync(Expression<Func<T, bool>> selector);
-        /// <summary>
-        /// 通过表达式条件返回指定集合对象
-        /// </summary>
-        /// <param name="selector"></param>
-        /// <param name="orderby">exp:"name asc,createtime desc"</param>
-        /// <returns></returns>
+        List<T> GetList(Expression<Func<T, bool>> selector, string orderby);
         Task<List<T>> GetListAsync(Expression<Func<T, bool>> selector, string orderby);
-        /// <summary>
-        /// 通过表达式条件返回指定集合对象，基于分页操作
-        /// </summary>
-        /// <param name="selector"></param>
-        /// <param name="skip"></param>
-        /// <param name="limit"></param>
-        /// <returns></returns>
+        List<T> GetList(Expression<Func<T, bool>> selector, int skip = 0, int limit = 20);
         Task<List<T>> GetListAsync(Expression<Func<T, bool>> selector, int skip = 0, int limit = 20);
-        /// <summary>
-        /// 通过表达式条件返回指定集合对象，基于分页操作
-        /// </summary>
-        /// <param name="selector"></param>
-        /// <param name="orderby">exp:"name asc,createtime desc"</param>
-        /// <param name="skip"></param>
-        /// <param name="limit"></param>
-        /// <returns></returns>
+        List<T> GetList(Expression<Func<T, bool>> selector, string orderby, int skip = 0, int limit = 20);
         Task<List<T>> GetListAsync(Expression<Func<T, bool>> selector, string orderby, int skip = 0, int limit = 20);
-        /// <summary>
-        /// 通过表达式条件返回指定集合对象，基于分页操作
-        /// </summary>
-        /// <param name="selector"></param>
-        /// <param name="orderby">exp:"name asc,createtime desc"</param>
-        /// <param name="skip"></param>
-        /// <param name="limit"></param>
-        /// <returns></returns>
+        PagedSkipModel<T> GetPagedSkipList(Expression<Func<T, bool>> selector, string orderby, int skip = 0, int limit = 20);
         Task<PagedSkipModel<T>> GetPagedSkipListAsync(Expression<Func<T, bool>> selector, string orderby, int skip = 0, int limit = 20);
-        /// <summary>
-        /// 通过表达式条件返回指定集合对象，基于分页操作
-        /// </summary>
-        /// <param name="selector"></param>
-        /// <param name="orderby">exp:"name asc,createtime desc"</param>
-        /// <param name="pageNumber"></param>
-        /// <param name="pageSize"></param>
-        /// <returns></returns>
+        PagedModel<T> GetPagedList(Expression<Func<T, bool>> selector, string orderby, int pageNumber = 1, int pageSize = 20);
         Task<PagedModel<T>> GetPagedListAsync(Expression<Func<T, bool>> selector, string orderby, int pageNumber = 1, int pageSize = 20);
-        /// <summary>
-        /// 获取记录数
-        /// </summary>
-        /// <param name="selector"></param>
-        /// <returns></returns>
+        bool Any(Expression<Func<T, bool>> selector);
+        Task<bool> AnyAsync(Expression<Func<T, bool>> selector);
+        int GetCount(Expression<Func<T, bool>> selector);
         Task<int> GetCountAsync(Expression<Func<T, bool>> selector);
 
     }
