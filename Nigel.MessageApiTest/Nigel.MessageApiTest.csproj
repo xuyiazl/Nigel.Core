@@ -9,7 +9,7 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
 	</ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Nigel.Core\Nigel.Core.csproj" />
