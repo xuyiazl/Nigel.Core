@@ -8,4 +8,4 @@
 
 项目源码迁移至 https://github.com/xuyiazl/XUCore.NetCore
 
-并重新命名为 XCore
+并重新命名为 XUCore
