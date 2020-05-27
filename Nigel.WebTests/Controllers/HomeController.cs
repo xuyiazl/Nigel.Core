@@ -22,6 +22,7 @@ using Nigel.Json;
 using MessagePack;
 using System;
 using Nigel.Core;
+using Nigel.WebTests.Data.Entity;
 
 namespace Nigel.WebTests.Controllers
 {
@@ -48,6 +49,7 @@ namespace Nigel.WebTests.Controllers
         /// </summary>
         private IFileUploadService _fileUploadService;
 
+
         public HomeController(ILogger<HomeController> logger, IHttpMessageService httpMessage, IDbAdminUsersServiceProvider dbAdminUsersServiceProvider, IHttpService httpService, IFileUploadService fileUploadService, IRedisService redisService)
         {
             _logger = logger;
@@ -60,6 +62,32 @@ namespace Nigel.WebTests.Controllers
 
         public async Task<IActionResult> Index(CancellationToken cancellationToken)
         {
+            var list = new List<AdminUsers>();
+            for (var ndx = 0; ndx < 10; ndx++)
+            {
+                var user = new AdminUsers
+                {
+                    Company = "test",
+                    CreatedTime = DateTime.Now,
+                    Location = "test",
+                    LoginCount = 0,
+                    LoginLastIp = "127.0.0.1",
+                    LoginLastTime = DateTime.Now,
+                    Mobile = "17710146178",
+                    Name = $"徐毅{ndx}",
+                    Password = "123456",
+                    Picture = $"徐毅{ndx}",
+                    Position = $"徐毅{ ndx }",
+                    Status = true,
+                    UserName = "xuyi"
+                };
+                list.Add(user);
+            }
+            var res0 = _dbAdminUsersServiceProvider.Insert(list.ToArray());
+            var re2 = await _dbAdminUsersServiceProvider.BatchUpdateAsync(c => c.Id > 22, c => new AdminUsers() { Name = "哈德斯", Location = "吹牛逼总监", Company = "大牛逼公司" });
+            var re1 = await _dbAdminUsersServiceProvider.BatchDeleteAsync(c => c.Id > 22);
+
+
             var ur2 = UrlArguments.Create("api/messagepack/add");
 
             var resData = await _httpMessage.CreateClient("msgtest").SetHeaderAccept(HttpMediaType.MessagePack).PostAsync<User>(ur2, null, cancellationToken);

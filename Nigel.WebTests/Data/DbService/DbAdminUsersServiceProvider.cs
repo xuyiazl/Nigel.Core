@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Nigel.WebTests.Data.DbService
@@ -49,14 +50,29 @@ namespace Nigel.WebTests.Data.DbService
             return writeRepository.Insert(entity);
         }
 
+        public new int Insert(AdminUsers[] entity)
+        {
+            return writeRepository.BatchInsert(entity);
+        }
+
         public new int Update(AdminUsers entity)
         {
             return writeRepository.Update(entity);
+        }
+
+        public new async Task<int> BatchUpdateAsync(Expression<Func<AdminUsers, bool>> selector, Expression<Func<AdminUsers, AdminUsers>> update, CancellationToken cancellationToken = default)
+        {
+            return await writeRepository.BatchUpdateAsync(selector, update, cancellationToken);
         }
 
         public new int Delete(AdminUsers entity)
         {
             return writeRepository.Delete(entity);
         }
+        public new async Task<int> BatchDeleteAsync(Expression<Func<AdminUsers, bool>> selector, CancellationToken cancellationToken = default)
+        {
+            return await writeRepository.BatchDeleteAsync(selector, cancellationToken);
+        }
+
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Nigel.Data.DbService
 {
     /// <summary>
-    /// 基于db上下文拓展工厂，用于拓展EFCore.BulkExtensions的GitHub开源项目
+    /// 基于db上下文拓展工厂，用于拓展Nigel.Data.BulkExtensions的GitHub开源项目
     /// </summary>
     public abstract class DBContextFactory : DbContext
     {
@@ -20,11 +20,6 @@ namespace Nigel.Data.DbService
         protected DBContextFactory(DbContextOptions options, string mappingPath) : base(options)
         {
             this.mappingPath = mappingPath;
-        }
-
-        public virtual void BatchInsert<TEntity>(IList<TEntity> entities) where TEntity : class, new()
-        {
-            base.AddRange(entities);
         }
 
         public virtual int SaveChanges()

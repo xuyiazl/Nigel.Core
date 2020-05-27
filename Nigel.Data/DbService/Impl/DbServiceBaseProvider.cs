@@ -71,18 +71,6 @@ namespace Nigel.Data.DbService
                 return await writeRepository.UpdateAsync(entity, isSaveChange, cancellationToken);
             return -1;
         }
-        public virtual int Update(TEntity entity, List<string> updatePropertyList, bool modified = true, bool isSaveChange = true)
-        {
-            if (writeRepository != null)
-                return writeRepository.Update(entity, updatePropertyList, modified, isSaveChange);
-            return -1;
-        }
-        public virtual async Task<int> UpdateAsync(TEntity entity, List<string> updatePropertyList, bool modified = true, bool isSaveChange = true, CancellationToken cancellationToken = default)
-        {
-            if (writeRepository != null)
-                return await writeRepository.UpdateAsync(entity, updatePropertyList, modified, isSaveChange, cancellationToken);
-            return -1;
-        }
         public virtual int BatchUpdate(TEntity[] entities, bool isSaveChange = true)
         {
             if (writeRepository != null)
@@ -128,10 +116,10 @@ namespace Nigel.Data.DbService
                 return readRepository.GetById(id);
             return default;
         }
-        public async Task<TEntity> GetByIdAsync(object id)
+        public async Task<TEntity> GetByIdAsync(object id, CancellationToken cancellationToken = default)
         {
             if (readRepository != null)
-                return await readRepository.GetByIdAsync(id);
+                return await readRepository.GetByIdAsync(id, cancellationToken);
             return default;
         }
         public virtual List<TEntity> GetList()
@@ -140,10 +128,10 @@ namespace Nigel.Data.DbService
                 return readRepository.GetList();
             return default;
         }
-        public virtual async Task<List<TEntity>> GetListAsync()
+        public virtual async Task<List<TEntity>> GetListAsync( CancellationToken cancellationToken = default)
         {
             if (readRepository != null)
-                return await readRepository.GetListAsync();
+                return await readRepository.GetListAsync(cancellationToken);
             return default;
         }
         public virtual List<TEntity> GetList(string orderby)
@@ -152,10 +140,10 @@ namespace Nigel.Data.DbService
                 return readRepository.GetList(orderby);
             return default;
         }
-        public virtual async Task<List<TEntity>> GetListAsync(string orderby)
+        public virtual async Task<List<TEntity>> GetListAsync(string orderby, CancellationToken cancellationToken = default)
         {
             if (readRepository != null)
-                return await readRepository.GetListAsync(orderby);
+                return await readRepository.GetListAsync(orderby, cancellationToken);
             return default;
         }
         public virtual List<TEntity> GetList(Expression<Func<TEntity, bool>> selector)
@@ -164,10 +152,10 @@ namespace Nigel.Data.DbService
                 return readRepository.GetList(selector);
             return default;
         }
-        public virtual async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> selector)
+        public virtual async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> selector, CancellationToken cancellationToken = default)
         {
             if (readRepository != null)
-                return await readRepository.GetListAsync(selector);
+                return await readRepository.GetListAsync(selector, cancellationToken);
             return default;
         }
         public virtual List<TEntity> GetList(Expression<Func<TEntity, bool>> selector, string orderby)
@@ -176,10 +164,10 @@ namespace Nigel.Data.DbService
                 return readRepository.GetList(selector, orderby);
             return default;
         }
-        public virtual async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> selector, string orderby)
+        public virtual async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> selector, string orderby, CancellationToken cancellationToken = default)
         {
             if (readRepository != null)
-                return await readRepository.GetListAsync(selector, orderby);
+                return await readRepository.GetListAsync(selector, orderby, cancellationToken);
             return default;
         }
         public virtual List<TEntity> GetList(Expression<Func<TEntity, bool>> selector, int skip = 0, int limit = 20)
@@ -188,10 +176,10 @@ namespace Nigel.Data.DbService
                 return readRepository.GetList(selector, skip, limit);
             return default;
         }
-        public virtual async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> selector, int skip = 0, int limit = 20)
+        public virtual async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> selector, int skip = 0, int limit = 20, CancellationToken cancellationToken = default)
         {
             if (readRepository != null)
-                return await readRepository.GetListAsync(selector, skip, limit);
+                return await readRepository.GetListAsync(selector, skip, limit, cancellationToken);
             return default;
         }
         public virtual List<TEntity> GetList(Expression<Func<TEntity, bool>> selector, string orderby, int skip = 0, int limit = 20)
@@ -200,10 +188,10 @@ namespace Nigel.Data.DbService
                 return readRepository.GetList(selector, orderby, skip, limit);
             return default;
         }
-        public virtual async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> selector, string orderby, int skip = 0, int limit = 20)
+        public virtual async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> selector, string orderby, int skip = 0, int limit = 20, CancellationToken cancellationToken = default)
         {
             if (readRepository != null)
-                return await readRepository.GetListAsync(selector, orderby, skip, limit);
+                return await readRepository.GetListAsync(selector, orderby, skip, limit, cancellationToken);
             return default;
         }
         public virtual PagedSkipModel<TEntity> GetPagedSkipList(Expression<Func<TEntity, bool>> selector, string orderby, int skip = 0, int limit = 20)
@@ -212,10 +200,10 @@ namespace Nigel.Data.DbService
                 return readRepository.GetPagedSkipList(selector, orderby, skip, limit);
             return default;
         }
-        public virtual async Task<PagedSkipModel<TEntity>> GetPagedSkipListAsync(Expression<Func<TEntity, bool>> selector, string orderby, int skip = 0, int limit = 20)
+        public virtual async Task<PagedSkipModel<TEntity>> GetPagedSkipListAsync(Expression<Func<TEntity, bool>> selector, string orderby, int skip = 0, int limit = 20, CancellationToken cancellationToken = default)
         {
             if (readRepository != null)
-                return await readRepository.GetPagedSkipListAsync(selector, orderby, skip, limit);
+                return await readRepository.GetPagedSkipListAsync(selector, orderby, skip, limit, cancellationToken);
             return default;
         }
         public virtual PagedModel<TEntity> GetPagedList(Expression<Func<TEntity, bool>> selector, string orderby, int pageNumber = 1, int pageSize = 20)
@@ -224,10 +212,10 @@ namespace Nigel.Data.DbService
                 return readRepository.GetPagedList(selector, orderby, pageNumber, pageSize);
             return default;
         }
-        public virtual async Task<PagedModel<TEntity>> GetPagedListAsync(Expression<Func<TEntity, bool>> selector, string orderby, int pageNumber = 1, int pageSize = 20)
+        public virtual async Task<PagedModel<TEntity>> GetPagedListAsync(Expression<Func<TEntity, bool>> selector, string orderby, int pageNumber = 1, int pageSize = 20, CancellationToken cancellationToken = default)
         {
             if (readRepository != null)
-                return await readRepository.GetPagedListAsync(selector, orderby, pageNumber, pageSize);
+                return await readRepository.GetPagedListAsync(selector, orderby, pageNumber, pageSize, cancellationToken);
             return default;
         }
         public virtual bool Any(Expression<Func<TEntity, bool>> selector)
@@ -236,10 +224,10 @@ namespace Nigel.Data.DbService
                 return readRepository.Any(selector);
             return default;
         }
-        public virtual async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> selector)
+        public virtual async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> selector, CancellationToken cancellationToken = default)
         {
             if (readRepository != null)
-                return await readRepository.AnyAsync(selector);
+                return await readRepository.AnyAsync(selector, cancellationToken);
             return default;
         }
         public virtual int GetCount(Expression<Func<TEntity, bool>> selector)
@@ -248,15 +236,46 @@ namespace Nigel.Data.DbService
                 return readRepository.GetCount(selector);
             return default;
         }
-        public virtual async Task<int> GetCountAsync(Expression<Func<TEntity, bool>> selector)
+        public virtual async Task<int> GetCountAsync(Expression<Func<TEntity, bool>> selector, CancellationToken cancellationToken = default)
         {
             if (readRepository != null)
-                return await readRepository.GetCountAsync(selector);
+                return await readRepository.GetCountAsync(selector, cancellationToken);
             return default;
         }
 
         #endregion
 
+        #region 增加bulkextensions拓展
+
+        public virtual int BatchUpdate(Expression<Func<TEntity, bool>> selector, Expression<Func<TEntity, TEntity>> Update)
+        {
+            if (writeRepository != null)
+                return writeRepository.BatchUpdate(selector, Update);
+            return -1;
+        }
+
+        public virtual async Task<int> BatchUpdateAsync(Expression<Func<TEntity, bool>> selector, Expression<Func<TEntity, TEntity>> Update, CancellationToken cancellationToken = default)
+        {
+            if (writeRepository != null)
+                return await writeRepository.BatchUpdateAsync(selector, Update, cancellationToken);
+            return -1;
+        }
+
+        public virtual int BatchDelete(Expression<Func<TEntity, bool>> selector)
+        {
+            if (writeRepository != null)
+                return writeRepository.BatchDelete(selector);
+            return -1;
+        }
+
+        public virtual async Task<int> BatchDeleteAsync(Expression<Func<TEntity, bool>> selector, CancellationToken cancellationToken = default)
+        {
+            if (writeRepository != null)
+                return await writeRepository.BatchDeleteAsync(selector, cancellationToken);
+            return -1;
+        }
+
+        #endregion
 
         #region 实现Dispose的方法
 

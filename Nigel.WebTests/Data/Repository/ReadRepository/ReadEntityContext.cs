@@ -10,7 +10,7 @@ namespace Nigel.WebTests.Data.Repository.ReadRepository
 {
     public class ReadEntityContext : BaseRepositoryFactory, IReadEntityContext
     {
-        public ReadEntityContext(DbContextOptions<ReadEntityContext> options) : base(options, "MySql", $"Nigel.WebTests.Data.Mapping")
+        public ReadEntityContext(DbContextOptions<ReadEntityContext> options) : base(options, "mysql", $"Nigel.WebTests.Data.Mapping")
         {
 
         }

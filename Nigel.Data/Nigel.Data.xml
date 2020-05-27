@@ -4,6 +4,29 @@
         <name>Nigel.Data</name>
     </assembly>
     <members>
+        <member name="M:Nigel.Data.BulkExtensions.BatchUtil.GetSqlUpdate``1(System.Linq.IQueryable{``0},Microsoft.EntityFrameworkCore.DbContext,System.Linq.Expressions.Expression{System.Func{``0,``0}})">
+            <summary>
+            get Update Sql
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="query"></param>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Nigel.Data.BulkExtensions.BatchUtil.CreateUpdateBody(System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.Linq.Expressions.Expression,Nigel.Data.BulkExtensions.DbServer,System.Text.StringBuilder@,System.Collections.Generic.List{System.Object}@)">
+            <summary>
+            Recursive analytic expression 
+            </summary>
+            <param name="tableAlias"></param>
+            <param name="expression"></param>
+            <param name="sqlColumns"></param>
+            <param name="sqlParameters"></param>
+        </member>
+        <member name="M:Nigel.Data.BulkExtensions.SqlQueryBuilder.DeleteTable(System.String)">
+            <summary>
+            Used for Sqlite, Truncate table 
+            </summary>
+        </member>
         <member name="M:Nigel.Data.PagedExtensions.ToMap``2(Nigel.Paging.PagedList{``0},System.Func{``0,``1})">
             <summary>
             模型转换
@@ -82,13 +105,6 @@
             <param name="cancellationToken"></param>
             <returns></returns>
         </member>
-        <member name="M:Nigel.Data.DbService.IBaseContext.BatchInsert``1(System.Collections.Generic.IList{``0})">
-            <summary>
-            批量插入操作，拓展使用EFCore.BulkExtensions 组件
-            </summary>
-            <typeparam name="TEntity"></typeparam>
-            <param name="entities"></param>
-        </member>
         <member name="M:Nigel.Data.DbService.IBaseContext.SaveChangesAsync(System.Threading.CancellationToken)">
             <summary>
             执行异步存储操作
@@ -111,85 +127,6 @@
             数据领域层接口
             </summary>
             <typeparam name="TEntity"></typeparam>
-        </member>
-        <member name="M:Nigel.Data.DbService.IDbServiceBase`1.Insert(`0)">
-            <summary>
-            执行添加操作
-            </summary>
-            <param name="entity"></param>
-        </member>
-        <member name="M:Nigel.Data.DbService.IDbServiceBase`1.InsertBatch(`0[])">
-            <summary>
-            批量添加操作
-            </summary>
-            <param name="entities"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Data.DbService.IDbServiceBase`1.Update(`0)">
-            <summary>
-            执行修改操作
-            </summary>
-            <param name="entity"></param>
-        </member>
-        <member name="M:Nigel.Data.DbService.IDbServiceBase`1.Delete(`0)">
-            <summary>
-            移除数据操作
-            </summary>
-            <param name="entity"></param>
-        </member>
-        <member name="M:Nigel.Data.DbService.IDbServiceBase`1.GetListAsync">
-            <summary>
-            异步返回集合对象
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Data.DbService.IDbServiceBase`1.GetListAsync(System.String)">
-            <summary>
-            异步返回集合对象
-            </summary>
-            <param name="orderby">exp:"name asc,createtime desc"</param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Data.DbService.IDbServiceBase`1.GetListAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
-            <summary>
-            通过表达式条件返回指定集合对象
-            </summary>
-            <param name="selector"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Data.DbService.IDbServiceBase`1.GetListAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.String)">
-            <summary>
-            通过表达式条件返回指定集合对象
-            </summary>
-            <param name="selector"></param>
-            <param name="orderby">exp:"name asc,createtime desc"</param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Data.DbService.IDbServiceBase`1.GetListAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Int32,System.Int32)">
-            <summary>
-            通过表达式条件返回指定集合对象，基于分页操作
-            </summary>
-            <param name="selector"></param>
-            <param name="skip"></param>
-            <param name="limit"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Data.DbService.IDbServiceBase`1.GetListAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.String,System.Int32,System.Int32)">
-            <summary>
-            通过表达式条件返回指定集合对象，基于分页操作
-            </summary>
-            <param name="selector"></param>
-            <param name="orderby">exp:"name asc,createtime desc"</param>
-            <param name="skip"></param>
-            <param name="limit"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Nigel.Data.DbService.IDbServiceBase`1.GetCountAsync(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}})">
-            <summary>
-            获取记录数
-            </summary>
-            <param name="selector"></param>
-            <returns></returns>
         </member>
         <member name="T:Nigel.Data.DbService.AbstractEntityTypeConfiguration`1">
             <summary>
@@ -254,11 +191,11 @@
             <summary>
             数据库的基础仓储库
             </summary>
-            <typeparam name="T"></typeparam>
+            <typeparam name="TEntity"></typeparam>
         </member>
         <member name="T:Nigel.Data.DbService.DBContextFactory">
             <summary>
-            基于db上下文拓展工厂，用于拓展EFCore.BulkExtensions的GitHub开源项目
+            基于db上下文拓展工厂，用于拓展Nigel.Data.BulkExtensions的GitHub开源项目
             </summary>
         </member>
         <member name="P:Nigel.Data.DbService.DBContextFactory.mappingPath">
